@@ -372,7 +372,6 @@
         }
         body.light .product-desc { color: #666; }
         
-        /* أنماط للمقاس والكمية */
         .size-selection {
             margin-bottom: 1.5rem;
         }
@@ -580,7 +579,6 @@
             z-index: 1;
         }
         
-        /* نافذة تأكيد الطلب */
         .confirm-modal {
             position: fixed;
             top: 0;
@@ -649,7 +647,6 @@
             border-color: #ddd;
         }
         
-        /* نافذة معلومات الشحن */
         .checkout-modal {
             position: fixed;
             top: 0;
@@ -760,7 +757,6 @@
             transform: translateY(-2px);
         }
         
-        /* نافذة الشكر */
         .thankyou-modal {
             position: fixed;
             top: 0;
@@ -928,7 +924,6 @@
             background: #ffed4a !important;
         }
         
-        /* تذييل الصفحة مع وسائل التواصل */
         footer {
             background: #000;
             padding: 3rem 5% 2rem;
@@ -1101,7 +1096,6 @@
                 تفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…
             </p>
             
-            <!-- اختيار المقاس -->
             <div class="size-selection">
                 <label id="size-label">المقاس:</label>
                 <div class="size-options">
@@ -1113,7 +1107,6 @@
                 </div>
             </div>
             
-            <!-- اختيار الكمية -->
             <div class="quantity-selection">
                 <label id="quantity-label">الكمية:</label>
                 <div class="quantity-controls">
@@ -1137,7 +1130,6 @@
                 <span class="side-original-price" id="side-original-price">1200 جنيه</span>
             </div>
             
-            <!-- اختيارات المقاس والكمية للمنتج الجانبي -->
             <div class="size-selection" style="margin-bottom: 1rem;">
                 <label id="side-size-label" style="font-size: 0.9rem;">المقاس:</label>
                 <div class="size-options" style="gap: 0.3rem;">
@@ -1167,7 +1159,6 @@
         </div>
     </div>
 
-    <!-- نافذة تأكيد الطلب -->
     <div class="confirm-modal" id="confirmModal">
         <div class="confirm-content">
             <h3 id="confirm-title" style="margin-bottom: 1.2rem; font-size: 1.3rem;">تأكيد الطلب</h3>
@@ -1201,7 +1192,6 @@
         </div>
     </div>
 
-    <!-- نافذة معلومات الشحن -->
     <div class="checkout-modal" id="checkoutModal">
         <div class="checkout-content">
             <h3 id="checkout-title" style="margin-bottom: 1.5rem; font-size: 1.4rem;">معلومات الشحن</h3>
@@ -1225,7 +1215,6 @@
                 
                 <div class="form-group">
                     <label for="governorate" id="governorate-label">المحافظة *</label>
-                    <!-- تم تغيير select إلى input للسماح بالكتابة -->
                     <input type="text" id="governorate" class="form-control" required>
                 </div>
                 
@@ -1243,7 +1232,6 @@
             <div class="checkout-review">
                 <h4 id="order-review-title">مراجعة الطلب</h4>
                 <div id="order-review-items">
-                    <!-- سيتم ملؤها بالجافاسكريبت -->
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 1rem; border-top: 2px solid rgba(255,215,0,0.3);">
                     <span id="review-total-label" style="font-weight: 600;">الإجمالي:</span>
@@ -1258,7 +1246,6 @@
         </div>
     </div>
 
-    <!-- نافذة الشكر -->
     <div class="thankyou-modal" id="thankyouModal">
         <div class="thankyou-content">
             <div class="thankyou-hearts">
@@ -1288,7 +1275,6 @@
         <button class="checkout-btn" onclick="showCheckoutModal()" id="checkout-text">إتمام الشراء</button>
     </div>
 
-    <!-- تذييل الصفحة مع وسائل التواصل -->
     <footer>
         <div class="social-section">
             <h3 class="social-title" id="social-title">تواصل معنا وتابعنا عبر</h3>
@@ -1297,15 +1283,15 @@
                     <i class="fab fa-whatsapp"></i>
                     <span id="whatsapp-text">واتساب</span>
                 </a>
-                <a href="https://facebook.com" target="_blank" class="social-icon facebook-icon" id="facebook-link">
+                <a href="https://www.facebook.com/share/1H6EAaFNra/" target="_blank" class="social-icon facebook-icon" id="facebook-link">
                     <i class="fab fa-facebook"></i>
                     <span id="facebook-text">فيسبوك</span>
                 </a>
-                <a href="https://instagram.com" target="_blank" class="social-icon instagram-icon" id="instagram-link">
+                <a href="https://www.instagram.com/elvar_hoodies?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="social-icon instagram-icon" id="instagram-link">
                     <i class="fab fa-instagram"></i>
                     <span id="instagram-text">انستجرام</span>
                 </a>
-                <a href="https://tiktok.com" target="_blank" class="social-icon tiktok-icon" id="tiktok-link">
+                <a href="https://www.tiktok.com/@elvar.eg?_r=1&_t=ZS-936CoFgzPol" target="_blank" class="social-icon tiktok-icon" id="tiktok-link">
                     <i class="fab fa-tiktok"></i>
                     <span id="tiktok-text">تيك توك</span>
                 </a>
@@ -1318,7 +1304,7 @@
     </footer>
 
     <script>
-        let cart = [], currentImage = 0, isEnglish = false; // تم تغيير اللغة الافتراضية إلى العربية
+        let cart = [], currentImage = 0, isEnglish = false;
         let selectedSize = 'S';
         let quantity = 1;
         let sideSelectedSize = 'S';
@@ -1327,17 +1313,12 @@
         
         const translations = {
             en: {
-                // Navigation
                 langToggle: 'AR',
                 aboutBtn: 'About',
                 cartLabel: 'Cart',
                 closeBtn: 'Close',
-                
-                // Hero Section
                 heroSubtitle: 'ELVAR hoodie is not just a piece of clothing, it\'s a style that changes with you and expresses your personality.<br>With a simple and stable design, but its idea is smart and expandable, to give you more than one style in one hoodie.',
                 ctaText: 'Discover Product',
-                
-                // Main Product
                 productTitle: 'Elvar Hoodie',
                 discountBadge: 'SAVE 25%',
                 productPrice: 'EGP 899',
@@ -1346,15 +1327,11 @@
                 sizeLabel: 'Size:',
                 quantityLabel: 'Quantity:',
                 addCartText: 'Add to Cart',
-                
-                // Size options - إنجليزي في كلا اللغتين
                 sizeS: 'S',
                 sizeM: 'M',
                 sizeL: 'L',
                 sizeXL: 'XL',
                 sizeXXL: 'XXL',
-                
-                // Side Product
                 sideTitle: 'Elvar Hoodie',
                 sideDiscount: 'SAVE 25%',
                 sidePrice: 'EGP 899',
@@ -1362,17 +1339,11 @@
                 sideSizeLabel: 'Size:',
                 sideQuantityLabel: 'Quantity:',
                 sideCartText: 'Add to Cart',
-                
-                // Coming Soon
                 soonNotification: 'Soon',
                 newProductText: 'New Product',
                 comingSoonMessage: 'We\'re preparing something amazing for you',
-                
-                // About Modal
                 aboutTitle: 'About Elvar',
                 aboutText: 'ELVAR hoodie is not just a piece of clothing, it\'s a style that changes with you and expresses your personality.<br>With a simple and stable design, but its idea is smart and expandable, to give you more than one style in one hoodie.<br>Made from 100% heavy and comfortable Milton cotton, suitable for daily use and gives you a sense of quality from the first wear.<br>Each hoodie comes with 3 embroideries (1 basic + 2 gifts) that you can easily attach and change according to color and mood.<br>Precise details, accurate execution, and lasting comfort...<br>ELVAR is an abbreviation for simplicity that speaks.<br>🌍 From Cairo to the world.',
-                
-                // Confirm Modal
                 confirmTitle: 'Confirm Order',
                 confirmMessage: 'Are you sure you want to add this item to your cart?',
                 confirmItemName: 'Product:',
@@ -1382,8 +1353,6 @@
                 confirmTotal: 'Total:',
                 confirmYes: 'Yes, Add to Cart',
                 confirmNo: 'Cancel',
-                
-                // Checkout Modal
                 checkoutTitle: 'Shipping Information',
                 checkoutInstruction: 'Please fill in your details to complete the order',
                 nameLabel: 'Full Name *',
@@ -1396,19 +1365,13 @@
                 reviewTotalLabel: 'Total:',
                 submitOrderText: 'Submit Order',
                 cancelCheckoutText: 'Cancel',
-                
-                // Thank You Modal
                 thankyouTitle: 'Thank You!',
                 thankyouMessage: 'Thank you for choosing ELVAR 🤍<br><br>Your order has been successfully registered, and we will start preparing it carefully to reach you with the best quality.<br><br>ELVAR hoodie is made to give you more than one style in one piece,<br>and we hope it suits your taste and expresses you.<br><br>📦 We will contact you soon to confirm shipping<br>📍 From Cairo... to your doorstep<br><br>If you have any inquiries, you can contact us anytime.<br>ELVAR - your identity louder.',
                 thankyouCloseText: 'Continue Shopping',
-                
-                // Cart Modal
                 cartTitle: 'Shopping Cart',
                 cartEmpty: 'Cart is empty',
                 checkoutText: 'Complete Purchase',
                 totalLabel: 'Total:',
-                
-                // Footer - Social Media
                 socialTitle: 'Contact Us & Follow Us',
                 whatsappText: 'WhatsApp',
                 facebookText: 'Facebook',
@@ -1418,25 +1381,18 @@
                 phoneLink: '+20 123 456 7890',
                 emailLink: 'info@elvar.com',
                 copyright: '© 2024 ELVAR. All rights reserved.',
-                
-                // Alerts
                 alertEmpty: 'Cart is empty!',
                 alertThanks: 'Thank you for your trust! 📦\nTotal order: ',
                 alertDelivery: 'Will be delivered within 2-3 days',
                 alertRequiredFields: 'Please fill in all required fields'
             },
             ar: {
-                // Navigation
                 langToggle: 'EN',
                 aboutBtn: 'نبذة',
                 cartLabel: 'السلة',
                 closeBtn: 'إغلاق',
-                
-                // Hero Section
                 heroSubtitle: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.',
                 ctaText: 'اكتشف المنتج',
-                
-                // Main Product
                 productTitle: 'هودي Elvar',
                 discountBadge: 'وفر 25%',
                 productPrice: '899 جنيه',
@@ -1445,15 +1401,11 @@
                 sizeLabel: 'المقاس:',
                 quantityLabel: 'الكمية:',
                 addCartText: 'أضف للسلة',
-                
-                // Size options - إنجليزي في كلا اللغتين
                 sizeS: 'S',
                 sizeM: 'M',
                 sizeL: 'L',
                 sizeXL: 'XL',
                 sizeXXL: 'XXL',
-                
-                // Side Product
                 sideTitle: 'هودي Elvar',
                 sideDiscount: 'وفر 25%',
                 sidePrice: '899 جنيه',
@@ -1461,17 +1413,11 @@
                 sideSizeLabel: 'المقاس:',
                 sideQuantityLabel: 'الكمية:',
                 sideCartText: 'أضف للسلة',
-                
-                // Coming Soon
                 soonNotification: 'قريباً',
                 newProductText: 'منتج جديد',
                 comingSoonMessage: 'نحن نعد شيئاً رائعاً من أجلك',
-                
-                // About Modal
                 aboutTitle: 'نبذة عن Elvar',
                 aboutText: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.<br>مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.<br>كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.<br>تفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…<br>ELVAR اختصار للبَساطة اللي بتتكلم.<br>🌍 من القاهرة إلى العالم.',
-                
-                // Confirm Modal
                 confirmTitle: 'تأكيد الطلب',
                 confirmMessage: 'هل أنت متأكد من إضافة هذا المنتج إلى سلة المشتريات؟',
                 confirmItemName: 'المنتج:',
@@ -1481,8 +1427,6 @@
                 confirmTotal: 'الإجمالي:',
                 confirmYes: 'نعم، أضف إلى السلة',
                 confirmNo: 'إلغاء',
-                
-                // Checkout Modal
                 checkoutTitle: 'معلومات الشحن',
                 checkoutInstruction: 'يرجى ملء بياناتك لإتمام الطلب',
                 nameLabel: 'الاسم بالكامل *',
@@ -1495,19 +1439,13 @@
                 reviewTotalLabel: 'الإجمالي:',
                 submitOrderText: 'تأكيد الطلب',
                 cancelCheckoutText: 'إلغاء',
-                
-                // Thank You Modal
                 thankyouTitle: 'شكراً لك!',
                 thankyouMessage: 'شكرًا لاختيارك ELVAR 🤍<br><br>طلبك اتسجّل عندنا بنجاح، وهنبدأ تجهيزه بعناية علشان يوصلك بأفضل جودة.<br><br>هودي ELVAR معمول علشان يديك أكتر من ستايل في قطعة واحدة،<br>ونتمنى يكون على ذوقك ويعبر عنك.<br><br>📦 هيتم التواصل معاك قريب لتأكيد الشحن<br>📍 من القاهرة… لحد باب بيتك<br><br>لو عندك أي استفسار، تقدر تكلمنا في أي وقت.<br>ELVAR – هويتك بصوت أعلى.',
                 thankyouCloseText: 'مواصلة التسوق',
-                
-                // Cart Modal
                 cartTitle: 'سلة المشتريات',
                 cartEmpty: 'السلة فارغة',
                 checkoutText: 'إتمام الشراء',
                 totalLabel: 'الإجمالي:',
-                
-                // Footer - Social Media
                 socialTitle: 'تواصل معنا وتابعنا عبر',
                 whatsappText: 'واتساب',
                 facebookText: 'فيسبوك',
@@ -1517,8 +1455,6 @@
                 phoneLink: '+20 123 456 7890',
                 emailLink: 'info@elvar.com',
                 copyright: '© 2024 ELVAR. جميع الحقوق محفوظة.',
-                
-                // Alerts
                 alertEmpty: 'السلة فارغة!',
                 alertThanks: 'شكراً لثقتك! 📦\nإجمالي الطلب: ',
                 alertDelivery: 'هيوصلك خلال 2-3 أيام',
@@ -1564,16 +1500,13 @@
         function updateLanguage() {
             const t = translations[isEnglish ? 'en' : 'ar'];
             
-            // تحديث التنقل
             document.getElementById('langToggle').textContent = t.langToggle;
             document.getElementById('about-btn').textContent = t.aboutBtn;
             document.getElementById('cart-label').textContent = t.cartLabel;
             
-            // تحديث قسم البطل
             document.getElementById('hero-subtitle').innerHTML = t.heroSubtitle;
             document.getElementById('cta-text').textContent = t.ctaText;
             
-            // تحديث المنتج الرئيسي
             document.getElementById('product-title').textContent = t.productTitle;
             document.getElementById('discount-badge').textContent = t.discountBadge;
             document.getElementById('product-price-main').textContent = t.productPrice;
@@ -1583,14 +1516,12 @@
             document.getElementById('quantity-label').textContent = t.quantityLabel;
             document.getElementById('add-cart-text').textContent = t.addCartText;
             
-            // تحديث خيارات المقاس - إنجليزي في كلا اللغتين
             document.getElementById('size-s').textContent = t.sizeS;
             document.getElementById('size-m').textContent = t.sizeM;
             document.getElementById('size-l').textContent = t.sizeL;
             document.getElementById('size-xl').textContent = t.sizeXL;
             document.getElementById('size-xxl').textContent = t.sizeXXL;
             
-            // تحديث المنتج الجانبي
             document.getElementById('side-title').textContent = t.sideTitle;
             document.getElementById('side-discount').textContent = t.sideDiscount;
             document.getElementById('side-price').textContent = t.sidePrice;
@@ -1599,18 +1530,15 @@
             document.getElementById('side-quantity-label').textContent = t.sideQuantityLabel;
             document.getElementById('side-cart-text').textContent = t.sideCartText;
             
-            // تحديث خيارات المقاس الجانبية
             document.getElementById('side-size-s').textContent = t.sizeS;
             document.getElementById('side-size-m').textContent = t.sizeM;
             document.getElementById('side-size-l').textContent = t.sizeL;
             document.getElementById('side-size-xl').textContent = t.sizeXL;
             
-            // تحديث قسم قريباً
             document.getElementById('soon-notification').textContent = t.soonNotification;
             document.getElementById('new-product-text').textContent = t.newProductText;
             document.getElementById('coming-soon-message').textContent = t.comingSoonMessage;
             
-            // تحديث نافذة التأكيد
             document.getElementById('confirm-title').textContent = t.confirmTitle;
             document.getElementById('confirm-message').textContent = t.confirmMessage;
             document.getElementById('confirm-item-name').textContent = t.confirmItemName;
@@ -1621,7 +1549,6 @@
             document.getElementById('confirm-yes-text').textContent = t.confirmYes;
             document.getElementById('confirm-no-text').textContent = t.confirmNo;
             
-            // تحديث نافذة معلومات الشحن
             document.getElementById('checkout-title').textContent = t.checkoutTitle;
             document.getElementById('checkout-instruction').textContent = t.checkoutInstruction;
             document.getElementById('name-label').textContent = t.nameLabel;
@@ -1635,16 +1562,13 @@
             document.getElementById('submit-order-text').textContent = t.submitOrderText;
             document.getElementById('cancel-checkout-text').textContent = t.cancelCheckoutText;
             
-            // تحديث نافذة الشكر
             document.getElementById('thankyou-title').textContent = t.thankyouTitle;
             document.getElementById('thankyou-message').innerHTML = t.thankyouMessage;
             document.getElementById('thankyou-close-text').textContent = t.thankyouCloseText;
             
-            // تحديث سلة المشتريات
             document.getElementById('cart-title').textContent = t.cartTitle;
             document.getElementById('checkout-text').textContent = t.checkoutText;
             
-            // تحديث تذييل الصفحة - وسائل التواصل
             document.getElementById('social-title').textContent = t.socialTitle;
             document.getElementById('whatsapp-text').textContent = t.whatsappText;
             document.getElementById('facebook-text').textContent = t.facebookText;
@@ -1655,11 +1579,9 @@
             document.getElementById('email-link').textContent = t.emailLink;
             document.getElementById('copyright').textContent = t.copyright;
             
-            // تحديث اتجاه الصفحة واللغة
             document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
             document.documentElement.lang = isEnglish ? 'en' : 'ar';
             
-            // تحديث عرض السلة إذا كانت مفتوحة
             updateCartDisplay();
         }
         
@@ -1686,7 +1608,6 @@
             changeImage(currentImage);
         }
         
-        // وظائف اختيار المقاس
         function selectSize(size) {
             selectedSize = size;
             document.querySelectorAll('.size-option').forEach(option => {
@@ -1703,7 +1624,6 @@
             document.querySelector(`.side-product .size-option[data-size="${size}"]`).classList.add('selected');
         }
         
-        // وظائف تغيير الكمية
         function changeQuantity(amount) {
             quantity = Math.max(1, quantity + amount);
             document.getElementById('quantity-display').textContent = quantity;
@@ -1714,24 +1634,20 @@
             document.getElementById('side-quantity-display').textContent = sideQuantity;
         }
         
-        // نافذة تأكيد إضافة المنتج للسلة
         function confirmAddToCart(name, price, type = 'main') {
             const t = translations[isEnglish ? 'en' : 'ar'];
             
-            // تعيين القيم بناءً على نوع المنتج
             const itemSize = type === 'main' ? selectedSize : sideSelectedSize;
             const itemQuantity = type === 'main' ? quantity : sideQuantity;
             const itemTotal = price * itemQuantity;
             const currency = isEnglish ? 'EGP' : 'جنيه';
             
-            // تحديث النافذة - المقاس يظهر بالإنجليزي
             document.getElementById('confirm-item-name-value').textContent = name;
             document.getElementById('confirm-item-size-value').textContent = itemSize;
             document.getElementById('confirm-item-quantity-value').textContent = itemQuantity;
             document.getElementById('confirm-item-price-value').textContent = `${price} ${currency}`;
             document.getElementById('confirm-total-value').textContent = `${itemTotal} ${currency}`;
             
-            // حفظ البيانات مؤقتاً
             pendingItem = {
                 name,
                 price,
@@ -1741,7 +1657,6 @@
                 type
             };
             
-            // عرض نافذة التأكيد
             document.getElementById('confirmModal').style.display = 'flex';
         }
         
@@ -1750,13 +1665,11 @@
             pendingItem = null;
         }
         
-        // إضافة المنتج بعد التأكيد
         function addConfirmedItem() {
             if (!pendingItem) return;
             
             const { name, price, size, quantity, total, type } = pendingItem;
             
-            // إضافة المنتج للسلة - المقاس يظهر بالإنجليزي
             cart.push({
                 id: Date.now(),
                 name: `${name}`,
@@ -1771,19 +1684,16 @@
             
             document.getElementById('cartCount').textContent = cart.length;
             
-            // تأثير الطيران للسلة
             const button = type === 'main' ? 
                 document.getElementById('add-cart-text') : 
                 document.getElementById('side-cart-text');
             createCartFlyEffect(button);
             
-            // تأثير النقر على الزر
             button.style.transform = 'scale(0.97)';
             setTimeout(() => {
                 button.style.transform = '';
             }, 150);
             
-            // إغلاق نافذة التأكيد
             hideConfirmModal();
         }
         
@@ -1832,17 +1742,14 @@
             cartTotal.style.display = 'block';
         }
         
-        // عرض نافذة معلومات الشحن
         function showCheckoutModal() {
             if (cart.length === 0) { 
                 alert(translations[isEnglish ? 'en' : 'ar'].alertEmpty); 
                 return; 
             }
             
-            // تحديث مراجعة الطلب
             updateOrderReview();
             
-            // عرض النافذة
             document.getElementById('checkoutModal').style.display = 'flex';
         }
         
@@ -1850,7 +1757,6 @@
             document.getElementById('checkoutModal').style.display = 'none';
         }
         
-        // تحديث مراجعة الطلب
         function updateOrderReview() {
             const t = translations[isEnglish ? 'en' : 'ar'];
             const reviewContainer = document.getElementById('order-review-items');
@@ -1859,7 +1765,6 @@
             const total = cart.reduce((sum, item) => sum + item.price, 0);
             const currency = isEnglish ? 'EGP' : 'جنيه';
             
-            // عرض كل منتج مع تفاصيله (المقاس والكمية) - المقاس بالإنجليزي
             reviewContainer.innerHTML = cart.map(item => `
                 <div class="review-item">
                     <span>${item.name} (${isEnglish ? 'Size' : 'المقاس'}: ${item.size}, ${isEnglish ? 'Qty' : 'الكمية'}: ${item.qty})</span>
@@ -1870,7 +1775,6 @@
             totalValue.textContent = `${total} ${currency}`;
         }
         
-        // تأكيد الطلب
         function submitOrder() {
             const form = document.getElementById('shippingForm');
             if (!form.checkValidity()) {
@@ -1889,7 +1793,6 @@
             const t = translations[isEnglish ? 'en' : 'ar'];
             const currency = isEnglish ? 'EGP' : 'جنيه';
             
-            // جمع تفاصيل الطلب - مع عرض المقاس والكمية بشكل صحيح
             const orderDetails = `
 ${t.alertThanks}${total} ${currency}
 
@@ -1908,21 +1811,16 @@ ${t.alertDelivery}
             
             console.log('Order Details:', orderDetails);
             
-            // إغلاق نافذة معلومات الشحن
             hideCheckoutModal();
             
-            // إغلاق سلة المشتريات
             document.getElementById('cartModal').style.display = 'none';
             
-            // عرض نافذة الشكر
             document.getElementById('thankyouModal').style.display = 'flex';
             
-            // تفريغ السلة
             cart = [];
             document.getElementById('cartCount').textContent = '0';
             updateCartDisplay();
             
-            // تفريغ النموذج
             form.reset();
         }
         
@@ -1933,7 +1831,6 @@ ${t.alertDelivery}
         setInterval(nextImage, 4000);
         updateLanguage();
         
-        // تهيئة القيم الافتراضية
         selectSize('S');
         selectSideSize('S');
         document.getElementById('quantity-display').textContent = quantity;
