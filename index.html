@@ -215,7 +215,6 @@
         }
         .main-image-container {
             position: relative;
-            /* ارتفاع مرن حسب الصورة الأصلية */
             height: clamp(250px, 50vw, 500px);
             border-radius: 20px;
             overflow: hidden;
@@ -234,7 +233,7 @@
             height: auto;
             max-width: 100%;
             max-height: 100%;
-            object-fit: contain; /* يحافظ على النسب ويظهر الصورة كاملة */
+            object-fit: contain;
             transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: pointer;
         }
@@ -304,7 +303,7 @@
         .thumbnail {
             width: clamp(60px, 12vw, 75px);
             height: clamp(60px, 12vw, 75px);
-            object-fit: contain; /* الصور الـ thumbnails كاملة */
+            object-fit: contain;
             border-radius: 10px;
             flex-shrink: 0;
             cursor: pointer;
@@ -450,7 +449,7 @@
         .side-product img {
             width: 100%;
             height: auto;
-            object-fit: contain; /* الصور الجانبية كاملة */
+            object-fit: contain;
             border-radius: 12px;
             display: block;
         }
@@ -481,8 +480,23 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
         body.light .coming-soon { color: #999; }
+        .soon-notification {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, #ff4757, #ff6b7a);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(255,71,87,0.4);
+            animation: pulse 2s infinite;
+            z-index: 1;
+        }
         .cart-modal {
             position: fixed;
             top: 90px;
@@ -672,11 +686,16 @@
             <div class="side-price-container">
                 <span class="discount-badge" style="font-size:0.75rem; padding:0.25rem 0.6rem;">SAVE 25%</span>
                 <span class="side-current-price" id="side-price">EGP 699</span>
-                <span class="side-original-price">EGP 900</span>
+                <span class="side-original-price">EGP 1200</span>
             </div>
             <button class="add-cart-btn" style="font-size:0.95rem; padding:1rem 1.8rem;" id="side-cart-text" onclick="addToCart('One Piece Hoodie', 699, event)">Add to Cart</button>
         </div>
-        <div class="side-product coming-soon" id="coming-soon-text">New Product</div>
+        <div class="side-product coming-soon" id="coming-soon-text">
+            <div class="soon-notification" id="soon-notification">قريباً</div>
+            <i class="fas fa-box-open" style="font-size: 3rem; opacity: 0.3; margin-bottom: 1rem;"></i>
+            <div style="font-size: 1.2rem; font-weight: 500; margin-bottom: 0.5rem;">New Product</div>
+            <div style="font-size: 0.9rem; opacity: 0.7; max-width: 200px;">We're preparing something amazing for you</div>
+        </div>
     </div>
 
     <div class="cart-modal" id="cartModal">
@@ -687,7 +706,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Elvar - Handmade Anime Hoodies | Cairo, Egypt</p>
+        <p></p>
     </footer>
 
     <script>
@@ -706,7 +725,7 @@
                 productDesc: 'Handmade hoodie from premium fabrics. Classic Naruto design with precise details and luxury stitching. Perfect for anime lovers.',
                 addCart: 'Add to Cart',
                 sideTitle: 'One Piece Hoodie',
-                sidePrice: 'EGP 699',
+                sidePrice: 'EGP 899',
                 sideCart: 'Add to Cart',
                 comingSoon: 'New Product',
                 cartTitle: 'Shopping Cart',
@@ -718,7 +737,9 @@
                 alertEmpty: 'Cart is empty!',
                 alertThanks: 'Thank you for your trust! 📦\nTotal order: ',
                 alertDelivery: 'Will be delivered within 2-3 days',
-                discountBadge: 'SAVE 25%'
+                discountBadge: 'SAVE 25%',
+                soonNotification: 'Soon',
+                soonMessage: 'We\'re preparing something amazing for you'
             },
             ar: {
                 lang: 'EN',
@@ -732,7 +753,7 @@
                 productDesc: 'هودي يدوي مصنوع بحب من أجود الأقمشة. تصميم ناروتو كلاسيكي مع تفاصيل دقيقة وخياطة فاخرة. مثالي لمحبي الأنمي.',
                 addCart: 'أضف للسلة',
                 sideTitle: 'هودي ون بيس',
-                sidePrice: '699 جنيه',
+                sidePrice: '1200 جنيه',
                 sideCart: 'أضف للسلة',
                 comingSoon: 'منتج جديد',
                 cartTitle: 'سلة المشتريات',
@@ -744,7 +765,9 @@
                 alertEmpty: 'السلة فارغة!',
                 alertThanks: 'شكراً لثقتك! 📦\nإجمالي الطلب: ',
                 alertDelivery: 'هيوصلك خلال 2-3 أيام',
-                discountBadge: 'وفر 25%'
+                discountBadge: 'وفر 25%',
+                soonNotification: 'قريباً',
+                soonMessage: 'نحن نعد شيئاً رائعاً من أجلك'
             }
         };
         
@@ -797,13 +820,16 @@
             document.getElementById('side-title').textContent = t.sideTitle;
             document.getElementById('side-price').textContent = t.sidePrice;
             document.getElementById('side-cart-text').textContent = t.sideCart;
-            document.getElementById('coming-soon-text').textContent = t.comingSoon;
+            document.getElementById('coming-soon-text').innerHTML = `
+                <div class="soon-notification" id="soon-notification">${t.soonNotification}</div>
+                <i class="fas fa-box-open" style="font-size: 3rem; opacity: 0.3; margin-bottom: 1rem;"></i>
+                <div style="font-size: 1.2rem; font-weight: 500; margin-bottom: 0.5rem;">${t.comingSoon}</div>
+                <div style="font-size: 0.9rem; opacity: 0.7; max-width: 200px;">${t.soonMessage}</div>
+            `;
             document.getElementById('cart-title').textContent = t.cartTitle;
             document.getElementById('checkout-text').textContent = t.checkout;
             document.getElementById('discount-badge').textContent = t.discountBadge;
-            document.querySelector('footer p').textContent = isEnglish ? 
-                '&copy; 2026 Elvar - Handmade Anime Hoodies | Cairo, Egypt' : 
-                '&copy; 2026 Elvar - هوديز يدوية أنمي | القاهرة، مصر';
+            document.querySelector('footer p').textContent = "";
             document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
             document.documentElement.lang = isEnglish ? 'en' : 'ar';
         }
