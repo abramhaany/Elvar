@@ -928,23 +928,94 @@
             background: #ffed4a !important;
         }
         
+        /* تذييل الصفحة مع وسائل التواصل */
         footer {
             background: #000;
-            padding: 2rem 5%;
+            padding: 3rem 5% 2rem;
             text-align: center;
-            opacity: 0.8;
             margin-top: 3rem;
-            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
         body.light footer {
             background: #f8f9fa;
             color: #666;
+            border-top: 1px solid rgba(0,0,0,0.1);
         }
+        .social-section {
+            margin-bottom: 2rem;
+        }
+        .social-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: #ffd700;
+            font-weight: 500;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .social-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        body.light .social-icon {
+            color: #333;
+        }
+        .social-icon:hover {
+            transform: translateY(-5px);
+            color: #ffd700;
+        }
+        .social-icon i {
+            font-size: 1.8rem;
+            background: rgba(255,255,255,0.1);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .social-icon:hover i {
+            background: rgba(255,215,0,0.2);
+            box-shadow: 0 5px 15px rgba(255,215,0,0.3);
+        }
+        .social-icon span {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .whatsapp-icon i { color: #25D366; }
+        .facebook-icon i { color: #1877F2; }
+        .instagram-icon i { color: #E4405F; }
+        .tiktok-icon i { color: #000000; }
+        body.light .tiktok-icon i { color: #000000; }
+        
+        .contact-info {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        body.light .contact-info {
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        
         @media (max-width: 768px) {
             .nav-left { gap: 0.3rem; }
             .side-products { margin-top: 2rem; }
             .cart-fly { width: 35px; height: 35px; }
             .confirm-buttons, .checkout-buttons { flex-direction: column; }
+            .social-icons { gap: 1rem; }
+            .social-icon i { width: 50px; height: 50px; font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -1034,11 +1105,11 @@
             <div class="size-selection">
                 <label id="size-label">المقاس:</label>
                 <div class="size-options">
-                    <div class="size-option selected" data-size="S" onclick="selectSize('S')" id="size-s">صغير</div>
-                    <div class="size-option" data-size="M" onclick="selectSize('M')" id="size-m">متوسط</div>
-                    <div class="size-option" data-size="L" onclick="selectSize('L')" id="size-l">كبير</div>
-                    <div class="size-option" data-size="XL" onclick="selectSize('XL')" id="size-xl">كبير جداً</div>
-                    <div class="size-option" data-size="XXL" onclick="selectSize('XXL')" id="size-xxl">مقاس مخصوص</div>
+                    <div class="size-option selected" data-size="S" onclick="selectSize('S')" id="size-s">S</div>
+                    <div class="size-option" data-size="M" onclick="selectSize('M')" id="size-m">M</div>
+                    <div class="size-option" data-size="L" onclick="selectSize('L')" id="size-l">L</div>
+                    <div class="size-option" data-size="XL" onclick="selectSize('XL')" id="size-xl">XL</div>
+                    <div class="size-option" data-size="XXL" onclick="selectSize('XXL')" id="size-xxl">XXL</div>
                 </div>
             </div>
             
@@ -1070,10 +1141,10 @@
             <div class="size-selection" style="margin-bottom: 1rem;">
                 <label id="side-size-label" style="font-size: 0.9rem;">المقاس:</label>
                 <div class="size-options" style="gap: 0.3rem;">
-                    <div class="size-option selected" data-size="S" onclick="selectSideSize('S')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-s">صغير</div>
-                    <div class="size-option" data-size="M" onclick="selectSideSize('M')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-m">متوسط</div>
-                    <div class="size-option" data-size="L" onclick="selectSideSize('L')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-l">كبير</div>
-                    <div class="size-option" data-size="XL" onclick="selectSideSize('XL')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-xl">كبير جداً</div>
+                    <div class="size-option selected" data-size="S" onclick="selectSideSize('S')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-s">S</div>
+                    <div class="size-option" data-size="M" onclick="selectSideSize('M')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-m">M</div>
+                    <div class="size-option" data-size="L" onclick="selectSideSize('L')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-l">L</div>
+                    <div class="size-option" data-size="XL" onclick="selectSideSize('XL')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-xl">XL</div>
                 </div>
             </div>
             
@@ -1217,8 +1288,33 @@
         <button class="checkout-btn" onclick="showCheckoutModal()" id="checkout-text">إتمام الشراء</button>
     </div>
 
+    <!-- تذييل الصفحة مع وسائل التواصل -->
     <footer>
-        <p></p>
+        <div class="social-section">
+            <h3 class="social-title" id="social-title">تواصل معنا وتابعنا عبر</h3>
+            <div class="social-icons">
+                <a href="https://wa.me/201234567890" target="_blank" class="social-icon whatsapp-icon" id="whatsapp-link">
+                    <i class="fab fa-whatsapp"></i>
+                    <span id="whatsapp-text">واتساب</span>
+                </a>
+                <a href="https://facebook.com" target="_blank" class="social-icon facebook-icon" id="facebook-link">
+                    <i class="fab fa-facebook"></i>
+                    <span id="facebook-text">فيسبوك</span>
+                </a>
+                <a href="https://instagram.com" target="_blank" class="social-icon instagram-icon" id="instagram-link">
+                    <i class="fab fa-instagram"></i>
+                    <span id="instagram-text">انستجرام</span>
+                </a>
+                <a href="https://tiktok.com" target="_blank" class="social-icon tiktok-icon" id="tiktok-link">
+                    <i class="fab fa-tiktok"></i>
+                    <span id="tiktok-text">تيك توك</span>
+                </a>
+            </div>
+            <div class="contact-info">
+                <p id="contact-text">للاستفسارات: <a href="tel:+201234567890" style="color:#ffd700; text-decoration:none;" id="phone-link">+20 123 456 7890</a> | <a href="mailto:info@elvar.com" style="color:#ffd700; text-decoration:none;" id="email-link">info@elvar.com</a></p>
+                <p id="copyright">© 2024 ELVAR. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
     </footer>
 
     <script>
@@ -1251,7 +1347,7 @@
                 quantityLabel: 'Quantity:',
                 addCartText: 'Add to Cart',
                 
-                // Size options - تم تغييرها إلى حروف إنجليزية فقط
+                // Size options - إنجليزي في كلا اللغتين
                 sizeS: 'S',
                 sizeM: 'M',
                 sizeL: 'L',
@@ -1312,6 +1408,17 @@
                 checkoutText: 'Complete Purchase',
                 totalLabel: 'Total:',
                 
+                // Footer - Social Media
+                socialTitle: 'Contact Us & Follow Us',
+                whatsappText: 'WhatsApp',
+                facebookText: 'Facebook',
+                instagramText: 'Instagram',
+                tiktokText: 'TikTok',
+                contactText: 'For inquiries: ',
+                phoneLink: '+20 123 456 7890',
+                emailLink: 'info@elvar.com',
+                copyright: '© 2024 ELVAR. All rights reserved.',
+                
                 // Alerts
                 alertEmpty: 'Cart is empty!',
                 alertThanks: 'Thank you for your trust! 📦\nTotal order: ',
@@ -1339,12 +1446,12 @@
                 quantityLabel: 'الكمية:',
                 addCartText: 'أضف للسلة',
                 
-                // Size options - تم تغييرها إلى عربي فقط
-                sizeS: 'صغير',
-                sizeM: 'متوسط',
-                sizeL: 'كبير',
-                sizeXL: 'كبير جداً',
-                sizeXXL: 'مقاس مخصوص',
+                // Size options - إنجليزي في كلا اللغتين
+                sizeS: 'S',
+                sizeM: 'M',
+                sizeL: 'L',
+                sizeXL: 'XL',
+                sizeXXL: 'XXL',
                 
                 // Side Product
                 sideTitle: 'هودي Elvar',
@@ -1400,6 +1507,17 @@
                 checkoutText: 'إتمام الشراء',
                 totalLabel: 'الإجمالي:',
                 
+                // Footer - Social Media
+                socialTitle: 'تواصل معنا وتابعنا عبر',
+                whatsappText: 'واتساب',
+                facebookText: 'فيسبوك',
+                instagramText: 'انستجرام',
+                tiktokText: 'تيك توك',
+                contactText: 'للاستفسارات: ',
+                phoneLink: '+20 123 456 7890',
+                emailLink: 'info@elvar.com',
+                copyright: '© 2024 ELVAR. جميع الحقوق محفوظة.',
+                
                 // Alerts
                 alertEmpty: 'السلة فارغة!',
                 alertThanks: 'شكراً لثقتك! 📦\nإجمالي الطلب: ',
@@ -1415,15 +1533,6 @@
             "Gallery/4.jpeg",
             "Gallery/5.jpeg"
         ];
-        
-        // خريطة المقاسات - تخزين الترجمة الصحيحة لكل مقاس
-        const sizeMap = {
-            'S': { en: 'S', ar: 'صغير' },
-            'M': { en: 'M', ar: 'متوسط' },
-            'L': { en: 'L', ar: 'كبير' },
-            'XL': { en: 'XL', ar: 'كبير جداً' },
-            'XXL': { en: 'XXL', ar: 'مقاس مخصوص' }
-        };
         
         function createCartFlyEffect(button) {
             const rect = button.getBoundingClientRect();
@@ -1474,7 +1583,7 @@
             document.getElementById('quantity-label').textContent = t.quantityLabel;
             document.getElementById('add-cart-text').textContent = t.addCartText;
             
-            // تحديث خيارات المقاس - استخدام الخريطة
+            // تحديث خيارات المقاس - إنجليزي في كلا اللغتين
             document.getElementById('size-s').textContent = t.sizeS;
             document.getElementById('size-m').textContent = t.sizeM;
             document.getElementById('size-l').textContent = t.sizeL;
@@ -1534,6 +1643,17 @@
             // تحديث سلة المشتريات
             document.getElementById('cart-title').textContent = t.cartTitle;
             document.getElementById('checkout-text').textContent = t.checkoutText;
+            
+            // تحديث تذييل الصفحة - وسائل التواصل
+            document.getElementById('social-title').textContent = t.socialTitle;
+            document.getElementById('whatsapp-text').textContent = t.whatsappText;
+            document.getElementById('facebook-text').textContent = t.facebookText;
+            document.getElementById('instagram-text').textContent = t.instagramText;
+            document.getElementById('tiktok-text').textContent = t.tiktokText;
+            document.getElementById('contact-text').textContent = t.contactText;
+            document.getElementById('phone-link').textContent = t.phoneLink;
+            document.getElementById('email-link').textContent = t.emailLink;
+            document.getElementById('copyright').textContent = t.copyright;
             
             // تحديث اتجاه الصفحة واللغة
             document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
@@ -1604,22 +1724,18 @@
             const itemTotal = price * itemQuantity;
             const currency = isEnglish ? 'EGP' : 'جنيه';
             
-            // استخدام خريطة المقاسات للحصول على الترجمة الصحيحة
-            const sizeDisplay = sizeMap[itemSize] ? sizeMap[itemSize][isEnglish ? 'en' : 'ar'] : itemSize;
-            
-            // تحديث النافذة
+            // تحديث النافذة - المقاس يظهر بالإنجليزي
             document.getElementById('confirm-item-name-value').textContent = name;
-            document.getElementById('confirm-item-size-value').textContent = sizeDisplay;
+            document.getElementById('confirm-item-size-value').textContent = itemSize;
             document.getElementById('confirm-item-quantity-value').textContent = itemQuantity;
             document.getElementById('confirm-item-price-value').textContent = `${price} ${currency}`;
             document.getElementById('confirm-total-value').textContent = `${itemTotal} ${currency}`;
             
-            // حفظ البيانات مؤقتاً - مع تخزين المقاس المعروض
+            // حفظ البيانات مؤقتاً
             pendingItem = {
                 name,
                 price,
                 size: itemSize,
-                sizeDisplay: sizeDisplay, // تخزين المقاس المعروض
                 quantity: itemQuantity,
                 total: itemTotal,
                 type
@@ -1638,19 +1754,18 @@
         function addConfirmedItem() {
             if (!pendingItem) return;
             
-            const { name, price, size, sizeDisplay, quantity, total, type } = pendingItem;
+            const { name, price, size, quantity, total, type } = pendingItem;
             
-            // إضافة المنتج للسلة مع تفاصيل دقيقة
+            // إضافة المنتج للسلة - المقاس يظهر بالإنجليزي
             cart.push({
                 id: Date.now(),
                 name: `${name}`,
                 price: total,
                 details: isEnglish ? 
-                    `Size: ${sizeDisplay}, Quantity: ${quantity}, Unit Price: ${price}` : 
-                    `المقاس: ${sizeDisplay}, الكمية: ${quantity}, سعر الوحدة: ${price}`,
+                    `Size: ${size}, Quantity: ${quantity}, Unit Price: ${price}` : 
+                    `المقاس: ${size}, الكمية: ${quantity}, سعر الوحدة: ${price}`,
                 unitPrice: price,
                 size: size,
-                sizeDisplay: sizeDisplay,
                 qty: quantity
             });
             
@@ -1735,7 +1850,7 @@
             document.getElementById('checkoutModal').style.display = 'none';
         }
         
-        // تحديث مراجعة الطلب - الإصلاح هنا
+        // تحديث مراجعة الطلب
         function updateOrderReview() {
             const t = translations[isEnglish ? 'en' : 'ar'];
             const reviewContainer = document.getElementById('order-review-items');
@@ -1744,10 +1859,10 @@
             const total = cart.reduce((sum, item) => sum + item.price, 0);
             const currency = isEnglish ? 'EGP' : 'جنيه';
             
-            // عرض كل منتج مع تفاصيله (المقاس والكمية)
+            // عرض كل منتج مع تفاصيله (المقاس والكمية) - المقاس بالإنجليزي
             reviewContainer.innerHTML = cart.map(item => `
                 <div class="review-item">
-                    <span>${item.name} (${isEnglish ? 'Size' : 'المقاس'}: ${item.sizeDisplay}, ${isEnglish ? 'Qty' : 'الكمية'}: ${item.qty})</span>
+                    <span>${item.name} (${isEnglish ? 'Size' : 'المقاس'}: ${item.size}, ${isEnglish ? 'Qty' : 'الكمية'}: ${item.qty})</span>
                     <span>${item.price} ${currency}</span>
                 </div>
             `).join('');
@@ -1786,7 +1901,7 @@ ${isEnglish ? 'Governorate:' : 'المحافظة:'} ${governorate}
 ${isEnglish ? 'Address:' : 'العنوان:'} ${address}
 ${notes ? `${isEnglish ? 'Notes:' : 'ملاحظات:'} ${notes}\n` : ''}
 ${isEnglish ? 'Order Items:' : 'عناصر الطلب:'}
-${cart.map(item => `- ${item.name} (${isEnglish ? 'Size' : 'المقاس'}: ${item.sizeDisplay}, ${isEnglish ? 'Qty' : 'الكمية'}: ${item.qty}): ${item.price} ${currency}`).join('\n')}
+${cart.map(item => `- ${item.name} (${isEnglish ? 'Size' : 'المقاس'}: ${item.size}, ${isEnglish ? 'Qty' : 'الكمية'}: ${item.qty}): ${item.price} ${currency}`).join('\n')}
 
 ${t.alertDelivery}
             `;
