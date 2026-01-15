@@ -954,8 +954,8 @@
             <div class="nav-left">
                 <div class="logo-nav">El<span class="v-spin">v</span>ar</div>
                 <div class="nav-icons">
-                    <button class="nav-icon about-icon" onclick="toggleAbout()">About</button>
-                    <button class="nav-icon" id="langToggle" onclick="toggleLang()">AR</button>
+                    <button class="nav-icon about-icon" onclick="toggleAbout()" id="about-btn">About</button>
+                    <button class="nav-icon" id="langToggle" onclick="toggleLang()">EN</button>
                 </div>
             </div>
             <div class="nav-right">
@@ -963,15 +963,16 @@
                     <i class="fas fa-shopping-cart cart-icon">
                         <span class="cart-count" id="cartCount">0</span>
                     </i>
+                    <span id="cart-label">السلة</span>
                 </button>
             </div>
         </div>
     </nav>
 
     <div class="about-modal" id="aboutModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);backdrop-filter:blur(20px);display:none;justify-content:center;align-items:center;z-index:1002;padding:2rem;">
-        <button style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:1px solid #fff;color:#fff;padding:0.5rem 1rem;border-radius:20px;cursor:pointer;font-size:0.9rem;" onclick="toggleAbout()">Close</button>
+        <button style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:1px solid #fff;color:#fff;padding:0.5rem 1rem;border-radius:20px;cursor:pointer;font-size:0.9rem;" onclick="toggleAbout()" id="close-btn">إغلاق</button>
         <div style="background:rgba(26,26,26,0.95);backdrop-filter:blur(20px);border-radius:20px;padding:2rem;max-width:95%;text-align:center;border:1px solid rgba(255,255,255,0.2);max-height:80vh;overflow-y:auto;">
-            <h2 style="font-size:clamp(1.8rem, 6vw, 2.5rem);margin-bottom:1.2rem;" id="about-title">About Elvar</h2>
+            <h2 style="font-size:clamp(1.8rem, 6vw, 2.5rem);margin-bottom:1.2rem;" id="about-title">نبذة عن Elvar</h2>
             <p style="font-size:1rem;line-height:1.7;" id="about-text">
                 هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.
                 بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.
@@ -992,7 +993,7 @@
             هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>
             بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.
         </p>
-        <a href="#main-product" class="cta-main" id="cta-text">Discover Product</a>
+        <a href="#main-product" class="cta-main" id="cta-text">اكتشف المنتج</a>
     </section>
 
     <section class="main-product" id="main-product">
@@ -1017,9 +1018,9 @@
         <div class="product-info">
             <h2 id="product-title">هودي Elvar</h2>
             <div class="price-container">
-                <span class="discount-badge" id="discount-badge">SAVE 25%</span>
-                <span class="current-price" id="product-price-main">EGP 899</span>
-                <span class="original-price" id="original-price-main">EGP 1200</span>
+                <span class="discount-badge" id="discount-badge">وفر 25%</span>
+                <span class="current-price" id="product-price-main">899 جنيه</span>
+                <span class="original-price" id="original-price-main">1200 جنيه</span>
             </div>
             <p class="product-desc" id="product-desc">
                 هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.
@@ -1031,19 +1032,19 @@
             
             <!-- اختيار المقاس -->
             <div class="size-selection">
-                <label id="size-label">Size:</label>
+                <label id="size-label">المقاس:</label>
                 <div class="size-options">
-                    <div class="size-option selected" data-size="S" onclick="selectSize('S')">S</div>
-                    <div class="size-option" data-size="M" onclick="selectSize('M')">M</div>
-                    <div class="size-option" data-size="L" onclick="selectSize('L')">L</div>
-                    <div class="size-option" data-size="XL" onclick="selectSize('XL')">XL</div>
-                    <div class="size-option" data-size="XXL" onclick="selectSize('XXL')">XXL</div>
+                    <div class="size-option selected" data-size="S" onclick="selectSize('S')" id="size-s">صغير</div>
+                    <div class="size-option" data-size="M" onclick="selectSize('M')" id="size-m">متوسط</div>
+                    <div class="size-option" data-size="L" onclick="selectSize('L')" id="size-l">كبير</div>
+                    <div class="size-option" data-size="XL" onclick="selectSize('XL')" id="size-xl">كبير جداً</div>
+                    <div class="size-option" data-size="XXL" onclick="selectSize('XXL')" id="size-xxl">مقاس مخصوص</div>
                 </div>
             </div>
             
             <!-- اختيار الكمية -->
             <div class="quantity-selection">
-                <label id="quantity-label">Quantity:</label>
+                <label id="quantity-label">الكمية:</label>
                 <div class="quantity-controls">
                     <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
                     <span class="quantity-display" id="quantity-display">1</span>
@@ -1051,7 +1052,7 @@
                 </div>
             </div>
             
-            <button class="add-cart-btn" id="add-cart-text" onclick="confirmAddToCart('هودي Elvar', 899)">Add to Cart</button>
+            <button class="add-cart-btn" id="add-cart-text" onclick="confirmAddToCart('هودي Elvar', 899)">أضف للسلة</button>
         </div>
     </section>
 
@@ -1060,24 +1061,24 @@
             <img src="Gallery/4.jpeg" alt="One Piece">
             <div style="font-size:clamp(1.2rem, 4vw, 1.5rem); margin:0.8rem 0;" id="side-title">هودي Elvar</div>
             <div class="side-price-container">
-                <span class="discount-badge" style="font-size:0.75rem; padding:0.25rem 0.6rem;">SAVE 25%</span>
-                <span class="side-current-price" id="side-price">EGP 899</span>
-                <span class="side-original-price">EGP 1200</span>
+                <span class="discount-badge" style="font-size:0.75rem; padding:0.25rem 0.6rem;" id="side-discount">وفر 25%</span>
+                <span class="side-current-price" id="side-price">899 جنيه</span>
+                <span class="side-original-price" id="side-original-price">1200 جنيه</span>
             </div>
             
             <!-- اختيارات المقاس والكمية للمنتج الجانبي -->
             <div class="size-selection" style="margin-bottom: 1rem;">
-                <label id="side-size-label" style="font-size: 0.9rem;">Size:</label>
+                <label id="side-size-label" style="font-size: 0.9rem;">المقاس:</label>
                 <div class="size-options" style="gap: 0.3rem;">
-                    <div class="size-option selected" data-size="S" onclick="selectSideSize('S')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">S</div>
-                    <div class="size-option" data-size="M" onclick="selectSideSize('M')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">M</div>
-                    <div class="size-option" data-size="L" onclick="selectSideSize('L')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">L</div>
-                    <div class="size-option" data-size="XL" onclick="selectSideSize('XL')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">XL</div>
+                    <div class="size-option selected" data-size="S" onclick="selectSideSize('S')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-s">صغير</div>
+                    <div class="size-option" data-size="M" onclick="selectSideSize('M')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-m">متوسط</div>
+                    <div class="size-option" data-size="L" onclick="selectSideSize('L')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-l">كبير</div>
+                    <div class="size-option" data-size="XL" onclick="selectSideSize('XL')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-xl">كبير جداً</div>
                 </div>
             </div>
             
             <div class="quantity-selection" style="margin-bottom: 1rem;">
-                <label id="side-quantity-label" style="font-size: 0.9rem;">Quantity:</label>
+                <label id="side-quantity-label" style="font-size: 0.9rem;">الكمية:</label>
                 <div class="quantity-controls" style="gap: 0.8rem;">
                     <button class="quantity-btn" onclick="changeSideQuantity(-1)" style="width: 35px; height: 35px; font-size: 1rem;">-</button>
                     <span class="quantity-display" id="side-quantity-display" style="font-size: 1.1rem;">1</span>
@@ -1085,46 +1086,46 @@
                 </div>
             </div>
             
-            <button class="add-cart-btn" style="font-size:0.95rem; padding:1rem 1.8rem;" id="side-cart-text" onclick="confirmAddToCart('هودي Elvar', 899, 'side')">Add to Cart</button>
+            <button class="add-cart-btn" style="font-size:0.95rem; padding:1rem 1.8rem;" id="side-cart-text" onclick="confirmAddToCart('هودي Elvar', 899, 'side')">أضف للسلة</button>
         </div>
         <div class="side-product coming-soon" id="coming-soon-text">
             <div class="soon-notification" id="soon-notification">قريباً</div>
             <i class="fas fa-box-open" style="font-size: 3rem; opacity: 0.3; margin-bottom: 1rem;"></i>
-            <div style="font-size: 1.2rem; font-weight: 500; margin-bottom: 0.5rem;">New Product</div>
-            <div style="font-size: 0.9rem; opacity: 0.7; max-width: 200px;">We're preparing something amazing for you</div>
+            <div style="font-size: 1.2rem; font-weight: 500; margin-bottom: 0.5rem;" id="new-product-text">منتج جديد</div>
+            <div style="font-size: 0.9rem; opacity: 0.7; max-width: 200px;" id="coming-soon-message">نحن نعد شيئاً رائعاً من أجلك</div>
         </div>
     </div>
 
     <!-- نافذة تأكيد الطلب -->
     <div class="confirm-modal" id="confirmModal">
         <div class="confirm-content">
-            <h3 id="confirm-title" style="margin-bottom: 1.2rem; font-size: 1.3rem;">Confirm Order</h3>
-            <p id="confirm-message" style="margin-bottom: 1rem; line-height: 1.6;">Are you sure you want to add this item to your cart?</p>
+            <h3 id="confirm-title" style="margin-bottom: 1.2rem; font-size: 1.3rem;">تأكيد الطلب</h3>
+            <p id="confirm-message" style="margin-bottom: 1rem; line-height: 1.6;">هل أنت متأكد من إضافة هذا المنتج إلى سلة المشتريات؟</p>
             <div id="confirm-details" style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                    <span id="confirm-item-name">Product:</span>
+                    <span id="confirm-item-name">المنتج:</span>
                     <span id="confirm-item-name-value" style="font-weight: 500;"></span>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                    <span id="confirm-item-size">Size:</span>
+                    <span id="confirm-item-size">المقاس:</span>
                     <span id="confirm-item-size-value" style="font-weight: 500;"></span>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                    <span id="confirm-item-quantity">Quantity:</span>
+                    <span id="confirm-item-quantity">الكمية:</span>
                     <span id="confirm-item-quantity-value" style="font-weight: 500;"></span>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                    <span id="confirm-item-price">Price:</span>
+                    <span id="confirm-item-price">السعر:</span>
                     <span id="confirm-item-price-value" style="font-weight: 500; color: #ffd700;"></span>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.2);">
-                    <span id="confirm-total">Total:</span>
+                    <span id="confirm-total">الإجمالي:</span>
                     <span id="confirm-total-value" style="font-weight: 600; color: #ffd700;"></span>
                 </div>
             </div>
             <div class="confirm-buttons">
-                <button class="confirm-btn confirm-yes" id="confirm-yes-text" onclick="addConfirmedItem()">Yes, Add to Cart</button>
-                <button class="confirm-btn confirm-no" id="confirm-no-text" onclick="hideConfirmModal()">Cancel</button>
+                <button class="confirm-btn confirm-yes" id="confirm-yes-text" onclick="addConfirmedItem()">نعم، أضف إلى السلة</button>
+                <button class="confirm-btn confirm-no" id="confirm-no-text" onclick="hideConfirmModal()">إلغاء</button>
             </div>
         </div>
     </div>
@@ -1132,56 +1133,56 @@
     <!-- نافذة معلومات الشحن -->
     <div class="checkout-modal" id="checkoutModal">
         <div class="checkout-content">
-            <h3 id="checkout-title" style="margin-bottom: 1.5rem; font-size: 1.4rem;">Shipping Information</h3>
-            <p id="checkout-instruction" style="margin-bottom: 1.5rem; opacity: 0.8;">Please fill in your details to complete the order</p>
+            <h3 id="checkout-title" style="margin-bottom: 1.5rem; font-size: 1.4rem;">معلومات الشحن</h3>
+            <p id="checkout-instruction" style="margin-bottom: 1.5rem; opacity: 0.8;">يرجى ملء بياناتك لإتمام الطلب</p>
             
             <form id="shippingForm">
                 <div class="form-group">
-                    <label for="customerName" id="name-label">Full Name *</label>
+                    <label for="customerName" id="name-label">الاسم بالكامل *</label>
                     <input type="text" id="customerName" class="form-control" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="phone1" id="phone1-label">Phone Number *</label>
+                    <label for="phone1" id="phone1-label">رقم الهاتف *</label>
                     <input type="tel" id="phone1" class="form-control" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="phone2" id="phone2-label">Additional Phone Number (Optional)</label>
+                    <label for="phone2" id="phone2-label">رقم هاتف إضافي (اختياري)</label>
                     <input type="tel" id="phone2" class="form-control">
                 </div>
                 
                 <div class="form-group">
-                    <label for="governorate" id="governorate-label">Governorate *</label>
+                    <label for="governorate" id="governorate-label">المحافظة *</label>
                     <!-- تم تغيير select إلى input للسماح بالكتابة -->
                     <input type="text" id="governorate" class="form-control" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="address" id="address-label">Full Address *</label>
+                    <label for="address" id="address-label">العنوان بالكامل *</label>
                     <textarea id="address" class="form-control" rows="3" required></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label for="notes" id="notes-label">Additional Notes (Optional)</label>
+                    <label for="notes" id="notes-label">ملاحظات إضافية (اختياري)</label>
                     <textarea id="notes" class="form-control" rows="2"></textarea>
                 </div>
             </form>
             
             <div class="checkout-review">
-                <h4 id="order-review-title">Order Review</h4>
+                <h4 id="order-review-title">مراجعة الطلب</h4>
                 <div id="order-review-items">
                     <!-- سيتم ملؤها بالجافاسكريبت -->
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 1rem; border-top: 2px solid rgba(255,215,0,0.3);">
-                    <span id="review-total-label" style="font-weight: 600;">Total:</span>
+                    <span id="review-total-label" style="font-weight: 600;">الإجمالي:</span>
                     <span id="review-total-value" style="font-weight: 700; color: #ffd700; font-size: 1.2rem;"></span>
                 </div>
             </div>
             
             <div class="checkout-buttons">
-                <button class="submit-order-btn" id="submit-order-text" onclick="submitOrder()">Submit Order</button>
-                <button class="cancel-checkout-btn" id="cancel-checkout-text" onclick="hideCheckoutModal()">Cancel</button>
+                <button class="submit-order-btn" id="submit-order-text" onclick="submitOrder()">تأكيد الطلب</button>
+                <button class="cancel-checkout-btn" id="cancel-checkout-text" onclick="hideCheckoutModal()">إلغاء</button>
             </div>
         </div>
     </div>
@@ -1194,7 +1195,7 @@
                 <i class="fas fa-heart"></i>
                 <i class="fas fa-heart"></i>
             </div>
-            <h3 class="thankyou-title" id="thankyou-title">Thank You!</h3>
+            <h3 class="thankyou-title" id="thankyou-title">شكراً لك!</h3>
             <p class="thankyou-message" id="thankyou-message">
                 شكرًا لاختيارك ELVAR 🤍<br><br>
                 طلبك اتسجّل عندنا بنجاح، وهنبدأ تجهيزه بعناية علشان يوصلك بأفضل جودة.<br><br>
@@ -1205,15 +1206,15 @@
                 لو عندك أي استفسار، تقدر تكلمنا في أي وقت.<br>
                 ELVAR – هويتك بصوت أعلى.
             </p>
-            <button class="thankyou-close-btn" id="thankyou-close-text" onclick="hideThankyouModal()">Continue Shopping</button>
+            <button class="thankyou-close-btn" id="thankyou-close-text" onclick="hideThankyouModal()">مواصلة التسوق</button>
         </div>
     </div>
 
     <div class="cart-modal" id="cartModal">
-        <h3 id="cart-title" style="margin-bottom:1.2rem; font-size:1.2rem;">Shopping Cart</h3>
-        <div id="cartItems">Cart is empty</div>
+        <h3 id="cart-title" style="margin-bottom:1.2rem; font-size:1.2rem;">سلة المشتريات</h3>
+        <div id="cartItems">السلة فارغة</div>
         <div class="cart-total" id="cartTotal" style="display:none;"></div>
-        <button class="checkout-btn" onclick="showCheckoutModal()" id="checkout-text">Complete Purchase</button>
+        <button class="checkout-btn" onclick="showCheckoutModal()" id="checkout-text">إتمام الشراء</button>
     </div>
 
     <footer>
@@ -1230,34 +1231,52 @@
         
         const translations = {
             en: {
-                lang: 'AR',
-                aboutTitle: 'About Elvar',
-                aboutText: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.\nبتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.\nمصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.\nكل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.\nتفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…\nELVAR اختصار للبَساطة اللي بتتكلم.\n🌍 من القاهرة إلى العالم.',
-                heroSubtitle: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.\nبتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.',
-                heroSubSmall: '',
-                cta: 'Discover Product',
-                productTitle: 'هودي Elvar',
-                productPrice: 'EGP 899',
-                productDesc: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.\nبتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.\nمصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.\nكل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.\nتفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…',
-                addCart: 'Add to Cart',
-                sideTitle: 'هودي Elvar',
-                sidePrice: 'EGP 899',
-                sideCart: 'Add to Cart',
-                comingSoon: 'New Product',
-                cartTitle: 'Shopping Cart',
-                cartEmpty: 'Cart is empty',
-                checkout: 'Complete Purchase',
+                // Navigation
+                langToggle: 'AR',
+                aboutBtn: 'About',
                 cartLabel: 'Cart',
-                totalLabel: 'Total:',
                 closeBtn: 'Close',
-                alertEmpty: 'Cart is empty!',
-                alertThanks: 'Thank you for your trust! 📦\nTotal order: ',
-                alertDelivery: 'Will be delivered within 2-3 days',
+                
+                // Hero Section
+                heroSubtitle: 'ELVAR hoodie is not just a piece of clothing, it\'s a style that changes with you and expresses your personality.<br>With a simple and stable design, but its idea is smart and expandable, to give you more than one style in one hoodie.',
+                ctaText: 'Discover Product',
+                
+                // Main Product
+                productTitle: 'Elvar Hoodie',
                 discountBadge: 'SAVE 25%',
-                soonNotification: 'Soon',
-                soonMessage: 'We\'re preparing something amazing for you',
+                productPrice: 'EGP 899',
+                originalPrice: 'EGP 1200',
+                productDesc: 'ELVAR hoodie is not just a piece of clothing, it\'s a style that changes with you and expresses your personality.<br>With a simple and stable design, but its idea is smart and expandable, to give you more than one style in one hoodie.<br>Made from 100% heavy and comfortable Milton cotton, suitable for daily use and gives you a sense of quality from the first wear.<br>Each hoodie comes with 3 embroideries (1 basic + 2 gifts) that you can easily attach and change according to color and mood.<br>Precise details, accurate execution, and lasting comfort...',
                 sizeLabel: 'Size:',
                 quantityLabel: 'Quantity:',
+                addCartText: 'Add to Cart',
+                
+                // Size options
+                sizeS: 'S',
+                sizeM: 'M',
+                sizeL: 'L',
+                sizeXL: 'XL',
+                sizeXXL: 'XXL',
+                
+                // Side Product
+                sideTitle: 'Elvar Hoodie',
+                sideDiscount: 'SAVE 25%',
+                sidePrice: 'EGP 899',
+                sideOriginalPrice: 'EGP 1200',
+                sideSizeLabel: 'Size:',
+                sideQuantityLabel: 'Quantity:',
+                sideCartText: 'Add to Cart',
+                
+                // Coming Soon
+                soonNotification: 'Soon',
+                newProductText: 'New Product',
+                comingSoonMessage: 'We\'re preparing something amazing for you',
+                
+                // About Modal
+                aboutTitle: 'About Elvar',
+                aboutText: 'ELVAR hoodie is not just a piece of clothing, it\'s a style that changes with you and expresses your personality.<br>With a simple and stable design, but its idea is smart and expandable, to give you more than one style in one hoodie.<br>Made from 100% heavy and comfortable Milton cotton, suitable for daily use and gives you a sense of quality from the first wear.<br>Each hoodie comes with 3 embroideries (1 basic + 2 gifts) that you can easily attach and change according to color and mood.<br>Precise details, accurate execution, and lasting comfort...<br>ELVAR is an abbreviation for simplicity that speaks.<br>🌍 From Cairo to the world.',
+                
+                // Confirm Modal
                 confirmTitle: 'Confirm Order',
                 confirmMessage: 'Are you sure you want to add this item to your cart?',
                 confirmItemName: 'Product:',
@@ -1267,11 +1286,8 @@
                 confirmTotal: 'Total:',
                 confirmYes: 'Yes, Add to Cart',
                 confirmNo: 'Cancel',
-                sizeS: 'S',
-                sizeM: 'M',
-                sizeL: 'L',
-                sizeXL: 'XL',
-                sizeXXL: 'XXL',
+                
+                // Checkout Modal
                 checkoutTitle: 'Shipping Information',
                 checkoutInstruction: 'Please fill in your details to complete the order',
                 nameLabel: 'Full Name *',
@@ -1284,39 +1300,71 @@
                 reviewTotalLabel: 'Total:',
                 submitOrderText: 'Submit Order',
                 cancelCheckoutText: 'Cancel',
+                
+                // Thank You Modal
                 thankyouTitle: 'Thank You!',
-                thankyouMessage: 'شكرًا لاختيارك ELVAR 🤍<br><br>طلبك اتسجّل عندنا بنجاح، وهنبدأ تجهيزه بعناية علشان يوصلك بأفضل جودة.<br><br>هودي ELVAR معمول علشان يديك أكتر من ستايل في قطعة واحدة،<br>ونتمنى يكون على ذوقك ويعبر عنك.<br><br>📦 هيتم التواصل معاك قريب لتأكيد الشحن<br>📍 من القاهرة… لحد باب بيتك<br><br>لو عندك أي استفسار، تقدر تكلمنا في أي وقت.<br>ELVAR – هويتك بصوت أعلى.',
-                thankyouCloseText: 'Continue Shopping'
+                thankyouMessage: 'Thank you for choosing ELVAR 🤍<br><br>Your order has been successfully registered, and we will start preparing it carefully to reach you with the best quality.<br><br>ELVAR hoodie is made to give you more than one style in one piece,<br>and we hope it suits your taste and expresses you.<br><br>📦 We will contact you soon to confirm shipping<br>📍 From Cairo... to your doorstep<br><br>If you have any inquiries, you can contact us anytime.<br>ELVAR - your identity louder.',
+                thankyouCloseText: 'Continue Shopping',
+                
+                // Cart Modal
+                cartTitle: 'Shopping Cart',
+                cartEmpty: 'Cart is empty',
+                checkoutText: 'Complete Purchase',
+                totalLabel: 'Total:',
+                
+                // Alerts
+                alertEmpty: 'Cart is empty!',
+                alertThanks: 'Thank you for your trust! 📦\nTotal order: ',
+                alertDelivery: 'Will be delivered within 2-3 days',
+                alertRequiredFields: 'Please fill in all required fields'
             },
             ar: {
-                lang: 'EN',
-                aboutTitle: 'نبذة عن Elvar',
-                aboutText: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.\nبتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.\nمصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.\nكل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.\nتفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…\nELVAR اختصار للبَساطة اللي بتتكلم.\n🌍 من القاهرة إلى العالم.',
-                heroSubtitle: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.\nبتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.',
-                heroSubSmall: '',
-                cta: 'اكتشف المنتج',
-                productTitle: 'هودي Elvar',
-                productPrice: '899 جنيه',
-                productDesc: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.\nبتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.\nمصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.\nكل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.\nتفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…',
-                addCart: 'أضف للسلة',
-                sideTitle: 'هودي Elvar',
-                sidePrice: '899 جنيه',
-                sideCart: 'أضف للسلة',
-                comingSoon: 'منتج جديد',
-                cartTitle: 'سلة المشتريات',
-                cartEmpty: 'السلة فارغة',
-                checkout: 'إتمام الشراء',
+                // Navigation
+                langToggle: 'EN',
+                aboutBtn: 'نبذة',
                 cartLabel: 'السلة',
-                totalLabel: 'الإجمالي:',
                 closeBtn: 'إغلاق',
-                alertEmpty: 'السلة فارغة!',
-                alertThanks: 'شكراً لثقتك! 📦\nإجمالي الطلب: ',
-                alertDelivery: 'هيوصلك خلال 2-3 أيام',
+                
+                // Hero Section
+                heroSubtitle: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.',
+                ctaText: 'اكتشف المنتج',
+                
+                // Main Product
+                productTitle: 'هودي Elvar',
                 discountBadge: 'وفر 25%',
-                soonNotification: 'قريباً',
-                soonMessage: 'نحن نعد شيئاً رائعاً من أجلك',
+                productPrice: '899 جنيه',
+                originalPrice: '1200 جنيه',
+                productDesc: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.<br>مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.<br>كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.<br>تفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…',
                 sizeLabel: 'المقاس:',
                 quantityLabel: 'الكمية:',
+                addCartText: 'أضف للسلة',
+                
+                // Size options
+                sizeS: 'صغير',
+                sizeM: 'متوسط',
+                sizeL: 'كبير',
+                sizeXL: 'كبير جداً',
+                sizeXXL: 'مقاس مخصوص',
+                
+                // Side Product
+                sideTitle: 'هودي Elvar',
+                sideDiscount: 'وفر 25%',
+                sidePrice: '899 جنيه',
+                sideOriginalPrice: '1200 جنيه',
+                sideSizeLabel: 'المقاس:',
+                sideQuantityLabel: 'الكمية:',
+                sideCartText: 'أضف للسلة',
+                
+                // Coming Soon
+                soonNotification: 'قريباً',
+                newProductText: 'منتج جديد',
+                comingSoonMessage: 'نحن نعد شيئاً رائعاً من أجلك',
+                
+                // About Modal
+                aboutTitle: 'نبذة عن Elvar',
+                aboutText: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.<br>مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.<br>كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.<br>تفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…<br>ELVAR اختصار للبَساطة اللي بتتكلم.<br>🌍 من القاهرة إلى العالم.',
+                
+                // Confirm Modal
                 confirmTitle: 'تأكيد الطلب',
                 confirmMessage: 'هل أنت متأكد من إضافة هذا المنتج إلى سلة المشتريات؟',
                 confirmItemName: 'المنتج:',
@@ -1326,11 +1374,8 @@
                 confirmTotal: 'الإجمالي:',
                 confirmYes: 'نعم، أضف إلى السلة',
                 confirmNo: 'إلغاء',
-                sizeS: 'صغير',
-                sizeM: 'متوسط',
-                sizeL: 'كبير',
-                sizeXL: 'كبير جداً',
-                sizeXXL: 'مقاس مخصوص',
+                
+                // Checkout Modal
                 checkoutTitle: 'معلومات الشحن',
                 checkoutInstruction: 'يرجى ملء بياناتك لإتمام الطلب',
                 nameLabel: 'الاسم بالكامل *',
@@ -1343,9 +1388,23 @@
                 reviewTotalLabel: 'الإجمالي:',
                 submitOrderText: 'تأكيد الطلب',
                 cancelCheckoutText: 'إلغاء',
+                
+                // Thank You Modal
                 thankyouTitle: 'شكراً لك!',
                 thankyouMessage: 'شكرًا لاختيارك ELVAR 🤍<br><br>طلبك اتسجّل عندنا بنجاح، وهنبدأ تجهيزه بعناية علشان يوصلك بأفضل جودة.<br><br>هودي ELVAR معمول علشان يديك أكتر من ستايل في قطعة واحدة،<br>ونتمنى يكون على ذوقك ويعبر عنك.<br><br>📦 هيتم التواصل معاك قريب لتأكيد الشحن<br>📍 من القاهرة… لحد باب بيتك<br><br>لو عندك أي استفسار، تقدر تكلمنا في أي وقت.<br>ELVAR – هويتك بصوت أعلى.',
-                thankyouCloseText: 'مواصلة التسوق'
+                thankyouCloseText: 'مواصلة التسوق',
+                
+                // Cart Modal
+                cartTitle: 'سلة المشتريات',
+                cartEmpty: 'السلة فارغة',
+                checkoutText: 'إتمام الشراء',
+                totalLabel: 'الإجمالي:',
+                
+                // Alerts
+                alertEmpty: 'السلة فارغة!',
+                alertThanks: 'شكراً لثقتك! 📦\nإجمالي الطلب: ',
+                alertDelivery: 'هيوصلك خلال 2-3 أيام',
+                alertRequiredFields: 'يرجى ملء جميع الحقول المطلوبة'
             }
         };
         
@@ -1379,40 +1438,59 @@
             const t = translations[isEnglish ? 'en' : 'ar'];
             closeBtn.textContent = t.closeBtn;
             title.textContent = t.aboutTitle;
-            text.textContent = t.aboutText;
+            text.innerHTML = t.aboutText;
             
             modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
         }
         
         function updateLanguage() {
             const t = translations[isEnglish ? 'en' : 'ar'];
-            document.querySelector('.about-icon').textContent = t.aboutTitle.split(' ')[0];
-            document.getElementById('langToggle').textContent = t.lang;
-            document.getElementById('hero-subtitle').childNodes[0].textContent = t.heroSubtitle;
-            document.getElementById('hero-sub-small').textContent = t.heroSubSmall;
-            document.getElementById('cta-text').textContent = t.cta;
-            document.getElementById('product-title').textContent = t.productTitle;
-            document.getElementById('product-price-main').textContent = t.productPrice;
-            document.getElementById('product-desc').textContent = t.productDesc;
-            document.getElementById('add-cart-text').textContent = t.addCart;
-            document.getElementById('side-title').textContent = t.sideTitle;
-            document.getElementById('side-price').textContent = t.sidePrice;
-            document.getElementById('side-cart-text').textContent = t.sideCart;
-            document.getElementById('coming-soon-text').innerHTML = `
-                <div class="soon-notification" id="soon-notification">${t.soonNotification}</div>
-                <i class="fas fa-box-open" style="font-size: 3rem; opacity: 0.3; margin-bottom: 1rem;"></i>
-                <div style="font-size: 1.2rem; font-weight: 500; margin-bottom: 0.5rem;">${t.comingSoon}</div>
-                <div style="font-size: 0.9rem; opacity: 0.7; max-width: 200px;">${t.soonMessage}</div>
-            `;
-            document.getElementById('cart-title').textContent = t.cartTitle;
-            document.getElementById('checkout-text').textContent = t.checkout;
-            document.getElementById('discount-badge').textContent = t.discountBadge;
             
-            // تحديث تسميات المقاس والكمية
+            // تحديث التنقل
+            document.getElementById('langToggle').textContent = t.langToggle;
+            document.getElementById('about-btn').textContent = t.aboutBtn;
+            document.getElementById('cart-label').textContent = t.cartLabel;
+            
+            // تحديث قسم البطل
+            document.getElementById('hero-subtitle').innerHTML = t.heroSubtitle;
+            document.getElementById('cta-text').textContent = t.ctaText;
+            
+            // تحديث المنتج الرئيسي
+            document.getElementById('product-title').textContent = t.productTitle;
+            document.getElementById('discount-badge').textContent = t.discountBadge;
+            document.getElementById('product-price-main').textContent = t.productPrice;
+            document.getElementById('original-price-main').textContent = t.originalPrice;
+            document.getElementById('product-desc').innerHTML = t.productDesc;
             document.getElementById('size-label').textContent = t.sizeLabel;
             document.getElementById('quantity-label').textContent = t.quantityLabel;
-            document.getElementById('side-size-label').textContent = t.sizeLabel;
-            document.getElementById('side-quantity-label').textContent = t.quantityLabel;
+            document.getElementById('add-cart-text').textContent = t.addCartText;
+            
+            // تحديث خيارات المقاس
+            document.getElementById('size-s').textContent = t.sizeS;
+            document.getElementById('size-m').textContent = t.sizeM;
+            document.getElementById('size-l').textContent = t.sizeL;
+            document.getElementById('size-xl').textContent = t.sizeXL;
+            document.getElementById('size-xxl').textContent = t.sizeXXL;
+            
+            // تحديث المنتج الجانبي
+            document.getElementById('side-title').textContent = t.sideTitle;
+            document.getElementById('side-discount').textContent = t.sideDiscount;
+            document.getElementById('side-price').textContent = t.sidePrice;
+            document.getElementById('side-original-price').textContent = t.sideOriginalPrice;
+            document.getElementById('side-size-label').textContent = t.sideSizeLabel;
+            document.getElementById('side-quantity-label').textContent = t.sideQuantityLabel;
+            document.getElementById('side-cart-text').textContent = t.sideCartText;
+            
+            // تحديث خيارات المقاس الجانبية
+            document.getElementById('side-size-s').textContent = t.sizeS;
+            document.getElementById('side-size-m').textContent = t.sizeM;
+            document.getElementById('side-size-l').textContent = t.sizeL;
+            document.getElementById('side-size-xl').textContent = t.sizeXL;
+            
+            // تحديث قسم قريباً
+            document.getElementById('soon-notification').textContent = t.soonNotification;
+            document.getElementById('new-product-text').textContent = t.newProductText;
+            document.getElementById('coming-soon-message').textContent = t.comingSoonMessage;
             
             // تحديث نافذة التأكيد
             document.getElementById('confirm-title').textContent = t.confirmTitle;
@@ -1444,9 +1522,16 @@
             document.getElementById('thankyou-message').innerHTML = t.thankyouMessage;
             document.getElementById('thankyou-close-text').textContent = t.thankyouCloseText;
             
-            document.querySelector('footer p').textContent = "";
+            // تحديث سلة المشتريات
+            document.getElementById('cart-title').textContent = t.cartTitle;
+            document.getElementById('checkout-text').textContent = t.checkoutText;
+            
+            // تحديث اتجاه الصفحة واللغة
             document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
             document.documentElement.lang = isEnglish ? 'en' : 'ar';
+            
+            // تحديث عرض السلة إذا كانت مفتوحة
+            updateCartDisplay();
         }
         
         function toggleLang() {
@@ -1514,8 +1599,8 @@
             document.getElementById('confirm-item-name-value').textContent = name;
             document.getElementById('confirm-item-size-value').textContent = 
                 type === 'main' ? 
-                t[`size${itemSize}`] || itemSize : 
-                t[`size${itemSize}`] || itemSize;
+                document.getElementById(`size-${itemSize.toLowerCase()}`).textContent : 
+                document.getElementById(`side-size-${itemSize.toLowerCase()}`).textContent;
             document.getElementById('confirm-item-quantity-value').textContent = itemQuantity;
             document.getElementById('confirm-item-price-value').textContent = `${price} ${currency}`;
             document.getElementById('confirm-total-value').textContent = `${itemTotal} ${currency}`;
@@ -1550,7 +1635,9 @@
                 id: Date.now(),
                 name: `${name} (${size})`,
                 price: total,
-                details: `Size: ${size}, Quantity: ${quantity}, Unit Price: ${price}`,
+                details: isEnglish ? 
+                    `Size: ${size}, Quantity: ${quantity}, Unit Price: ${price}` : 
+                    `المقاس: ${size}, الكمية: ${quantity}, سعر الوحدة: ${price}`,
                 unitPrice: price,
                 size: size,
                 qty: quantity
@@ -1608,7 +1695,7 @@
                     </div>
                     <div style="display:flex; align-items:center; gap:0.8rem;">
                         <span class="cart-item-price">${item.price} ${currency}</span>
-                        <button class="delete-btn" onclick="removeFromCart(${item.id})" title="Remove">
+                        <button class="delete-btn" onclick="removeFromCart(${item.id})" title="${isEnglish ? 'Remove' : 'حذف'}">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
@@ -1660,14 +1747,14 @@
         function submitOrder() {
             const form = document.getElementById('shippingForm');
             if (!form.checkValidity()) {
-                alert(isEnglish ? 'Please fill in all required fields' : 'يرجى ملء جميع الحقول المطلوبة');
+                alert(translations[isEnglish ? 'en' : 'ar'].alertRequiredFields);
                 return;
             }
             
             const name = document.getElementById('customerName').value;
             const phone1 = document.getElementById('phone1').value;
             const phone2 = document.getElementById('phone2').value;
-            const governorate = document.getElementById('governorate').value; // الآن input وليس select
+            const governorate = document.getElementById('governorate').value;
             const address = document.getElementById('address').value;
             const notes = document.getElementById('notes').value;
             
