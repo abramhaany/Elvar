@@ -128,6 +128,7 @@
             0% { transform: translateY(0px); }
             100% { transform: translateY(-2px); }
         }
+        
         .hero {
             height: 100vh;
             display: flex;
@@ -371,7 +372,7 @@
         }
         body.light .product-desc { color: #666; }
         
-        /* إضافة أنماط للمقاس والكمية */
+        /* أنماط للمقاس والكمية */
         .size-selection {
             margin-bottom: 1.5rem;
         }
@@ -578,6 +579,257 @@
             animation: pulse 2s infinite;
             z-index: 1;
         }
+        
+        /* نافذة تأكيد الطلب */
+        .confirm-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(20px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1003;
+            padding: 2rem;
+        }
+        .confirm-content {
+            background: rgba(26,26,26,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 95%;
+            max-width: 500px;
+            border: 1px solid rgba(255,255,255,0.2);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .confirm-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .confirm-btn {
+            flex: 1;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .confirm-yes {
+            background: #ffd700;
+            color: #000;
+        }
+        .confirm-yes:hover {
+            background: #ffed4a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255,215,0,0.4);
+        }
+        .confirm-no {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: 1px solid #444;
+        }
+        .confirm-no:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        body.light .confirm-content {
+            background: rgba(255,255,255,0.95);
+            border-color: #ddd;
+            color: #333;
+        }
+        body.light .confirm-no {
+            background: rgba(0,0,0,0.05);
+            color: #333;
+            border-color: #ddd;
+        }
+        
+        /* نافذة معلومات الشحن */
+        .checkout-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(20px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1005;
+            padding: 2rem;
+        }
+        .checkout-content {
+            background: rgba(26,26,26,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 95%;
+            max-width: 600px;
+            border: 1px solid rgba(255,255,255,0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #444;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255,215,0,0.3);
+        }
+        body.light .form-control {
+            background: rgba(0,0,0,0.05);
+            border-color: #ddd;
+            color: #333;
+        }
+        body.light .form-control:focus {
+            border-color: #ffd700;
+        }
+        .checkout-review {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .checkout-review h4 {
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+        .review-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .checkout-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .submit-order-btn {
+            background: #ffd700;
+            color: #000;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 2;
+        }
+        .submit-order-btn:hover {
+            background: #ffed4a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255,215,0,0.4);
+        }
+        .cancel-checkout-btn {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: 1px solid #444;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+        .cancel-checkout-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* نافذة الشكر */
+        .thankyou-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(20px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1006;
+            padding: 2rem;
+        }
+        .thankyou-content {
+            background: rgba(26,26,26,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            max-width: 95%;
+            max-width: 500px;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .thankyou-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(45deg, #ffd700, #ffed4a, #ffd700);
+            animation: gradientShift 3s ease infinite;
+        }
+        .thankyou-hearts {
+            font-size: 2.5rem;
+            color: #ff4757;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+        .thankyou-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+        .thankyou-message {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .thankyou-close-btn {
+            background: #ffd700;
+            color: #000;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .thankyou-close-btn:hover {
+            background: #ffed4a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255,215,0,0.4);
+        }
+        
         .cart-modal {
             position: fixed;
             top: 90px;
@@ -662,7 +914,7 @@
             border-top: 2px solid rgba(255,215,0,0.3);
         }
         .checkout-btn {
-            background: #fff !important;
+            background: #ffd700 !important;
             color: #000 !important;
             width: 100% !important;
             padding: 1rem !important;
@@ -672,73 +924,8 @@
             margin-top: 1rem !important;
             border: none !important;
         }
-        
-        /* نافذة تأكيد الطلب */
-        .confirm-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            backdrop-filter: blur(20px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1003;
-            padding: 2rem;
-        }
-        .confirm-content {
-            background: rgba(26,26,26,0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 95%;
-            max-width: 500px;
-            border: 1px solid rgba(255,255,255,0.2);
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        .confirm-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        .confirm-btn {
-            flex: 1;
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
-            border: none;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .confirm-yes {
-            background: #ffd700;
-            color: #000;
-        }
-        .confirm-yes:hover {
-            background: #ffed4a;
-            transform: translateY(-2px);
-        }
-        .confirm-no {
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            border: 1px solid #444;
-        }
-        .confirm-no:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
-        body.light .confirm-content {
-            background: rgba(255,255,255,0.95);
-            border-color: #ddd;
-            color: #333;
-        }
-        body.light .confirm-no {
-            background: rgba(0,0,0,0.05);
-            color: #333;
-            border-color: #ddd;
+        .checkout-btn:hover {
+            background: #ffed4a !important;
         }
         
         footer {
@@ -757,7 +944,7 @@
             .nav-left { gap: 0.3rem; }
             .side-products { margin-top: 2rem; }
             .cart-fly { width: 35px; height: 35px; }
-            .confirm-buttons { flex-direction: column; }
+            .confirm-buttons, .checkout-buttons { flex-direction: column; }
         }
     </style>
 </head>
@@ -786,9 +973,13 @@
         <div style="background:rgba(26,26,26,0.95);backdrop-filter:blur(20px);border-radius:20px;padding:2rem;max-width:95%;text-align:center;border:1px solid rgba(255,255,255,0.2);max-height:80vh;overflow-y:auto;">
             <h2 style="font-size:clamp(1.8rem, 6vw, 2.5rem);margin-bottom:1.2rem;" id="about-title">About Elvar</h2>
             <p style="font-size:1rem;line-height:1.7;" id="about-text">
-                Elvar is an Egyptian brand specializing in handmade anime hoodies. 
-                Each piece crafted with love and creativity in Cairo workshop from the finest fabrics. 
-                We combine anime passion with handmade tailoring elegance to offer you unique pieces.
+                هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.
+                بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.
+                مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.
+                كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.
+                تفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…
+                ELVAR اختصار للبَساطة اللي بتتكلم.
+                🌍 من القاهرة إلى العالم.
             </p>
         </div>
     </div>
@@ -824,13 +1015,19 @@
             </div>
         </div>
         <div class="product-info">
-            <h2 id="product-title">Naruto Royal Hoodie</h2>
+            <h2 id="product-title">هودي Elvar</h2>
             <div class="price-container">
                 <span class="discount-badge" id="discount-badge">SAVE 25%</span>
                 <span class="current-price" id="product-price-main">EGP 899</span>
                 <span class="original-price" id="original-price-main">EGP 1200</span>
             </div>
-            <p class="product-desc" id="product-desc">Handmade hoodie from premium fabrics. Classic Naruto design with precise details and luxury stitching. Perfect for anime lovers.</p>
+            <p class="product-desc" id="product-desc">
+                هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.
+                بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.
+                مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.
+                كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.
+                تفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…
+            </p>
             
             <!-- اختيار المقاس -->
             <div class="size-selection">
@@ -854,14 +1051,14 @@
                 </div>
             </div>
             
-            <button class="add-cart-btn" id="add-cart-text" onclick="confirmAddToCart('Naruto Royal Hoodie', 899)">Add to Cart</button>
+            <button class="add-cart-btn" id="add-cart-text" onclick="confirmAddToCart('هودي Elvar', 899)">Add to Cart</button>
         </div>
     </section>
 
     <div class="side-products">
         <div class="side-product">
             <img src="Gallery/4.jpeg" alt="One Piece">
-            <div style="font-size:clamp(1.2rem, 4vw, 1.5rem); margin:0.8rem 0;" id="side-title">One Piece Hoodie</div>
+            <div style="font-size:clamp(1.2rem, 4vw, 1.5rem); margin:0.8rem 0;" id="side-title">هودي Elvar</div>
             <div class="side-price-container">
                 <span class="discount-badge" style="font-size:0.75rem; padding:0.25rem 0.6rem;">SAVE 25%</span>
                 <span class="side-current-price" id="side-price">EGP 899</span>
@@ -888,7 +1085,7 @@
                 </div>
             </div>
             
-            <button class="add-cart-btn" style="font-size:0.95rem; padding:1rem 1.8rem;" id="side-cart-text" onclick="confirmAddToCart('One Piece Hoodie', 899, 'side')">Add to Cart</button>
+            <button class="add-cart-btn" style="font-size:0.95rem; padding:1rem 1.8rem;" id="side-cart-text" onclick="confirmAddToCart('هودي Elvar', 899, 'side')">Add to Cart</button>
         </div>
         <div class="side-product coming-soon" id="coming-soon-text">
             <div class="soon-notification" id="soon-notification">قريباً</div>
@@ -932,11 +1129,86 @@
         </div>
     </div>
 
+    <!-- نافذة معلومات الشحن -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-content">
+            <h3 id="checkout-title" style="margin-bottom: 1.5rem; font-size: 1.4rem;">Shipping Information</h3>
+            <p id="checkout-instruction" style="margin-bottom: 1.5rem; opacity: 0.8;">Please fill in your details to complete the order</p>
+            
+            <form id="shippingForm">
+                <div class="form-group">
+                    <label for="customerName" id="name-label">Full Name *</label>
+                    <input type="text" id="customerName" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone1" id="phone1-label">Phone Number *</label>
+                    <input type="tel" id="phone1" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone2" id="phone2-label">Additional Phone Number (Optional)</label>
+                    <input type="tel" id="phone2" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="governorate" id="governorate-label">Governorate *</label>
+                    <!-- تم تغيير select إلى input للسماح بالكتابة -->
+                    <input type="text" id="governorate" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address" id="address-label">Full Address *</label>
+                    <textarea id="address" class="form-control" rows="3" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes" id="notes-label">Additional Notes (Optional)</label>
+                    <textarea id="notes" class="form-control" rows="2"></textarea>
+                </div>
+            </form>
+            
+            <div class="checkout-review">
+                <h4 id="order-review-title">Order Review</h4>
+                <div id="order-review-items">
+                    <!-- سيتم ملؤها بالجافاسكريبت -->
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 1rem; border-top: 2px solid rgba(255,215,0,0.3);">
+                    <span id="review-total-label" style="font-weight: 600;">Total:</span>
+                    <span id="review-total-value" style="font-weight: 700; color: #ffd700; font-size: 1.2rem;"></span>
+                </div>
+            </div>
+            
+            <div class="checkout-buttons">
+                <button class="submit-order-btn" id="submit-order-text" onclick="submitOrder()">Submit Order</button>
+                <button class="cancel-checkout-btn" id="cancel-checkout-text" onclick="hideCheckoutModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة الشكر -->
+    <div class="thankyou-modal" id="thankyouModal">
+        <div class="thankyou-content">
+            <div class="thankyou-hearts">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3 class="thankyou-title" id="thankyou-title">Thank You!</h3>
+            <p class="thankyou-message" id="thankyou-message">
+                Thank you for your order!<br>
+                We hope you love it as much as we do.<br>
+                Your handmade hoodie will be delivered to you soon.
+            </p>
+            <button class="thankyou-close-btn" id="thankyou-close-text" onclick="hideThankyouModal()">Continue Shopping</button>
+        </div>
+    </div>
+
     <div class="cart-modal" id="cartModal">
         <h3 id="cart-title" style="margin-bottom:1.2rem; font-size:1.2rem;">Shopping Cart</h3>
         <div id="cartItems">Cart is empty</div>
         <div class="cart-total" id="cartTotal" style="display:none;"></div>
-        <button class="checkout-btn" onclick="checkout()" id="checkout-text">Complete Purchase</button>
+        <button class="checkout-btn" onclick="showCheckoutModal()" id="checkout-text">Complete Purchase</button>
     </div>
 
     <footer>
@@ -944,7 +1216,7 @@
     </footer>
 
     <script>
-        let cart = [], currentImage = 0, isEnglish = true;
+        let cart = [], currentImage = 0, isEnglish = false; // تم تغيير اللغة الافتراضية إلى العربية
         let selectedSize = 'S';
         let quantity = 1;
         let sideSelectedSize = 'S';
@@ -955,15 +1227,15 @@
             en: {
                 lang: 'AR',
                 aboutTitle: 'About Elvar',
-                aboutText: 'Elvar is an Egyptian brand specializing in handmade anime hoodies. Each piece crafted with love and creativity in Cairo workshop from the finest fabrics. We combine anime passion with handmade tailoring elegance to offer you unique pieces.',
+                aboutText: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.\nبتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.\nمصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.\nكل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.\nتفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…\nELVAR اختصار للبَساطة اللي بتتكلم.\n🌍 من القاهرة إلى العالم.',
                 heroSubtitle: 'Handmade hoodies with legendary anime designs',
                 heroSubSmall: 'Luxury handmade from Cairo',
                 cta: 'Discover Product',
-                productTitle: 'Naruto Royal Hoodie',
+                productTitle: 'هودي Elvar',
                 productPrice: 'EGP 899',
-                productDesc: 'Handmade hoodie from premium fabrics. Classic Naruto design with precise details and luxury stitching. Perfect for anime lovers.',
+                productDesc: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.\nبتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.\nمصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.\nكل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.\nتفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…',
                 addCart: 'Add to Cart',
-                sideTitle: 'One Piece Hoodie',
+                sideTitle: 'هودي Elvar',
                 sidePrice: 'EGP 899',
                 sideCart: 'Add to Cart',
                 comingSoon: 'New Product',
@@ -994,20 +1266,35 @@
                 sizeM: 'M',
                 sizeL: 'L',
                 sizeXL: 'XL',
-                sizeXXL: 'XXL'
+                sizeXXL: 'XXL',
+                checkoutTitle: 'Shipping Information',
+                checkoutInstruction: 'Please fill in your details to complete the order',
+                nameLabel: 'Full Name *',
+                phone1Label: 'Phone Number *',
+                phone2Label: 'Additional Phone Number (Optional)',
+                governorateLabel: 'Governorate *',
+                addressLabel: 'Full Address *',
+                notesLabel: 'Additional Notes (Optional)',
+                orderReviewTitle: 'Order Review',
+                reviewTotalLabel: 'Total:',
+                submitOrderText: 'Submit Order',
+                cancelCheckoutText: 'Cancel',
+                thankyouTitle: 'Thank You!',
+                thankyouMessage: 'Thank you for your order!<br>We hope you love it as much as we do.<br>Your handmade hoodie will be delivered to you soon.',
+                thankyouCloseText: 'Continue Shopping'
             },
             ar: {
                 lang: 'EN',
                 aboutTitle: 'نبذة عن Elvar',
-                aboutText: 'Elvar هي علامة تجارية مصرية متخصصة في الهوديز اليدوية بتصاميم أنمي فريدة. كل قطعة مصنوعة بحب وإبداع في ورشة القاهرة من أجود الأقمشة. نحن نجمع بين شغف الأنمي وأناقة الخياطة اليدوية لنقدم لكم قطع مميزة تعبر عن شخصيتكم.',
+                aboutText: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.\nبتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.\nمصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.\nكل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.\nتفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…\nELVAR اختصار للبَساطة اللي بتتكلم.\n🌍 من القاهرة إلى العالم.',
                 heroSubtitle: 'هوديز يدوية بتصاميم أنمي أسطورية',
                 heroSubSmall: 'صناعة يدوية فاخرة من القاهرة',
                 cta: 'اكتشف المنتج',
-                productTitle: 'هودي ناروتو الملكي',
+                productTitle: 'هودي Elvar',
                 productPrice: '899 جنيه',
-                productDesc: 'هودي يدوي مصنوع بحب من أجود الأقمشة. تصميم ناروتو كلاسيكي مع تفاصيل دقيقة وخياطة فاخرة. مثالي لمحبي الأنمي.',
+                productDesc: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.\nبتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.\nمصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.\nكل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.\nتفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…',
                 addCart: 'أضف للسلة',
-                sideTitle: 'هودي ون بيس',
+                sideTitle: 'هودي Elvar',
                 sidePrice: '899 جنيه',
                 sideCart: 'أضف للسلة',
                 comingSoon: 'منتج جديد',
@@ -1038,7 +1325,22 @@
                 sizeM: 'متوسط',
                 sizeL: 'كبير',
                 sizeXL: 'كبير جداً',
-                sizeXXL: 'مقاس مخصوص'
+                sizeXXL: 'مقاس مخصوص',
+                checkoutTitle: 'معلومات الشحن',
+                checkoutInstruction: 'يرجى ملء بياناتك لإتمام الطلب',
+                nameLabel: 'الاسم بالكامل *',
+                phone1Label: 'رقم الهاتف *',
+                phone2Label: 'رقم هاتف إضافي (اختياري)',
+                governorateLabel: 'المحافظة *',
+                addressLabel: 'العنوان بالكامل *',
+                notesLabel: 'ملاحظات إضافية (اختياري)',
+                orderReviewTitle: 'مراجعة الطلب',
+                reviewTotalLabel: 'الإجمالي:',
+                submitOrderText: 'تأكيد الطلب',
+                cancelCheckoutText: 'إلغاء',
+                thankyouTitle: 'شكراً لك!',
+                thankyouMessage: 'شكراً لطلبك!<br>نتمنى أن يعجبك كما يعجبنا.<br>سيتم توصيل الهودي اليدوي إليك قريباً.',
+                thankyouCloseText: 'مواصلة التسوق'
             }
         };
         
@@ -1117,6 +1419,25 @@
             document.getElementById('confirm-total').textContent = t.confirmTotal;
             document.getElementById('confirm-yes-text').textContent = t.confirmYes;
             document.getElementById('confirm-no-text').textContent = t.confirmNo;
+            
+            // تحديث نافذة معلومات الشحن
+            document.getElementById('checkout-title').textContent = t.checkoutTitle;
+            document.getElementById('checkout-instruction').textContent = t.checkoutInstruction;
+            document.getElementById('name-label').textContent = t.nameLabel;
+            document.getElementById('phone1-label').textContent = t.phone1Label;
+            document.getElementById('phone2-label').textContent = t.phone2Label;
+            document.getElementById('governorate-label').textContent = t.governorateLabel;
+            document.getElementById('address-label').textContent = t.addressLabel;
+            document.getElementById('notes-label').textContent = t.notesLabel;
+            document.getElementById('order-review-title').textContent = t.orderReviewTitle;
+            document.getElementById('review-total-label').textContent = t.reviewTotalLabel;
+            document.getElementById('submit-order-text').textContent = t.submitOrderText;
+            document.getElementById('cancel-checkout-text').textContent = t.cancelCheckoutText;
+            
+            // تحديث نافذة الشكر
+            document.getElementById('thankyou-title').textContent = t.thankyouTitle;
+            document.getElementById('thankyou-message').innerHTML = t.thankyouMessage;
+            document.getElementById('thankyou-close-text').textContent = t.thankyouCloseText;
             
             document.querySelector('footer p').textContent = "";
             document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
@@ -1224,7 +1545,10 @@
                 id: Date.now(),
                 name: `${name} (${size})`,
                 price: total,
-                details: `Size: ${size}, Quantity: ${quantity}, Unit Price: ${price}`
+                details: `Size: ${size}, Quantity: ${quantity}, Unit Price: ${price}`,
+                unitPrice: price,
+                size: size,
+                qty: quantity
             });
             
             document.getElementById('cartCount').textContent = cart.length;
@@ -1243,13 +1567,6 @@
             
             // إغلاق نافذة التأكيد
             hideConfirmModal();
-            
-            // عرض رسالة تأكيد
-            const t = translations[isEnglish ? 'en' : 'ar'];
-            const currency = isEnglish ? 'EGP' : 'جنيه';
-            setTimeout(() => {
-                alert(`${t.alertThanks.split('📦')[0]}${name} ${t.alertThanks.split('📦')[1]} ${quantity} item(s) added to cart!`);
-            }, 500);
         }
         
         function removeFromCart(id) {
@@ -1297,23 +1614,101 @@
             cartTotal.style.display = 'block';
         }
         
-        function checkout() {
+        // عرض نافذة معلومات الشحن
+        function showCheckoutModal() {
             if (cart.length === 0) { 
                 alert(translations[isEnglish ? 'en' : 'ar'].alertEmpty); 
                 return; 
             }
+            
+            // تحديث مراجعة الطلب
+            updateOrderReview();
+            
+            // عرض النافذة
+            document.getElementById('checkoutModal').style.display = 'flex';
+        }
+        
+        function hideCheckoutModal() {
+            document.getElementById('checkoutModal').style.display = 'none';
+        }
+        
+        // تحديث مراجعة الطلب
+        function updateOrderReview() {
+            const t = translations[isEnglish ? 'en' : 'ar'];
+            const reviewContainer = document.getElementById('order-review-items');
+            const totalValue = document.getElementById('review-total-value');
+            
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            const currency = isEnglish ? 'EGP' : 'جنيه';
+            
+            reviewContainer.innerHTML = cart.map(item => `
+                <div class="review-item">
+                    <span>${item.name}</span>
+                    <span>${item.price} ${currency}</span>
+                </div>
+            `).join('');
+            
+            totalValue.textContent = `${total} ${currency}`;
+        }
+        
+        // تأكيد الطلب
+        function submitOrder() {
+            const form = document.getElementById('shippingForm');
+            if (!form.checkValidity()) {
+                alert(isEnglish ? 'Please fill in all required fields' : 'يرجى ملء جميع الحقول المطلوبة');
+                return;
+            }
+            
+            const name = document.getElementById('customerName').value;
+            const phone1 = document.getElementById('phone1').value;
+            const phone2 = document.getElementById('phone2').value;
+            const governorate = document.getElementById('governorate').value; // الآن input وليس select
+            const address = document.getElementById('address').value;
+            const notes = document.getElementById('notes').value;
+            
             const total = cart.reduce((sum, item) => sum + item.price, 0);
             const t = translations[isEnglish ? 'en' : 'ar'];
             const currency = isEnglish ? 'EGP' : 'جنيه';
             
-            // جمع تفاصيل المنتجات
-            const itemsDetails = cart.map(item => `- ${item.name}: ${item.price} ${currency}`).join('\n');
+            // جمع تفاصيل الطلب
+            const orderDetails = `
+${t.alertThanks}${total} ${currency}
+
+${isEnglish ? 'Customer Information:' : 'معلومات العميل:'}
+${isEnglish ? 'Name:' : 'الاسم:'} ${name}
+${isEnglish ? 'Phone:' : 'الهاتف:'} ${phone1}
+${phone2 ? `${isEnglish ? 'Additional Phone:' : 'هاتف إضافي:'} ${phone2}\n` : ''}
+${isEnglish ? 'Governorate:' : 'المحافظة:'} ${governorate}
+${isEnglish ? 'Address:' : 'العنوان:'} ${address}
+${notes ? `${isEnglish ? 'Notes:' : 'ملاحظات:'} ${notes}\n` : ''}
+${isEnglish ? 'Order Items:' : 'عناصر الطلب:'}
+${cart.map(item => `- ${item.name}: ${item.price} ${currency} (${item.details})`).join('\n')}
+
+${t.alertDelivery}
+            `;
             
-            alert(`${t.alertThanks}${total} ${currency}\n\nItems in your order:\n${itemsDetails}\n\n${t.alertDelivery}`);
-            cart = []; 
-            document.getElementById('cartCount').textContent = '0';
+            console.log('Order Details:', orderDetails);
+            
+            // إغلاق نافذة معلومات الشحن
+            hideCheckoutModal();
+            
+            // إغلاق سلة المشتريات
             document.getElementById('cartModal').style.display = 'none';
+            
+            // عرض نافذة الشكر
+            document.getElementById('thankyouModal').style.display = 'flex';
+            
+            // تفريغ السلة
+            cart = [];
+            document.getElementById('cartCount').textContent = '0';
             updateCartDisplay();
+            
+            // تفريغ النموذج
+            form.reset();
+        }
+        
+        function hideThankyouModal() {
+            document.getElementById('thankyouModal').style.display = 'none';
         }
         
         setInterval(nextImage, 4000);
