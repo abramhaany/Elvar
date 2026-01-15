@@ -954,7 +954,7 @@
             <div class="nav-left">
                 <div class="logo-nav">El<span class="v-spin">v</span>ar</div>
                 <div class="nav-icons">
-                    <button class="nav-icon about-icon" onclick="toggleAbout()" id="about-btn">About</button>
+                    <button class="nav-icon about-icon" onclick="toggleAbout()" id="about-btn">نبذة</button>
                     <button class="nav-icon" id="langToggle" onclick="toggleLang()">EN</button>
                 </div>
             </div>
@@ -1251,7 +1251,7 @@
                 quantityLabel: 'Quantity:',
                 addCartText: 'Add to Cart',
                 
-                // Size options
+                // Size options - تم تغييرها إلى حروف إنجليزية فقط
                 sizeS: 'S',
                 sizeM: 'M',
                 sizeL: 'L',
@@ -1339,7 +1339,7 @@
                 quantityLabel: 'الكمية:',
                 addCartText: 'أضف للسلة',
                 
-                // Size options
+                // Size options - تم تغييرها إلى عربي فقط
                 sizeS: 'صغير',
                 sizeM: 'متوسط',
                 sizeL: 'كبير',
@@ -1416,6 +1416,15 @@
             "Gallery/5.jpeg"
         ];
         
+        // خريطة المقاسات - تخزين الترجمة الصحيحة لكل مقاس
+        const sizeMap = {
+            'S': { en: 'S', ar: 'صغير' },
+            'M': { en: 'M', ar: 'متوسط' },
+            'L': { en: 'L', ar: 'كبير' },
+            'XL': { en: 'XL', ar: 'كبير جداً' },
+            'XXL': { en: 'XXL', ar: 'مقاس مخصوص' }
+        };
+        
         function createCartFlyEffect(button) {
             const rect = button.getBoundingClientRect();
             const flyElement = document.createElement('div');
@@ -1465,7 +1474,7 @@
             document.getElementById('quantity-label').textContent = t.quantityLabel;
             document.getElementById('add-cart-text').textContent = t.addCartText;
             
-            // تحديث خيارات المقاس
+            // تحديث خيارات المقاس - استخدام الخريطة
             document.getElementById('size-s').textContent = t.sizeS;
             document.getElementById('size-m').textContent = t.sizeM;
             document.getElementById('size-l').textContent = t.sizeL;
@@ -1595,21 +1604,22 @@
             const itemTotal = price * itemQuantity;
             const currency = isEnglish ? 'EGP' : 'جنيه';
             
+            // استخدام خريطة المقاسات للحصول على الترجمة الصحيحة
+            const sizeDisplay = sizeMap[itemSize] ? sizeMap[itemSize][isEnglish ? 'en' : 'ar'] : itemSize;
+            
             // تحديث النافذة
             document.getElementById('confirm-item-name-value').textContent = name;
-            document.getElementById('confirm-item-size-value').textContent = 
-                type === 'main' ? 
-                document.getElementById(`size-${itemSize.toLowerCase()}`).textContent : 
-                document.getElementById(`side-size-${itemSize.toLowerCase()}`).textContent;
+            document.getElementById('confirm-item-size-value').textContent = sizeDisplay;
             document.getElementById('confirm-item-quantity-value').textContent = itemQuantity;
             document.getElementById('confirm-item-price-value').textContent = `${price} ${currency}`;
             document.getElementById('confirm-total-value').textContent = `${itemTotal} ${currency}`;
             
-            // حفظ البيانات مؤقتاً
+            // حفظ البيانات مؤقتاً - مع تخزين المقاس المعروض
             pendingItem = {
                 name,
                 price,
                 size: itemSize,
+                sizeDisplay: sizeDisplay, // تخزين المقاس المعروض
                 quantity: itemQuantity,
                 total: itemTotal,
                 type
@@ -1628,18 +1638,19 @@
         function addConfirmedItem() {
             if (!pendingItem) return;
             
-            const { name, price, size, quantity, total, type } = pendingItem;
+            const { name, price, size, sizeDisplay, quantity, total, type } = pendingItem;
             
-            // إضافة المنتج للسلة
+            // إضافة المنتج للسلة مع تفاصيل دقيقة
             cart.push({
                 id: Date.now(),
-                name: `${name} (${size})`,
+                name: `${name}`,
                 price: total,
                 details: isEnglish ? 
-                    `Size: ${size}, Quantity: ${quantity}, Unit Price: ${price}` : 
-                    `المقاس: ${size}, الكمية: ${quantity}, سعر الوحدة: ${price}`,
+                    `Size: ${sizeDisplay}, Quantity: ${quantity}, Unit Price: ${price}` : 
+                    `المقاس: ${sizeDisplay}, الكمية: ${quantity}, سعر الوحدة: ${price}`,
                 unitPrice: price,
                 size: size,
+                sizeDisplay: sizeDisplay,
                 qty: quantity
             });
             
@@ -1724,7 +1735,7 @@
             document.getElementById('checkoutModal').style.display = 'none';
         }
         
-        // تحديث مراجعة الطلب
+        // تحديث مراجعة الطلب - الإصلاح هنا
         function updateOrderReview() {
             const t = translations[isEnglish ? 'en' : 'ar'];
             const reviewContainer = document.getElementById('order-review-items');
@@ -1733,9 +1744,10 @@
             const total = cart.reduce((sum, item) => sum + item.price, 0);
             const currency = isEnglish ? 'EGP' : 'جنيه';
             
+            // عرض كل منتج مع تفاصيله (المقاس والكمية)
             reviewContainer.innerHTML = cart.map(item => `
                 <div class="review-item">
-                    <span>${item.name}</span>
+                    <span>${item.name} (${isEnglish ? 'Size' : 'المقاس'}: ${item.sizeDisplay}, ${isEnglish ? 'Qty' : 'الكمية'}: ${item.qty})</span>
                     <span>${item.price} ${currency}</span>
                 </div>
             `).join('');
@@ -1762,7 +1774,7 @@
             const t = translations[isEnglish ? 'en' : 'ar'];
             const currency = isEnglish ? 'EGP' : 'جنيه';
             
-            // جمع تفاصيل الطلب
+            // جمع تفاصيل الطلب - مع عرض المقاس والكمية بشكل صحيح
             const orderDetails = `
 ${t.alertThanks}${total} ${currency}
 
@@ -1774,7 +1786,7 @@ ${isEnglish ? 'Governorate:' : 'المحافظة:'} ${governorate}
 ${isEnglish ? 'Address:' : 'العنوان:'} ${address}
 ${notes ? `${isEnglish ? 'Notes:' : 'ملاحظات:'} ${notes}\n` : ''}
 ${isEnglish ? 'Order Items:' : 'عناصر الطلب:'}
-${cart.map(item => `- ${item.name}: ${item.price} ${currency} (${item.details})`).join('\n')}
+${cart.map(item => `- ${item.name} (${isEnglish ? 'Size' : 'المقاس'}: ${item.sizeDisplay}, ${isEnglish ? 'Qty' : 'الكمية'}: ${item.qty}): ${item.price} ${currency}`).join('\n')}
 
 ${t.alertDelivery}
             `;
