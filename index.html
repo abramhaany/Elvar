@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elvar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #0a0a0a; 
+            color: #fff; 
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+        body.light {
+            background: #f8f9fa;
+            color: #333;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10,10,10,0.95);
+            padding: 1rem 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        body.light nav {
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo-nav {
+            font-size: clamp(1.4rem, 5vw, 2rem);
+            font-weight: 600;
+            color: #fff;
+        }
+        .nav-icons {
+            display: flex;
+            gap: 0.3rem;
+        }
+        .nav-icon {
+            background: none;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        body.light .nav-icon {
+            border-color: #ddd;
+            color: #333;
+        }
+        .nav-icon:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        body.light .nav-icon:hover {
+            background: rgba(0,0,0,0.1);
+        }
+        .about-icon::before {
+            content: 'ℹ️ ';
+        }
+        .cart-btn {
+            position: relative;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            padding: 0.6rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            backdrop-filter: blur(10px);
+        }
+        body.light .cart-btn {
+            border-color: #ffd700;
+            color: #ffd700;
+            background: rgba(255,215,0,0.1);
+        }
+        .cart-btn:hover {
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            color: #000;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255,215,0,0.4);
+        }
+        .cart-icon {
+            font-size: 1.1rem;
+            position: relative;
+        }
+        .cart-count {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: linear-gradient(45deg, #ff4757, #ff6b7a);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: bounce 0.6s ease infinite alternate;
+            box-shadow: 0 3px 10px rgba(255,71,87,0.6);
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-2px); }
+        }
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+            padding-top: 80px;
+        }
+        .hero-title h1 {
+            font-size: clamp(2.5rem, 12vw, 6rem);
+            font-weight: 400;
+            margin: 0;
+            opacity: 0.95;
+            background: linear-gradient(45deg, #fff, #ddd, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-title .v-spin {
+            display: inline-block;
+            animation: spinV 5s linear infinite;
+            margin: 0 0.05em;
+            background: linear-gradient(45deg, #ffd700, #ffed4a, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 300% 300%;
+            animation: spinV 5s linear infinite, gradientShift 3s ease infinite;
+            text-shadow: 0 0 20px rgba(255,215,0,0.8);
+            font-weight: 600;
+        }
+        @keyframes spinV {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .hero-subtitle {
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            max-width: 90%;
+            margin: 1.5rem 0 2.5rem;
+            opacity: 0.8;
+        }
+        .cta-main {
+            background: #fff;
+            color: #000;
+            padding: 1rem 2.5rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255,255,255,0.2);
+            display: inline-block;
+        }
+        .cta-main:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(255,255,255,0.3);
+        }
+        .main-product {
+            padding: 100px 5% 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        @media (min-width: 769px) {
+            .main-product { 
+                grid-template-columns: 2fr 1fr; 
+                gap: 4rem; 
+                padding: 120px 5% 80px;
+            }
+        }
+        body.light .main-product { background: #f8f9fa; }
+        .product-gallery { position: relative; order: 2; }
+        @media (min-width: 769px) {
+            .product-gallery { order: 1; }
+        }
+        .main-image-container {
+            position: relative;
+            /* ارتفاع مرن حسب الصورة الأصلية */
+            height: clamp(250px, 50vw, 500px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        body.light .main-image-container {
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            background: #fff;
+        }
+        .main-image {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* يحافظ على النسب ويظهر الصورة كاملة */
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+        }
+        .main-image:hover { transform: scale(1.02); }
+        .gallery-nav {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+        .gallery-nav-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid #333;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        body.light .gallery-nav-btn {
+            background: rgba(0,0,0,0.1);
+            border-color: #ddd;
+            color: #333;
+        }
+        .gallery-nav-btn:hover {
+            background: #fff;
+            color: #000;
+            transform: scale(1.08);
+        }
+        body.light .gallery-nav-btn:hover {
+            background: #333;
+            color: #fff;
+        }
+        .thumbnail-container {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            overflow-x: auto;
+            padding: 1rem;
+            background: #1a1a1a;
+            border-radius: 14px;
+            scrollbar-width: thin;
+            scrollbar-color: #ffd700 #333;
+        }
+        body.light .thumbnail-container { background: #f8f9fa; }
+        .thumbnail-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .thumbnail-container::-webkit-scrollbar-track {
+            background: #333;
+            border-radius: 3px;
+        }
+        .thumbnail-container::-webkit-scrollbar-thumb {
+            background: #ffd700;
+            border-radius: 3px;
+        }
+        .thumbnail-strip {
+            display: flex;
+            gap: 0.8rem;
+            min-width: max-content;
+        }
+        .thumbnail {
+            width: clamp(60px, 12vw, 75px);
+            height: clamp(60px, 12vw, 75px);
+            object-fit: contain; /* الصور الـ thumbnails كاملة */
+            border-radius: 10px;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .thumbnail:hover, .thumbnail.active {
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(255,215,0,0.5);
+            transform: scale(1.05);
+        }
+        .product-info {
+            order: 1;
+            padding: 0;
+        }
+        @media (min-width: 769px) {
+            .product-info { order: 2; }
+        }
+        .product-info h2 {
+            font-size: clamp(1.8rem, 6vw, 2.8rem);
+            font-weight: 400;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+        }
+        body.light .product-info h2 { color: #333; }
+        .price-container {
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+        .current-price {
+            font-size: clamp(2rem, 8vw, 3.2rem);
+            color: #ffd700;
+            font-weight: 500;
+            display: inline-block;
+        }
+        .original-price {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            color: #888;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        .discount-badge {
+            background: linear-gradient(45deg, #ff4757, #ff6b7a);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 18px;
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(255,71,87,0.4);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .product-desc {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        body.light .product-desc { color: #666; }
+        .add-cart-btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            color: #000;
+            border: none;
+            padding: 1.2rem 2rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            width: 100%;
+            box-shadow: 0 12px 35px rgba(255,215,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .add-cart-btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 45px rgba(255,215,0,0.4);
+        }
+        .add-cart-btn:active {
+            animation: addToCartAnim 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        @keyframes addToCartAnim {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95) translateY(-8px); }
+            100% { transform: scale(1) translateY(0); }
+        }
+        .cart-fly {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            z-index: 2000;
+            pointer-events: none;
+            box-shadow: 0 8px 25px rgba(255,215,0,0.6);
+            animation: flyToCart 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+        @keyframes flyToCart {
+            0% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+            70% {
+                transform: scale(0.3) translateY(-150px) translateX(100px);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(0) translateY(-200px) translateX(150px);
+                opacity: 0;
+            }
+        }
+        .side-products {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        @media (min-width: 769px) {
+            .side-products { 
+                margin-top: 0; 
+                position: sticky; 
+                top: 120px; 
+            }
+        }
+        .side-product {
+            background: rgba(26,26,26,0.5);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid #333;
+            backdrop-filter: blur(10px);
+        }
+        body.light .side-product {
+            background: rgba(255,255,255,0.7);
+            border-color: #ddd;
+        }
+        .side-product img {
+            width: 100%;
+            height: auto;
+            object-fit: contain; /* الصور الجانبية كاملة */
+            border-radius: 12px;
+            display: block;
+        }
+        .side-price-container {
+            margin: 0.8rem 0 1.2rem 0;
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.3rem;
+        }
+        .side-current-price {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            color: #ffd700;
+            font-weight: 500;
+        }
+        .side-original-price {
+            font-size: clamp(1rem, 3.5vw, 1.3rem);
+            color: #888;
+            text-decoration: line-through;
+        }
+        .coming-soon {
+            text-align: center;
+            color: #666;
+            font-size: 1.1rem;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        body.light .coming-soon { color: #999; }
+        .cart-modal {
+            position: fixed;
+            top: 90px;
+            right: 2%;
+            width: 90vw;
+            max-width: 380px;
+            background: rgba(26,26,26,0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 18px;
+            padding: 1.5rem;
+            border: 1px solid #333;
+            display: none;
+            z-index: 1001;
+            max-height: 70vh;
+            overflow-y: auto;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.8);
+        }
+        @media (min-width: 769px) {
+            .cart-modal { 
+                right: 5%; 
+                width: 380px; 
+                top: 100px; 
+            }
+        }
+        body.light .cart-modal {
+            background: rgba(255,255,255,0.95);
+            border-color: #ddd;
+            color: #333;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .cart-item-info {
+            flex: 1;
+            min-width: 150px;
+        }
+        .cart-item-price {
+            color: #ffd700;
+            font-weight: 500;
+            min-width: 70px;
+            text-align: right;
+            font-size: 1rem;
+        }
+        .delete-btn {
+            background: rgba(255,71,87,0.2);
+            border: 1px solid #ff4757;
+            color: #ff4757;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        .delete-btn:hover {
+            background: #ff4757;
+            color: white;
+            transform: scale(1.08);
+        }
+        .cart-total {
+            margin-top: 1.2rem;
+            font-size: clamp(1.2rem, 4vw, 1.4rem);
+            color: #ffd700;
+            font-weight: 600;
+            text-align: right;
+            padding-top: 1rem;
+            border-top: 2px solid rgba(255,215,0,0.3);
+        }
+        .checkout-btn {
+            background: #fff !important;
+            color: #000 !important;
+            width: 100% !important;
+            padding: 1rem !important;
+            border-radius: 12px !important;
+            font-weight: 500 !important;
+            font-size: 1rem !important;
+            margin-top: 1rem !important;
+            border: none !important;
+        }
+        footer {
+            background: #000;
+            padding: 2rem 5%;
+            text-align: center;
+            opacity: 0.8;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+        body.light footer {
+            background: #f8f9fa;
+            color: #666;
+        }
+        @media (max-width: 768px) {
+            .nav-left { gap: 0.3rem; }
+            .side-products { margin-top: 2rem; }
+            .cart-fly { width: 35px; height: 35px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo-nav">El<span class="v-spin">v</span>ar</div>
+                <div class="nav-icons">
+                    <button class="nav-icon about-icon" onclick="toggleAbout()">About</button>
+                    <button class="nav-icon" id="langToggle" onclick="toggleLang()">AR</button>
+                </div>
+            </div>
+            <div class="nav-right">
+                <button class="cart-btn" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart cart-icon">
+                        <span class="cart-count" id="cartCount">0</span>
+                    </i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="about-modal" id="aboutModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);backdrop-filter:blur(20px);display:none;justify-content:center;align-items:center;z-index:1002;padding:2rem;">
+        <button style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:1px solid #fff;color:#fff;padding:0.5rem 1rem;border-radius:20px;cursor:pointer;font-size:0.9rem;" onclick="toggleAbout()">Close</button>
+        <div style="background:rgba(26,26,26,0.95);backdrop-filter:blur(20px);border-radius:20px;padding:2rem;max-width:95%;text-align:center;border:1px solid rgba(255,255,255,0.2);max-height:80vh;overflow-y:auto;">
+            <h2 style="font-size:clamp(1.8rem, 6vw, 2.5rem);margin-bottom:1.2rem;" id="about-title">About Elvar</h2>
+            <p style="font-size:1rem;line-height:1.7;" id="about-text">
+                Elvar is an Egyptian brand specializing in handmade anime hoodies. 
+                Each piece crafted with love and creativity in Cairo workshop from the finest fabrics. 
+                We combine anime passion with handmade tailoring elegance to offer you unique pieces.
+            </p>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-title">
+            <h1>El<span class="v-spin">v</span>ar</h1>
+        </div>
+        <p class="hero-subtitle" id="hero-subtitle">
+            Handmade hoodies with legendary anime designs<br>
+            <span style="opacity: 0.7; font-size: 0.85em;" id="hero-sub-small">Luxury handmade from Cairo</span>
+        </p>
+        <a href="#main-product" class="cta-main" id="cta-text">Discover Product</a>
+    </section>
+
+    <section class="main-product" id="main-product">
+        <div class="product-gallery">
+            <div class="main-image-container">
+                <img id="mainImage" class="main-image" src="https://via.placeholder.com/600x500/2c3e50/fff?text=Hoodie+Front" alt="Hoodie">
+            </div>
+            <div class="gallery-nav">
+                <button class="gallery-nav-btn" onclick="prevImage()">‹</button>
+                <button class="gallery-nav-btn" onclick="nextImage()">›</button>
+            </div>
+            <div class="thumbnail-container">
+                <div class="thumbnail-strip" id="thumbnailStrip">
+                    <img src="Gallery/1.jpeg" class="thumbnail active" onclick="changeImage(0)" alt="1">
+                    <img src="Gallery/2.jpeg" class="thumbnail" onclick="changeImage(1)" alt="2">
+                    <img src="Gallery/3.jpeg" class="thumbnail" onclick="changeImage(2)" alt="3">
+                    <img src="Gallery/4.jpeg" class="thumbnail" onclick="changeImage(3)" alt="4">
+                    <img src="Gallery/5.jpeg" class="thumbnail" onclick="changeImage(4)" alt="5">
+                </div>
+            </div>
+        </div>
+        <div class="product-info">
+            <h2 id="product-title">Naruto Royal Hoodie</h2>
+            <div class="price-container">
+                <span class="discount-badge" id="discount-badge">SAVE 25%</span>
+                <span class="current-price" id="product-price-main">EGP 899</span>
+                <span class="original-price" id="original-price-main">EGP 1200</span>
+            </div>
+            <p class="product-desc" id="product-desc">Handmade hoodie from premium fabrics. Classic Naruto design with precise details and luxury stitching. Perfect for anime lovers.</p>
+            <button class="add-cart-btn" id="add-cart-text" onclick="addToCart('Naruto Royal Hoodie', 899, event)">Add to Cart</button>
+        </div>
+    </section>
+
+    <div class="side-products">
+        <div class="side-product">
+            <img src="Gallery/4.jpeg" alt="One Piece">
+            <div style="font-size:clamp(1.2rem, 4vw, 1.5rem); margin:0.8rem 0;" id="side-title">One Piece Hoodie</div>
+            <div class="side-price-container">
+                <span class="discount-badge" style="font-size:0.75rem; padding:0.25rem 0.6rem;">SAVE 25%</span>
+                <span class="side-current-price" id="side-price">EGP 699</span>
+                <span class="side-original-price">EGP 900</span>
+            </div>
+            <button class="add-cart-btn" style="font-size:0.95rem; padding:1rem 1.8rem;" id="side-cart-text" onclick="addToCart('One Piece Hoodie', 699, event)">Add to Cart</button>
+        </div>
+        <div class="side-product coming-soon" id="coming-soon-text">New Product</div>
+    </div>
+
+    <div class="cart-modal" id="cartModal">
+        <h3 id="cart-title" style="margin-bottom:1.2rem; font-size:1.2rem;">Shopping Cart</h3>
+        <div id="cartItems">Cart is empty</div>
+        <div class="cart-total" id="cartTotal" style="display:none;"></div>
+        <button class="checkout-btn" onclick="checkout()" id="checkout-text">Complete Purchase</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Elvar - Handmade Anime Hoodies | Cairo, Egypt</p>
+    </footer>
+
+    <script>
+        let cart = [], currentImage = 0, isEnglish = true;
+        
+        const translations = {
+            en: {
+                lang: 'AR',
+                aboutTitle: 'About Elvar',
+                aboutText: 'Elvar is an Egyptian brand specializing in handmade anime hoodies. Each piece crafted with love and creativity in Cairo workshop from the finest fabrics. We combine anime passion with handmade tailoring elegance to offer you unique pieces.',
+                heroSubtitle: 'Handmade hoodies with legendary anime designs',
+                heroSubSmall: 'Luxury handmade from Cairo',
+                cta: 'Discover Product',
+                productTitle: 'Naruto Royal Hoodie',
+                productPrice: 'EGP 899',
+                productDesc: 'Handmade hoodie from premium fabrics. Classic Naruto design with precise details and luxury stitching. Perfect for anime lovers.',
+                addCart: 'Add to Cart',
+                sideTitle: 'One Piece Hoodie',
+                sidePrice: 'EGP 699',
+                sideCart: 'Add to Cart',
+                comingSoon: 'New Product',
+                cartTitle: 'Shopping Cart',
+                cartEmpty: 'Cart is empty',
+                checkout: 'Complete Purchase',
+                cartLabel: 'Cart',
+                totalLabel: 'Total:',
+                closeBtn: 'Close',
+                alertEmpty: 'Cart is empty!',
+                alertThanks: 'Thank you for your trust! 📦\nTotal order: ',
+                alertDelivery: 'Will be delivered within 2-3 days',
+                discountBadge: 'SAVE 25%'
+            },
+            ar: {
+                lang: 'EN',
+                aboutTitle: 'نبذة عن Elvar',
+                aboutText: 'Elvar هي علامة تجارية مصرية متخصصة في الهوديز اليدوية بتصاميم أنمي فريدة. كل قطعة مصنوعة بحب وإبداع في ورشة القاهرة من أجود الأقمشة. نحن نجمع بين شغف الأنمي وأناقة الخياطة اليدوية لنقدم لكم قطع مميزة تعبر عن شخصيتكم.',
+                heroSubtitle: 'هوديز يدوية بتصاميم أنمي أسطورية',
+                heroSubSmall: 'صناعة يدوية فاخرة من القاهرة',
+                cta: 'اكتشف المنتج',
+                productTitle: 'هودي ناروتو الملكي',
+                productPrice: '899 جنيه',
+                productDesc: 'هودي يدوي مصنوع بحب من أجود الأقمشة. تصميم ناروتو كلاسيكي مع تفاصيل دقيقة وخياطة فاخرة. مثالي لمحبي الأنمي.',
+                addCart: 'أضف للسلة',
+                sideTitle: 'هودي ون بيس',
+                sidePrice: '699 جنيه',
+                sideCart: 'أضف للسلة',
+                comingSoon: 'منتج جديد',
+                cartTitle: 'سلة المشتريات',
+                cartEmpty: 'السلة فارغة',
+                checkout: 'إتمام الشراء',
+                cartLabel: 'السلة',
+                totalLabel: 'الإجمالي:',
+                closeBtn: 'إغلاق',
+                alertEmpty: 'السلة فارغة!',
+                alertThanks: 'شكراً لثقتك! 📦\nإجمالي الطلب: ',
+                alertDelivery: 'هيوصلك خلال 2-3 أيام',
+                discountBadge: 'وفر 25%'
+            }
+        };
+        
+        const images = [
+            "Gallery/1.jpeg",
+            "Gallery/2.jpeg",
+            "Gallery/3.jpeg",
+            "Gallery/4.jpeg",
+            "Gallery/5.jpeg"
+        ];
+        
+        function createCartFlyEffect(button) {
+            const rect = button.getBoundingClientRect();
+            const flyElement = document.createElement('div');
+            flyElement.className = 'cart-fly';
+            flyElement.style.left = (rect.right - 20) + 'px';
+            flyElement.style.top = (rect.top + window.scrollY) + 'px';
+            document.body.appendChild(flyElement);
+            
+            setTimeout(() => {
+                flyElement.remove();
+            }, 1200);
+        }
+        
+        function toggleAbout() {
+            const modal = document.getElementById('aboutModal');
+            const closeBtn = modal.querySelector('button');
+            const title = document.getElementById('about-title');
+            const text = document.getElementById('about-text');
+            
+            const t = translations[isEnglish ? 'en' : 'ar'];
+            closeBtn.textContent = t.closeBtn;
+            title.textContent = t.aboutTitle;
+            text.textContent = t.aboutText;
+            
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        }
+        
+        function updateLanguage() {
+            const t = translations[isEnglish ? 'en' : 'ar'];
+            document.querySelector('.about-icon').textContent = t.aboutTitle.split(' ')[0];
+            document.getElementById('langToggle').textContent = t.lang;
+            document.getElementById('hero-subtitle').childNodes[0].textContent = t.heroSubtitle;
+            document.getElementById('hero-sub-small').textContent = t.heroSubSmall;
+            document.getElementById('cta-text').textContent = t.cta;
+            document.getElementById('product-title').textContent = t.productTitle;
+            document.getElementById('product-price-main').textContent = t.productPrice;
+            document.getElementById('product-desc').textContent = t.productDesc;
+            document.getElementById('add-cart-text').textContent = t.addCart;
+            document.getElementById('side-title').textContent = t.sideTitle;
+            document.getElementById('side-price').textContent = t.sidePrice;
+            document.getElementById('side-cart-text').textContent = t.sideCart;
+            document.getElementById('coming-soon-text').textContent = t.comingSoon;
+            document.getElementById('cart-title').textContent = t.cartTitle;
+            document.getElementById('checkout-text').textContent = t.checkout;
+            document.getElementById('discount-badge').textContent = t.discountBadge;
+            document.querySelector('footer p').textContent = isEnglish ? 
+                '&copy; 2026 Elvar - Handmade Anime Hoodies | Cairo, Egypt' : 
+                '&copy; 2026 Elvar - هوديز يدوية أنمي | القاهرة، مصر';
+            document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
+            document.documentElement.lang = isEnglish ? 'en' : 'ar';
+        }
+        
+        function toggleLang() {
+            isEnglish = !isEnglish;
+            updateLanguage();
+        }
+        
+        function changeImage(index) {
+            currentImage = index;
+            document.getElementById('mainImage').src = images[index];
+            document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
+        }
+        
+        function nextImage() {
+            currentImage = (currentImage + 1) % images.length;
+            changeImage(currentImage);
+        }
+        
+        function prevImage() {
+            currentImage = (currentImage - 1 + images.length) % images.length;
+            changeImage(currentImage);
+        }
+        
+        function addToCart(name, price, event) {
+            cart.push({id: Date.now(), name, price});
+            document.getElementById('cartCount').textContent = cart.length;
+            
+            const button = event.target;
+            createCartFlyEffect(button);
+            
+            button.style.transform = 'scale(0.97)';
+            setTimeout(() => {
+                button.style.transform = '';
+            }, 150);
+        }
+        
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            document.getElementById('cartCount').textContent = cart.length;
+            updateCartDisplay();
+        }
+        
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+            if (modal.style.display === 'block') updateCartDisplay();
+        }
+        
+        function updateCartDisplay() {
+            const t = translations[isEnglish ? 'en' : 'ar'];
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `<p style="opacity:0.7; text-align:center; padding:2rem 0;">${t.cartEmpty}</p>`;
+                cartTotal.style.display = 'none';
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            const currency = isEnglish ? 'EGP' : 'جنيه';
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <div style="font-weight:500; font-size:0.95rem;">${item.name}</div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:0.8rem;">
+                        <span class="cart-item-price">${item.price} ${currency}</span>
+                        <button class="delete-btn" onclick="removeFromCart(${item.id})" title="Remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            cartTotal.innerHTML = `${t.totalLabel} ${total} ${currency}`;
+            cartTotal.style.display = 'block';
+        }
+        
+        function checkout() {
+            if (cart.length === 0) { 
+                alert(translations[isEnglish ? 'en' : 'ar'].alertEmpty); 
+                return; 
+            }
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            const t = translations[isEnglish ? 'en' : 'ar'];
+            const currency = isEnglish ? 'EGP' : 'جنيه';
+            alert(`${t.alertThanks}${total} ${currency}\n${t.alertDelivery}`);
+            cart = []; 
+            document.getElementById('cartCount').textContent = '0';
+            document.getElementById('cartModal').style.display = 'none';
+            updateCartDisplay();
+        }
+        
+        setInterval(nextImage, 4000);
+        updateLanguage();
+    </script>
+</body>
+</html>
