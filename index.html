@@ -44,39 +44,85 @@
         .nav-left {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1rem;
+            flex: 1;
+            justify-content: flex-end;
+        }
+        .nav-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
         }
         .logo-nav {
             font-size: clamp(1.4rem, 5vw, 2rem);
             font-weight: 600;
             color: #fff;
+            text-align: center;
         }
-        .nav-icons {
-            display: flex;
-            gap: 0.3rem;
-        }
-        .nav-icon {
+        .nav-menu-btn {
             background: none;
-            border: 1px solid #333;
+            border: 1px solid #444;
             color: #fff;
-            padding: 0.4rem 0.8rem;
-            border-radius: 15px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
             cursor: pointer;
-            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
             transition: all 0.3s ease;
         }
-        body.light .nav-icon {
+        body.light .nav-menu-btn {
             border-color: #ddd;
             color: #333;
         }
-        .nav-icon:hover {
+        .nav-menu-btn:hover {
             background: rgba(255,255,255,0.1);
         }
-        body.light .nav-icon:hover {
-            background: rgba(0,0,0,0.1);
+        .nav-menu-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 5%;
+            background: rgba(26,26,26,0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            padding: 0.8rem;
+            min-width: 150px;
+            display: none;
+            flex-direction: column;
+            gap: 0.5rem;
+            border: 1px solid #333;
+            z-index: 1001;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .about-icon::before {
-            content: 'ℹ️ ';
+        body.light .nav-menu-dropdown {
+            background: rgba(255,255,255,0.95);
+            border-color: #ddd;
+            color: #333;
+        }
+        .nav-menu-dropdown.show {
+            display: flex;
+        }
+        .nav-menu-item {
+            background: none;
+            border: none;
+            color: #fff;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: right;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        body.light .nav-menu-item {
+            color: #333;
+        }
+        .nav-menu-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        body.light .nav-menu-item:hover {
+            background: rgba(0,0,0,0.1);
         }
         .cart-btn {
             position: relative;
@@ -140,6 +186,11 @@
             position: relative;
             padding-top: 80px;
         }
+        .hero-title {
+            text-align: center;
+            width: 100%;
+            position: relative;
+        }
         .hero-title h1 {
             font-size: clamp(2.5rem, 12vw, 6rem);
             font-weight: 400;
@@ -176,6 +227,7 @@
             max-width: 90%;
             margin: 1.5rem 0 2.5rem;
             opacity: 0.8;
+            text-align: center;
         }
         .cta-main {
             background: #fff;
@@ -193,8 +245,152 @@
             transform: translateY(-4px);
             box-shadow: 0 15px 35px rgba(255,255,255,0.3);
         }
-        .main-product {
-            padding: 100px 5% 60px;
+
+        .video-showcase {
+            padding: 20px 5% 0;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: clamp(300px, 60vh, 600px);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+            background: #000;
+            margin-bottom: 40px;
+            cursor: pointer;
+        }
+
+        .product-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 2rem;
+            z-index: 2;
+            background: linear-gradient(to left, rgba(0,0,0,0.7), transparent 40%);
+        }
+
+        .video-title {
+            text-align: left;
+            margin-top: auto;
+            margin-bottom: 2rem;
+            max-width: 60%;
+        }
+
+        .video-title h2 {
+            font-size: clamp(1.8rem, 6vw, 2.8rem);
+            font-weight: 400;
+            margin-bottom: 0.3rem;
+            background: linear-gradient(45deg, #fff, #ffd700, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .video-title p {
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            display: flex;
+            gap: 0.8rem;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(20px);
+            padding: 0.8rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.2);
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+
+        .video-controls.hidden {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+        }
+
+        @media (max-width: 768px) {
+            .video-controls {
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(10px);
+            }
+            
+            .video-controls.visible {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+        }
+
+        .video-control-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .video-control-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.08);
+            border-color: #ffd700;
+        }
+
+        .fullscreen-btn {
+            display: flex;
+        }
+
+        body.light .video-container {
+            box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+        }
+
+        body.light .product-video {
+            filter: brightness(1.05);
+        }
+
+        body.light .video-overlay {
+            background: linear-gradient(to left, rgba(0,0,0,0.6), transparent 40%);
+        }
+
+        .product-showcase {
+            padding: 40px 5% 60px;
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
@@ -203,13 +399,13 @@
             align-items: start;
         }
         @media (min-width: 769px) {
-            .main-product { 
+            .product-showcase { 
                 grid-template-columns: 2fr 1fr; 
                 gap: 4rem; 
-                padding: 120px 5% 80px;
+                padding: 40px 5% 80px;
             }
         }
-        body.light .main-product { background: #f8f9fa; }
+        body.light .product-showcase { background: #f8f9fa; }
         .product-gallery { position: relative; order: 2; }
         @media (min-width: 769px) {
             .product-gallery { order: 1; }
@@ -279,12 +475,13 @@
             margin-top: 1.5rem;
             overflow-x: auto;
             padding: 1rem;
-            background: #1a1a1a;
+            background: rgba(26,26,26,0.8);
             border-radius: 14px;
             scrollbar-width: thin;
             scrollbar-color: #ffd700 #333;
+            backdrop-filter: blur(10px);
         }
-        body.light .thumbnail-container { background: #f8f9fa; }
+        body.light .thumbnail-container { background: rgba(255,255,255,0.8); }
         .thumbnail-container::-webkit-scrollbar {
             height: 6px;
         }
@@ -999,18 +1196,95 @@
             border-top: 1px solid rgba(255,255,255,0.1);
             font-size: 0.9rem;
             opacity: 0.8;
+            text-align: center;
         }
         body.light .contact-info {
             border-top: 1px solid rgba(0,0,0,0.1);
         }
         
         @media (max-width: 768px) {
-            .nav-left { gap: 0.3rem; }
             .side-products { margin-top: 2rem; }
             .cart-fly { width: 35px; height: 35px; }
             .confirm-buttons, .checkout-buttons { flex-direction: column; }
             .social-icons { gap: 1rem; }
             .social-icon i { width: 50px; height: 50px; font-size: 1.5rem; }
+            
+            .video-container {
+                height: clamp(280px, 50vh, 380px);
+                border-radius: 16px;
+            }
+            
+            .video-overlay {
+                padding: 1.5rem;
+                background: linear-gradient(to left, rgba(0,0,0,0.8), transparent 50%);
+            }
+            
+            .video-title {
+                margin-bottom: 1rem;
+                max-width: 70%;
+            }
+            
+            .video-title h2 {
+                font-size: clamp(1.6rem, 5vw, 2.2rem);
+                margin-bottom: 0.2rem;
+            }
+            
+            .video-title p {
+                font-size: 0.9rem;
+            }
+            
+            .video-controls {
+                bottom: 1.5rem;
+                left: 1.5rem;
+            }
+            
+            .fullscreen-btn {
+                display: flex;
+            }
+            
+            .hero-subtitle {
+                display: none;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .video-container {
+                height: clamp(350px, 55vh, 500px);
+            }
+            
+            .video-title h2 {
+                font-size: clamp(2rem, 5vw, 2.5rem);
+            }
+            
+            .fullscreen-btn {
+                display: flex;
+            }
+        }
+        
+        @media (min-width: 1025px) {
+            .fullscreen-btn {
+                display: flex;
+            }
+        }
+        
+        .brand-section {
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 800px;
+            padding: 0 5%;
+        }
+        
+        .brand-slogan {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            margin-bottom: 1rem;
+            color: #ffd700;
+            font-weight: 500;
+        }
+        
+        .brand-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -1018,11 +1292,20 @@
     <nav>
         <div class="nav-container">
             <div class="nav-left">
-                <div class="logo-nav">El<span class="v-spin">v</span>ar</div>
-                <div class="nav-icons">
-                    <button class="nav-icon about-icon" onclick="toggleAbout()" id="about-btn">نبذة</button>
-                    <button class="nav-icon" id="langToggle" onclick="toggleLang()">EN</button>
+                <div class="nav-menu-container" style="position: relative;">
+                    <button class="nav-menu-btn" onclick="toggleMenu()">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <div class="nav-menu-dropdown" id="navMenuDropdown">
+                        <button class="nav-menu-item" onclick="toggleAbout()" id="about-btn">About</button>
+                        <button class="nav-menu-item" onclick="toggleLang()" id="langToggle">English</button>
+                        <button class="nav-menu-item" onclick="toggleNew()" id="new-btn">New</button>
+                        <button class="nav-menu-item" onclick="toggleSocial()" id="social-btn">Social</button>
+                    </div>
                 </div>
+            </div>
+            <div class="nav-center">
+                <div class="logo-nav" onclick="scrollToTop()">El<span class="v-spin">v</span>ar</div>
             </div>
             <div class="nav-right">
                 <button class="cart-btn" onclick="toggleCart()">
@@ -1038,9 +1321,9 @@
     <div class="about-modal" id="aboutModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);backdrop-filter:blur(20px);display:none;justify-content:center;align-items:center;z-index:1002;padding:2rem;">
         <button style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:1px solid #fff;color:#fff;padding:0.5rem 1rem;border-radius:20px;cursor:pointer;font-size:0.9rem;" onclick="toggleAbout()" id="close-btn">إغلاق</button>
         <div style="background:rgba(26,26,26,0.95);backdrop-filter:blur(20px);border-radius:20px;padding:2rem;max-width:95%;text-align:center;border:1px solid rgba(255,255,255,0.2);max-height:80vh;overflow-y:auto;">
-            <h2 style="font-size:clamp(1.8rem, 6vw, 2.5rem);margin-bottom:1.2rem;" id="about-title">نبذة عن Elvar</h2>
+            <h2 style="font-size:clamp(1.8rem, 6vw, 2.5rem);margin-bottom:1.2rem;" id="about-title">About Elvar</h2>
             <p style="font-size:1rem;line-height:1.7;" id="about-text">
-                هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.
+                HOODIE ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.
                 بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.
                 مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.
                 كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.
@@ -1051,21 +1334,107 @@
         </div>
     </div>
 
+    <div class="new-modal" id="newModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);backdrop-filter:blur(20px);display:none;justify-content:center;align-items:center;z-index:1002;padding:2rem;">
+        <button style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:1px solid #fff;color:#fff;padding:0.5rem 1rem;border-radius:20px;cursor:pointer;font-size:0.9rem;" onclick="toggleNew()" id="close-new-btn">إغلاق</button>
+        <div style="background:rgba(26,26,26,0.95);backdrop-filter:blur(20px);border-radius:20px;padding:2rem;max-width:95%;text-align:center;border:1px solid rgba(255,255,255,0.2);max-height:80vh;overflow-y:auto;">
+            <h2 style="font-size:clamp(1.8rem, 6vw, 2.5rem);margin-bottom:1.2rem;" id="new-title">New Collection</h2>
+            <p style="font-size:1rem;line-height:1.7;margin-bottom:2rem;" id="new-text">
+                نحن نعمل على إطلاق مجموعة جديدة من المنتجات الحصرية قريباً!
+                ابقَ على اطلاع للاستفادة من العروض والتخفيضات الخاصة.
+            </p>
+            <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:1.5rem;margin:1.5rem 0;">
+                <h3 style="color:#ffd700;margin-bottom:1rem;">قريباً جداً!</h3>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));gap:1rem;">
+                    <div style="background:rgba(255,255,255,0.05);padding:1rem;border-radius:8px;text-align:center;">
+                        <i class="fas fa-tshirt" style="font-size:2rem;color:#ffd700;margin-bottom:0.5rem;"></i>
+                        <div style="font-size:0.9rem;font-weight:500;">تصاميم جديدة</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.05);padding:1rem;border-radius:8px;text-align:center;">
+                        <i class="fas fa-palette" style="font-size:2rem;color:#ffd700;margin-bottom:0.5rem;"></i>
+                        <div style="font-size:0.9rem;font-weight:500;">ألوان متنوعة</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.05);padding:1rem;border-radius:8px;text-align:center;">
+                        <i class="fas fa-gift" style="font-size:2rem;color:#ffd700;margin-bottom:0.5rem;"></i>
+                        <div style="font-size:0.9rem;font-weight:500;">عروض حصرية</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="social-modal" id="socialModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);backdrop-filter:blur(20px);display:none;justify-content:center;align-items:center;z-index:1002;padding:2rem;">
+        <button style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:1px solid #fff;color:#fff;padding:0.5rem 1rem;border-radius:20px;cursor:pointer;font-size:0.9rem;" onclick="toggleSocial()" id="close-social-btn">إغلاق</button>
+        <div style="background:rgba(26,26,26,0.95);backdrop-filter:blur(20px);border-radius:20px;padding:2rem;max-width:95%;text-align:center;border:1px solid rgba(255,255,255,0.2);max-height:80vh;overflow-y:auto;">
+            <h2 style="font-size:clamp(1.8rem, 6vw, 2.5rem);margin-bottom:1.2rem;" id="social-title-modal">تواصل معنا</h2>
+            <p style="font-size:1rem;line-height:1.7;margin-bottom:2rem;" id="social-text">
+                تابعنا على وسائل التواصل الاجتماعي للبقاء على اطلاع بأحدث التصاميم والعروض
+            </p>
+            <div style="display:grid;grid-template-columns:1fr;gap:1rem;max-width:400px;margin:0 auto;">
+                <a href="https://wa.me/201203790142" target="_blank" style="background:rgba(255,255,255,0.1);border:1px solid #25D366;border-radius:12px;padding:1rem;text-decoration:none;color:#fff;display:flex;align-items:center;gap:1rem;transition:all 0.3s ease;">
+                    <i class="fab fa-whatsapp" style="font-size:1.5rem;color:#25D366;"></i>
+                    <div style="flex:1;text-align:right;">
+                        <div style="font-weight:500;">واتساب</div>
+                        <div style="font-size:0.85rem;opacity:0.8;">+20 120 379 0142</div>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/share/1H6EAaFNra/" target="_blank" style="background:rgba(255,255,255,0.1);border:1px solid #1877F2;border-radius:12px;padding:1rem;text-decoration:none;color:#fff;display:flex;align-items:center;gap:1rem;transition:all 0.3s ease;">
+                    <i class="fab fa-facebook" style="font-size:1.5rem;color:#1877F2;"></i>
+                    <div style="flex:1;text-align:right;">
+                        <div style="font-weight:500;">فيسبوك</div>
+                        <div style="font-size:0.85rem;opacity:0.8;">Elvar Hoodies</div>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/elvar_hoodies?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" style="background:rgba(255,255,255,0.1);border:1px solid #E4405F;border-radius:12px;padding:1rem;text-decoration:none;color:#fff;display:flex;align-items:center;gap:1rem;transition:all 0.3s ease;">
+                    <i class="fab fa-instagram" style="font-size:1.5rem;color:#E4405F;"></i>
+                    <div style="flex:1;text-align:right;">
+                        <div style="font-weight:500;">انستجرام</div>
+                        <div style="font-size:0.85rem;opacity:0.8;">@elvar_hoodies</div>
+                    </div>
+                </a>
+                <a href="https://www.tiktok.com/@elvar.eg?_r=1&_t=ZS-936CoFgzPol" target="_blank" style="background:rgba(255,255,255,0.1);border:1px solid #000;border-radius:12px;padding:1rem;text-decoration:none;color:#fff;display:flex;align-items:center;gap:1rem;transition:all 0.3s ease;">
+                    <i class="fab fa-tiktok" style="font-size:1.5rem;color:#fff;"></i>
+                    <div style="flex:1;text-align:right;">
+                        <div style="font-weight:500;">تيك توك</div>
+                        <div style="font-size:0.85rem;opacity:0.8;">@elvar.eg</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <section class="hero">
         <div class="hero-title">
             <h1>El<span class="v-spin">v</span>ar</h1>
         </div>
-        <p class="hero-subtitle" id="hero-subtitle">
-            هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>
-            بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.
-        </p>
-        <a href="#main-product" class="cta-main" id="cta-text">اكتشف المنتج</a>
+        <a href="#product-showcase" class="cta-main" id="cta-text">اكتشف المنتج</a>
     </section>
 
-    <section class="main-product" id="main-product">
+    <section class="video-showcase">
+        <div class="video-container" id="videoContainer">
+            <video class="product-video" autoplay muted loop playsinline poster="images/1.jpeg">
+                <source src="video/Elvar video 1.mp4" type="video/mp4">
+                <img src="images/1.jpeg" alt="HOODIE video placeholder">
+            </video>
+            <div class="video-overlay">
+                <div class="video-title">
+                    <h2 id="video-title">Elvar</h2>
+                </div>
+                <div class="video-controls" id="videoControls">
+                    <button class="video-control-btn" onclick="toggleVideoPlay()" id="play-pause-btn">
+                        <i class="fas fa-pause"></i>
+                    </button>
+                    <button class="video-control-btn fullscreen-btn" onclick="toggleFullscreen()" id="fullscreen-btn">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="product-showcase" id="product-showcase">
         <div class="product-gallery">
             <div class="main-image-container">
-                <img id="mainImage" class="main-image" src="https://via.placeholder.com/600x500/2c3e50/fff?text=Hoodie+Front" alt="Hoodie">
+                <img id="mainImage" class="main-image" src="https://via.placeholder.com/600x500/2c3e50/fff?text=HOODIE+Front" alt="HOODIE">
             </div>
             <div class="gallery-nav">
                 <button class="gallery-nav-btn" onclick="prevImage()">‹</button>
@@ -1073,23 +1442,23 @@
             </div>
             <div class="thumbnail-container">
                 <div class="thumbnail-strip" id="thumbnailStrip">
-                    <img src="Gallery/1.jpeg" class="thumbnail active" onclick="changeImage(0)" alt="1">
-                    <img src="Gallery/2.jpeg" class="thumbnail" onclick="changeImage(1)" alt="2">
-                    <img src="Gallery/3.jpeg" class="thumbnail" onclick="changeImage(2)" alt="3">
-                    <img src="Gallery/4.jpeg" class="thumbnail" onclick="changeImage(3)" alt="4">
-                    <img src="Gallery/5.jpeg" class="thumbnail" onclick="changeImage(4)" alt="5">
+                    <img src="images/1.jpeg" class="thumbnail active" onclick="changeImage(0)" alt="1">
+                    <img src="images/2.jpeg" class="thumbnail" onclick="changeImage(1)" alt="2">
+                    <img src="images/3.jpeg" class="thumbnail" onclick="changeImage(2)" alt="3">
+                    <img src="images/4.jpeg" class="thumbnail" onclick="changeImage(3)" alt="4">
+                    <img src="images/5.jpeg" class="thumbnail" onclick="changeImage(4)" alt="5">
                 </div>
             </div>
         </div>
         <div class="product-info">
-            <h2 id="product-title">هودي Elvar</h2>
+            <h2 id="product-title">HOODIE Elvar</h2>
             <div class="price-container">
                 <span class="discount-badge" id="discount-badge">وفر 25%</span>
                 <span class="current-price" id="product-price-main">899 جنيه</span>
                 <span class="original-price" id="original-price-main">1200 جنيه</span>
             </div>
             <p class="product-desc" id="product-desc">
-                هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.
+                HOODIE ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.
                 بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.
                 مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.
                 كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.
@@ -1099,11 +1468,7 @@
             <div class="size-selection">
                 <label id="size-label">المقاس:</label>
                 <div class="size-options">
-                    <div class="size-option selected" data-size="S" onclick="selectSize('S')" id="size-s">S</div>
-                    <div class="size-option" data-size="M" onclick="selectSize('M')" id="size-m">M</div>
-                    <div class="size-option" data-size="L" onclick="selectSize('L')" id="size-l">L</div>
-                    <div class="size-option" data-size="XL" onclick="selectSize('XL')" id="size-xl">XL</div>
-                    <div class="size-option" data-size="XXL" onclick="selectSize('XXL')" id="size-xxl">XXL</div>
+                    <div class="size-option selected" data-size="Over size" onclick="selectSize('Over size')" id="size-one">Over size</div>
                 </div>
             </div>
             
@@ -1116,14 +1481,14 @@
                 </div>
             </div>
             
-            <button class="add-cart-btn" id="add-cart-text" onclick="confirmAddToCart('هودي Elvar', 899)">أضف للسلة</button>
+            <button class="add-cart-btn" id="add-cart-text" onclick="confirmAddToCart('HOODIE Elvar - Over size', 899)">أضف للسلة</button>
         </div>
     </section>
 
     <div class="side-products">
         <div class="side-product">
-            <img src="Gallery/4.jpeg" alt="One Piece">
-            <div style="font-size:clamp(1.2rem, 4vw, 1.5rem); margin:0.8rem 0;" id="side-title">هودي Elvar</div>
+            <img src="images/4.jpeg" alt="HOODIE Side">
+            <div style="font-size:clamp(1.2rem, 4vw, 1.5rem); margin:0.8rem 0;" id="side-title">HOODIE Elvar</div>
             <div class="side-price-container">
                 <span class="discount-badge" style="font-size:0.75rem; padding:0.25rem 0.6rem;" id="side-discount">وفر 25%</span>
                 <span class="side-current-price" id="side-price">899 جنيه</span>
@@ -1133,10 +1498,7 @@
             <div class="size-selection" style="margin-bottom: 1rem;">
                 <label id="side-size-label" style="font-size: 0.9rem;">المقاس:</label>
                 <div class="size-options" style="gap: 0.3rem;">
-                    <div class="size-option selected" data-size="S" onclick="selectSideSize('S')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-s">S</div>
-                    <div class="size-option" data-size="M" onclick="selectSideSize('M')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-m">M</div>
-                    <div class="size-option" data-size="L" onclick="selectSideSize('L')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-l">L</div>
-                    <div class="size-option" data-size="XL" onclick="selectSideSize('XL')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-xl">XL</div>
+                    <div class="size-option selected" data-size="Over size" onclick="selectSideSize('Over size')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-one">Over size</div>
                 </div>
             </div>
             
@@ -1149,7 +1511,7 @@
                 </div>
             </div>
             
-            <button class="add-cart-btn" style="font-size:0.95rem; padding:1rem 1.8rem;" id="side-cart-text" onclick="confirmAddToCart('هودي Elvar', 899, 'side')">أضف للسلة</button>
+            <button class="add-cart-btn" style="font-size:0.95rem; padding:1rem 1.8rem;" id="side-cart-text" onclick="confirmAddToCart('HOODIE Elvar - Over size', 899, 'side')">أضف للسلة</button>
         </div>
         <div class="side-product coming-soon" id="coming-soon-text">
             <div class="soon-notification" id="soon-notification">قريباً</div>
@@ -1257,7 +1619,7 @@
             <p class="thankyou-message" id="thankyou-message">
                 شكرًا لاختيارك ELVAR 🤍<br><br>
                 طلبك اتسجّل عندنا بنجاح، وهنبدأ تجهيزه بعناية علشان يوصلك بأفضل جودة.<br><br>
-                هودي ELVAR معمول علشان يديك أكتر من ستايل في قطعة واحدة،<br>
+                HOODIE ELVAR معمول علشان يديك أكتر من ستايل في قطعة واحدة،<br>
                 ونتمنى يكون على ذوقك ويعبر عنك.<br><br>
                 📦 هيتم التواصل معاك قريب لتأكيد الشحن<br>
                 📍 من القاهرة… لحد باب بيتك<br><br>
@@ -1279,7 +1641,7 @@
         <div class="social-section">
             <h3 class="social-title" id="social-title">تواصل معنا وتابعنا عبر</h3>
             <div class="social-icons">
-                <a href="https://wa.me/201234567890" target="_blank" class="social-icon whatsapp-icon" id="whatsapp-link">
+                <a href="https://wa.me/201203790142" target="_blank" class="social-icon whatsapp-icon" id="whatsapp-link">
                     <i class="fab fa-whatsapp"></i>
                     <span id="whatsapp-text">واتساب</span>
                 </a>
@@ -1297,7 +1659,6 @@
                 </a>
             </div>
             <div class="contact-info">
-                <p id="contact-text">للاستفسارات: <a href="tel:+201234567890" style="color:#ffd700; text-decoration:none;" id="phone-link">+20 123 456 7890</a> | <a href="mailto:info@elvar.com" style="color:#ffd700; text-decoration:none;" id="email-link">info@elvar.com</a></p>
                 <p id="copyright">© 2024 ELVAR. جميع الحقوق محفوظة.</p>
             </div>
         </div>
@@ -1305,34 +1666,33 @@
 
     <script>
         let cart = [], currentImage = 0, isEnglish = false;
-        let selectedSize = 'S';
+        let selectedSize = 'Over size';
         let quantity = 1;
-        let sideSelectedSize = 'S';
+        let sideSelectedSize = 'Over size';
         let sideQuantity = 1;
         let pendingItem = null;
+        let isVideoControlsVisible = false;
+        let menuOpen = false;
         
         const translations = {
             en: {
-                langToggle: 'AR',
+                langToggle: 'العربية',
                 aboutBtn: 'About',
+                newBtn: 'New',
+                socialBtn: 'Social',
                 cartLabel: 'Cart',
                 closeBtn: 'Close',
-                heroSubtitle: 'ELVAR hoodie is not just a piece of clothing, it\'s a style that changes with you and expresses your personality.<br>With a simple and stable design, but its idea is smart and expandable, to give you more than one style in one hoodie.',
                 ctaText: 'Discover Product',
-                productTitle: 'Elvar Hoodie',
+                productTitle: 'HOODIE Elvar',
                 discountBadge: 'SAVE 25%',
                 productPrice: 'EGP 899',
                 originalPrice: 'EGP 1200',
-                productDesc: 'ELVAR hoodie is not just a piece of clothing, it\'s a style that changes with you and expresses your personality.<br>With a simple and stable design, but its idea is smart and expandable, to give you more than one style in one hoodie.<br>Made from 100% heavy and comfortable Milton cotton, suitable for daily use and gives you a sense of quality from the first wear.<br>Each hoodie comes with 3 embroideries (1 basic + 2 gifts) that you can easily attach and change according to color and mood.<br>Precise details, accurate execution, and lasting comfort...',
+                productDesc: 'HOODIE ELVAR is not just a piece of clothing, it\'s a style that changes with you and expresses your personality.<br>With a simple and stable design, but its idea is smart and expandable, to give you more than one style in one hoodie.<br>Made from 100% heavy and comfortable Milton cotton, suitable for daily use and gives you a sense of quality from the first wear.<br>Each hoodie comes with 3 embroideries (1 basic + 2 gifts) that you can easily attach and change according to color and mood.<br>Precise details, accurate execution, and lasting comfort...',
                 sizeLabel: 'Size:',
                 quantityLabel: 'Quantity:',
                 addCartText: 'Add to Cart',
-                sizeS: 'S',
-                sizeM: 'M',
-                sizeL: 'L',
-                sizeXL: 'XL',
-                sizeXXL: 'XXL',
-                sideTitle: 'Elvar Hoodie',
+                sizeOne: 'Over size',
+                sideTitle: 'HOODIE Elvar',
                 sideDiscount: 'SAVE 25%',
                 sidePrice: 'EGP 899',
                 sideOriginalPrice: 'EGP 1200',
@@ -1343,7 +1703,11 @@
                 newProductText: 'New Product',
                 comingSoonMessage: 'We\'re preparing something amazing for you',
                 aboutTitle: 'About Elvar',
-                aboutText: 'ELVAR hoodie is not just a piece of clothing, it\'s a style that changes with you and expresses your personality.<br>With a simple and stable design, but its idea is smart and expandable, to give you more than one style in one hoodie.<br>Made from 100% heavy and comfortable Milton cotton, suitable for daily use and gives you a sense of quality from the first wear.<br>Each hoodie comes with 3 embroideries (1 basic + 2 gifts) that you can easily attach and change according to color and mood.<br>Precise details, accurate execution, and lasting comfort...<br>ELVAR is an abbreviation for simplicity that speaks.<br>🌍 From Cairo to the world.',
+                aboutText: 'HOODIE ELVAR is not just a piece of clothing, it\'s a style that changes with you and expresses your personality.<br>With a simple and stable design, but its idea is smart and expandable, to give you more than one style in one hoodie.<br>Made from 100% heavy and comfortable Milton cotton, suitable for daily use and gives you a sense of quality from the first wear.<br>Each hoodie comes with 3 embroideries (1 basic + 2 gifts) that you can easily attach and change according to color and mood.<br>Precise details, accurate execution, and lasting comfort...<br>ELVAR is an abbreviation for simplicity that speaks.<br>🌍 From Cairo to the world.',
+                newTitle: 'New Collection',
+                newText: 'We are working on launching a new collection of exclusive products soon! Stay tuned for special offers and discounts.',
+                socialTitleModal: 'Contact Us',
+                socialText: 'Follow us on social media to stay updated with the latest designs and offers',
                 confirmTitle: 'Confirm Order',
                 confirmMessage: 'Are you sure you want to add this item to your cart?',
                 confirmItemName: 'Product:',
@@ -1366,7 +1730,7 @@
                 submitOrderText: 'Submit Order',
                 cancelCheckoutText: 'Cancel',
                 thankyouTitle: 'Thank You!',
-                thankyouMessage: 'Thank you for choosing ELVAR 🤍<br><br>Your order has been successfully registered, and we will start preparing it carefully to reach you with the best quality.<br><br>ELVAR hoodie is made to give you more than one style in one piece,<br>and we hope it suits your taste and expresses you.<br><br>📦 We will contact you soon to confirm shipping<br>📍 From Cairo... to your doorstep<br><br>If you have any inquiries, you can contact us anytime.<br>ELVAR - your identity louder.',
+                thankyouMessage: 'Thank you for choosing ELVAR 🤍<br><br>Your order has been successfully registered, and we will start preparing it carefully to reach you with the best quality.<br><br>HOODIE ELVAR is made to give you more than one style in one piece,<br>and we hope it suits your taste and expresses you.<br><br>📦 We will contact you soon to confirm shipping<br>📍 From Cairo... to your doorstep<br><br>If you have any inquiries, you can contact us anytime.<br>ELVAR - your identity louder.',
                 thankyouCloseText: 'Continue Shopping',
                 cartTitle: 'Shopping Cart',
                 cartEmpty: 'Cart is empty',
@@ -1377,36 +1741,31 @@
                 facebookText: 'Facebook',
                 instagramText: 'Instagram',
                 tiktokText: 'TikTok',
-                contactText: 'For inquiries: ',
-                phoneLink: '+20 123 456 7890',
-                emailLink: 'info@elvar.com',
                 copyright: '© 2024 ELVAR. All rights reserved.',
                 alertEmpty: 'Cart is empty!',
                 alertThanks: 'Thank you for your trust! 📦\nTotal order: ',
                 alertDelivery: 'Will be delivered within 2-3 days',
-                alertRequiredFields: 'Please fill in all required fields'
+                alertRequiredFields: 'Please fill in all required fields',
+                videoTitle: 'Elvar'
             },
             ar: {
-                langToggle: 'EN',
+                langToggle: 'English',
                 aboutBtn: 'نبذة',
+                newBtn: 'New',
+                socialBtn: 'Social',
                 cartLabel: 'السلة',
                 closeBtn: 'إغلاق',
-                heroSubtitle: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.',
                 ctaText: 'اكتشف المنتج',
-                productTitle: 'هودي Elvar',
+                productTitle: 'HOODIE Elvar',
                 discountBadge: 'وفر 25%',
                 productPrice: '899 جنيه',
                 originalPrice: '1200 جنيه',
-                productDesc: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.<br>مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.<br>كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.<br>تفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…',
+                productDesc: 'HOODIE ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.<br>مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.<br>كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.<br>تفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…',
                 sizeLabel: 'المقاس:',
                 quantityLabel: 'الكمية:',
                 addCartText: 'أضف للسلة',
-                sizeS: 'S',
-                sizeM: 'M',
-                sizeL: 'L',
-                sizeXL: 'XL',
-                sizeXXL: 'XXL',
-                sideTitle: 'هودي Elvar',
+                sizeOne: 'Over size',
+                sideTitle: 'HOODIE Elvar',
                 sideDiscount: 'وفر 25%',
                 sidePrice: '899 جنيه',
                 sideOriginalPrice: '1200 جنيه',
@@ -1417,7 +1776,11 @@
                 newProductText: 'منتج جديد',
                 comingSoonMessage: 'نحن نعد شيئاً رائعاً من أجلك',
                 aboutTitle: 'نبذة عن Elvar',
-                aboutText: 'هودي ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.<br>مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.<br>كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.<br>تفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…<br>ELVAR اختصار للبَساطة اللي بتتكلم.<br>🌍 من القاهرة إلى العالم.',
+                aboutText: 'HOODIE ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.<br>مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.<br>كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.<br>تفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…<br>ELVAR اختصار للبَساطة اللي بتتكلم.<br>🌍 من القاهرة إلى العالم.',
+                newTitle: 'المجموعة الجديدة',
+                newText: 'نحن نعمل على إطلاق مجموعة جديدة من المنتجات الحصرية قريباً! ابقَ على اطلاع للاستفادة من العروض والتخفيضات الخاصة.',
+                socialTitleModal: 'تواصل معنا',
+                socialText: 'تابعنا على وسائل التواصل الاجتماعي للبقاء على اطلاع بأحدث التصاميم والعروض',
                 confirmTitle: 'تأكيد الطلب',
                 confirmMessage: 'هل أنت متأكد من إضافة هذا المنتج إلى سلة المشتريات؟',
                 confirmItemName: 'المنتج:',
@@ -1440,7 +1803,7 @@
                 submitOrderText: 'تأكيد الطلب',
                 cancelCheckoutText: 'إلغاء',
                 thankyouTitle: 'شكراً لك!',
-                thankyouMessage: 'شكرًا لاختيارك ELVAR 🤍<br><br>طلبك اتسجّل عندنا بنجاح، وهنبدأ تجهيزه بعناية علشان يوصلك بأفضل جودة.<br><br>هودي ELVAR معمول علشان يديك أكتر من ستايل في قطعة واحدة،<br>ونتمنى يكون على ذوقك ويعبر عنك.<br><br>📦 هيتم التواصل معاك قريب لتأكيد الشحن<br>📍 من القاهرة… لحد باب بيتك<br><br>لو عندك أي استفسار، تقدر تكلمنا في أي وقت.<br>ELVAR – هويتك بصوت أعلى.',
+                thankyouMessage: 'شكرًا لاختيارك ELVAR 🤍<br><br>طلبك اتسجّل عندنا بنجاح، وهنبدأ تجهيزه بعناية علشان يوصلك بأفضل جودة.<br><br>HOODIE ELVAR معمول علشان يديك أكتر من ستايل في قطعة واحدة،<br>ونتمنى يكون على ذوقك ويعبر عنك.<br><br>📦 هيتم التواصل معاك قريب لتأكيد الشحن<br>📍 من القاهرة… لحد باب بيتك<br><br>لو عندك أي استفسار، تقدر تكلمنا في أي وقت.<br>ELVAR – هويتك بصوت أعلى.',
                 thankyouCloseText: 'مواصلة التسوق',
                 cartTitle: 'سلة المشتريات',
                 cartEmpty: 'السلة فارغة',
@@ -1451,23 +1814,21 @@
                 facebookText: 'فيسبوك',
                 instagramText: 'انستجرام',
                 tiktokText: 'تيك توك',
-                contactText: 'للاستفسارات: ',
-                phoneLink: '+20 123 456 7890',
-                emailLink: 'info@elvar.com',
                 copyright: '© 2024 ELVAR. جميع الحقوق محفوظة.',
                 alertEmpty: 'السلة فارغة!',
                 alertThanks: 'شكراً لثقتك! 📦\nإجمالي الطلب: ',
                 alertDelivery: 'هيوصلك خلال 2-3 أيام',
-                alertRequiredFields: 'يرجى ملء جميع الحقول المطلوبة'
+                alertRequiredFields: 'يرجى ملء جميع الحقول المطلوبة',
+                videoTitle: 'Elvar'
             }
         };
         
         const images = [
-            "Gallery/1.jpeg",
-            "Gallery/2.jpeg",
-            "Gallery/3.jpeg",
-            "Gallery/4.jpeg",
-            "Gallery/5.jpeg"
+            "images/1.jpeg",
+            "images/2.jpeg",
+            "images/3.jpeg",
+            "images/4.jpeg",
+            "images/5.jpeg"
         ];
         
         function createCartFlyEffect(button) {
@@ -1483,6 +1844,29 @@
             }, 1200);
         }
         
+        function toggleMenu() {
+            menuOpen = !menuOpen;
+            const dropdown = document.getElementById('navMenuDropdown');
+            if (menuOpen) {
+                dropdown.classList.add('show');
+            } else {
+                dropdown.classList.remove('show');
+            }
+        }
+        
+        function closeMenu() {
+            menuOpen = false;
+            document.getElementById('navMenuDropdown').classList.remove('show');
+        }
+        
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            closeMenu();
+        }
+        
         function toggleAbout() {
             const modal = document.getElementById('aboutModal');
             const closeBtn = modal.querySelector('button');
@@ -1495,16 +1879,48 @@
             text.innerHTML = t.aboutText;
             
             modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+            closeMenu();
+        }
+        
+        function toggleNew() {
+            const modal = document.getElementById('newModal');
+            const closeBtn = modal.querySelector('button');
+            const title = document.getElementById('new-title');
+            const text = document.getElementById('new-text');
+            
+            const t = translations[isEnglish ? 'en' : 'ar'];
+            closeBtn.textContent = t.closeBtn;
+            title.textContent = t.newTitle;
+            text.textContent = t.newText;
+            
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+            closeMenu();
+        }
+        
+        function toggleSocial() {
+            const modal = document.getElementById('socialModal');
+            const closeBtn = modal.querySelector('button');
+            const title = document.getElementById('social-title-modal');
+            const text = document.getElementById('social-text');
+            
+            const t = translations[isEnglish ? 'en' : 'ar'];
+            closeBtn.textContent = t.closeBtn;
+            title.textContent = t.socialTitleModal;
+            text.textContent = t.socialText;
+            
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+            closeMenu();
         }
         
         function updateLanguage() {
             const t = translations[isEnglish ? 'en' : 'ar'];
             
-            document.getElementById('langToggle').textContent = t.langToggle;
+            document.getElementById('langToggle').textContent = isEnglish ? 'العربية' : 'English';
             document.getElementById('about-btn').textContent = t.aboutBtn;
+            document.getElementById('new-btn').textContent = t.newBtn;
+            document.getElementById('social-btn').textContent = t.socialBtn;
             document.getElementById('cart-label').textContent = t.cartLabel;
             
-            document.getElementById('hero-subtitle').innerHTML = t.heroSubtitle;
             document.getElementById('cta-text').textContent = t.ctaText;
             
             document.getElementById('product-title').textContent = t.productTitle;
@@ -1516,11 +1932,7 @@
             document.getElementById('quantity-label').textContent = t.quantityLabel;
             document.getElementById('add-cart-text').textContent = t.addCartText;
             
-            document.getElementById('size-s').textContent = t.sizeS;
-            document.getElementById('size-m').textContent = t.sizeM;
-            document.getElementById('size-l').textContent = t.sizeL;
-            document.getElementById('size-xl').textContent = t.sizeXL;
-            document.getElementById('size-xxl').textContent = t.sizeXXL;
+            document.getElementById('size-one').textContent = t.sizeOne;
             
             document.getElementById('side-title').textContent = t.sideTitle;
             document.getElementById('side-discount').textContent = t.sideDiscount;
@@ -1530,10 +1942,7 @@
             document.getElementById('side-quantity-label').textContent = t.sideQuantityLabel;
             document.getElementById('side-cart-text').textContent = t.sideCartText;
             
-            document.getElementById('side-size-s').textContent = t.sizeS;
-            document.getElementById('side-size-m').textContent = t.sizeM;
-            document.getElementById('side-size-l').textContent = t.sizeL;
-            document.getElementById('side-size-xl').textContent = t.sizeXL;
+            document.getElementById('side-size-one').textContent = t.sizeOne;
             
             document.getElementById('soon-notification').textContent = t.soonNotification;
             document.getElementById('new-product-text').textContent = t.newProductText;
@@ -1574,10 +1983,18 @@
             document.getElementById('facebook-text').textContent = t.facebookText;
             document.getElementById('instagram-text').textContent = t.instagramText;
             document.getElementById('tiktok-text').textContent = t.tiktokText;
-            document.getElementById('contact-text').textContent = t.contactText;
-            document.getElementById('phone-link').textContent = t.phoneLink;
-            document.getElementById('email-link').textContent = t.emailLink;
             document.getElementById('copyright').textContent = t.copyright;
+            
+            document.getElementById('video-title').textContent = t.videoTitle;
+            
+            const playBtn = document.getElementById('play-pause-btn');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const video = document.querySelector('.product-video');
+            const playTitle = video.paused ? (isEnglish ? 'Play' : 'تشغيل') : (isEnglish ? 'Pause' : 'إيقاف');
+            const fullscreenTitle = isEnglish ? 'Fullscreen' : 'ملء الشاشة';
+            
+            playBtn.setAttribute('title', playTitle);
+            fullscreenBtn.setAttribute('title', fullscreenTitle);
             
             document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
             document.documentElement.lang = isEnglish ? 'en' : 'ar';
@@ -1588,6 +2005,7 @@
         function toggleLang() {
             isEnglish = !isEnglish;
             updateLanguage();
+            closeMenu();
         }
         
         function changeImage(index) {
@@ -1608,12 +2026,54 @@
             changeImage(currentImage);
         }
         
+        function toggleVideoPlay() {
+            const video = document.querySelector('.product-video');
+            const button = document.getElementById('play-pause-btn');
+            const icon = button.querySelector('i');
+            
+            if (video.paused) {
+                video.play();
+                icon.className = 'fas fa-pause';
+            } else {
+                video.pause();
+                icon.className = 'fas fa-play';
+            }
+            
+            toggleVideoControlsVisibility();
+        }
+        
+        function toggleVideoControlsVisibility() {
+            const videoControls = document.getElementById('videoControls');
+            if (window.innerWidth <= 768) {
+                isVideoControlsVisible = !isVideoControlsVisible;
+                if (isVideoControlsVisible) {
+                    videoControls.classList.add('visible');
+                } else {
+                    videoControls.classList.remove('visible');
+                }
+            }
+        }
+        
+        function toggleFullscreen() {
+            const videoContainer = document.querySelector('.video-container');
+            
+            if (!document.fullscreenElement) {
+                videoContainer.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+            
+            toggleVideoControlsVisibility();
+        }
+        
         function selectSize(size) {
             selectedSize = size;
-            document.querySelectorAll('.size-option').forEach(option => {
+            document.querySelectorAll('.product-info .size-option').forEach(option => {
                 option.classList.remove('selected');
             });
-            document.querySelector(`.size-option[data-size="${size}"]`).classList.add('selected');
+            document.querySelector(`.product-info .size-option[data-size="${size}"]`).classList.add('selected');
         }
         
         function selectSideSize(size) {
@@ -1707,6 +2167,7 @@
             const modal = document.getElementById('cartModal');
             modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
             if (modal.style.display === 'block') updateCartDisplay();
+            closeMenu();
         }
         
         function updateCartDisplay() {
@@ -1831,10 +2292,55 @@ ${t.alertDelivery}
         setInterval(nextImage, 4000);
         updateLanguage();
         
-        selectSize('S');
-        selectSideSize('S');
+        selectSize('Over size');
+        selectSideSize('Over size');
         document.getElementById('quantity-display').textContent = quantity;
         document.getElementById('side-quantity-display').textContent = sideQuantity;
+        
+        window.addEventListener('scroll', function() {
+            const video = document.querySelector('.product-video');
+            const videoRect = video.getBoundingClientRect();
+            
+            if (videoRect.top < window.innerHeight / 2 && videoRect.bottom > window.innerHeight / 2) {
+                if (video.paused && !video.muted) {
+                    video.play();
+                }
+            }
+            
+            closeMenu();
+        });
+        
+        document.querySelector('.product-video').addEventListener('loadeddata', function() {
+            this.play().catch(e => {
+                console.log("Auto-play prevented");
+            });
+        });
+        
+        document.querySelector('.product-video').addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        });
+        
+        document.getElementById('videoContainer').addEventListener('click', function(e) {
+            if (!e.target.closest('.video-control-btn')) {
+                if (window.innerWidth <= 768) {
+                    toggleVideoControlsVisibility();
+                }
+            }
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-menu-container')) {
+                closeMenu();
+            }
+        });
+        
+        document.addEventListener('fullscreenchange', function() {
+            if (!document.fullscreenElement) {
+                const videoControls = document.getElementById('videoControls');
+                videoControls.classList.remove('hidden');
+            }
+        });
     </script>
 </body>
 </html>
