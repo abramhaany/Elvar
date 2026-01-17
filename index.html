@@ -41,23 +41,15 @@
             align-items: center;
             padding: 0 5%;
         }
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex: 1;
-            justify-content: flex-end;
-        }
-        .nav-center {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
         .logo-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: clamp(1.4rem, 5vw, 2rem);
             font-weight: 600;
             color: #fff;
             text-align: center;
+            cursor: pointer;
         }
         .nav-menu-btn {
             background: none;
@@ -72,6 +64,7 @@
             justify-content: center;
             font-size: 1.2rem;
             transition: all 0.3s ease;
+            margin-left: auto;
         }
         body.light .nav-menu-btn {
             border-color: #ddd;
@@ -79,50 +72,6 @@
         }
         .nav-menu-btn:hover {
             background: rgba(255,255,255,0.1);
-        }
-        .nav-menu-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 5%;
-            background: rgba(26,26,26,0.98);
-            backdrop-filter: blur(20px);
-            border-radius: 12px;
-            padding: 0.8rem;
-            min-width: 150px;
-            display: none;
-            flex-direction: column;
-            gap: 0.5rem;
-            border: 1px solid #333;
-            z-index: 1001;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        body.light .nav-menu-dropdown {
-            background: rgba(255,255,255,0.95);
-            border-color: #ddd;
-            color: #333;
-        }
-        .nav-menu-dropdown.show {
-            display: flex;
-        }
-        .nav-menu-item {
-            background: none;
-            border: none;
-            color: #fff;
-            padding: 0.6rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: right;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        body.light .nav-menu-item {
-            color: #333;
-        }
-        .nav-menu-item:hover {
-            background: rgba(255,255,255,0.1);
-        }
-        body.light .nav-menu-item:hover {
-            background: rgba(0,0,0,0.1);
         }
         .cart-btn {
             position: relative;
@@ -222,13 +171,6 @@
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
-        .hero-subtitle {
-            font-size: clamp(1rem, 4vw, 1.4rem);
-            max-width: 90%;
-            margin: 1.5rem 0 2.5rem;
-            opacity: 0.8;
-            text-align: center;
-        }
         .cta-main {
             background: #fff;
             color: #000;
@@ -240,10 +182,199 @@
             transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(255,255,255,0.2);
             display: inline-block;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: all 0.6s ease;
+        }
+        .cta-main:hover::before {
+            left: 100%;
         }
         .cta-main:hover {
             transform: translateY(-4px);
             box-shadow: 0 15px 35px rgba(255,255,255,0.3);
+        }
+
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100vh;
+            background: rgba(10,10,10,0.98);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            overflow-y: auto;
+            padding: 2rem;
+            box-shadow: -10px 0 50px rgba(0,0,0,0.5);
+        }
+        body.light .side-menu {
+            background: rgba(255,255,255,0.98);
+            border-left: 1px solid rgba(0,0,0,0.1);
+        }
+        .side-menu.active {
+            right: 0;
+        }
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        body.light .menu-header {
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .menu-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #ffd700;
+        }
+        .close-menu-btn {
+            background: none;
+            border: 1px solid #444;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        body.light .close-menu-btn {
+            border-color: #ddd;
+            color: #333;
+        }
+        .close-menu-btn:hover {
+            background: rgba(255,255,255,0.1);
+            transform: rotate(90deg);
+        }
+        .menu-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .menu-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: right;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        body.light .menu-item {
+            background: rgba(0,0,0,0.05);
+            border-color: rgba(0,0,0,0.1);
+            color: #333;
+        }
+        .menu-item:hover {
+            background: rgba(255,215,0,0.1);
+            border-color: #ffd700;
+            transform: translateX(-5px);
+        }
+        .menu-item i {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1999;
+            display: none;
+        }
+        .menu-overlay.active {
+            display: block;
+        }
+
+        /* About Modal */
+        .about-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(20px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2002;
+            padding: 2rem;
+        }
+        .about-content {
+            background: rgba(26,26,26,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 95%;
+            max-width: 600px;
+            border: 1px solid rgba(255,255,255,0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        body.light .about-content {
+            background: rgba(255,255,255,0.95);
+            border-color: #ddd;
+            color: #333;
+        }
+        .close-about-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        body.light .close-about-btn {
+            border-color: #333;
+            color: #333;
+        }
+        .close-about-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .about-title {
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            margin-bottom: 1.2rem;
+            text-align: center;
+            color: #ffd700;
+        }
+        .about-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            text-align: center;
         }
 
         .video-showcase {
@@ -349,6 +480,11 @@
                 opacity: 1;
                 visibility: visible;
                 transform: translateY(0);
+            }
+            
+            .side-menu {
+                width: 85%;
+                right: -85%;
             }
         }
 
@@ -787,7 +923,7 @@
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1003;
+            z-index: 2003;
             padding: 2rem;
         }
         .confirm-content {
@@ -855,7 +991,7 @@
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1005;
+            z-index: 2005;
             padding: 2rem;
         }
         .checkout-content {
@@ -965,7 +1101,7 @@
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1006;
+            z-index: 2006;
             padding: 2rem;
         }
         .thankyou-content {
@@ -1035,7 +1171,7 @@
             padding: 1.5rem;
             border: 1px solid #333;
             display: none;
-            z-index: 1001;
+            z-index: 2001;
             max-height: 70vh;
             overflow-y: auto;
             box-shadow: 0 15px 50px rgba(0,0,0,0.8);
@@ -1241,10 +1377,6 @@
             .fullscreen-btn {
                 display: flex;
             }
-            
-            .hero-subtitle {
-                display: none;
-            }
         }
         
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -1266,63 +1398,62 @@
                 display: flex;
             }
         }
-        
-        .brand-section {
-            text-align: center;
-            margin: 3rem auto;
-            max-width: 800px;
-            padding: 0 5%;
-        }
-        
-        .brand-slogan {
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
-            margin-bottom: 1rem;
-            color: #ffd700;
-            font-weight: 500;
-        }
-        
-        .brand-description {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            opacity: 0.9;
-        }
     </style>
 </head>
 <body>
     <nav>
         <div class="nav-container">
-            <div class="nav-left">
-                <div class="nav-menu-container" style="position: relative;">
-                    <button class="nav-menu-btn" onclick="toggleMenu()">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
-                    <div class="nav-menu-dropdown" id="navMenuDropdown">
-                        <button class="nav-menu-item" onclick="toggleAbout()" id="about-btn">About</button>
-                        <button class="nav-menu-item" onclick="toggleLang()" id="langToggle">English</button>
-                        <button class="nav-menu-item" onclick="toggleNew()" id="new-btn">New</button>
-                        <button class="nav-menu-item" onclick="toggleSocial()" id="social-btn">Social</button>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-center">
-                <div class="logo-nav" onclick="scrollToTop()">El<span class="v-spin">v</span>ar</div>
-            </div>
-            <div class="nav-right">
-                <button class="cart-btn" onclick="toggleCart()">
-                    <i class="fas fa-shopping-cart cart-icon">
-                        <span class="cart-count" id="cartCount">0</span>
-                    </i>
-                    <span id="cart-label">السلة</span>
-                </button>
-            </div>
+            <button class="cart-btn" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart cart-icon">
+                    <span class="cart-count" id="cartCount">0</span>
+                </i>
+                <span id="cart-label">السلة</span>
+            </button>
+            
+            <div class="logo-nav" onclick="scrollToTop()">El<span class="v-spin">v</span>ar</div>
+            
+            <button class="nav-menu-btn" onclick="toggleSideMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
-    <div class="about-modal" id="aboutModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);backdrop-filter:blur(20px);display:none;justify-content:center;align-items:center;z-index:1002;padding:2rem;">
-        <button style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:1px solid #fff;color:#fff;padding:0.5rem 1rem;border-radius:20px;cursor:pointer;font-size:0.9rem;" onclick="toggleAbout()" id="close-btn">إغلاق</button>
-        <div style="background:rgba(26,26,26,0.95);backdrop-filter:blur(20px);border-radius:20px;padding:2rem;max-width:95%;text-align:center;border:1px solid rgba(255,255,255,0.2);max-height:80vh;overflow-y:auto;">
-            <h2 style="font-size:clamp(1.8rem, 6vw, 2.5rem);margin-bottom:1.2rem;" id="about-title">About Elvar</h2>
-            <p style="font-size:1rem;line-height:1.7;" id="about-text">
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <div class="menu-header">
+            <div class="menu-title" id="menu-title">القائمة</div>
+            <button class="close-menu-btn" onclick="toggleSideMenu()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="menu-items">
+            <div class="menu-item" onclick="openAbout()">
+                <span id="menu-about">About</span>
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <div class="menu-item" onclick="toggleLang()">
+                <span id="menu-language">English</span>
+                <i class="fas fa-language"></i>
+            </div>
+            <div class="menu-item" onclick="openSocial()">
+                <span id="menu-social">Social</span>
+                <i class="fas fa-share-alt"></i>
+            </div>
+            <div class="menu-item" onclick="openNew()">
+                <span id="menu-new">New</span>
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleSideMenu()"></div>
+
+    <!-- About Modal -->
+    <div class="about-modal" id="aboutModal">
+        <div class="about-content">
+            <button class="close-about-btn" onclick="closeAbout()" id="close-btn">إغلاق</button>
+            <h2 class="about-title" id="about-title">About Elvar</h2>
+            <p class="about-text" id="about-text">
                 HOODIE ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.
                 بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.
                 مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.
@@ -1331,74 +1462,6 @@
                 ELVAR اختصار للبَساطة اللي بتتكلم.
                 🌍 من القاهرة إلى العالم.
             </p>
-        </div>
-    </div>
-
-    <div class="new-modal" id="newModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);backdrop-filter:blur(20px);display:none;justify-content:center;align-items:center;z-index:1002;padding:2rem;">
-        <button style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:1px solid #fff;color:#fff;padding:0.5rem 1rem;border-radius:20px;cursor:pointer;font-size:0.9rem;" onclick="toggleNew()" id="close-new-btn">إغلاق</button>
-        <div style="background:rgba(26,26,26,0.95);backdrop-filter:blur(20px);border-radius:20px;padding:2rem;max-width:95%;text-align:center;border:1px solid rgba(255,255,255,0.2);max-height:80vh;overflow-y:auto;">
-            <h2 style="font-size:clamp(1.8rem, 6vw, 2.5rem);margin-bottom:1.2rem;" id="new-title">New Collection</h2>
-            <p style="font-size:1rem;line-height:1.7;margin-bottom:2rem;" id="new-text">
-                نحن نعمل على إطلاق مجموعة جديدة من المنتجات الحصرية قريباً!
-                ابقَ على اطلاع للاستفادة من العروض والتخفيضات الخاصة.
-            </p>
-            <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:1.5rem;margin:1.5rem 0;">
-                <h3 style="color:#ffd700;margin-bottom:1rem;">قريباً جداً!</h3>
-                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));gap:1rem;">
-                    <div style="background:rgba(255,255,255,0.05);padding:1rem;border-radius:8px;text-align:center;">
-                        <i class="fas fa-tshirt" style="font-size:2rem;color:#ffd700;margin-bottom:0.5rem;"></i>
-                        <div style="font-size:0.9rem;font-weight:500;">تصاميم جديدة</div>
-                    </div>
-                    <div style="background:rgba(255,255,255,0.05);padding:1rem;border-radius:8px;text-align:center;">
-                        <i class="fas fa-palette" style="font-size:2rem;color:#ffd700;margin-bottom:0.5rem;"></i>
-                        <div style="font-size:0.9rem;font-weight:500;">ألوان متنوعة</div>
-                    </div>
-                    <div style="background:rgba(255,255,255,0.05);padding:1rem;border-radius:8px;text-align:center;">
-                        <i class="fas fa-gift" style="font-size:2rem;color:#ffd700;margin-bottom:0.5rem;"></i>
-                        <div style="font-size:0.9rem;font-weight:500;">عروض حصرية</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="social-modal" id="socialModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);backdrop-filter:blur(20px);display:none;justify-content:center;align-items:center;z-index:1002;padding:2rem;">
-        <button style="position:absolute;top:1.5rem;right:1.5rem;background:none;border:1px solid #fff;color:#fff;padding:0.5rem 1rem;border-radius:20px;cursor:pointer;font-size:0.9rem;" onclick="toggleSocial()" id="close-social-btn">إغلاق</button>
-        <div style="background:rgba(26,26,26,0.95);backdrop-filter:blur(20px);border-radius:20px;padding:2rem;max-width:95%;text-align:center;border:1px solid rgba(255,255,255,0.2);max-height:80vh;overflow-y:auto;">
-            <h2 style="font-size:clamp(1.8rem, 6vw, 2.5rem);margin-bottom:1.2rem;" id="social-title-modal">تواصل معنا</h2>
-            <p style="font-size:1rem;line-height:1.7;margin-bottom:2rem;" id="social-text">
-                تابعنا على وسائل التواصل الاجتماعي للبقاء على اطلاع بأحدث التصاميم والعروض
-            </p>
-            <div style="display:grid;grid-template-columns:1fr;gap:1rem;max-width:400px;margin:0 auto;">
-                <a href="https://wa.me/201203790142" target="_blank" style="background:rgba(255,255,255,0.1);border:1px solid #25D366;border-radius:12px;padding:1rem;text-decoration:none;color:#fff;display:flex;align-items:center;gap:1rem;transition:all 0.3s ease;">
-                    <i class="fab fa-whatsapp" style="font-size:1.5rem;color:#25D366;"></i>
-                    <div style="flex:1;text-align:right;">
-                        <div style="font-weight:500;">واتساب</div>
-                        <div style="font-size:0.85rem;opacity:0.8;">+20 120 379 0142</div>
-                    </div>
-                </a>
-                <a href="https://www.facebook.com/share/1H6EAaFNra/" target="_blank" style="background:rgba(255,255,255,0.1);border:1px solid #1877F2;border-radius:12px;padding:1rem;text-decoration:none;color:#fff;display:flex;align-items:center;gap:1rem;transition:all 0.3s ease;">
-                    <i class="fab fa-facebook" style="font-size:1.5rem;color:#1877F2;"></i>
-                    <div style="flex:1;text-align:right;">
-                        <div style="font-weight:500;">فيسبوك</div>
-                        <div style="font-size:0.85rem;opacity:0.8;">Elvar Hoodies</div>
-                    </div>
-                </a>
-                <a href="https://www.instagram.com/elvar_hoodies?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" style="background:rgba(255,255,255,0.1);border:1px solid #E4405F;border-radius:12px;padding:1rem;text-decoration:none;color:#fff;display:flex;align-items:center;gap:1rem;transition:all 0.3s ease;">
-                    <i class="fab fa-instagram" style="font-size:1.5rem;color:#E4405F;"></i>
-                    <div style="flex:1;text-align:right;">
-                        <div style="font-weight:500;">انستجرام</div>
-                        <div style="font-size:0.85rem;opacity:0.8;">@elvar_hoodies</div>
-                    </div>
-                </a>
-                <a href="https://www.tiktok.com/@elvar.eg?_r=1&_t=ZS-936CoFgzPol" target="_blank" style="background:rgba(255,255,255,0.1);border:1px solid #000;border-radius:12px;padding:1rem;text-decoration:none;color:#fff;display:flex;align-items:center;gap:1rem;transition:all 0.3s ease;">
-                    <i class="fab fa-tiktok" style="font-size:1.5rem;color:#fff;"></i>
-                    <div style="flex:1;text-align:right;">
-                        <div style="font-weight:500;">تيك توك</div>
-                        <div style="font-size:0.85rem;opacity:0.8;">@elvar.eg</div>
-                    </div>
-                </a>
-            </div>
         </div>
     </div>
 
@@ -1434,7 +1497,7 @@
     <section class="product-showcase" id="product-showcase">
         <div class="product-gallery">
             <div class="main-image-container">
-                <img id="mainImage" class="main-image" src="https://via.placeholder.com/600x500/2c3e50/fff?text=HOODIE+Front" alt="HOODIE">
+                <img id="mainImage" class="main-image" src="images/1.jpeg" alt="HOODIE">
             </div>
             <div class="gallery-nav">
                 <button class="gallery-nav-btn" onclick="prevImage()">‹</button>
@@ -1672,16 +1735,18 @@
         let sideQuantity = 1;
         let pendingItem = null;
         let isVideoControlsVisible = false;
-        let menuOpen = false;
         
         const translations = {
             en: {
-                langToggle: 'العربية',
-                aboutBtn: 'About',
-                newBtn: 'New',
-                socialBtn: 'Social',
+                menuTitle: 'Menu',
+                menuAbout: 'About',
+                menuLanguage: 'العربية',
+                menuSocial: 'Social',
+                menuNew: 'New',
                 cartLabel: 'Cart',
                 closeBtn: 'Close',
+                aboutTitle: 'About Elvar',
+                aboutText: 'HOODIE ELVAR is not just a piece of clothing, it\'s a style that changes with you and expresses your personality.<br>With a simple and stable design, but its idea is smart and expandable, to give you more than one style in one hoodie.<br>Made from 100% heavy and comfortable Milton cotton, suitable for daily use and gives you a sense of quality from the first wear.<br>Each hoodie comes with 3 embroideries (1 basic + 2 gifts) that you can easily attach and change according to color and mood.<br>Precise details, accurate execution, and lasting comfort...<br>ELVAR is an abbreviation for simplicity that speaks.<br>🌍 From Cairo to the world.',
                 ctaText: 'Discover Product',
                 productTitle: 'HOODIE Elvar',
                 discountBadge: 'SAVE 25%',
@@ -1702,12 +1767,6 @@
                 soonNotification: 'Soon',
                 newProductText: 'New Product',
                 comingSoonMessage: 'We\'re preparing something amazing for you',
-                aboutTitle: 'About Elvar',
-                aboutText: 'HOODIE ELVAR is not just a piece of clothing, it\'s a style that changes with you and expresses your personality.<br>With a simple and stable design, but its idea is smart and expandable, to give you more than one style in one hoodie.<br>Made from 100% heavy and comfortable Milton cotton, suitable for daily use and gives you a sense of quality from the first wear.<br>Each hoodie comes with 3 embroideries (1 basic + 2 gifts) that you can easily attach and change according to color and mood.<br>Precise details, accurate execution, and lasting comfort...<br>ELVAR is an abbreviation for simplicity that speaks.<br>🌍 From Cairo to the world.',
-                newTitle: 'New Collection',
-                newText: 'We are working on launching a new collection of exclusive products soon! Stay tuned for special offers and discounts.',
-                socialTitleModal: 'Contact Us',
-                socialText: 'Follow us on social media to stay updated with the latest designs and offers',
                 confirmTitle: 'Confirm Order',
                 confirmMessage: 'Are you sure you want to add this item to your cart?',
                 confirmItemName: 'Product:',
@@ -1749,12 +1808,15 @@
                 videoTitle: 'Elvar'
             },
             ar: {
-                langToggle: 'English',
-                aboutBtn: 'نبذة',
-                newBtn: 'New',
-                socialBtn: 'Social',
+                menuTitle: 'القائمة',
+                menuAbout: 'نبذة',
+                menuLanguage: 'English',
+                menuSocial: 'Social',
+                menuNew: 'New',
                 cartLabel: 'السلة',
                 closeBtn: 'إغلاق',
+                aboutTitle: 'نبذة عن Elvar',
+                aboutText: 'HOODIE ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.<br>مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.<br>كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.<br>تفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…<br>ELVAR اختصار للبَساطة اللي بتتكلم.<br>🌍 من القاهرة إلى العالم.',
                 ctaText: 'اكتشف المنتج',
                 productTitle: 'HOODIE Elvar',
                 discountBadge: 'وفر 25%',
@@ -1775,12 +1837,6 @@
                 soonNotification: 'قريباً',
                 newProductText: 'منتج جديد',
                 comingSoonMessage: 'نحن نعد شيئاً رائعاً من أجلك',
-                aboutTitle: 'نبذة عن Elvar',
-                aboutText: 'HOODIE ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.<br>مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.<br>كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.<br>تفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…<br>ELVAR اختصار للبَساطة اللي بتتكلم.<br>🌍 من القاهرة إلى العالم.',
-                newTitle: 'المجموعة الجديدة',
-                newText: 'نحن نعمل على إطلاق مجموعة جديدة من المنتجات الحصرية قريباً! ابقَ على اطلاع للاستفادة من العروض والتخفيضات الخاصة.',
-                socialTitleModal: 'تواصل معنا',
-                socialText: 'تابعنا على وسائل التواصل الاجتماعي للبقاء على اطلاع بأحدث التصاميم والعروض',
                 confirmTitle: 'تأكيد الطلب',
                 confirmMessage: 'هل أنت متأكد من إضافة هذا المنتج إلى سلة المشتريات؟',
                 confirmItemName: 'المنتج:',
@@ -1844,19 +1900,18 @@
             }, 1200);
         }
         
-        function toggleMenu() {
-            menuOpen = !menuOpen;
-            const dropdown = document.getElementById('navMenuDropdown');
-            if (menuOpen) {
-                dropdown.classList.add('show');
-            } else {
-                dropdown.classList.remove('show');
-            }
+        function toggleSideMenu() {
+            const menu = document.getElementById('sideMenu');
+            const overlay = document.getElementById('menuOverlay');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
         }
         
-        function closeMenu() {
-            menuOpen = false;
-            document.getElementById('navMenuDropdown').classList.remove('show');
+        function closeSideMenu() {
+            const menu = document.getElementById('sideMenu');
+            const overlay = document.getElementById('menuOverlay');
+            menu.classList.remove('active');
+            overlay.classList.remove('active');
         }
         
         function scrollToTop() {
@@ -1864,62 +1919,57 @@
                 top: 0,
                 behavior: 'smooth'
             });
-            closeMenu();
         }
         
-        function toggleAbout() {
+        function openAbout() {
+            closeSideMenu();
             const modal = document.getElementById('aboutModal');
-            const closeBtn = modal.querySelector('button');
             const title = document.getElementById('about-title');
             const text = document.getElementById('about-text');
+            const closeBtn = document.getElementById('close-btn');
             
             const t = translations[isEnglish ? 'en' : 'ar'];
-            closeBtn.textContent = t.closeBtn;
             title.textContent = t.aboutTitle;
             text.innerHTML = t.aboutText;
+            closeBtn.textContent = t.closeBtn;
             
-            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-            closeMenu();
+            modal.style.display = 'flex';
         }
         
-        function toggleNew() {
-            const modal = document.getElementById('newModal');
-            const closeBtn = modal.querySelector('button');
-            const title = document.getElementById('new-title');
-            const text = document.getElementById('new-text');
-            
-            const t = translations[isEnglish ? 'en' : 'ar'];
-            closeBtn.textContent = t.closeBtn;
-            title.textContent = t.newTitle;
-            text.textContent = t.newText;
-            
-            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-            closeMenu();
+        function closeAbout() {
+            document.getElementById('aboutModal').style.display = 'none';
         }
         
-        function toggleSocial() {
-            const modal = document.getElementById('socialModal');
-            const closeBtn = modal.querySelector('button');
-            const title = document.getElementById('social-title-modal');
-            const text = document.getElementById('social-text');
-            
-            const t = translations[isEnglish ? 'en' : 'ar'];
-            closeBtn.textContent = t.closeBtn;
-            title.textContent = t.socialTitleModal;
-            text.textContent = t.socialText;
-            
-            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-            closeMenu();
+        function openSocial() {
+            closeSideMenu();
+            alert(isEnglish ? 'Social links are available in the footer' : 'روابط التواصل الاجتماعي متاحة في الفوتر');
+        }
+        
+        function openNew() {
+            closeSideMenu();
+            alert(isEnglish ? 'New collection coming soon!' : 'المجموعة الجديدة قريباً!');
         }
         
         function updateLanguage() {
             const t = translations[isEnglish ? 'en' : 'ar'];
             
-            document.getElementById('langToggle').textContent = isEnglish ? 'العربية' : 'English';
-            document.getElementById('about-btn').textContent = t.aboutBtn;
-            document.getElementById('new-btn').textContent = t.newBtn;
-            document.getElementById('social-btn').textContent = t.socialBtn;
+            document.getElementById('menu-title').textContent = t.menuTitle;
+            document.getElementById('menu-about').textContent = t.menuAbout;
+            document.getElementById('menu-language').textContent = t.menuLanguage;
+            document.getElementById('menu-social').textContent = t.menuSocial;
+            document.getElementById('menu-new').textContent = t.menuNew;
+            
             document.getElementById('cart-label').textContent = t.cartLabel;
+            
+            const aboutTitle = document.getElementById('about-title');
+            const aboutText = document.getElementById('about-text');
+            const closeBtn = document.getElementById('close-btn');
+            
+            if (aboutTitle) {
+                aboutTitle.textContent = t.aboutTitle;
+                aboutText.innerHTML = t.aboutText;
+                closeBtn.textContent = t.closeBtn;
+            }
             
             document.getElementById('cta-text').textContent = t.ctaText;
             
@@ -2005,7 +2055,7 @@
         function toggleLang() {
             isEnglish = !isEnglish;
             updateLanguage();
-            closeMenu();
+            closeSideMenu();
         }
         
         function changeImage(index) {
@@ -2167,7 +2217,6 @@
             const modal = document.getElementById('cartModal');
             modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
             if (modal.style.display === 'block') updateCartDisplay();
-            closeMenu();
         }
         
         function updateCartDisplay() {
@@ -2306,8 +2355,6 @@ ${t.alertDelivery}
                     video.play();
                 }
             }
-            
-            closeMenu();
         });
         
         document.querySelector('.product-video').addEventListener('loadeddata', function() {
@@ -2329,16 +2376,16 @@ ${t.alertDelivery}
             }
         });
         
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.nav-menu-container')) {
-                closeMenu();
-            }
-        });
-        
         document.addEventListener('fullscreenchange', function() {
             if (!document.fullscreenElement) {
                 const videoControls = document.getElementById('videoControls');
                 videoControls.classList.remove('hidden');
+            }
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('menu-overlay')) {
+                closeSideMenu();
             }
         });
     </script>
