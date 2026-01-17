@@ -203,7 +203,6 @@
             box-shadow: 0 15px 35px rgba(255,255,255,0.3);
         }
 
-        /* Side Menu */
         .side-menu {
             position: fixed;
             top: 0;
@@ -312,14 +311,154 @@
             display: block;
         }
 
-        /* About Modal */
+        .collection-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(20px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2002;
+            padding: 2rem;
+        }
+        .collection-content {
+            background: rgba(26,26,26,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2.5rem 2rem 2rem;
+            max-width: 95%;
+            width: 900px;
+            border: 1px solid rgba(255,255,255,0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        body.light .collection-content {
+            background: rgba(255,255,255,0.95);
+            border-color: #ddd;
+        }
+        .close-collection-btn {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: #ff4757;
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .close-collection-btn:hover {
+            background: #ff6b7a;
+            transform: scale(1.1);
+        }
+        .collection-modal-title {
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #ffd700;
+        }
+        .collection-grid-modal {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .collection-item-modal {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        body.light .collection-item-modal {
+            background: rgba(0,0,0,0.05);
+            border-color: rgba(0,0,0,0.1);
+        }
+        .collection-item-modal:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+        }
+        .collection-image-modal {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(45deg, #333, #555);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .collection-image-modal img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .collection-image-modal i {
+            font-size: 2.5rem;
+            color: rgba(255,255,255,0.3);
+        }
+        .collection-info-modal {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .collection-name-modal {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #ffd700;
+        }
+        .collection-desc-modal {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .collection-price-modal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .current-price-modal {
+            font-size: 1.3rem;
+            color: #ffd700;
+            font-weight: 600;
+        }
+        .original-price-modal {
+            font-size: 0.9rem;
+            color: #888;
+            text-decoration: line-through;
+        }
+        .coming-soon-badge-modal {
+            background: linear-gradient(45deg, #ff4757, #ff6b7a);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+
         .about-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             backdrop-filter: blur(20px);
             display: none;
             justify-content: center;
@@ -330,10 +469,10 @@
         .about-content {
             background: rgba(26,26,26,0.95);
             backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 2rem;
+            border-radius: 24px;
+            padding: 2.5rem 2rem 2rem;
             max-width: 95%;
-            max-width: 600px;
+            width: 600px;
             border: 1px solid rgba(255,255,255,0.2);
             max-height: 90vh;
             overflow-y: auto;
@@ -342,27 +481,28 @@
         body.light .about-content {
             background: rgba(255,255,255,0.95);
             border-color: #ddd;
-            color: #333;
         }
         .close-about-btn {
             position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: none;
-            border: 1px solid #fff;
-            color: #fff;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            top: 1rem;
+            left: 1rem;
+            background: #ff4757;
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             cursor: pointer;
-            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
             transition: all 0.3s ease;
-        }
-        body.light .close-about-btn {
-            border-color: #333;
-            color: #333;
+            z-index: 10;
         }
         .close-about-btn:hover {
-            background: rgba(255,255,255,0.1);
+            background: #ff6b7a;
+            transform: scale(1.1);
         }
         .about-title {
             font-size: clamp(1.8rem, 6vw, 2.5rem);
@@ -376,73 +516,13 @@
             text-align: center;
         }
 
-        /* Social Modal */
-        .social-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            backdrop-filter: blur(20px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2002;
-            padding: 2rem;
-        }
-        .social-content {
-            background: rgba(26,26,26,0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 95%;
-            max-width: 600px;
-            border: 1px solid rgba(255,255,255,0.2);
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        body.light .social-content {
-            background: rgba(255,255,255,0.95);
-            border-color: #ddd;
-            color: #333;
-        }
-        .close-social-btn {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: none;
-            border: 1px solid #fff;
-            color: #fff;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        body.light .close-social-btn {
-            border-color: #333;
-            color: #333;
-        }
-        .close-social-btn:hover {
-            background: rgba(255,255,255,0.1);
-        }
-        .social-modal-title {
-            font-size: clamp(1.8rem, 6vw, 2.5rem);
-            margin-bottom: 1.2rem;
-            text-align: center;
-            color: #ffd700;
-        }
-
-        /* New Modal */
         .new-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             backdrop-filter: blur(20px);
             display: none;
             justify-content: center;
@@ -453,10 +533,10 @@
         .new-content {
             background: rgba(26,26,26,0.95);
             backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 2rem;
+            border-radius: 24px;
+            padding: 2.5rem 2rem 2rem;
             max-width: 95%;
-            max-width: 800px;
+            width: 800px;
             border: 1px solid rgba(255,255,255,0.2);
             max-height: 90vh;
             overflow-y: auto;
@@ -465,39 +545,39 @@
         body.light .new-content {
             background: rgba(255,255,255,0.95);
             border-color: #ddd;
-            color: #333;
         }
         .close-new-btn {
             position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: none;
-            border: 1px solid #fff;
-            color: #fff;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            top: 1rem;
+            left: 1rem;
+            background: #ff4757;
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             cursor: pointer;
-            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
             transition: all 0.3s ease;
-        }
-        body.light .close-new-btn {
-            border-color: #333;
-            color: #333;
+            z-index: 10;
         }
         .close-new-btn:hover {
-            background: rgba(255,255,255,0.1);
+            background: #ff6b7a;
+            transform: scale(1.1);
         }
         .new-modal-title {
             font-size: clamp(1.8rem, 6vw, 2.5rem);
-            margin-bottom: 1.2rem;
+            margin-bottom: 2rem;
             text-align: center;
             color: #ffd700;
         }
         .new-product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
         }
         .new-product-item {
             background: rgba(255,255,255,0.05);
@@ -517,41 +597,96 @@
         }
         .new-product-image {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 1rem;
+            height: 180px;
             background: linear-gradient(45deg, #333, #555, #333);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 1rem;
             color: rgba(255,255,255,0.3);
             font-size: 3rem;
         }
         .new-product-name {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 500;
             margin-bottom: 0.5rem;
             color: #ffd700;
         }
         .new-product-desc {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             opacity: 0.8;
             line-height: 1.5;
         }
         .coming-soon-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
             background: linear-gradient(45deg, #ff4757, #ff6b7a);
             color: white;
-            padding: 0.4rem 0.8rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 12px;
             font-size: 0.75rem;
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(255,71,87,0.4);
+            margin-top: 0.8rem;
+            display: inline-block;
             animation: pulse 2s infinite;
-            z-index: 1;
+        }
+
+        .social-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(20px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2002;
+            padding: 2rem;
+        }
+        .social-content {
+            background: rgba(26,26,26,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2.5rem 2rem 2rem;
+            max-width: 95%;
+            width: 500px;
+            border: 1px solid rgba(255,255,255,0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        body.light .social-content {
+            background: rgba(255,255,255,0.95);
+            border-color: #ddd;
+        }
+        .close-social-btn {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: #ff4757;
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .close-social-btn:hover {
+            background: #ff6b7a;
+            transform: scale(1.1);
+        }
+        .social-modal-title {
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #ffd700;
         }
 
         .video-showcase {
@@ -1095,7 +1230,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             backdrop-filter: blur(20px);
             display: none;
             justify-content: center;
@@ -1109,10 +1244,11 @@
             border-radius: 20px;
             padding: 2rem;
             max-width: 95%;
-            max-width: 500px;
+            width: 500px;
             border: 1px solid rgba(255,255,255,0.2);
             max-height: 80vh;
             overflow-y: auto;
+            position: relative;
         }
         .confirm-buttons {
             display: flex;
@@ -1163,7 +1299,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             backdrop-filter: blur(20px);
             display: none;
             justify-content: center;
@@ -1177,10 +1313,11 @@
             border-radius: 20px;
             padding: 2rem;
             max-width: 95%;
-            max-width: 600px;
+            width: 600px;
             border: 1px solid rgba(255,255,255,0.2);
             max-height: 90vh;
             overflow-y: auto;
+            position: relative;
         }
         .form-group {
             margin-bottom: 1.2rem;
@@ -1273,7 +1410,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             backdrop-filter: blur(20px);
             display: none;
             justify-content: center;
@@ -1287,7 +1424,7 @@
             border-radius: 20px;
             padding: 3rem 2rem;
             max-width: 95%;
-            max-width: 500px;
+            width: 500px;
             border: 1px solid rgba(255,255,255,0.2);
             text-align: center;
             position: relative;
@@ -1554,6 +1691,10 @@
             .fullscreen-btn {
                 display: flex;
             }
+            
+            .collection-grid-modal {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -1604,9 +1745,13 @@
             </button>
         </div>
         <div class="menu-items">
-            <div class="menu-item" onclick="openAbout()">
-                <span id="menu-about">About</span>
-                <i class="fas fa-info-circle"></i>
+            <div class="menu-item" onclick="openCollection()">
+                <span id="menu-collection">The Collection</span>
+                <i class="fas fa-layer-group"></i>
+            </div>
+            <div class="menu-item" onclick="openNew()">
+                <span id="menu-new">New</span>
+                <i class="fas fa-star"></i>
             </div>
             <div class="menu-item" onclick="toggleLang()">
                 <span id="menu-language">English</span>
@@ -1616,19 +1761,76 @@
                 <span id="menu-social">Social</span>
                 <i class="fas fa-share-alt"></i>
             </div>
-            <div class="menu-item" onclick="openNew()">
-                <span id="menu-new">New</span>
-                <i class="fas fa-star"></i>
+            <div class="menu-item" onclick="openAbout()">
+                <span id="menu-about">About</span>
+                <i class="fas fa-info-circle"></i>
             </div>
         </div>
     </div>
     
     <div class="menu-overlay" id="menuOverlay" onclick="toggleSideMenu()"></div>
 
+    <!-- Collection Modal -->
+    <div class="collection-modal" id="collectionModal">
+        <div class="collection-content">
+            <button class="close-collection-btn" onclick="closeCollection()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="collection-modal-title" id="collection-modal-title">The Collection</h2>
+            <div class="collection-grid-modal">
+                <div class="collection-item-modal">
+                    <div class="collection-image-modal">
+                        <img src="images/1.jpeg" alt="HOODIE Elvar">
+                    </div>
+                    <div class="collection-info-modal">
+                        <div class="collection-name-modal" id="collection-product-1-name">HOODIE Elvar</div>
+                        <p class="collection-desc-modal" id="collection-product-1-desc">هودي أساسي بتطريزات متعددة - 100% قطن ميلتون</p>
+                        <div class="collection-price-modal">
+                            <span class="current-price-modal" id="collection-product-1-price">899 جنيه</span>
+                            <span class="original-price-modal" id="collection-product-1-original">1200 جنيه</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="collection-item-modal">
+                    <div class="collection-image-modal">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="collection-info-modal">
+                        <div class="collection-name-modal" id="collection-product-2-name">Classic Black Hoodie</div>
+                        <p class="collection-desc-modal" id="collection-product-2-desc">تصميم كلاسيكي أنيق باللون الأسود مع تطريزات ذهبية</p>
+                        <div class="coming-soon-badge-modal" id="collection-coming-soon">قريباً</div>
+                    </div>
+                </div>
+                <div class="collection-item-modal">
+                    <div class="collection-image-modal">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="collection-info-modal">
+                        <div class="collection-name-modal" id="collection-product-3-name">Urban Gray Edition</div>
+                        <p class="collection-desc-modal" id="collection-product-3-desc">إصدار حصري باللون الرمادي مع تفاصيل حضرية عصرية</p>
+                        <div class="coming-soon-badge-modal" id="collection-coming-soon-2">قريباً</div>
+                    </div>
+                </div>
+                <div class="collection-item-modal">
+                    <div class="collection-image-modal">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="collection-info-modal">
+                        <div class="collection-name-modal" id="collection-product-4-name">Limited Edition White</div>
+                        <p class="collection-desc-modal" id="collection-product-4-desc">إصدار محدود باللون الأبيض مع تطريزات فريدة</p>
+                        <div class="coming-soon-badge-modal" id="collection-coming-soon-3">قريباً</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- About Modal -->
     <div class="about-modal" id="aboutModal">
         <div class="about-content">
-            <button class="close-about-btn" onclick="closeAbout()" id="close-btn">إغلاق</button>
+            <button class="close-about-btn" onclick="closeAbout()">
+                <i class="fas fa-times"></i>
+            </button>
             <h2 class="about-title" id="about-title">About Elvar</h2>
             <p class="about-text" id="about-text">
                 HOODIE ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.
@@ -1645,7 +1847,9 @@
     <!-- Social Modal -->
     <div class="social-modal" id="socialModal">
         <div class="social-content">
-            <button class="close-social-btn" onclick="closeSocial()" id="close-social-btn">إغلاق</button>
+            <button class="close-social-btn" onclick="closeSocial()">
+                <i class="fas fa-times"></i>
+            </button>
             <h2 class="social-modal-title" id="social-modal-title">Social Media</h2>
             <div style="display:grid;grid-template-columns:1fr;gap:1rem;max-width:400px;margin:0 auto;">
                 <a href="https://wa.me/201203790142" target="_blank" style="background:rgba(255,255,255,0.1);border:1px solid #25D366;border-radius:12px;padding:1rem;text-decoration:none;color:#fff;display:flex;align-items:center;gap:1rem;transition:all 0.3s ease;">
@@ -1683,8 +1887,10 @@
     <!-- New Modal -->
     <div class="new-modal" id="newModal">
         <div class="new-content">
-            <button class="close-new-btn" onclick="closeNew()" id="close-new-btn">إغلاق</button>
-            <h2 class="new-modal-title" id="new-modal-title">New Collection</h2>
+            <button class="close-new-btn" onclick="closeNew()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="new-modal-title" id="new-modal-title">New</h2>
             <div class="new-product-grid">
                 <div class="new-product-item">
                     <div class="new-product-image">
@@ -1701,14 +1907,6 @@
                     <div class="new-product-name" id="new-product-2-name">Urban Gray Edition</div>
                     <p class="new-product-desc" id="new-product-2-desc">إصدار حصري باللون الرمادي مع تفاصيل حضرية عصرية</p>
                     <div class="coming-soon-badge" id="new-coming-soon-2">قريباً</div>
-                </div>
-                <div class="new-product-item">
-                    <div class="new-product-image">
-                        <i class="fas fa-box-open"></i>
-                    </div>
-                    <div class="new-product-name" id="new-product-3-name">Limited Edition White</div>
-                    <p class="new-product-desc" id="new-product-3-desc">إصدار محدود باللون الأبيض مع تطريزات فريدة</p>
-                    <div class="coming-soon-badge" id="new-coming-soon-3">قريباً</div>
                 </div>
             </div>
         </div>
@@ -1988,12 +2186,24 @@
         const translations = {
             en: {
                 menuTitle: 'Menu',
+                menuCollection: 'The Collection',
                 menuAbout: 'About',
                 menuLanguage: 'العربية',
                 menuSocial: 'Social',
                 menuNew: 'New',
                 cartLabel: 'Cart',
-                closeBtn: 'Close',
+                collectionModalTitle: 'The Collection',
+                collectionProduct1Name: 'HOODIE Elvar',
+                collectionProduct1Desc: 'Basic hoodie with multiple embroidery - 100% Milton cotton',
+                collectionProduct1Price: 'EGP 899',
+                collectionProduct1Original: 'EGP 1200',
+                collectionProduct2Name: 'Classic Black Hoodie',
+                collectionProduct2Desc: 'Classic elegant design in black with golden embroidery',
+                collectionProduct3Name: 'Urban Gray Edition',
+                collectionProduct3Desc: 'Exclusive gray edition with modern urban details',
+                collectionProduct4Name: 'Limited Edition White',
+                collectionProduct4Desc: 'Limited edition in white with unique embroidery',
+                collectionComingSoon: 'Soon',
                 aboutTitle: 'About Elvar',
                 aboutText: 'HOODIE ELVAR is not just a piece of clothing, it\'s a style that changes with you and expresses your personality.<br>With a simple and stable design, but its idea is smart and expandable, to give you more than one style in one hoodie.<br>Made from 100% heavy and comfortable Milton cotton, suitable for daily use and gives you a sense of quality from the first wear.<br>Each hoodie comes with 3 embroideries (1 basic + 2 gifts) that you can easily attach and change according to color and mood.<br>Precise details, accurate execution, and lasting comfort...<br>ELVAR is an abbreviation for simplicity that speaks.<br>🌍 From Cairo to the world.',
                 socialModalTitle: 'Social Media',
@@ -2001,13 +2211,11 @@
                 socialFacebook: 'Facebook',
                 socialInstagram: 'Instagram',
                 socialTiktok: 'TikTok',
-                newModalTitle: 'New Collection',
+                newModalTitle: 'New',
                 newProduct1Name: 'Classic Black Hoodie',
                 newProduct1Desc: 'Classic elegant design in black with golden embroidery',
                 newProduct2Name: 'Urban Gray Edition',
                 newProduct2Desc: 'Exclusive gray edition with modern urban details',
-                newProduct3Name: 'Limited Edition White',
-                newProduct3Desc: 'Limited edition in white with unique embroidery',
                 newComingSoon: 'Soon',
                 ctaText: 'Discover Product',
                 productTitle: 'HOODIE Elvar',
@@ -2071,12 +2279,24 @@
             },
             ar: {
                 menuTitle: 'القائمة',
-                menuAbout: 'نبذة',
+                menuCollection: 'The Collection',
+                menuAbout: 'About',
                 menuLanguage: 'English',
                 menuSocial: 'Social',
                 menuNew: 'New',
                 cartLabel: 'السلة',
-                closeBtn: 'إغلاق',
+                collectionModalTitle: 'The Collection',
+                collectionProduct1Name: 'HOODIE Elvar',
+                collectionProduct1Desc: 'هودي أساسي بتطريزات متعددة - 100% قطن ميلتون',
+                collectionProduct1Price: '899 جنيه',
+                collectionProduct1Original: '1200 جنيه',
+                collectionProduct2Name: 'هودي أسود كلاسيكي',
+                collectionProduct2Desc: 'تصميم كلاسيكي أنيق باللون الأسود مع تطريزات ذهبية',
+                collectionProduct3Name: 'إصدار رمادي حضري',
+                collectionProduct3Desc: 'إصدار حصري باللون الرمادي مع تفاصيل حضرية عصرية',
+                collectionProduct4Name: 'إصدار أبيض محدود',
+                collectionProduct4Desc: 'إصدار محدود باللون الأبيض مع تطريزات فريدة',
+                collectionComingSoon: 'قريباً',
                 aboutTitle: 'نبذة عن Elvar',
                 aboutText: 'HOODIE ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.<br>مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.<br>كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.<br>تفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…<br>ELVAR اختصار للبَساطة اللي بتتكلم.<br>🌍 من القاهرة إلى العالم.',
                 socialModalTitle: 'وسائل التواصل الاجتماعي',
@@ -2084,13 +2304,11 @@
                 socialFacebook: 'فيسبوك',
                 socialInstagram: 'انستجرام',
                 socialTiktok: 'تيك توك',
-                newModalTitle: 'المجموعة الجديدة',
+                newModalTitle: 'New',
                 newProduct1Name: 'هودي أسود كلاسيكي',
                 newProduct1Desc: 'تصميم كلاسيكي أنيق باللون الأسود مع تطريزات ذهبية',
                 newProduct2Name: 'إصدار رمادي حضري',
                 newProduct2Desc: 'إصدار حصري باللون الرمادي مع تفاصيل حضرية عصرية',
-                newProduct3Name: 'إصدار أبيض محدود',
-                newProduct3Desc: 'إصدار محدود باللون الأبيض مع تطريزات فريدة',
                 newComingSoon: 'قريباً',
                 ctaText: 'اكتشف المنتج',
                 productTitle: 'HOODIE Elvar',
@@ -2196,6 +2414,16 @@
             });
         }
         
+        function openCollection() {
+            closeSideMenu();
+            const modal = document.getElementById('collectionModal');
+            modal.style.display = 'flex';
+        }
+        
+        function closeCollection() {
+            document.getElementById('collectionModal').style.display = 'none';
+        }
+        
         function openAbout() {
             closeSideMenu();
             const modal = document.getElementById('aboutModal');
@@ -2230,6 +2458,7 @@
             const t = translations[isEnglish ? 'en' : 'ar'];
             
             document.getElementById('menu-title').textContent = t.menuTitle;
+            document.getElementById('menu-collection').textContent = t.menuCollection;
             document.getElementById('menu-about').textContent = t.menuAbout;
             document.getElementById('menu-language').textContent = t.menuLanguage;
             document.getElementById('menu-social').textContent = t.menuSocial;
@@ -2237,28 +2466,37 @@
             
             document.getElementById('cart-label').textContent = t.cartLabel;
             
+            document.getElementById('collection-modal-title').textContent = t.collectionModalTitle;
+            document.getElementById('collection-product-1-name').textContent = t.collectionProduct1Name;
+            document.getElementById('collection-product-1-desc').textContent = t.collectionProduct1Desc;
+            document.getElementById('collection-product-1-price').textContent = t.collectionProduct1Price;
+            document.getElementById('collection-product-1-original').textContent = t.collectionProduct1Original;
+            document.getElementById('collection-product-2-name').textContent = t.collectionProduct2Name;
+            document.getElementById('collection-product-2-desc').textContent = t.collectionProduct2Desc;
+            document.getElementById('collection-product-3-name').textContent = t.collectionProduct3Name;
+            document.getElementById('collection-product-3-desc').textContent = t.collectionProduct3Desc;
+            document.getElementById('collection-product-4-name').textContent = t.collectionProduct4Name;
+            document.getElementById('collection-product-4-desc').textContent = t.collectionProduct4Desc;
+            document.getElementById('collection-coming-soon').textContent = t.collectionComingSoon;
+            document.getElementById('collection-coming-soon-2').textContent = t.collectionComingSoon;
+            document.getElementById('collection-coming-soon-3').textContent = t.collectionComingSoon;
+            
             document.getElementById('about-title').textContent = t.aboutTitle;
             document.getElementById('about-text').innerHTML = t.aboutText;
-            document.getElementById('close-btn').textContent = t.closeBtn;
             
             document.getElementById('social-modal-title').textContent = t.socialModalTitle;
             document.getElementById('social-whatsapp').textContent = t.socialWhatsapp;
             document.getElementById('social-facebook').textContent = t.socialFacebook;
             document.getElementById('social-instagram').textContent = t.socialInstagram;
             document.getElementById('social-tiktok').textContent = t.socialTiktok;
-            document.getElementById('close-social-btn').textContent = t.closeBtn;
             
             document.getElementById('new-modal-title').textContent = t.newModalTitle;
             document.getElementById('new-product-1-name').textContent = t.newProduct1Name;
             document.getElementById('new-product-1-desc').textContent = t.newProduct1Desc;
             document.getElementById('new-product-2-name').textContent = t.newProduct2Name;
             document.getElementById('new-product-2-desc').textContent = t.newProduct2Desc;
-            document.getElementById('new-product-3-name').textContent = t.newProduct3Name;
-            document.getElementById('new-product-3-desc').textContent = t.newProduct3Desc;
             document.getElementById('new-coming-soon').textContent = t.newComingSoon;
             document.getElementById('new-coming-soon-2').textContent = t.newComingSoon;
-            document.getElementById('new-coming-soon-3').textContent = t.newComingSoon;
-            document.getElementById('close-new-btn').textContent = t.closeBtn;
             
             document.getElementById('cta-text').textContent = t.ctaText;
             
@@ -2676,7 +2914,10 @@ ${t.alertDelivery}
             if (e.target.classList.contains('menu-overlay')) {
                 closeSideMenu();
             }
-            if (e.target.classList.contains('about-modal') || e.target.classList.contains('social-modal') || e.target.classList.contains('new-modal')) {
+            if (e.target.classList.contains('collection-modal') || 
+                e.target.classList.contains('about-modal') || 
+                e.target.classList.contains('social-modal') || 
+                e.target.classList.contains('new-modal')) {
                 e.target.style.display = 'none';
             }
         });
