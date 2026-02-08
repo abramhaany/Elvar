@@ -4,35 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elvar</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #000000;
+            --secondary: #111111;
+            --accent: #222222;
+            --text: #ffffff;
+            --text-light: #cccccc;
+            --border: #333333;
+            --gold: #d4af37;
+            --hover: #2c2c2c;
+            --navy: #330033;
+            --black: #000000;
+            --olive: #556B2F;
+            --cream: #F5F5DC;
+        }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body { 
             font-family: 'Inter', sans-serif; 
-            background: #0a0a0a; 
-            color: #fff; 
+            background: var(--secondary);
+            color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
-            transition: all 0.3s ease;
         }
-        body.light {
-            background: #f8f9fa;
-            color: #333;
-        }
+        
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10,10,10,0.95);
+            background: rgba(17, 17, 17, 0.98);
             padding: 1rem 0;
             z-index: 1000;
-            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
         }
-        body.light nav {
-            background: rgba(255,255,255,0.95);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        }
+        
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -41,1991 +52,1257 @@
             align-items: center;
             padding: 0 5%;
         }
-        .logo-nav {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: clamp(1.4rem, 5vw, 2rem);
-            font-weight: 600;
-            color: #fff;
-            text-align: center;
-            cursor: pointer;
-        }
-        .nav-menu-btn {
-            background: none;
-            border: 1px solid #444;
-            color: #fff;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-        body.light .nav-menu-btn {
-            border-color: #ddd;
-            color: #333;
-        }
-        .nav-menu-btn:hover {
-            background: rgba(255,255,255,0.1);
-        }
-        .cart-btn {
-            position: relative;
-            background: rgba(255,255,255,0.1);
-            border: 2px solid #ffd700;
-            color: #ffd700;
-            padding: 0.6rem 0.8rem;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            backdrop-filter: blur(10px);
-        }
-        body.light .cart-btn {
-            border-color: #ffd700;
-            color: #ffd700;
-            background: rgba(255,215,0,0.1);
-        }
-        .cart-btn:hover {
-            background: linear-gradient(45deg, #ffd700, #ffed4a);
-            color: #000;
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(255,215,0,0.4);
-        }
-        .cart-icon {
-            font-size: 1.1rem;
-            position: relative;
-        }
-        .cart-count {
-            position: absolute;
-            top: -6px;
-            right: -6px;
-            background: linear-gradient(45deg, #ff4757, #ff6b7a);
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 0.7rem;
+        
+        .logo {
+            font-size: 1.8rem;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: bounce 0.6s ease infinite alternate;
-            box-shadow: 0 3px 10px rgba(255,71,87,0.6);
-        }
-        @keyframes bounce {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-2px); }
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -1px;
         }
         
-        .hero {
-            height: 100vh;
+        .logo span {
+            color: var(--gold);
+        }
+        
+        .nav-links {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            gap: 2rem;
             align-items: center;
-            text-align: center;
-            padding: 0 5%;
-            position: relative;
-            padding-top: 80px;
         }
-        .hero-title {
-            text-align: center;
-            width: 100%;
-            position: relative;
-        }
-        .hero-title h1 {
-            font-size: clamp(2.5rem, 12vw, 6rem);
-            font-weight: 400;
-            margin: 0;
-            opacity: 0.95;
-            background: linear-gradient(45deg, #fff, #ddd, #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero-title .v-spin {
-            display: inline-block;
-            animation: spinV 5s linear infinite;
-            margin: 0 0.05em;
-            background: linear-gradient(45deg, #ffd700, #ffed4a, #fff, #ffd700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            background-size: 300% 300%;
-            animation: spinV 5s linear infinite, gradientShift 3s ease infinite;
-            text-shadow: 0 0 20px rgba(255,215,0,0.8);
-            font-weight: 600;
-        }
-        @keyframes spinV {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        .cta-main {
-            background: #fff;
-            color: #000;
-            padding: 1rem 2.5rem;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 500;
+        
+        .nav-link {
+            color: var(--text-light);
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(255,255,255,0.2);
-            display: inline-block;
-            margin-top: 1rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
             position: relative;
-            overflow: hidden;
+            white-space: nowrap;
         }
-        .cta-main::before {
+        
+        .nav-link:hover {
+            color: var(--text);
+        }
+        
+        .nav-link.active {
+            color: var(--text);
+        }
+        
+        .nav-link.active::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
+            bottom: -5px;
+            left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: all 0.6s ease;
+            height: 2px;
+            background: var(--gold);
         }
-        .cta-main:hover::before {
-            left: 100%;
-        }
-        .cta-main:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(255,255,255,0.3);
-        }
-
-        .side-menu {
-            position: fixed;
-            top: 0;
-            right: -400px;
-            width: 350px;
-            height: 100vh;
-            background: rgba(10,10,10,0.98);
-            backdrop-filter: blur(20px);
-            z-index: 2000;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            border-left: 1px solid rgba(255,255,255,0.1);
-            overflow-y: auto;
-            padding: 2rem;
-            box-shadow: -10px 0 50px rgba(0,0,0,0.5);
-        }
-        body.light .side-menu {
-            background: rgba(255,255,255,0.98);
-            border-left: 1px solid rgba(0,0,0,0.1);
-        }
-        .side-menu.active {
-            right: 0;
-        }
-        .menu-header {
+        
+        .nav-actions {
             display: flex;
-            justify-content: space-between;
+            gap: 0.8rem;
             align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        body.light .menu-header {
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-        }
-        .menu-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #ffd700;
-        }
-        .close-menu-btn {
-            background: none;
-            border: 1px solid #444;
-            color: #fff;
+        
+        .nav-icon {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-        body.light .close-menu-btn {
-            border-color: #ddd;
-            color: #333;
-        }
-        .close-menu-btn:hover {
-            background: rgba(255,255,255,0.1);
-            transform: rotate(90deg);
-        }
-        .menu-items {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-        .menu-item {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
-            padding: 1rem 1.2rem;
-            border-radius: 12px;
-            cursor: pointer;
-            text-align: right;
+            background: var(--accent);
+            border: 1px solid var(--border);
+            color: var(--text);
             font-size: 1rem;
-            transition: all 0.3s ease;
+            cursor: pointer;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-        }
-        body.light .menu-item {
-            background: rgba(0,0,0,0.05);
-            border-color: rgba(0,0,0,0.1);
-            color: #333;
-        }
-        .menu-item:hover {
-            background: rgba(255,215,0,0.1);
-            border-color: #ffd700;
-            transform: translateX(-5px);
-        }
-        .menu-item i {
-            font-size: 1.1rem;
-            opacity: 0.8;
-        }
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
-            z-index: 1999;
-            display: none;
-        }
-        .menu-overlay.active {
-            display: block;
-        }
-
-        .collection-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(20px);
-            display: none;
             justify-content: center;
-            align-items: center;
-            z-index: 2002;
-            padding: 2rem;
         }
-        .collection-content {
-            background: rgba(26,26,26,0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 2.5rem 2rem 2rem;
-            max-width: 95%;
-            width: 800px;
-            border: 1px solid rgba(255,255,255,0.2);
-            max-height: 90vh;
-            overflow-y: auto;
+        
+        .nav-icon:hover {
+            background: var(--gold);
+            color: var(--primary);
+            border-color: var(--gold);
+        }
+        
+        .cart-btn {
             position: relative;
         }
-        body.light .collection-content {
-            background: rgba(255,255,255,0.95);
-            border-color: #ddd;
-        }
-        .close-collection-btn {
+        
+        .cart-count {
             position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: #ff4757;
-            border: none;
-            color: white;
-            width: 36px;
-            height: 36px;
+            top: -5px;
+            right: -5px;
+            background: var(--gold);
+            color: var(--primary);
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
-            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            z-index: 10;
+            font-weight: bold;
         }
-        .close-collection-btn:hover {
-            background: #ff6b7a;
-            transform: scale(1.1);
-        }
-        .collection-modal-title {
-            font-size: clamp(1.8rem, 6vw, 2.5rem);
-            margin-bottom: 2rem;
-            text-align: center;
-            color: #ffd700;
-        }
-        .collection-grid-modal {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        @media (max-width: 768px) {
-            .collection-grid-modal {
-                grid-template-columns: 1fr;
-            }
-        }
-        .collection-item-modal {
-            background: rgba(255,255,255,0.05);
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        body.light .collection-item-modal {
-            background: rgba(0,0,0,0.05);
-            border-color: rgba(0,0,0,0.1);
-        }
-        .collection-item-modal:hover {
-            transform: translateY(-5px);
-            border-color: #ffd700;
-        }
-        .collection-image-modal {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, #333, #555);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        .collection-image-modal img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .collection-image-modal i {
-            font-size: 2.5rem;
-            color: rgba(255,255,255,0.3);
-        }
-        .collection-info-modal {
-            padding: 1.5rem;
-            text-align: center;
-        }
-        .collection-name-modal {
-            font-size: 1.3rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            color: #ffd700;
-        }
-        .collection-desc-modal {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-        .collection-price-modal {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-        .current-price-modal {
-            font-size: 1.4rem;
-            color: #ffd700;
-            font-weight: 600;
-        }
-        .original-price-modal {
-            font-size: 1rem;
-            color: #888;
-            text-decoration: line-through;
-        }
-        .coming-soon-badge-modal {
-            background: linear-gradient(45deg, #ff4757, #ff6b7a);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-top: 0.5rem;
-            animation: pulse 2s infinite;
-        }
-
-        .about-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(20px);
+        
+        .mobile-menu-btn {
             display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2002;
-            padding: 2rem;
-        }
-        .about-content {
-            background: rgba(26,26,26,0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 2.5rem 2rem 2rem;
-            max-width: 95%;
-            width: 600px;
-            border: 1px solid rgba(255,255,255,0.2);
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        body.light .about-content {
-            background: rgba(255,255,255,0.95);
-            border-color: #ddd;
-        }
-        .close-about-btn {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: #ff4757;
+            background: none;
             border: none;
-            color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
+            color: var(--text);
+            font-size: 1.5rem;
             cursor: pointer;
+        }
+        
+        .hero {
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-        .close-about-btn:hover {
-            background: #ff6b7a;
-            transform: scale(1.1);
-        }
-        .about-title {
-            font-size: clamp(1.8rem, 6vw, 2.5rem);
-            margin-bottom: 1.2rem;
-            text-align: center;
-            color: #ffd700;
-        }
-        .about-text {
-            font-size: 1rem;
-            line-height: 1.7;
-            text-align: center;
-        }
-
-        .new-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(20px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2002;
-            padding: 2rem;
-        }
-        .new-content {
-            background: rgba(26,26,26,0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 2.5rem 2rem 2rem;
-            max-width: 95%;
-            width: 600px;
-            border: 1px solid rgba(255,255,255,0.2);
-            max-height: 90vh;
-            overflow-y: auto;
             position: relative;
+            background: linear-gradient(45deg, #000000, #111111);
+            padding: 5% 5% 0;
+            margin-top: 70px;
         }
-        body.light .new-content {
-            background: rgba(255,255,255,0.95);
-            border-color: #ddd;
-        }
-        .close-new-btn {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: #ff4757;
-            border: none;
-            color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-        .close-new-btn:hover {
-            background: #ff6b7a;
-            transform: scale(1.1);
-        }
-        .new-modal-title {
-            font-size: clamp(1.8rem, 6vw, 2.5rem);
-            margin-bottom: 2rem;
-            text-align: center;
-            color: #ffd700;
-        }
-        .new-product-single {
-            background: rgba(255,255,255,0.05);
-            border-radius: 16px;
-            padding: 2rem;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        body.light .new-product-single {
-            background: rgba(0,0,0,0.05);
-            border-color: rgba(0,0,0,0.1);
-        }
-        .new-product-single:hover {
-            transform: translateY(-5px);
-            border-color: #ffd700;
-        }
-        .new-product-image-single {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, #333, #555, #333);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            color: rgba(255,255,255,0.3);
-            font-size: 3rem;
-            overflow: hidden;
-        }
-        .new-product-image-single img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .new-product-name-single {
-            font-size: 1.4rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            color: #ffd700;
-        }
-        .new-product-desc-single {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            line-height: 1.5;
-            margin-bottom: 1rem;
-        }
-        .coming-soon-badge {
-            background: linear-gradient(45deg, #ff4757, #ff6b7a);
-            color: white;
-            padding: 0.4rem 0.9rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-top: 0.8rem;
-            display: inline-block;
-            animation: pulse 2s infinite;
-        }
-
-        .social-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(20px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2002;
-            padding: 2rem;
-        }
-        .social-content {
-            background: rgba(26,26,26,0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 2.5rem 2rem 2rem;
-            max-width: 95%;
-            width: 500px;
-            border: 1px solid rgba(255,255,255,0.2);
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        body.light .social-content {
-            background: rgba(255,255,255,0.95);
-            border-color: #ddd;
-        }
-        .close-social-btn {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: #ff4757;
-            border: none;
-            color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-        .close-social-btn:hover {
-            background: #ff6b7a;
-            transform: scale(1.1);
-        }
-        .social-modal-title {
-            font-size: clamp(1.8rem, 6vw, 2.5rem);
-            margin-bottom: 1.5rem;
-            text-align: center;
-            color: #ffd700;
-        }
-
-        .video-showcase {
-            padding: 20px 5% 0;
+        
+        .hero-content {
             max-width: 1400px;
             margin: 0 auto;
-            position: relative;
-        }
-
-        .video-container {
-            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
             width: 100%;
-            height: clamp(300px, 60vh, 600px);
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
-            background: #000;
-            margin-bottom: 40px;
-            cursor: pointer;
         }
-
-        .product-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all 0.5s ease;
+        
+        .hero-text {
+            padding-right: 2rem;
         }
-
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 2rem;
-            z-index: 2;
-            background: linear-gradient(to left, rgba(0,0,0,0.7), transparent 40%);
-        }
-
-        .video-title {
-            text-align: left;
-            margin-top: auto;
-            margin-bottom: 2rem;
-            max-width: 60%;
-        }
-
-        .video-title h2 {
-            font-size: clamp(1.8rem, 6vw, 2.8rem);
-            font-weight: 400;
-            margin-bottom: 0.3rem;
-            background: linear-gradient(45deg, #fff, #ffd700, #fff);
+        
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            background: linear-gradient(45deg, var(--text), var(--gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            line-height: 1.8;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--gold);
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            border: 2px solid var(--gold);
+        }
+        
+        .cta-button:hover {
+            background: transparent;
+            color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
+        
+        .hero-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+            background: var(--accent);
+        }
+        
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
             display: flex;
             align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .hero-slide.active {
+            opacity: 1;
+        }
+        
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .slide-controls {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
             gap: 0.5rem;
+            z-index: 2;
         }
-
-        .video-title p {
-            font-size: clamp(0.9rem, 3vw, 1.1rem);
-            opacity: 0.9;
-            font-weight: 300;
+        
+        .slide-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s;
         }
-
+        
+        .slide-dot.active {
+            background: var(--gold);
+            transform: scale(1.2);
+        }
+        
+        .collection {
+            padding: 4rem 5%;
+            background: var(--accent);
+        }
+        
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text);
+        }
+        
+        .section-title span {
+            color: var(--gold);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            background: var(--secondary);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            transition: all 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--gold);
+        }
+        
+        .product-image-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            padding: 1rem;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.6s;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        
+        .product-price {
+            font-size: 1.2rem;
+            color: var(--gold);
+            font-weight: 500;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: var(--text-light);
+            margin-right: 0.5rem;
+        }
+        
+        .sale-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--gold);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 4px;
+            z-index: 2;
+        }
+        
+        .coming-soon-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: linear-gradient(45deg, var(--gold), #ff6b6b);
+            color: var(--text);
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 4px;
+            z-index: 2;
+        }
+        
+        .video-section {
+            padding: 4rem 5%;
+            background: var(--secondary);
+        }
+        
+        .video-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: var(--accent);
+        }
+        
+        .product-video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: var(--primary);
+        }
+        
         .video-controls {
             position: absolute;
             bottom: 2rem;
             left: 2rem;
             display: flex;
-            gap: 0.8rem;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(20px);
-            padding: 0.8rem;
-            border-radius: 50px;
-            border: 1px solid rgba(255,255,255,0.2);
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-            transition: all 0.3s ease;
-            z-index: 3;
+            gap: 1rem;
         }
-
-        .video-controls.hidden {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-        }
-
-        @media (max-width: 768px) {
-            .video-controls {
-                opacity: 0;
-                visibility: hidden;
-                transform: translateY(10px);
-            }
-            
-            .video-controls.visible {
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
-            }
-            
-            .side-menu {
-                width: 85%;
-                right: -85%;
-            }
-        }
-
-        .video-control-btn {
-            width: 44px;
-            height: 44px;
+        
+        .video-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--gold);
             border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
+            color: var(--gold);
+            font-size: 1.2rem;
             cursor: pointer;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
         }
-
-        .video-control-btn:hover {
-            background: rgba(255,255,255,0.2);
-            transform: scale(1.08);
-            border-color: #ffd700;
+        
+        .video-btn:hover {
+            background: var(--gold);
+            color: var(--primary);
+            transform: scale(1.1);
         }
-
-        .fullscreen-btn {
-            display: flex;
+        
+        .featured-product {
+            padding: 4rem 5%;
+            background: var(--accent);
+            border-top: 1px solid var(--border);
         }
-
-        body.light .video-container {
-            box-shadow: 0 40px 80px rgba(0,0,0,0.3);
-        }
-
-        body.light .product-video {
-            filter: brightness(1.05);
-        }
-
-        body.light .video-overlay {
-            background: linear-gradient(to left, rgba(0,0,0,0.6), transparent 40%);
-        }
-
-        .product-showcase {
-            padding: 40px 5% 60px;
+        
+        .product-detail {
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
             align-items: start;
         }
-        @media (min-width: 769px) {
-            .product-showcase { 
-                grid-template-columns: 2fr 1fr; 
-                gap: 4rem; 
-                padding: 40px 5% 80px;
-            }
+        
+        .product-gallery {
+            display: grid;
+            gap: 1rem;
         }
-        body.light .product-showcase { background: #f8f9fa; }
-        .product-gallery { position: relative; order: 2; }
-        @media (min-width: 769px) {
-            .product-gallery { order: 1; }
-        }
+        
         .main-image-container {
-            position: relative;
-            height: clamp(250px, 50vw, 500px);
-            border-radius: 20px;
+            width: 100%;
+            height: 500px;
             overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-            background: #1a1a1a;
+            border-radius: 10px;
+            border: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
+            background: var(--secondary);
+            padding: 2rem;
         }
-        body.light .main-image-container {
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
-            background: #fff;
-        }
+        
         .main-image {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: contain;
             max-width: 100%;
             max-height: 100%;
-            object-fit: contain;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            cursor: pointer;
         }
-        .main-image:hover { transform: scale(1.02); }
-        .gallery-nav {
+        
+        .thumbnails {
             display: flex;
             gap: 0.8rem;
-            margin-top: 1.5rem;
-            justify-content: center;
-        }
-        .gallery-nav-btn {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            border: 2px solid #333;
-            color: #fff;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        body.light .gallery-nav-btn {
-            background: rgba(0,0,0,0.1);
-            border-color: #ddd;
-            color: #333;
-        }
-        .gallery-nav-btn:hover {
-            background: #fff;
-            color: #000;
-            transform: scale(1.08);
-        }
-        body.light .gallery-nav-btn:hover {
-            background: #333;
-            color: #fff;
-        }
-        .thumbnail-container {
-            display: flex;
-            gap: 0.8rem;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
             overflow-x: auto;
-            padding: 1rem;
-            background: rgba(26,26,26,0.8);
-            border-radius: 14px;
-            scrollbar-width: thin;
-            scrollbar-color: #ffd700 #333;
-            backdrop-filter: blur(10px);
+            padding-bottom: 0.5rem;
         }
-        body.light .thumbnail-container { background: rgba(255,255,255,0.8); }
-        .thumbnail-container::-webkit-scrollbar {
-            height: 6px;
-        }
-        .thumbnail-container::-webkit-scrollbar-track {
-            background: #333;
-            border-radius: 3px;
-        }
-        .thumbnail-container::-webkit-scrollbar-thumb {
-            background: #ffd700;
-            border-radius: 3px;
-        }
-        .thumbnail-strip {
-            display: flex;
-            gap: 0.8rem;
-            min-width: max-content;
-        }
+        
         .thumbnail {
-            width: clamp(60px, 12vw, 75px);
-            height: clamp(60px, 12vw, 75px);
-            object-fit: contain;
-            border-radius: 10px;
-            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+            flex-shrink: 0;
+            border-radius: 5px;
+            border: 1px solid var(--border);
         }
-        .thumbnail:hover, .thumbnail.active {
-            border-color: #ffd700;
-            box-shadow: 0 0 15px rgba(255,215,0,0.5);
-            transform: scale(1.05);
-        }
-        .product-info {
-            order: 1;
-            padding: 0;
-        }
-        @media (min-width: 769px) {
-            .product-info { order: 2; }
-        }
-        .product-info h2 {
-            font-size: clamp(1.8rem, 6vw, 2.8rem);
-            font-weight: 400;
-            margin-bottom: 1rem;
-            opacity: 0.95;
-        }
-        body.light .product-info h2 { color: #333; }
-        .price-container {
-            margin-bottom: 1.5rem;
-            position: relative;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            gap: 0.5rem;
-        }
-        .current-price {
-            font-size: clamp(2rem, 8vw, 3.2rem);
-            color: #ffd700;
-            font-weight: 500;
-            display: inline-block;
-        }
-        .original-price {
-            font-size: clamp(1.2rem, 4vw, 1.8rem);
-            color: #888;
-            text-decoration: line-through;
-            opacity: 0.7;
-        }
-        .discount-badge {
-            background: linear-gradient(45deg, #ff4757, #ff6b7a);
-            color: white;
-            padding: 0.4rem 0.8rem;
-            border-radius: 18px;
-            font-size: clamp(0.8rem, 2.5vw, 1rem);
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(255,71,87,0.4);
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-        }
-        .product-desc {
+        
+        .thumbnail:hover {
             opacity: 0.8;
+        }
+        
+        .thumbnail.active {
+            opacity: 1;
+            border: 2px solid var(--gold);
+        }
+        
+        .product-details {
+            padding: 0 1rem;
+        }
+        
+        .product-header {
             margin-bottom: 1.5rem;
-            line-height: 1.6;
+        }
+        
+        .product-name {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        
+        .product-name span {
+            color: var(--gold);
+        }
+        
+        .product-description {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
             font-size: 1rem;
         }
-        body.light .product-desc { color: #666; }
         
-        .size-selection {
+        .price {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+        
+        .options {
             margin-bottom: 1.5rem;
         }
-        .size-selection label, .quantity-selection label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            opacity: 0.9;
+        
+        .option-group {
+            margin-bottom: 1.2rem;
         }
+        
+        .option-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
         .size-options {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
         }
-        .size-option {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid #444;
-            border-radius: 8px;
+        
+        .size-btn {
             padding: 0.6rem 1.2rem;
+            border: 1px solid var(--border);
+            background: var(--secondary);
+            color: var(--text);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             font-weight: 500;
+            border-radius: 5px;
+            min-width: 80px;
+            text-align: center;
         }
-        .size-option:hover {
-            background: rgba(255,255,255,0.15);
+        
+        .size-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
         }
-        .size-option.selected {
-            background: #ffd700;
-            color: #000;
-            border-color: #ffd700;
-            box-shadow: 0 0 10px rgba(255,215,0,0.5);
+        
+        .size-btn.selected {
+            background: var(--gold);
+            color: var(--primary);
+            border-color: var(--gold);
         }
-        body.light .size-option {
-            background: rgba(0,0,0,0.05);
-            border-color: #ddd;
-        }
-        body.light .size-option:hover {
-            background: rgba(0,0,0,0.1);
-        }
-        .quantity-selection {
-            margin-bottom: 1.5rem;
-        }
-        .quantity-controls {
+        
+        .quantity-selector {
             display: flex;
             align-items: center;
             gap: 1rem;
-        }
-        .quantity-btn {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid #444;
-            color: #fff;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-        .quantity-btn:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        .quantity-display {
-            font-size: 1.2rem;
-            font-weight: 600;
-            min-width: 30px;
-            text-align: center;
-        }
-        body.light .quantity-btn {
-            background: rgba(0,0,0,0.05);
-            border-color: #ddd;
-            color: #333;
-        }
-        body.light .quantity-btn:hover {
-            background: rgba(0,0,0,0.1);
+            max-width: 200px;
         }
         
-        .add-cart-btn {
-            background: linear-gradient(45deg, #ffd700, #ffed4a);
-            color: #000;
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            background: var(--secondary);
+            color: var(--text);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 5px;
+            flex-shrink: 0;
+        }
+        
+        .qty-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        
+        .qty-display {
+            font-size: 1.2rem;
+            font-weight: 600;
+            min-width: 40px;
+            text-align: center;
+            color: var(--text);
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gold);
+            color: var(--primary);
             border: none;
-            padding: 1.2rem 2rem;
-            border-radius: 40px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            width: 100%;
-            box-shadow: 0 12px 35px rgba(255,215,0,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        .add-cart-btn:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 20px 45px rgba(255,215,0,0.4);
-        }
-        .add-cart-btn:active {
-            animation: addToCartAnim 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        @keyframes addToCartAnim {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.95) translateY(-8px); }
-            100% { transform: scale(1) translateY(0); }
-        }
-        .cart-fly {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #ffd700, #ffed4a);
-            z-index: 2000;
-            pointer-events: none;
-            box-shadow: 0 8px 25px rgba(255,215,0,0.6);
-            animation: flyToCart 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-        }
-        @keyframes flyToCart {
-            0% {
-                transform: scale(1) translateY(0);
-                opacity: 1;
-            }
-            70% {
-                transform: scale(0.3) translateY(-150px) translateX(100px);
-                opacity: 0.8;
-            }
-            100% {
-                transform: scale(0) translateY(-200px) translateX(150px);
-                opacity: 0;
-            }
-        }
-        .side-products {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-        @media (min-width: 769px) {
-            .side-products { 
-                margin-top: 0; 
-                position: sticky; 
-                top: 120px; 
-            }
-        }
-        .side-product {
-            background: rgba(26,26,26,0.5);
-            border-radius: 16px;
-            padding: 1.5rem;
-            border: 1px solid #333;
-            backdrop-filter: blur(10px);
-            position: relative;
-            z-index: 1;
-        }
-        body.light .side-product {
-            background: rgba(255,255,255,0.7);
-            border-color: #ddd;
-        }
-        .side-product img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            border-radius: 12px;
-            display: block;
-        }
-        .side-price-container {
-            margin: 0.8rem 0 1.2rem 0;
-            position: relative;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            gap: 0.3rem;
-        }
-        .side-current-price {
-            font-size: clamp(1.5rem, 5vw, 2rem);
-            color: #ffd700;
-            font-weight: 500;
-        }
-        .side-original-price {
-            font-size: clamp(1rem, 3.5vw, 1.3rem);
-            color: #888;
-            text-decoration: line-through;
-        }
-        .coming-soon-side {
-            text-align: center;
-            color: #666;
-            font-size: 1.1rem;
-            height: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            min-height: 200px;
-            padding: 2rem 1.5rem;
-        }
-        body.light .coming-soon-side { color: #999; }
-        .soon-notification {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(45deg, #ff4757, #ff6b7a);
-            color: white;
-            padding: 0.4rem 0.8rem;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(255,71,87,0.4);
-            animation: pulse 2s infinite;
-            z-index: 1;
-        }
-        
-        .confirm-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(20px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2003;
-            padding: 2rem;
-        }
-        .confirm-content {
-            background: rgba(26,26,26,0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 95%;
-            width: 500px;
-            border: 1px solid rgba(255,255,255,0.2);
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        .confirm-buttons {
-            display: flex;
-            gap: 1rem;
+            transition: all 0.3s;
             margin-top: 1.5rem;
-        }
-        .confirm-btn {
-            flex: 1;
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
-            border: none;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .confirm-yes {
-            background: #ffd700;
-            color: #000;
-        }
-        .confirm-yes:hover {
-            background: #ffed4a;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255,215,0,0.4);
-        }
-        .confirm-no {
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            border: 1px solid #444;
-        }
-        .confirm-no:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
-        body.light .confirm-content {
-            background: rgba(255,255,255,0.95);
-            border-color: #ddd;
-            color: #333;
-        }
-        body.light .confirm-no {
-            background: rgba(0,0,0,0.05);
-            color: #333;
-            border-color: #ddd;
+            border-radius: 5px;
+            max-width: 400px;
         }
         
-        .checkout-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(20px);
-            display: none;
-            justify-content: center;
+        .add-to-cart:hover {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
+        
+        .upcoming-tshirts {
+            padding: 4rem 5%;
+            background: var(--secondary);
+        }
+        
+        .color-selector-container {
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            z-index: 2005;
-            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
-        .checkout-content {
-            background: rgba(26,26,26,0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 95%;
-            width: 600px;
-            border: 1px solid rgba(255,255,255,0.2);
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            opacity: 0.9;
-        }
-        .form-control {
+        
+        .tshirt-preview {
             width: 100%;
-            padding: 0.8rem 1rem;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid #444;
+            height: 400px;
+            overflow: hidden;
             border-radius: 10px;
-            color: #fff;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        .form-control:focus {
-            outline: none;
-            border-color: #ffd700;
-            box-shadow: 0 0 10px rgba(255,215,0,0.3);
-        }
-        body.light .form-control {
-            background: rgba(0,0,0,0.05);
-            border-color: #ddd;
-            color: #333;
-        }
-        body.light .form-control:focus {
-            border-color: #ffd700;
-        }
-        .checkout-review {
-            background: rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-        .checkout-review h4 {
-            margin-bottom: 1rem;
-            color: #ffd700;
-        }
-        .review-item {
+            border: 1px solid var(--border);
             display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .checkout-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        .submit-order-btn {
-            background: #ffd700;
-            color: #000;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex: 2;
-        }
-        .submit-order-btn:hover {
-            background: #ffed4a;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255,215,0,0.4);
-        }
-        .cancel-checkout-btn {
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            border: 1px solid #444;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex: 1;
-        }
-        .cancel-checkout-btn:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
-        
-        .thankyou-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(20px);
-            display: none;
-            justify-content: center;
             align-items: center;
-            z-index: 2006;
+            justify-content: center;
+            background: var(--accent);
+            margin-bottom: 2rem;
             padding: 2rem;
         }
-        .thankyou-content {
-            background: rgba(26,26,26,0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 3rem 2rem;
-            max-width: 95%;
-            width: 500px;
-            border: 1px solid rgba(255,255,255,0.2);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+        
+        .tshirt-preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            max-width: 100%;
+            max-height: 100%;
+            transition: transform 0.5s ease;
         }
-        .thankyou-content::before {
+        
+        .color-options {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .color-option-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .color-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-option.selected {
+            border-color: var(--gold);
+            transform: scale(1.1);
+        }
+        
+        .color-option::after {
             content: '';
             position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .color-option:hover::after {
+            opacity: 1;
+        }
+        
+        .color-name {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        .color-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .color-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+        
+        .upcoming-notice {
+            background: linear-gradient(45deg, rgba(212, 175, 55, 0.1), rgba(255, 107, 107, 0.1));
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--gold);
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .upcoming-notice h3 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .upcoming-notice p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+        
+        .about-section {
+            padding: 4rem 5%;
+            background: var(--accent);
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .about-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--secondary);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+        
+        .social-link:hover {
+            background: var(--gold);
+            color: var(--primary);
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(45deg, #ffd700, #ffed4a, #ffd700);
-            animation: gradientShift 3s ease infinite;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
         }
-        .thankyou-hearts {
-            font-size: 2.5rem;
-            color: #ff4757;
-            margin-bottom: 1.5rem;
-            animation: pulse 2s infinite;
+        
+        .modal.active {
+            display: flex;
         }
-        .thankyou-title {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: #ffd700;
+        
+        .modal-content {
+            background: var(--accent);
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+            border-radius: 10px;
+            border: 1px solid var(--border);
         }
-        .thankyou-message {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-        .thankyou-close-btn {
-            background: #ffd700;
-            color: #000;
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 1.5rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
         }
-        .thankyou-close-btn:hover {
-            background: #ffed4a;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255,215,0,0.4);
+        
+        .close-modal:hover {
+            border-color: var(--gold);
+            color: var(--gold);
         }
         
         .cart-modal {
-            position: fixed;
-            top: 90px;
-            right: 2%;
-            width: 90vw;
-            max-width: 380px;
-            background: rgba(26,26,26,0.98);
-            backdrop-filter: blur(20px);
-            border-radius: 18px;
-            padding: 1.5rem;
-            border: 1px solid #333;
-            display: none;
-            z-index: 2001;
-            max-height: 70vh;
+            max-width: 400px;
+        }
+        
+        .cart-items {
+            max-height: 300px;
             overflow-y: auto;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.8);
+            margin-bottom: 1.5rem;
         }
-        @media (min-width: 769px) {
-            .cart-modal { 
-                right: 5%; 
-                width: 380px; 
-                top: 100px; 
-            }
-        }
-        body.light .cart-modal {
-            background: rgba(255,255,255,0.95);
-            border-color: #ddd;
-            color: #333;
-        }
+        
         .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .cart-item-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
+        .cart-item-price {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .remove-item {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1rem;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .remove-item:hover {
+            border-color: #ff4757;
+            color: #ff4757;
+        }
+        
+        .cart-total {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-        .cart-item-info {
-            flex: 1;
-            min-width: 150px;
-        }
-        .cart-item-details {
-            font-size: 0.85rem;
-            opacity: 0.8;
-            margin-top: 0.2rem;
-        }
-        .cart-item-price {
-            color: #ffd700;
-            font-weight: 500;
-            min-width: 70px;
-            text-align: right;
-            font-size: 1rem;
-        }
-        .delete-btn {
-            background: rgba(255,71,87,0.2);
-            border: 1px solid #ff4757;
-            color: #ff4757;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-        .delete-btn:hover {
-            background: #ff4757;
-            color: white;
-            transform: scale(1.08);
-        }
-        .cart-total {
-            margin-top: 1.2rem;
-            font-size: clamp(1.2rem, 4vw, 1.4rem);
-            color: #ffd700;
+            padding: 1.5rem 0;
+            font-size: 1.2rem;
             font-weight: 600;
-            text-align: right;
-            padding-top: 1rem;
-            border-top: 2px solid rgba(255,215,0,0.3);
+            border-top: 2px solid var(--border);
+            margin-top: 1rem;
+            color: var(--text);
         }
+        
         .checkout-btn {
-            background: #ffd700 !important;
-            color: #000 !important;
-            width: 100% !important;
-            padding: 1rem !important;
-            border-radius: 12px !important;
-            font-weight: 500 !important;
-            font-size: 1rem !important;
-            margin-top: 1rem !important;
-            border: none !important;
+            width: 100%;
+            padding: 1rem;
+            background: var(--gold);
+            color: var(--primary);
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 5px;
+            margin-top: 1rem;
         }
+        
         .checkout-btn:hover {
-            background: #ffed4a !important;
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
         }
         
         footer {
-            background: #000;
-            padding: 3rem 5% 2rem;
-            text-align: center;
-            margin-top: 3rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        body.light footer {
-            background: #f8f9fa;
-            color: #666;
-            border-top: 1px solid rgba(0,0,0,0.1);
-        }
-        .social-section {
-            margin-bottom: 2rem;
-        }
-        .social-title {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            color: #ffd700;
-            font-weight: 500;
-        }
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-        .social-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-            color: #fff;
-            transition: all 0.3s ease;
-        }
-        body.light .social-icon {
-            color: #333;
-        }
-        .social-icon:hover {
-            transform: translateY(-5px);
-            color: #ffd700;
-        }
-        .social-icon i {
-            font-size: 1.8rem;
-            background: rgba(255,255,255,0.1);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        .social-icon:hover i {
-            background: rgba(255,215,0,0.2);
-            box-shadow: 0 5px 15px rgba(255,215,0,0.3);
-        }
-        .social-icon span {
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        .whatsapp-icon i { color: #25D366; }
-        .facebook-icon i { color: #1877F2; }
-        .instagram-icon i { color: #E4405F; }
-        .tiktok-icon i { color: #000000; }
-        body.light .tiktok-icon i { color: #000000; }
-        
-        .contact-info {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.9rem;
-            opacity: 0.8;
-            text-align: center;
-        }
-        body.light .contact-info {
-            border-top: 1px solid rgba(0,0,0,0.1);
+            background: var(--primary);
+            color: var(--text);
+            padding: 3rem 5%;
+            border-top: 1px solid var(--border);
         }
         
-        /* تأثيرات جديدة */
-        .tshirt-glow {
-            position: relative;
-            overflow: hidden;
-            border: 2px solid transparent;
-            background: linear-gradient(45deg, rgba(26,26,26,0.8), rgba(40,40,40,0.8)) !important;
-            animation: borderGlow 3s infinite alternate;
-        }
-
-        @keyframes borderGlow {
-            0% { border-color: rgba(255,215,0,0.3); box-shadow: 0 0 20px rgba(255,215,0,0.2); }
-            100% { border-color: rgba(255,71,87,0.3); box-shadow: 0 0 30px rgba(255,71,87,0.3); }
-        }
-
-        .tshirt-glow::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
-            animation: rotateGlow 20s linear infinite;
-            z-index: 0;
-        }
-
-        @keyframes rotateGlow {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* تأثيرات جديدة مضافة */
-        .float-effect {
-            animation: floatAnimation 6s ease-in-out infinite;
-        }
-
-        @keyframes floatAnimation {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-
-        .neon-text {
-            color: #fff;
-            text-shadow: 
-                0 0 7px #fff,
-                0 0 10px #fff,
-                0 0 21px #fff,
-                0 0 42px #0fa,
-                0 0 82px #0fa,
-                0 0 92px #0fa,
-                0 0 102px #0fa,
-                0 0 151px #0fa;
-        }
-
-        .soon-container {
-            position: relative;
-            padding: 2rem;
-            border-radius: 20px;
-            background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
-            overflow: hidden;
-        }
-
-        .soon-container::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,215,0,0.1), transparent);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        .soon-text {
-            position: relative;
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #ffd700, #ffed4a, #ffd700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 3s ease infinite;
-        }
-
-        .pulse-ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid rgba(255,215,0,0.3);
-            border-radius: 20px;
-            animation: pulseRing 2s infinite;
-        }
-
-        @keyframes pulseRing {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.1); opacity: 0; }
-        }
-
-        /* إزالة العد التنازلي */
-        .countdown { display: none; }
-        
-        /* تأثيرات للزر */
-        .magic-btn {
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
-            border: 2px solid #ffd700;
-        }
-
-        .magic-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.3), transparent);
-            transition: all 0.6s ease;
-        }
-
-        .magic-btn:hover::before {
-            left: 100%;
-        }
-
-        /* شبكة صور التيشرت */
-        .tshirt-grid {
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 1.5rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
         }
-
-        @media (max-width: 768px) {
-            .tshirt-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        .tshirt-grid-item {
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-            height: 80px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 2px solid transparent;
-        }
-
-        .tshirt-grid-item:hover {
-            transform: scale(1.1) translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255,215,0,0.3);
-            border-color: #ffd700;
-        }
-
-        .tshirt-grid-item.active {
-            border-color: #ff4757;
-            box-shadow: 0 0 15px rgba(255,71,87,0.5);
-        }
-
-        .tshirt-grid-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .tshirt-grid-item:hover img {
-            transform: scale(1.1);
-        }
-
-        /* تأثير تدوير للصور */
-        .rotate-3d {
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .rotate-3d:hover {
-            transform: perspective(1000px) rotateY(10deg) rotateX(5deg);
-        }
-
-        /* معرض التيشرت في المودال */
-        .tshirt-gallery-modal {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        @media (max-width: 768px) {
-            .tshirt-gallery-modal {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .tshirt-main-image {
-            border-radius: 15px;
-            overflow: hidden;
-            height: 400px;
-            position: relative;
-        }
-
-        .tshirt-main-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .tshirt-thumbnails {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .tshirt-thumb {
-            border-radius: 8px;
-            overflow: hidden;
-            height: 80px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .tshirt-thumb:hover, .tshirt-thumb.active {
-            border-color: #ffd700;
-            transform: scale(1.05);
-        }
-
-        .tshirt-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* مواصفات المنتج */
-        .tshirt-specs {
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-left: 4px solid #ffd700;
-        }
-
-        .spec-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .spec-item:last-child {
-            border-bottom: none;
-        }
-
-        .spec-icon {
-            color: #ffd700;
+        
+        .footer-section h3 {
             font-size: 1.1rem;
-            width: 24px;
-            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--gold);
         }
-
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: var(--accent);
+            z-index: 999;
+            border-bottom: 1px solid var(--border);
+            padding: 1rem;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .mobile-menu-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.8rem;
+            border-bottom: 1px solid var(--border);
+            transition: color 0.3s;
+        }
+        
+        .mobile-menu-link:hover {
+            color: var(--gold);
+        }
+        
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+            
+            .hero-text {
+                padding-right: 0;
+            }
+            
+            .product-detail {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .hero {
+                margin-top: 60px;
+                padding: 3rem 5% 0;
+            }
+            
+            .hero-image-container {
+                min-height: 400px;
+            }
+            
+            .product-image-container {
+                height: 350px;
+            }
+            
+            .main-image-container {
+                height: 400px;
+            }
+            
+            .tshirt-preview {
+                height: 350px;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .side-products { margin-top: 2rem; }
-            .cart-fly { width: 35px; height: 35px; }
-            .confirm-buttons, .checkout-buttons { flex-direction: column; }
-            .social-icons { gap: 1rem; }
-            .social-icon i { width: 50px; height: 50px; font-size: 1.5rem; }
-            
-            .video-container {
-                height: clamp(280px, 50vh, 380px);
-                border-radius: 16px;
+            .nav-links {
+                display: none;
             }
             
-            .video-overlay {
-                padding: 1.5rem;
-                background: linear-gradient(to left, rgba(0,0,0,0.8), transparent 50%);
+            .mobile-menu-btn {
+                display: block;
             }
             
-            .video-title {
-                margin-bottom: 1rem;
-                max-width: 70%;
+            .nav-actions {
+                gap: 0.5rem;
             }
             
-            .video-title h2 {
-                font-size: clamp(1.6rem, 5vw, 2.2rem);
-                margin-bottom: 0.2rem;
-            }
-            
-            .video-title p {
+            .nav-icon {
+                width: 35px;
+                height: 35px;
                 font-size: 0.9rem;
             }
             
-            .video-controls {
-                bottom: 1.5rem;
-                left: 1.5rem;
+            .logo {
+                font-size: 1.5rem;
             }
             
-            .fullscreen-btn {
-                display: flex;
+            .hero {
+                margin-top: 60px;
+                padding: 2rem 5% 0;
+                min-height: 80vh;
             }
             
-            .collection-grid-modal {
+            .hero-title {
+                font-size: clamp(2rem, 6vw, 3rem);
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+            
+            .video-wrapper {
+                height: 300px;
+            }
+            
+            .products-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
             
-            .new-product-grid {
-                grid-template-columns: 1fr;
+            .product-image-container {
+                height: 300px;
             }
             
-            .product-showcase {
-                padding: 20px 5% 40px;
+            .main-image-container {
+                height: 350px;
             }
             
-            .side-product {
-                margin-bottom: 1rem;
-            }
-            
-            .side-products {
-                margin-top: 1rem;
-            }
-            
-            .tshirt-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .tshirt-grid-item {
+            .thumbnail {
+                width: 60px;
                 height: 60px;
             }
+            
+            .tshirt-preview {
+                height: 300px;
+            }
+            
+            .collection,
+            .video-section,
+            .featured-product,
+            .upcoming-tshirts,
+            .about-section {
+                padding: 3rem 5%;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+            }
+            
+            .video-controls {
+                bottom: 1rem;
+                left: 1rem;
+            }
+            
+            .video-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
         }
         
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .video-container {
-                height: clamp(350px, 55vh, 500px);
+        @media (max-width: 480px) {
+            .hero {
+                margin-top: 50px;
+                padding: 1.5rem 5% 0;
             }
             
-            .video-title h2 {
-                font-size: clamp(2rem, 5vw, 2.5rem);
+            .hero-title {
+                font-size: 1.8rem;
             }
             
-            .fullscreen-btn {
-                display: flex;
+            .hero-subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
             }
             
-            .tshirt-grid {
-                grid-template-columns: repeat(3, 1fr);
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .product-name {
+                font-size: 1.5rem;
+            }
+            
+            .price {
+                font-size: 1.3rem;
+            }
+            
+            .size-btn {
+                padding: 0.5rem 1rem;
+                min-width: 70px;
+                font-size: 0.9rem;
+            }
+            
+            .qty-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .add-to-cart {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .tshirt-preview {
+                height: 250px;
+            }
+            
+            .color-option {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .color-options {
+                gap: 1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .nav-container {
+                padding: 0 3%;
+            }
+            
+            .collection,
+            .video-section,
+            .featured-product,
+            .upcoming-tshirts,
+            .about-section,
+            footer {
+                padding: 2rem 3%;
             }
         }
         
-        @media (min-width: 1025px) {
-            .fullscreen-btn {
-                display: flex;
+        @media (max-width: 360px) {
+            .hero-title {
+                font-size: 1.6rem;
+            }
+            
+            .product-title {
+                font-size: 1.1rem;
+            }
+            
+            .product-image-container {
+                height: 250px;
+            }
+            
+            .tshirt-preview {
+                height: 200px;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1200px) {
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+            }
+            
+            .hero-content {
+                gap: 3rem;
+            }
+            
+            .product-detail {
+                gap: 2.5rem;
             }
         }
     </style>
@@ -2033,259 +1310,153 @@
 <body>
     <nav>
         <div class="nav-container">
-            <button class="nav-menu-btn" onclick="toggleSideMenu()">
-                <i class="fas fa-ellipsis-v"></i>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
             </button>
             
-            <div class="logo-nav" onclick="scrollToTop()">El<span class="v-spin">v</span>ar</div>
+            <a href="#" class="logo">EL<span>VAR</span></a>
             
-            <button class="cart-btn" onclick="toggleCart()">
-                <i class="fas fa-shopping-cart cart-icon">
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">الرئيسية</a>
+                <a href="#collection" class="nav-link">المجموعة</a>
+                <a href="#upcoming" class="nav-link">التيشرتات القادمة</a>
+                <a href="#products" class="nav-link">المنتجات</a>
+                <a href="#about" class="nav-link">من نحن</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="nav-icon cart-btn" onclick="toggleCart()">
+                    <i class="fas fa-shopping-bag"></i>
                     <span class="cart-count" id="cartCount">0</span>
-                </i>
-                <span id="cart-label">السلة</span>
-            </button>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <!-- Side Menu -->
-    <div class="side-menu" id="sideMenu">
-        <div class="menu-header">
-            <div class="menu-title" id="menu-title">القائمة</div>
-            <button class="close-menu-btn" onclick="toggleSideMenu()">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="menu-items">
-            <div class="menu-item" onclick="openCollection()">
-                <span id="menu-collection">The Collection</span>
-                <i class="fas fa-layer-group"></i>
-            </div>
-            <div class="menu-item" onclick="openNew()">
-                <span id="menu-new">New</span>
-                <i class="fas fa-star"></i>
-            </div>
-            <div class="menu-item" onclick="toggleLang()">
-                <span id="menu-language">English</span>
-                <i class="fas fa-language"></i>
-            </div>
-            <div class="menu-item" onclick="openSocial()">
-                <span id="menu-social">Social</span>
-                <i class="fas fa-share-alt"></i>
-            </div>
-            <div class="menu-item" onclick="openAbout()">
-                <span id="menu-about">About</span>
-                <i class="fas fa-info-circle"></i>
-            </div>
-        </div>
-    </div>
-    
-    <div class="menu-overlay" id="menuOverlay" onclick="toggleSideMenu()"></div>
-
-    <!-- Collection Modal -->
-    <div class="collection-modal" id="collectionModal">
-        <div class="collection-content">
-            <button class="close-collection-btn" onclick="closeCollection()">
-                <i class="fas fa-times"></i>
-            </button>
-            <h2 class="collection-modal-title" id="collection-modal-title">The Collection</h2>
-            <div class="collection-grid-modal">
-                <div class="collection-item-modal" onclick="viewHoodie()">
-                    <div class="collection-image-modal">
-                        <img src="images/1.jpeg" alt="HOODIE Elvar">
-                    </div>
-                    <div class="collection-info-modal">
-                        <div class="collection-name-modal" id="collection-product-1-name">HOODIE Elvar</div>
-                        <p class="collection-desc-modal" id="collection-product-1-desc">هودي أساسي بتطريزات متعددة - 100% قطن ميلتون</p>
-                        <div class="collection-price-modal">
-                            <span class="current-price-modal" id="collection-product-1-price">899 جنيه</span>
-                            <span class="original-price-modal" id="collection-product-1-original">1200 جنيه</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="collection-item-modal" onclick="viewTshirt()">
-                    <div class="collection-image-modal">
-                        <img src="images/T-SHIRT 1.jpg" alt="T-SHIRT">
-                    </div>
-                    <div class="collection-info-modal">
-                        <div class="collection-name-modal" id="collection-product-2-name">T-SHIRT ELVAR</div>
-                        <p class="collection-desc-modal" id="collection-product-2-desc">تصميم كلاسيكي أنيق بجودة عالية - 100% قطن</p>
-                        <div class="soon-badge" style="color:#ffd700; font-size:1.2rem; margin-top:0.5rem;">قريباً</div>
-                    </div>
-                </div>
-            </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-links">
+            <a href="#home" class="mobile-menu-link" onclick="closeMobileMenu()">الرئيسية</a>
+            <a href="#collection" class="mobile-menu-link" onclick="closeMobileMenu()">المجموعة</a>
+            <a href="#upcoming" class="mobile-menu-link" onclick="closeMobileMenu()">التيشرتات القادمة</a>
+            <a href="#products" class="mobile-menu-link" onclick="closeMobileMenu()">المنتجات</a>
+            <a href="#about" class="mobile-menu-link" onclick="closeMobileMenu()">من نحن</a>
         </div>
     </div>
 
-    <!-- About Modal -->
-    <div class="about-modal" id="aboutModal">
-        <div class="about-content">
-            <button class="close-about-btn" onclick="closeAbout()">
-                <i class="fas fa-times"></i>
-            </button>
-            <h2 class="about-title" id="about-title">About Elvar</h2>
-            <p class="about-text" id="about-text">
-                🖤 Elvar<br><br>
-                👕 براند ملابس مصري متخصص في هوديز وتيشيرتات<br><br>
-                🌿 خامات قطن ميلتون 100% بجودة عالية ونعومة تدوم<br><br>
-                ✨ تصميمات عصرية تجمع بين البساطة والأناقة<br><br>
-                👌 راحة، متانة، واهتمام بأدق التفاصيل<br><br>
-                🇪🇬 صناعة مصرية بمعايير عالية
-            </p>
-        </div>
-    </div>
-
-    <!-- Social Modal -->
-    <div class="social-modal" id="socialModal">
-        <div class="social-content">
-            <button class="close-social-btn" onclick="closeSocial()">
-                <i class="fas fa-times"></i>
-            </button>
-            <h2 class="social-modal-title" id="social-modal-title">Social Media</h2>
-            <div style="display:grid;grid-template-columns:1fr;gap:1rem;max-width:400px;margin:0 auto;">
-                <a href="https://wa.me/201203790142" target="_blank" style="background:rgba(255,255,255,0.1);border:1px solid #25D366;border-radius:12px;padding:1rem;text-decoration:none;color:#fff;display:flex;align-items:center;gap:1rem;transition:all 0.3s ease;">
-                    <i class="fab fa-whatsapp" style="font-size:1.5rem;color:#25D366;"></i>
-                    <div style="flex:1;text-align:right;">
-                        <div style="font-weight:500;" id="social-whatsapp">واتساب</div>
-                        <div style="font-size:0.85rem;opacity:0.8;">+20 120 379 0142</div>
-                    </div>
-                </a>
-                <a href="https://www.facebook.com/share/1H6EAaFNra/" target="_blank" style="background:rgba(255,255,255,0.1);border:1px solid #1877F2;border-radius:12px;padding:1rem;text-decoration:none;color:#fff;display:flex;align-items:center;gap:1rem;transition:all 0.3s ease;">
-                    <i class="fab fa-facebook" style="font-size:1.5rem;color:#1877F2;"></i>
-                    <div style="flex:1;text-align:right;">
-                        <div style="font-weight:500;" id="social-facebook">فيسبوك</div>
-                        <div style="font-size:0.85rem;opacity:0.8;">Elvar Hoodies</div>
-                    </div>
-                </a>
-                <a href="https://www.instagram.com/elvar_hoodies?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" style="background:rgba(255,255,255,0.1);border:1px solid #E4405F;border-radius:12px;padding:1rem;text-decoration:none;color:#fff;display:flex;align-items:center;gap:1rem;transition:all 0.3s ease;">
-                    <i class="fab fa-instagram" style="font-size:1.5rem;color:#E4405F;"></i>
-                    <div style="flex:1;text-align:right;">
-                        <div style="font-weight:500;" id="social-instagram">انستجرام</div>
-                        <div style="font-size:0.85rem;opacity:0.8;">@elvar_hoodies</div>
-                    </div>
-                </a>
-                <a href="https://www.tiktok.com/@elvar.eg?_r=1&_t=ZS-936CoFgzPol" target="_blank" style="background:rgba(255,255,255,0.1);border:1px solid #000;border-radius:12px;padding:1rem;text-decoration:none;color:#fff;display:flex;align-items:center;gap:1rem;transition:all 0.3s ease;">
-                    <i class="fab fa-tiktok" style="font-size:1.5rem;color:#fff;"></i>
-                    <div style="flex:1;text-align:right;">
-                        <div style="font-weight:500;" id="social-tiktok">تيك توك</div>
-                        <div style="font-size:0.85rem;opacity:0.8;">@elvar.eg</div>
-                    </div>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">ELVAR هويتك بصوت أعلى</h1>
+                <p class="hero-subtitle">
+                    حيث تلتقي الجودة بالأناقة في تناغم مثالي. ELVAR ليست مجرد ملابس، إنها بيان شخصي، هوية تظهر، صوت يُسمع. كل قطعة تحمل قصة، كل تصميم يعبر عن فرديتك.
+                </p>
+                <a href="#collection" class="cta-button">
+                    اكتشف المجموعة
+                    <i class="fas fa-arrow-left"></i>
                 </a>
             </div>
-        </div>
-    </div>
-
-    <!-- New Modal -->
-    <div class="new-modal" id="newModal">
-        <div class="new-content">
-            <button class="close-new-btn" onclick="closeNew()">
-                <i class="fas fa-times"></i>
-            </button>
-            <h2 class="new-modal-title" id="new-modal-title">New</h2>
-            <div class="new-product-single">
-                <div class="new-product-image-single">
-                    <img src="images/T-SHIRT 1.jpg" alt="T-SHIRT">
+            <div class="hero-image-container">
+                <div class="hero-slide active">
+                    <img src="images/4.jpeg" alt="ELVAR Collection" class="hero-img">
                 </div>
-                <div class="new-product-name-single" id="new-product-name">T-SHIRT ELVAR</div>
-                <p class="new-product-desc-single" id="new-product-desc">تصميم كلاسيكي أنيق بجودة عالية - 100% قطن</p>
-                <div class="soon-badge" style="color:#ffd700; font-size:1.4rem; margin:1rem 0;">قريباً</div>
-                <button class="magic-btn" onclick="openTshirtModal()" style="background:none; border:2px solid #ffd700; color:#ffd700; padding:0.8rem 2rem; border-radius:40px; cursor:pointer; transition:all 0.3s ease; position:relative; overflow:hidden;">
-                    <i class="fas fa-eye"></i> استعرض التصاميم
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- T-Shirt Detail Modal -->
-    <div class="collection-modal" id="tshirtDetailModal">
-        <div class="collection-content">
-            <button class="close-collection-btn" onclick="closeTshirtDetailModal()">
-                <i class="fas fa-times"></i>
-            </button>
-            <h2 class="collection-modal-title">T-SHIRT ELVAR</h2>
-            
-            <div class="tshirt-gallery-modal">
-                <div class="tshirt-main-image">
-                    <img id="tshirt-modal-main" src="images/T-SHIRT 1.jpg" alt="T-SHIRT">
-                    <div class="new-badge" style="top: 20px; right: 20px;">قريباً</div>
+                <div class="hero-slide">
+                    <img src="images/T-SHIRT 4.jpg" alt="ELVAR Collection" class="hero-img">
                 </div>
-                
-                <div class="tshirt-thumbnails" id="tshirt-detail-thumbs">
-                    <!-- سيتم إضافة الصور ديناميكياً -->
+                <div class="slide-controls">
+                    <div class="slide-dot active" onclick="changeSlide(0)"></div>
+                    <div class="slide-dot" onclick="changeSlide(1)"></div>
                 </div>
             </div>
-            
-            <div class="tshirt-specs">
-                <h3 style="color: #ffd700; margin-bottom: 1rem;">مواصفات المنتج:</h3>
-                <div class="spec-item">
-                    <span class="spec-icon"><i class="fas fa-check"></i></span>
-                    <span>قطن 100% عالي الجودة</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-icon"><i class="fas fa-check"></i></span>
-                    <span>طباعة عالية الدقة تدوم</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-icon"><i class="fas fa-check"></i></span>
-                    <span>مقاسات مناسبة للجميع (S, M, L, XL)</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-icon"><i class="fas fa-check"></i></span>
-                    <span>تصميم مريح وأنيق</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-icon"><i class="fas fa-check"></i></span>
-                    <span>صناعة مصرية بمعايير عالمية</span>
-                </div>
-            </div>
-            
-            <div style="text-align: center;">
-                <div class="soon-container" style="margin: 1.5rem 0; position:relative;">
-                    <div class="pulse-ring"></div>
-                    <div class="soon-text">قريباً</div>
-                    <p style="opacity:0.8; margin-top:0.5rem;">سيتم الإعلان عن السعر قريباً</p>
-                </div>
-                
-                <div class="size-selection">
-                    <label style="display: block; margin-bottom: 0.8rem; font-weight: 500;">اختر المقاس:</label>
-                    <div class="size-options" style="justify-content: center; gap: 0.8rem;">
-                        <div class="size-option selected" data-size="S" onclick="selectTshirtSize('S')">S</div>
-                        <div class="size-option" data-size="M" onclick="selectTshirtSize('M')">M</div>
-                        <div class="size-option" data-size="L" onclick="selectTshirtSize('L')">L</div>
-                        <div class="size-option" data-size="XL" onclick="selectTshirtSize('XL')">XL</div>
-                    </div>
-                </div>
-                
-                <button class="magic-btn" style="width: 100%; padding: 1.2rem; font-size: 1.1rem; margin-top: 1.5rem; background:rgba(255,215,0,0.1); color:#ffd700; border:2px solid #ffd700; border-radius:40px; cursor:pointer; position:relative; overflow:hidden;" 
-                        onclick="notifyMe()">
-                    <i class="fas fa-bell"></i> إشعارني عند التوفر
-                </button>
-            </div>
         </div>
-    </div>
-
-    <section class="hero">
-        <div class="hero-title">
-            <h1>El<span class="v-spin">v</span>ar</h1>
-        </div>
-        <a href="#product-showcase" class="cta-main" id="cta-text">اكتشف المنتج</a>
     </section>
 
-    <section class="video-showcase">
-        <div class="video-container" id="videoContainer">
-            <video class="product-video" autoplay muted loop playsinline poster="images/1.jpeg">
-                <source src="video/Elvar video 1.mp4" type="video/mp4">
-                <img src="images/1.jpeg" alt="HOODIE video placeholder">
-            </video>
-            <div class="video-overlay">
-                <div class="video-title">
-                    <h2 id="video-title">Elvar</h2>
+    <section class="collection" id="collection">
+        <h2 class="section-title">المجموعة <span>الحصرية</span></h2>
+        <div class="products-grid">
+            <div class="product-card" onclick="scrollToUpcoming()">
+                <div class="coming-soon-badge">قريباً</div>
+                <div class="product-image-container">
+                    <img src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR الجديد" class="product-image">
                 </div>
-                <div class="video-controls" id="videoControls">
-                    <button class="video-control-btn" onclick="toggleVideoPlay()" id="play-pause-btn">
+                <div class="product-info">
+                    <h3 class="product-title">T-SHIRT ELVAR الجديد</h3>
+                    <div class="product-price">
+                        <span>قريباً في الأسواق</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card" onclick="scrollToProduct()">
+                <div class="sale-badge">خصم 25%</div>
+                <div class="product-image-container">
+                    <img src="images/1.jpeg" alt="HOODIE ELVAR" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">HOODIE ELVAR</h3>
+                    <div class="product-price">
+                        <span class="old-price">1200 جنيه</span>
+                        <span>899 جنيه</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="upcoming-tshirts" id="upcoming">
+        <h2 class="section-title">التيشرتات <span>القادمة</span></h2>
+        
+        <div class="color-selector-container">
+            <div class="tshirt-preview">
+                <img id="tshirtPreview" src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR" class="tshirt-preview-image">
+            </div>
+            
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h3 style="color: var(--gold); margin-bottom: 1rem;">اختر لون التيشرت</h3>
+                <p style="color: var(--text-light); max-width: 600px; margin: 0 auto;">
+                    نفس الموديل بأربعة ألوان مختلفة. اختر اللون الذي يناسب أسلوبك!
+                </p>
+            </div>
+            
+            <div class="color-options">
+                <div class="color-option-container">
+                    <div class="color-option selected" style="background: hsl(0, 100%, 10%);" onclick="changeTshirtColor('navy', 'images/T-SHIRT 1.jpg')"></div>
+                    <div class="color-name">نبيتي غامق</div>
+                </div>
+                
+                <div class="color-option-container">
+                    <div class="color-option" style="background: #000000;" onclick="changeTshirtColor('black', 'images/T-SHIRT 2.jpg')"></div>
+                    <div class="color-name">أسود</div>
+                </div>
+                
+                <div class="color-option-container">
+                    <div class="color-option" style="background: #556B2F;" onclick="changeTshirtColor('olive', 'images/T-SHIRT 3.jpg')"></div>
+                    <div class="color-name">زيتي</div>
+                </div>
+                
+                <div class="color-option-container">
+                    <div class="color-option" style="background: #d3d3b8;" onclick="changeTshirtColor('cream', 'images/T-SHIRT 4.jpg')"></div>
+                    <div class="color-name">سكري</div>
+                </div>
+            </div>
+            
+            <div class="upcoming-notice">
+                <h3><i class="fas fa-clock" style="margin-left: 10px;"></i> متوفر قريباً</h3>
+                <p>سيتم إطلاق هذا التيشرت بألوانه الأربعة قريباً. تابعنا على وسائل التواصل الاجتماعي لمعرفة موعد الإطلاق!</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="video-section">
+        <div class="video-container">
+            <div class="video-wrapper">
+                <video class="product-video" autoplay muted loop playsinline>
+                    <source src="video/Elvar video 1.mp4" type="video/mp4">
+                </video>
+                <div class="video-controls">
+                    <button class="video-btn" onclick="toggleVideo()">
                         <i class="fas fa-pause"></i>
                     </button>
-                    <button class="video-control-btn fullscreen-btn" onclick="toggleFullscreen()" id="fullscreen-btn">
+                    <button class="video-btn" onclick="toggleFullscreen()">
                         <i class="fas fa-expand"></i>
                     </button>
                 </div>
@@ -2293,1196 +1464,564 @@
         </div>
     </section>
 
-    <section class="product-showcase" id="product-showcase">
-        <div class="product-gallery">
-            <div class="main-image-container">
-                <img id="mainImage" class="main-image" src="images/1.jpeg" alt="HOODIE">
-            </div>
-            <div class="gallery-nav">
-                <button class="gallery-nav-btn" onclick="prevImage()">‹</button>
-                <button class="gallery-nav-btn" onclick="nextImage()">›</button>
-            </div>
-            <div class="thumbnail-container">
-                <div class="thumbnail-strip" id="thumbnailStrip">
-                    <img src="images/1.jpeg" class="thumbnail active" onclick="changeImage(0)" alt="1">
-                    <img src="images/2.jpeg" class="thumbnail" onclick="changeImage(1)" alt="2">
-                    <img src="images/3.jpeg" class="thumbnail" onclick="changeImage(2)" alt="3">
-                    <img src="images/4.jpeg" class="thumbnail" onclick="changeImage(3)" alt="4">
-                    <img src="images/5.jpeg" class="thumbnail" onclick="changeImage(4)" alt="5">
+    <section class="featured-product" id="products">
+        <div class="product-detail">
+            <div class="product-gallery">
+                <div class="main-image-container">
+                    <img id="mainProductImage" src="images/1.jpeg" alt="HOODIE ELVAR" class="main-image">
                 </div>
-            </div>
-        </div>
-        <div class="product-info">
-            <h2 id="product-title">HOODIE Elvar</h2>
-            <div class="price-container">
-                <span class="discount-badge" id="discount-badge">وفر 25%</span>
-                <span class="current-price" id="product-price-main">899 جنيه</span>
-                <span class="original-price" id="original-price-main">1200 جنيه</span>
-            </div>
-            <p class="product-desc" id="product-desc">
-                HOODIE ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.
-                بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.
-                مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.
-                كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.
-                تفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…
-            </p>
-            
-            <div class="size-selection">
-                <label id="size-label">المقاس:</label>
-                <div class="size-options">
-                    <div class="size-option selected" data-size="Over size" onclick="selectSize('Over size')" id="size-one">Over size</div>
+                <div class="thumbnails">
+                    <img src="images/1.jpeg" class="thumbnail active" onclick="changeProductImage('images/1.jpeg')">
+                    <img src="images/2.jpeg" class="thumbnail" onclick="changeProductImage('images/2.jpeg')">
+                    <img src="images/3.jpeg" class="thumbnail" onclick="changeProductImage('images/3.jpeg')">
+                    <img src="images/4.jpeg" class="thumbnail" onclick="changeProductImage('images/4.jpeg')">
+                    <img src="images/5.jpeg" class="thumbnail" onclick="changeProductImage('images/5.jpeg')">
                 </div>
             </div>
             
-            <div class="quantity-selection">
-                <label id="quantity-label">الكمية:</label>
-                <div class="quantity-controls">
-                    <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
-                    <span class="quantity-display" id="quantity-display">1</span>
-                    <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+            <div class="product-details">
+                <div class="product-header">
+                    <h1 class="product-name">HOODIE <span>ELVAR</span></h1>
+                    <p class="product-description">
+                        HOODIE ELVAR ليس مجرد هودي، إنه بيان أسلوب. مصنوع من قطن ميلتون 100% بجودة فائقة، مع تطريزات متعددة يمكنك تغييرها حسب مزاجك. تصميم مريح وأنيق يمنحك الثقة في كل لحظة.
+                    </p>
+                    <div class="price">
+                        <span style="text-decoration: line-through; color: var(--text-light); font-size: 1.2rem; margin-left: 0.5rem;">1200 جنيه</span>
+                        899 جنيه
+                    </div>
                 </div>
+                
+                <div class="options">
+                    <div class="option-group">
+                        <label class="option-label">اختر المقاس</label>
+                        <div class="size-options">
+                            <button class="size-btn selected" onclick="selectSize(this, 'Oversize')">Oversize</button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label class="option-label">الكمية</label>
+                        <div class="quantity-selector">
+                            <button class="qty-btn" onclick="changeQuantity(-1)">-</button>
+                            <span class="qty-display" id="quantity">1</span>
+                            <button class="qty-btn" onclick="changeQuantity(1)">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="add-to-cart" onclick="addToCart()">
+                    <i class="fas fa-shopping-bag" style="margin-left: 10px;"></i>
+                    أضف إلى السلة
+                </button>
             </div>
-            
-            <button class="add-cart-btn" id="add-cart-text" onclick="confirmAddToCart('HOODIE Elvar - Over size', 899)">أضف للسلة</button>
         </div>
     </section>
 
-    <div class="side-products">
-        <div class="side-product">
-            <img src="images/4.jpeg" alt="HOODIE Side">
-            <div style="font-size:clamp(1.2rem, 4vw, 1.5rem); margin:0.8rem 0;" id="side-title">HOODIE Elvar</div>
-            <div class="side-price-container">
-                <span class="discount-badge" style="font-size:0.75rem; padding:0.25rem 0.6rem;" id="side-discount">وفر 25%</span>
-                <span class="side-current-price" id="side-price">899 جنيه</span>
-                <span class="side-original-price" id="side-original-price">1200 جنيه</span>
+    <section class="about-section" id="about">
+        <div class="about-content">
+            <h2 class="section-title">قصة <span>ELVAR</span></h2>
+            <p class="about-text">
+                في ELVAR، نؤمن بأن الملابس ليست مجرد قماش يغطي الجسد، بل هي لغة تعبر عن هويتك وشخصيتك. كل قطعة نصنعها تحمل في تفاصيلها رواية من الدقة والجودة والأناقة. نحن لا نبيع ملابس، نبيع هوية، نبيع ثقة، نبيع أسلوب حياة.
+                <br><br>
+                🇪🇬 صناعة مصرية بمعايير عالمية
+                🌿 خامات قطن ميلتون 100% بجودة عالية
+                ✨ تصميمات عصرية تجمع بين البساطة والأناقة
+                👌 راحة، متانة، واهتمام بأدق التفاصيل
+            </p>
+            <div class="social-links">
+                <a href="https://wa.me/201203790142" class="social-link" target="_blank" title="واتساب">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.facebook.com/share/1H6EAaFNra/" class="social-link" target="_blank" title="فيسبوك">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/elvar_hoodies?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="social-link" target="_blank" title="انستجرام">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.tiktok.com/@elvar.eg?_r=1&_t=ZS-936CoFgzPol" class="social-link" target="_blank" title="تيك توك">
+                    <i class="fab fa-tiktok"></i>
+                </a>
             </div>
-            
-            <div class="size-selection" style="margin-bottom: 1rem;">
-                <label id="side-size-label" style="font-size: 0.9rem;">المقاس:</label>
-                <div class="size-options" style="gap: 0.3rem;">
-                    <div class="size-option selected" data-size="Over size" onclick="selectSideSize('Over size')" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" id="side-size-one">Over size</div>
-                </div>
-            </div>
-            
-            <div class="quantity-selection" style="margin-bottom: 1rem;">
-                <label id="side-quantity-label" style="font-size: 0.9rem;">الكمية:</label>
-                <div class="quantity-controls" style="gap: 0.8rem;">
-                    <button class="quantity-btn" onclick="changeSideQuantity(-1)" style="width: 35px; height: 35px; font-size: 1rem;">-</button>
-                    <span class="quantity-display" id="side-quantity-display" style="font-size: 1.1rem;">1</span>
-                    <button class="quantity-btn" onclick="changeSideQuantity(1)" style="width: 35px; height: 35px; font-size: 1rem;">+</button>
-                </div>
-            </div>
-            
-            <button class="add-cart-btn" style="font-size:0.95rem; padding:1rem 1.8rem;" id="side-cart-text" onclick="confirmAddToCart('HOODIE Elvar - Over size', 899, 'side')">أضف للسلة</button>
         </div>
-        
-        <!-- T-Shirt Section -->
-        <div class="side-product tshirt-glow float-effect">
-            <div class="new-badge" style="background:linear-gradient(45deg, #ff4757, #ff6b7a);">قريباً</div>
-            <div class="tshirt-side-content">
-                <div class="new-product-image-single rotate-3d" style="margin-bottom: 1rem; height: 140px; position:relative;">
-                    <img src="images/T-SHIRT 1.jpg" alt="T-SHIRT" id="tshirt-side-image">
-                    <div class="pulse-ring"></div>
+    </section>
+
+    <div class="modal cart-modal" id="cartModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 style="margin-bottom: 1.5rem; text-align: center; color: var(--gold);">سلة المشتريات</h2>
+            <div class="cart-items" id="cartItems">
+                <div style="text-align: center; padding: 2rem; color: var(--text-light);">
+                    <i class="fas fa-shopping-bag" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                    <p>السلة فارغة</p>
                 </div>
-                <div style="font-size: 1.2rem; font-weight: 500; margin-bottom: 0.5rem;" id="tshirt-side-title">T-SHIRT ELVAR</div>
-                
-                <!-- إزالة العد التنازلي -->
-                
-                <div class="soon-text" style="font-size: 1.6rem; margin: 0.8rem 0;">
-                    قريباً
-                </div>
-                
-                <div style="font-size: 0.8rem; opacity: 0.7; margin-bottom: 1rem; line-height: 1.4;" id="tshirt-side-desc">
-                    تصميم كلاسيكي أنيق بجودة عالية - 100% قطن
-                </div>
-                
-                <div class="tshirt-grid" id="tshirt-side-grid">
-                    <!-- سيتم إضافة الصور ديناميكياً -->
-                </div>
-                
-                <button class="magic-btn" style="font-size:0.9rem; padding:0.8rem 1.5rem; margin-top: 1rem; width:100%;" 
-                        onclick="openTshirtModal()" id="tshirt-side-btn">
-                    <i class="fas fa-eye"></i> استعرض التصاميم
+            </div>
+            <div class="cart-total" id="cartTotalSection" style="display: none;">
+                <span>الإجمالي:</span>
+                <span id="cartTotal">0 جنيه</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()" id="checkoutBtn" style="display: none;">
+                <i class="fas fa-check-circle" style="margin-left: 10px;"></i>
+                إتمام الشراء
+            </button>
+        </div>
+    </div>
+
+    <div class="modal checkout-modal" id="checkoutModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeCheckout()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 style="margin-bottom: 1.5rem; text-align: center; color: var(--gold);">إتمام الطلب</h2>
+            <form id="checkoutForm" style="display: grid; gap: 1rem;">
+                <input type="text" placeholder="الاسم بالكامل *" required style="padding: 0.8rem; border: 1px solid var(--border); background: var(--secondary); color: var(--text); border-radius: 5px; font-size: 0.9rem;">
+                <input type="tel" placeholder="رقم الهاتف *" required style="padding: 0.8rem; border: 1px solid var(--border); background: var(--secondary); color: var(--text); border-radius: 5px; font-size: 0.9rem;">
+                <input type="text" placeholder="المحافظة *" required style="padding: 0.8rem; border: 1px solid var(--border); background: var(--secondary); color: var(--text); border-radius: 5px; font-size: 0.9rem;">
+                <textarea placeholder="العنوان التفصيلي *" required rows="3" style="padding: 0.8rem; border: 1px solid var(--border); background: var(--secondary); color: var(--text); border-radius: 5px; resize: vertical; font-size: 0.9rem;"></textarea>
+                <textarea placeholder="ملاحظات إضافية (اختياري)" rows="2" style="padding: 0.8rem; border: 1px solid var(--border); background: var(--secondary); color: var(--text); border-radius: 5px; resize: vertical; font-size: 0.9rem;"></textarea>
+                <button type="submit" class="checkout-btn">
+                    <i class="fas fa-paper-plane" style="margin-left: 10px;"></i>
+                    تأكيد الطلب
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal thank-you-modal" id="thankYouModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeThankYou()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div style="text-align: center; padding: 1rem;">
+                <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--gold); margin-bottom: 1rem;"></i>
+                <h2 style="margin-bottom: 1rem; color: var(--gold);">شكراً لطلبك!</h2>
+                <p style="color: var(--text-light); line-height: 1.6; margin-bottom: 1.5rem; font-size: 0.9rem;">
+                    تم استلام طلبك بنجاح ✅
+                    <br><br>
+                    📦 سيتواصل معك فريقنا خلال 24 ساعة لتأكيد التفاصيل
+                    <br>
+                    🚚 التوصيل خلال 2-3 أيام عمل
+                    <br>
+                    📍 من القاهرة... لحد باب بيتك
+                    <br><br>
+                    ELVAR - هويتك بصوت أعلى
+                </p>
+                <button class="checkout-btn" onclick="closeThankYou()">
+                    <i class="fas fa-shopping-bag" style="margin-left: 10px;"></i>
+                    مواصلة التسوق
                 </button>
             </div>
         </div>
     </div>
 
-    <div class="confirm-modal" id="confirmModal">
-        <div class="confirm-content">
-            <h3 id="confirm-title" style="margin-bottom: 1.2rem; font-size: 1.3rem;">تأكيد الطلب</h3>
-            <p id="confirm-message" style="margin-bottom: 1rem; line-height: 1.6;">هل أنت متأكد من إضافة هذا المنتج إلى سلة المشتريات؟</p>
-            <div id="confirm-details" style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                    <span id="confirm-item-name">المنتج:</span>
-                    <span id="confirm-item-name-value" style="font-weight: 500;"></span>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                    <span id="confirm-item-size">المقاس:</span>
-                    <span id="confirm-item-size-value" style="font-weight: 500;"></span>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                    <span id="confirm-item-quantity">الكمية:</span>
-                    <span id="confirm-item-quantity-value" style="font-weight: 500;"></span>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                    <span id="confirm-item-price">السعر:</span>
-                    <span id="confirm-item-price-value" style="font-weight: 500; color: #ffd700;"></span>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.2);">
-                    <span id="confirm-total">الإجمالي:</span>
-                    <span id="confirm-total-value" style="font-weight: 600; color: #ffd700;"></span>
-                </div>
-            </div>
-            <div class="confirm-buttons">
-                <button class="confirm-btn confirm-yes" id="confirm-yes-text" onclick="addConfirmedItem()">نعم، أضف إلى السلة</button>
-                <button class="confirm-btn confirm-no" id="confirm-no-text" onclick="hideConfirmModal()">إلغاء</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="checkout-modal" id="checkoutModal">
-        <div class="checkout-content">
-            <h3 id="checkout-title" style="margin-bottom: 1.5rem; font-size: 1.4rem;">معلومات الشحن</h3>
-            <p id="checkout-instruction" style="margin-bottom: 1.5rem; opacity: 0.8;">يرجى ملء بياناتك لإتمام الطلب</p>
-            
-            <form id="shippingForm">
-                <div class="form-group">
-                    <label for="customerName" id="name-label">الاسم بالكامل *</label>
-                    <input type="text" id="customerName" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone1" id="phone1-label">رقم الهاتف *</label>
-                    <input type="tel" id="phone1" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone2" id="phone2-label">رقم هاتف إضافي (اختياري)</label>
-                    <input type="tel" id="phone2" class="form-control">
-                </div>
-                
-                <div class="form-group">
-                    <label for="governorate" id="governorate-label">المحافظة *</label>
-                    <input type="text" id="governorate" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="address" id="address-label">العنوان بالكامل *</label>
-                    <textarea id="address" class="form-control" rows="3" required></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="notes" id="notes-label">ملاحظات إضافية (اختياري)</label>
-                    <textarea id="notes" class="form-control" rows="2"></textarea>
-                </div>
-            </form>
-            
-            <div class="checkout-review">
-                <h4 id="order-review-title">مراجعة الطلب</h4>
-                <div id="order-review-items">
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 1rem; border-top: 2px solid rgba(255,215,0,0.3);">
-                    <span id="review-total-label" style="font-weight: 600;">الإجمالي:</span>
-                    <span id="review-total-value" style="font-weight: 700; color: #ffd700; font-size: 1.2rem;"></span>
-                </div>
-            </div>
-            
-            <div class="checkout-buttons">
-                <button class="submit-order-btn" id="submit-order-text" onclick="submitOrder()">تأكيد الطلب</button>
-                <button class="cancel-checkout-btn" id="cancel-checkout-text" onclick="hideCheckoutModal()">إلغاء</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="thankyou-modal" id="thankyouModal">
-        <div class="thankyou-content">
-            <div class="thankyou-hearts">
-                <i class="fas fa-heart"></i>
-                <i class="fas fa-heart"></i>
-                <i class="fas fa-heart"></i>
-            </div>
-            <h3 class="thankyou-title" id="thankyou-title">شكراً لك!</h3>
-            <p class="thankyou-message" id="thankyou-message">
-                شكرًا لاختيارك ELVAR 🤍<br><br>
-                طلبك اتسجّل عندنا بنجاح، وهنبدأ تجهيزه بعناية علشان يوصلك بأفضل جودة.<br><br>
-                HOODIE ELVAR معمول علشان يديك أكتر من ستايل في قطعة واحدة،<br>
-                ونتمنى يكون على ذوقك ويعبر عنك.<br><br>
-                📦 هيتم التواصل معاك قريب لتأكيد الشحن<br>
-                📍 من القاهرة… لحد باب بيتك<br><br>
-                لو عندك أي استفسار، تقدر تكلمنا في أي وقت.<br>
-                ELVAR – هويتك بصوت أعلى.
-            </p>
-            <button class="thankyou-close-btn" id="thankyou-close-text" onclick="hideThankyouModal()">مواصلة التسوق</button>
-        </div>
-    </div>
-
-    <div class="cart-modal" id="cartModal">
-        <h3 id="cart-title" style="margin-bottom:1.2rem; font-size:1.2rem;">سلة المشتريات</h3>
-        <div id="cartItems">السلة فارغة</div>
-        <div class="cart-total" id="cartTotal" style="display:none;"></div>
-        <button class="checkout-btn" onclick="showCheckoutModal()" id="checkout-text">إتمام الشراء</button>
-    </div>
-
     <footer>
-        <div class="social-section">
-            <h3 class="social-title" id="social-title">تواصل معنا وتابعنا عبر</h3>
-            <div class="social-icons">
-                <a href="https://wa.me/201203790142" target="_blank" class="social-icon whatsapp-icon" id="whatsapp-link">
-                    <i class="fab fa-whatsapp"></i>
-                    <span id="whatsapp-text">واتساب</span>
-                </a>
-                <a href="https://www.facebook.com/share/1H6EAaFNra/" target="_blank" class="social-icon facebook-icon" id="facebook-link">
-                    <i class="fab fa-facebook"></i>
-                    <span id="facebook-text">فيسبوك</span>
-                </a>
-                <a href="https://www.instagram.com/elvar_hoodies?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="social-icon instagram-icon" id="instagram-link">
-                    <i class="fab fa-instagram"></i>
-                    <span id="instagram-text">انستجرام</span>
-                </a>
-                <a href="https://www.tiktok.com/@elvar.eg?_r=1&_t=ZS-936CoFgzPol" target="_blank" class="social-icon tiktok-icon" id="tiktok-link">
-                    <i class="fab fa-tiktok"></i>
-                    <span id="tiktok-text">تيك توك</span>
-                </a>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ELVAR</h3>
+                <p style="color: var(--text-light); line-height: 1.6; font-size: 0.9rem;">
+                    علامة تجارية مصرية تقدم أرقى تصاميم الملابس العصرية، حيث تلتقي الجودة بالأناقة في كل قطعة. هويتك بصوت أعلى.
+                </p>
             </div>
-            <div class="contact-info">
-                <p id="copyright">© 2026 ELVAR. All rights reserved.</p>
+            
+            <div class="footer-section">
+                <h3>الروابط</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#collection">المجموعة</a></li>
+                    <li><a href="#upcoming">التيشرتات القادمة</a></li>
+                    <li><a href="#products">المنتجات</a></li>
+                    <li><a href="#about">من نحن</a></li>
+                </ul>
             </div>
+            
+            <div class="footer-section">
+                <h3>تواصل معنا</h3>
+                <ul class="footer-links">
+                    <li><a href="https://wa.me/201203790142" target="_blank"><i class="fab fa-whatsapp" style="margin-left: 5px; color: #25D366;"></i> واتساب: 01203790142</a></li>
+                    <li><i class="far fa-envelope" style="margin-left: 5px; color: var(--gold);"></i> info@elvar.com</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>تابعنا</h3>
+                <ul class="footer-links">
+                    <li><a href="https://www.facebook.com/share/1H6EAaFNra/" target="_blank"><i class="fab fa-facebook-f" style="margin-left: 5px; color: #1877F2;"></i> Facebook</a></li>
+                    <li><a href="https://www.instagram.com/elvar_hoodies?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram" style="margin-left: 5px; color: #E4405F;"></i> Instagram</a></li>
+                    <li><a href="https://www.tiktok.com/@elvar.eg?_r=1&_t=ZS-936CoFgzPol" target="_blank"><i class="fab fa-tiktok" style="margin-left: 5px;"></i> TikTok</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            © 2025 ELVAR. جميع الحقوق محفوظة | صنع بكل فخر في مصر 🇪🇬
         </div>
     </footer>
 
     <script>
-        let cart = [], currentImage = 0, isEnglish = false;
-        let selectedSize = 'Over size';
+        let cart = [];
         let quantity = 1;
-        let sideSelectedSize = 'Over size';
-        let sideQuantity = 1;
-        let tshirtSelectedSize = 'S';
-        let pendingItem = null;
-        let isVideoControlsVisible = false;
-        let currentTshirtImage = 0;
-        
-        const translations = {
-            en: {
-                menuTitle: 'Menu',
-                menuCollection: 'The Collection',
-                menuAbout: 'About',
-                menuLanguage: 'العربية',
-                menuSocial: 'Social',
-                menuNew: 'New',
-                cartLabel: 'Cart',
-                collectionModalTitle: 'The Collection',
-                collectionProduct1Name: 'HOODIE Elvar',
-                collectionProduct1Desc: 'Basic hoodie with multiple embroidery - 100% Milton cotton',
-                collectionProduct1Price: 'EGP 899',
-                collectionProduct1Original: 'EGP 1200',
-                collectionProduct2Name: 'T-SHIRT ELVAR',
-                collectionProduct2Desc: 'Classic elegant design with high quality - 100% cotton',
-                aboutTitle: 'About Elvar',
-                aboutText: '🖤 Elvar<br><br>👕 An Egyptian clothing brand specializing in hoodies and t-shirts<br><br>🌿 100% Milton cotton materials with high quality and lasting softness<br><br>✨ Modern designs that combine simplicity and elegance<br><br>👌 Comfort, durability, and attention to the finest details<br><br>🇪🇬 Egyptian manufacturing with high standards',
-                socialModalTitle: 'Social Media',
-                socialWhatsapp: 'WhatsApp',
-                socialFacebook: 'Facebook',
-                socialInstagram: 'Instagram',
-                socialTiktok: 'TikTok',
-                newModalTitle: 'New',
-                newProductName: 'T-SHIRT ELVAR',
-                newProductDesc: 'Classic elegant design with high quality - 100% cotton',
-                ctaText: 'Discover Product',
-                productTitle: 'HOODIE Elvar',
-                discountBadge: 'SAVE 25%',
-                productPrice: 'EGP 899',
-                originalPrice: 'EGP 1200',
-                productDesc: 'HOODIE ELVAR is not just a piece of clothing, it\'s a style that changes with you and expresses your personality.<br>With a simple and stable design, but its idea is smart and expandable, to give you more than one style in one hoodie.<br>Made from 100% heavy and comfortable Milton cotton, suitable for daily use and gives you a sense of quality from the first wear.<br>Each hoodie comes with 3 embroideries (1 basic + 2 gifts) that you can easily attach and change according to color and mood.<br>Precise details, accurate execution, and lasting comfort...',
-                sizeLabel: 'Size:',
-                quantityLabel: 'Quantity:',
-                addCartText: 'Add to Cart',
-                sizeOne: 'Over size',
-                sideTitle: 'HOODIE Elvar',
-                sideDiscount: 'SAVE 25%',
-                sidePrice: 'EGP 899',
-                sideOriginalPrice: 'EGP 1200',
-                sideSizeLabel: 'Size:',
-                sideQuantityLabel: 'Quantity:',
-                sideCartText: 'Add to Cart',
-                tshirtSideTitle: 'T-SHIRT ELVAR',
-                tshirtSideDesc: 'Classic elegant design with high quality - 100% cotton',
-                tshirtSideBtn: 'View Designs',
-                confirmTitle: 'Confirm Order',
-                confirmMessage: 'Are you sure you want to add this item to your cart?',
-                confirmItemName: 'Product:',
-                confirmItemSize: 'Size:',
-                confirmItemQuantity: 'Quantity:',
-                confirmItemPrice: 'Price:',
-                confirmTotal: 'Total:',
-                confirmYes: 'Yes, Add to Cart',
-                confirmNo: 'Cancel',
-                checkoutTitle: 'Shipping Information',
-                checkoutInstruction: 'Please fill in your details to complete the order',
-                nameLabel: 'Full Name *',
-                phone1Label: 'Phone Number *',
-                phone2Label: 'Additional Phone Number (Optional)',
-                governorateLabel: 'Governorate *',
-                addressLabel: 'Full Address *',
-                notesLabel: 'Additional Notes (Optional)',
-                orderReviewTitle: 'Order Review',
-                reviewTotalLabel: 'Total:',
-                submitOrderText: 'Submit Order',
-                cancelCheckoutText: 'Cancel',
-                thankyouTitle: 'Thank You!',
-                thankyouMessage: 'Thank you for choosing ELVAR 🤍<br><br>Your order has been successfully registered, and we will start preparing it carefully to reach you with the best quality.<br><br>HOODIE ELVAR is made to give you more than one style in one piece,<br>and we hope it suits your taste and expresses you.<br><br>📦 We will contact you soon to confirm shipping<br>📍 From Cairo... to your doorstep<br><br>If you have any inquiries, you can contact us anytime.<br>ELVAR - your identity louder.',
-                thankyouCloseText: 'Continue Shopping',
-                cartTitle: 'Shopping Cart',
-                cartEmpty: 'Cart is empty',
-                checkoutText: 'Complete Purchase',
-                totalLabel: 'Total:',
-                socialTitle: 'Contact Us & Follow Us',
-                whatsappText: 'WhatsApp',
-                facebookText: 'Facebook',
-                instagramText: 'Instagram',
-                tiktokText: 'TikTok',
-                copyright: '© 2024 ELVAR. All rights reserved.',
-                alertEmpty: 'Cart is empty!',
-                alertThanks: 'Thank you for your trust! 📦\nTotal order: ',
-                alertDelivery: 'Will be delivered within 2-3 days',
-                alertRequiredFields: 'Please fill in all required fields',
-                videoTitle: 'Elvar'
-            },
-            ar: {
-                menuTitle: 'القائمة',
-                menuCollection: 'The Collection',
-                menuAbout: 'About',
-                menuLanguage: 'English',
-                menuSocial: 'Social',
-                menuNew: 'New',
-                cartLabel: 'السلة',
-                collectionModalTitle: 'The Collection',
-                collectionProduct1Name: 'HOODIE Elvar',
-                collectionProduct1Desc: 'هودي أساسي بتطريزات متعددة - 100% قطن ميلتون',
-                collectionProduct1Price: '899 جنيه',
-                collectionProduct1Original: '1200 جنيه',
-                collectionProduct2Name: 'T-SHIRT ELVAR',
-                collectionProduct2Desc: 'تصميم كلاسيكي أنيق بجودة عالية - 100% قطن',
-                aboutTitle: 'نبذة عن Elvar',
-                aboutText: '🖤 Elvar<br><br>👕 براند ملابس مصري متخصص في هوديز وتيشيرتات<br><br>🌿 خامات قطن ميلتون 100% بجودة عالية ونعومة تدوم<br><br>✨ تصميمات عصرية تجمع بين البساطة والأناقة<br><br>👌 راحة، متانة، واهتمام بأدق التفاصيل<br><br>🇪🇬 صناعة مصرية بمعايير عالية',
-                socialModalTitle: 'وسائل التواصل الاجتماعي',
-                socialWhatsapp: 'واتساب',
-                socialFacebook: 'فيسبوك',
-                socialInstagram: 'انستجرام',
-                socialTiktok: 'تيك توك',
-                newModalTitle: 'New',
-                newProductName: 'T-SHIRT ELVAR',
-                newProductDesc: 'تصميم كلاسيكي أنيق بجودة عالية - 100% قطن',
-                ctaText: 'اكتشف المنتج',
-                productTitle: 'HOODIE Elvar',
-                discountBadge: 'وفر 25%',
-                productPrice: '899 جنيه',
-                originalPrice: '1200 جنيه',
-                productDesc: 'HOODIE ELVAR مش مجرد قطعة لبس، ده ستايل بيتغيّر معاك ويعبر عن شخصيتك.<br>بتصميم بسيط وثابت، لكن فكرته ذكية وقابلة للتطوير، علشان يديلك أكتر من ستايل في هودي واحد.<br>مصنوع من قطن ميلتون 100% تقيل ومريح، مناسب للاستخدام اليومي ويديك إحساس بالجودة من أول لبسة.<br>كل هودي بييجي معاه 3 تطريزات (تطريزة أساسية + 2 هدية) تقدر تركبهم وتغيّرهم بسهولة حسب اللون والمود.<br>تفاصيل متقنة، تنفيذ مظبوط، وراحة تدوم…',
-                sizeLabel: 'المقاس:',
-                quantityLabel: 'الكمية:',
-                addCartText: 'أضف للسلة',
-                sizeOne: 'Over size',
-                sideTitle: 'HOODIE Elvar',
-                sideDiscount: 'وفر 25%',
-                sidePrice: '899 جنيه',
-                sideOriginalPrice: '1200 جنيه',
-                sideSizeLabel: 'المقاس:',
-                sideQuantityLabel: 'الكمية:',
-                sideCartText: 'أضف للسلة',
-                tshirtSideTitle: 'T-SHIRT ELVAR',
-                tshirtSideDesc: 'تصميم كلاسيكي أنيق بجودة عالية - 100% قطن',
-                tshirtSideBtn: 'استعرض التصاميم',
-                confirmTitle: 'تأكيد الطلب',
-                confirmMessage: 'هل أنت متأكد من إضافة هذا المنتج إلى سلة المشتريات؟',
-                confirmItemName: 'المنتج:',
-                confirmItemSize: 'المقاس:',
-                confirmItemQuantity: 'الكمية:',
-                confirmItemPrice: 'السعر:',
-                confirmTotal: 'الإجمالي:',
-                confirmYes: 'نعم، أضف إلى السلة',
-                confirmNo: 'إلغاء',
-                checkoutTitle: 'معلومات الشحن',
-                checkoutInstruction: 'يرجى ملء بياناتك لإتمام الطلب',
-                nameLabel: 'الاسم بالكامل *',
-                phone1Label: 'رقم الهاتف *',
-                phone2Label: 'رقم هاتف إضافي (اختياري)',
-                governorateLabel: 'المحافظة *',
-                addressLabel: 'العنوان بالكامل *',
-                notesLabel: 'ملاحظات إضافية (اختياري)',
-                orderReviewTitle: 'مراجعة الطلب',
-                reviewTotalLabel: 'الإجمالي:',
-                submitOrderText: 'تأكيد الطلب',
-                cancelCheckoutText: 'إلغاء',
-                thankyouTitle: 'شكراً لك!',
-                thankyouMessage: 'شكرًا لاختيارك ELVAR 🤍<br><br>طلبك اتسجّل عندنا بنجاح، وهنبدأ تجهيزه بعناية علشان يوصلك بأفضل جودة.<br><br>HOODIE ELVAR معمول علشان يديك أكتر من ستايل في قطعة واحدة،<br>ونتمنى يكون على ذوقك ويعبر عنك.<br><br>📦 هيتم التواصل معاك قريب لتأكيد الشحن<br>📍 من القاهرة… لحد باب بيتك<br><br>لو عندك أي استفسار، تقدر تكلمنا في أي وقت.<br>ELVAR – هويتك بصوت أعلى.',
-                thankyouCloseText: 'مواصلة التسوق',
-                cartTitle: 'سلة المشتريات',
-                cartEmpty: 'السلة فارغة',
-                checkoutText: 'إتمام الشراء',
-                totalLabel: 'الإجمالي:',
-                socialTitle: 'تواصل معنا وتابعنا عبر',
-                whatsappText: 'واتساب',
-                facebookText: 'فيسبوك',
-                instagramText: 'انستجرام',
-                tiktokText: 'تيك توك',
-                copyright: '© 2026 ELVAR. All rights reserved.',
-                alertEmpty: 'السلة فارغة!',
-                alertThanks: 'شكراً لثقتك! 📦\nإجمالي الطلب: ',
-                alertDelivery: 'هيوصلك خلال 2-3 أيام',
-                alertRequiredFields: 'يرجى ملء جميع الحقول المطلوبة',
-                videoTitle: 'Elvar'
-            }
-        };
-        
-        const images = [
-            "images/1.jpeg",
-            "images/2.jpeg",
-            "images/3.jpeg",
-            "images/4.jpeg",
-            "images/5.jpeg"
-        ];
-        
-        // صور التيشرت (9 صور)
-        const tshirtImages = [
-            "images/T-SHIRT 1.jpg",
-            "images/T-SHIRT 2.jpg",
-            "images/T-SHIRT 3.jpg",
-            "images/T-SHIRT 4.jpg",
-            "images/T-SHIRT 5.jpg",
-            "images/T-SHIRT 6.jpg",
-            "images/T-SHIRT 7.jpg",
-            "images/T-SHIRT 8.jpg",
-            "images/T-SHIRT 9.jpg"
-        ];
-        
-        function createCartFlyEffect(button) {
-            const rect = button.getBoundingClientRect();
-            const flyElement = document.createElement('div');
-            flyElement.className = 'cart-fly';
-            flyElement.style.left = (rect.right - 20) + 'px';
-            flyElement.style.top = (rect.top + window.scrollY) + 'px';
-            document.body.appendChild(flyElement);
-            
-            setTimeout(() => {
-                flyElement.remove();
-            }, 1200);
-        }
-        
-        function toggleSideMenu() {
-            const menu = document.getElementById('sideMenu');
-            const overlay = document.getElementById('menuOverlay');
+        let currentVideoPlaying = true;
+        let currentSlide = 0;
+        let slideInterval;
+        let currentTshirtColor = 'navy';
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
             menu.classList.toggle('active');
-            overlay.classList.toggle('active');
         }
-        
-        function closeSideMenu() {
-            const menu = document.getElementById('sideMenu');
-            const overlay = document.getElementById('menuOverlay');
-            menu.classList.remove('active');
-            overlay.classList.remove('active');
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('active');
         }
-        
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-        
-        function viewHoodie() {
-            closeCollection();
-            window.scrollTo({
-                top: document.getElementById('product-showcase').offsetTop - 100,
-                behavior: 'smooth'
-            });
-        }
-        
-        function viewTshirt() {
-            closeCollection();
-            openTshirtModal();
-        }
-        
-        function openCollection() {
-            closeSideMenu();
-            const modal = document.getElementById('collectionModal');
-            modal.style.display = 'flex';
-        }
-        
-        function closeCollection() {
-            document.getElementById('collectionModal').style.display = 'none';
-        }
-        
-        function openAbout() {
-            closeSideMenu();
-            const modal = document.getElementById('aboutModal');
-            modal.style.display = 'flex';
-        }
-        
-        function closeAbout() {
-            document.getElementById('aboutModal').style.display = 'none';
-        }
-        
-        function openSocial() {
-            closeSideMenu();
-            const modal = document.getElementById('socialModal');
-            modal.style.display = 'flex';
-        }
-        
-        function closeSocial() {
-            document.getElementById('socialModal').style.display = 'none';
-        }
-        
-        function openNew() {
-            closeSideMenu();
-            const modal = document.getElementById('newModal');
-            modal.style.display = 'flex';
-        }
-        
-        function closeNew() {
-            document.getElementById('newModal').style.display = 'none';
-        }
-        
-        function openTshirtModal() {
-            const modal = document.getElementById('tshirtDetailModal');
-            modal.style.display = 'flex';
-            
-            // تأثير اهتزاز للزر
-            const btn = document.getElementById('tshirt-side-btn');
-            if (btn) btn.classList.add('shake');
-            setTimeout(() => {
-                if (btn) btn.classList.remove('shake');
-            }, 500);
-            
-            // تعيين الصورة الأولى
-            changeTshirtImage(0);
-        }
-        
-        function closeTshirtDetailModal() {
-            document.getElementById('tshirtDetailModal').style.display = 'none';
-        }
-        
-        function notifyMe() {
-            alert('سيتم إشعارك عند توفر التيشرت!');
-            closeTshirtDetailModal();
-        }
-        
-        function updateLanguage() {
-            const t = translations[isEnglish ? 'en' : 'ar'];
-            
-            document.getElementById('menu-title').textContent = t.menuTitle;
-            document.getElementById('menu-collection').textContent = t.menuCollection;
-            document.getElementById('menu-about').textContent = t.menuAbout;
-            document.getElementById('menu-language').textContent = t.menuLanguage;
-            document.getElementById('menu-social').textContent = t.menuSocial;
-            document.getElementById('menu-new').textContent = t.menuNew;
-            
-            document.getElementById('cart-label').textContent = t.cartLabel;
-            
-            document.getElementById('collection-modal-title').textContent = t.collectionModalTitle;
-            document.getElementById('collection-product-1-name').textContent = t.collectionProduct1Name;
-            document.getElementById('collection-product-1-desc').textContent = t.collectionProduct1Desc;
-            document.getElementById('collection-product-1-price').textContent = t.collectionProduct1Price;
-            document.getElementById('collection-product-1-original').textContent = t.collectionProduct1Original;
-            document.getElementById('collection-product-2-name').textContent = t.collectionProduct2Name;
-            document.getElementById('collection-product-2-desc').textContent = t.collectionProduct2Desc;
-            
-            document.getElementById('about-title').textContent = t.aboutTitle;
-            document.getElementById('about-text').innerHTML = t.aboutText;
-            
-            document.getElementById('social-modal-title').textContent = t.socialModalTitle;
-            document.getElementById('social-whatsapp').textContent = t.socialWhatsapp;
-            document.getElementById('social-facebook').textContent = t.socialFacebook;
-            document.getElementById('social-instagram').textContent = t.socialInstagram;
-            document.getElementById('social-tiktok').textContent = t.socialTiktok;
-            
-            document.getElementById('new-modal-title').textContent = t.newModalTitle;
-            document.getElementById('new-product-name').textContent = t.newProductName;
-            document.getElementById('new-product-desc').textContent = t.newProductDesc;
-            
-            document.getElementById('cta-text').textContent = t.ctaText;
-            
-            document.getElementById('product-title').textContent = t.productTitle;
-            document.getElementById('discount-badge').textContent = t.discountBadge;
-            document.getElementById('product-price-main').textContent = t.productPrice;
-            document.getElementById('original-price-main').textContent = t.originalPrice;
-            document.getElementById('product-desc').innerHTML = t.productDesc;
-            document.getElementById('size-label').textContent = t.sizeLabel;
-            document.getElementById('quantity-label').textContent = t.quantityLabel;
-            document.getElementById('add-cart-text').textContent = t.addCartText;
-            
-            document.getElementById('size-one').textContent = t.sizeOne;
-            
-            document.getElementById('side-title').textContent = t.sideTitle;
-            document.getElementById('side-discount').textContent = t.sideDiscount;
-            document.getElementById('side-price').textContent = t.sidePrice;
-            document.getElementById('side-original-price').textContent = t.sideOriginalPrice;
-            document.getElementById('side-size-label').textContent = t.sideSizeLabel;
-            document.getElementById('side-quantity-label').textContent = t.sideQuantityLabel;
-            document.getElementById('side-cart-text').textContent = t.sideCartText;
-            
-            document.getElementById('side-size-one').textContent = t.sizeOne;
-            
-            document.getElementById('tshirt-side-title').textContent = t.tshirtSideTitle;
-            document.getElementById('tshirt-side-desc').textContent = t.tshirtSideDesc;
-            document.getElementById('tshirt-side-btn').innerHTML = `<i class="fas fa-eye"></i> ${t.tshirtSideBtn}`;
-            
-            document.getElementById('confirm-title').textContent = t.confirmTitle;
-            document.getElementById('confirm-message').textContent = t.confirmMessage;
-            document.getElementById('confirm-item-name').textContent = t.confirmItemName;
-            document.getElementById('confirm-item-size').textContent = t.confirmItemSize;
-            document.getElementById('confirm-item-quantity').textContent = t.confirmItemQuantity;
-            document.getElementById('confirm-item-price').textContent = t.confirmItemPrice;
-            document.getElementById('confirm-total').textContent = t.confirmTotal;
-            document.getElementById('confirm-yes-text').textContent = t.confirmYes;
-            document.getElementById('confirm-no-text').textContent = t.confirmNo;
-            
-            document.getElementById('checkout-title').textContent = t.checkoutTitle;
-            document.getElementById('checkout-instruction').textContent = t.checkoutInstruction;
-            document.getElementById('name-label').textContent = t.nameLabel;
-            document.getElementById('phone1-label').textContent = t.phone1Label;
-            document.getElementById('phone2-label').textContent = t.phone2Label;
-            document.getElementById('governorate-label').textContent = t.governorateLabel;
-            document.getElementById('address-label').textContent = t.addressLabel;
-            document.getElementById('notes-label').textContent = t.notesLabel;
-            document.getElementById('order-review-title').textContent = t.orderReviewTitle;
-            document.getElementById('review-total-label').textContent = t.reviewTotalLabel;
-            document.getElementById('submit-order-text').textContent = t.submitOrderText;
-            document.getElementById('cancel-checkout-text').textContent = t.cancelCheckoutText;
-            
-            document.getElementById('thankyou-title').textContent = t.thankyouTitle;
-            document.getElementById('thankyou-message').innerHTML = t.thankyouMessage;
-            document.getElementById('thankyou-close-text').textContent = t.thankyouCloseText;
-            
-            document.getElementById('cart-title').textContent = t.cartTitle;
-            document.getElementById('checkout-text').textContent = t.checkoutText;
-            
-            document.getElementById('social-title').textContent = t.socialTitle;
-            document.getElementById('whatsapp-text').textContent = t.whatsappText;
-            document.getElementById('facebook-text').textContent = t.facebookText;
-            document.getElementById('instagram-text').textContent = t.instagramText;
-            document.getElementById('tiktok-text').textContent = t.tiktokText;
-            document.getElementById('copyright').textContent = t.copyright;
-            
-            document.getElementById('video-title').textContent = t.videoTitle;
-            
-            const playBtn = document.getElementById('play-pause-btn');
-            const fullscreenBtn = document.getElementById('fullscreen-btn');
-            const video = document.querySelector('.product-video');
-            const playTitle = video.paused ? (isEnglish ? 'Play' : 'تشغيل') : (isEnglish ? 'Pause' : 'إيقاف');
-            const fullscreenTitle = isEnglish ? 'Fullscreen' : 'ملء الشاشة';
-            
-            playBtn.setAttribute('title', playTitle);
-            fullscreenBtn.setAttribute('title', fullscreenTitle);
-            
-            document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
-            document.documentElement.lang = isEnglish ? 'en' : 'ar';
-            
+
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('active');
             updateCartDisplay();
         }
-        
-        function toggleLang() {
-            isEnglish = !isEnglish;
-            updateLanguage();
-            closeSideMenu();
+
+        function closeCheckout() {
+            document.getElementById('checkoutModal').classList.remove('active');
         }
-        
-        function changeImage(index) {
-            currentImage = index;
-            document.getElementById('mainImage').src = images[index];
-            document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
-                thumb.classList.toggle('active', i === index);
+
+        function closeThankYou() {
+            document.getElementById('thankYouModal').classList.remove('active');
+        }
+
+        function scrollToProduct() {
+            const section = document.getElementById('products');
+            section.scrollIntoView({ behavior: 'smooth' });
+            closeMobileMenu();
+        }
+
+        function scrollToUpcoming() {
+            const section = document.getElementById('upcoming');
+            section.scrollIntoView({ behavior: 'smooth' });
+            closeMobileMenu();
+        }
+
+        function changeSlide(index) {
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.slide-dot');
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+            
+            clearInterval(slideInterval);
+            startSlideShow();
+        }
+
+        function startSlideShow() {
+            slideInterval = setInterval(() => {
+                currentSlide = (currentSlide + 1) % 2;
+                changeSlide(currentSlide);
+            }, 5000);
+        }
+
+        function changeTshirtColor(color, imageSrc) {
+            // تحديث صورة المعاينة
+            document.getElementById('tshirtPreview').src = imageSrc;
+            
+            // تحديث الألوان المختارة
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('selected');
             });
+            
+            // تحديد اللون المختار
+            const colorOptions = document.querySelectorAll('.color-option');
+            switch(color) {
+                case 'navy':
+                    colorOptions[0].classList.add('selected');
+                    break;
+                case 'black':
+                    colorOptions[1].classList.add('selected');
+                    break;
+                case 'olive':
+                    colorOptions[2].classList.add('selected');
+                    break;
+                case 'cream':
+                    colorOptions[3].classList.add('selected');
+                    break;
+            }
+            
+            currentTshirtColor = color;
+            
+            // إضافة تأثير تحول سلس
+            const previewImage = document.getElementById('tshirtPreview');
+            previewImage.style.opacity = '0.7';
+            previewImage.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                previewImage.style.opacity = '1';
+                previewImage.style.transform = 'scale(1)';
+            }, 300);
         }
-        
-        function nextImage() {
-            currentImage = (currentImage + 1) % images.length;
-            changeImage(currentImage);
+
+        function changeProductImage(src) {
+            document.getElementById('mainProductImage').src = src;
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            event.target.classList.add('active');
         }
-        
-        function prevImage() {
-            currentImage = (currentImage - 1 + images.length) % images.length;
-            changeImage(currentImage);
+
+        function selectSize(button, size) {
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            button.classList.add('selected');
         }
-        
-        function toggleVideoPlay() {
+
+        function changeQuantity(amount) {
+            quantity = Math.max(1, quantity + amount);
+            document.getElementById('quantity').textContent = quantity;
+        }
+
+        function addToCart() {
+            const product = {
+                id: Date.now(),
+                name: 'HOODIE ELVAR',
+                price: 899,
+                size: 'Oversize',
+                quantity: quantity,
+                image: 'images/1.jpeg'
+            };
+
+            cart.push(product);
+            updateCartCount();
+            quantity = 1;
+            document.getElementById('quantity').textContent = '1';
+            
+            const cartBtn = document.querySelector('.cart-btn');
+            cartBtn.style.animation = 'none';
+            setTimeout(() => {
+                cartBtn.style.animation = 'bounce 0.5s';
+            }, 10);
+            
+            setTimeout(() => {
+                alert('تم إضافة المنتج إلى السلة ✓');
+            }, 300);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            updateCartDisplay();
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            const cartTotalSection = document.getElementById('cartTotalSection');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: var(--text-light);">
+                        <i class="fas fa-shopping-bag" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                        <p>السلة فارغة</p>
+                    </div>
+                `;
+                cartTotalSection.style.display = 'none';
+                checkoutBtn.style.display = 'none';
+                return;
+            }
+
+            let itemsHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                itemsHTML += `
+                    <div class="cart-item">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div class="cart-item-info">
+                                <h4>${item.name}</h4>
+                                <div style="font-size: 0.9rem; color: var(--text-light);">
+                                    ${item.size} × ${item.quantity}
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div class="cart-item-price">${itemTotal} جنيه</div>
+                            <button class="remove-item" onclick="removeFromCart(${index})">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cartItems.innerHTML = itemsHTML;
+            cartTotal.textContent = `${total} جنيه`;
+            cartTotalSection.style.display = 'flex';
+            checkoutBtn.style.display = 'block';
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('السلة فارغة');
+                return;
+            }
+
+            toggleCart();
+            document.getElementById('checkoutModal').classList.add('active');
+        }
+
+        function toggleVideo() {
             const video = document.querySelector('.product-video');
-            const button = document.getElementById('play-pause-btn');
-            const icon = button.querySelector('i');
+            if (!video) return;
             
-            if (video.paused) {
-                video.play();
-                icon.className = 'fas fa-pause';
-            } else {
+            const btn = document.querySelector('.video-btn i');
+            
+            if (currentVideoPlaying) {
                 video.pause();
-                icon.className = 'fas fa-play';
+                btn.className = 'fas fa-play';
+            } else {
+                video.play();
+                btn.className = 'fas fa-pause';
             }
             
-            toggleVideoControlsVisibility();
+            currentVideoPlaying = !currentVideoPlaying;
         }
-        
-        function toggleVideoControlsVisibility() {
-            const videoControls = document.getElementById('videoControls');
-            if (window.innerWidth <= 768) {
-                isVideoControlsVisible = !isVideoControlsVisible;
-                if (isVideoControlsVisible) {
-                    videoControls.classList.add('visible');
-                } else {
-                    videoControls.classList.remove('visible');
-                }
-            }
-        }
-        
+
         function toggleFullscreen() {
-            const videoContainer = document.querySelector('.video-container');
+            const videoWrapper = document.querySelector('.video-wrapper');
+            if (!videoWrapper) return;
             
             if (!document.fullscreenElement) {
-                videoContainer.requestFullscreen().catch(err => {
-                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
-                });
+                videoWrapper.requestFullscreen();
             } else {
                 document.exitFullscreen();
             }
+        }
+
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            toggleVideoControlsVisibility();
-        }
-        
-        function selectSize(size) {
-            selectedSize = size;
-            document.querySelectorAll('.product-info .size-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            document.querySelector(`.product-info .size-option[data-size="${size}"]`).classList.add('selected');
-        }
-        
-        function selectSideSize(size) {
-            sideSelectedSize = size;
-            document.querySelectorAll('.side-product .size-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            document.querySelector(`.side-product .size-option[data-size="${size}"]`).classList.add('selected');
-        }
-        
-        function selectTshirtSize(size) {
-            tshirtSelectedSize = size;
-            document.querySelectorAll('#tshirtDetailModal .size-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            document.querySelector(`#tshirtDetailModal .size-option[data-size="${size}"]`).classList.add('selected');
-        }
-        
-        function changeQuantity(amount) {
-            quantity = Math.max(1, quantity + amount);
-            document.getElementById('quantity-display').textContent = quantity;
-        }
-        
-        function changeSideQuantity(amount) {
-            sideQuantity = Math.max(1, sideQuantity + amount);
-            document.getElementById('side-quantity-display').textContent = sideQuantity;
-        }
-        
-        function confirmAddToCart(name, price, type = 'main') {
-            const t = translations[isEnglish ? 'en' : 'ar'];
-            
-            const itemSize = type === 'main' ? selectedSize : sideSelectedSize;
-            const itemQuantity = type === 'main' ? quantity : sideQuantity;
-            const itemTotal = price * itemQuantity;
-            const currency = isEnglish ? 'EGP' : 'جنيه';
-            
-            document.getElementById('confirm-item-name-value').textContent = name;
-            document.getElementById('confirm-item-size-value').textContent = itemSize;
-            document.getElementById('confirm-item-quantity-value').textContent = itemQuantity;
-            document.getElementById('confirm-item-price-value').textContent = `${price} ${currency}`;
-            document.getElementById('confirm-total-value').textContent = `${itemTotal} ${currency}`;
-            
-            pendingItem = {
-                name,
-                price,
-                size: itemSize,
-                quantity: itemQuantity,
-                total: itemTotal,
-                type
+            const formData = new FormData(this);
+            const order = {
+                customer: Object.fromEntries(formData),
+                items: cart,
+                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
             };
-            
-            document.getElementById('confirmModal').style.display = 'flex';
-        }
-        
-        function hideConfirmModal() {
-            document.getElementById('confirmModal').style.display = 'none';
-            pendingItem = null;
-        }
-        
-        function addConfirmedItem() {
-            if (!pendingItem) return;
-            
-            const { name, price, size, quantity, total, type } = pendingItem;
-            
-            cart.push({
-                id: Date.now(),
-                name: `${name}`,
-                price: total,
-                details: isEnglish ? 
-                    `Size: ${size}, Quantity: ${quantity}, Unit Price: ${price}` : 
-                    `المقاس: ${size}, الكمية: ${quantity}, سعر الوحدة: ${price}`,
-                unitPrice: price,
-                size: size,
-                qty: quantity
-            });
-            
-            document.getElementById('cartCount').textContent = cart.length;
-            
-            const button = type === 'main' ? 
-                document.getElementById('add-cart-text') : 
-                document.getElementById('side-cart-text');
-            createCartFlyEffect(button);
-            
-            button.style.transform = 'scale(0.97)';
-            setTimeout(() => {
-                button.style.transform = '';
-            }, 150);
-            
-            hideConfirmModal();
-        }
-        
-        function addTshirtToCart() {
-            const t = translations[isEnglish ? 'en' : 'ar'];
-            const price = 399;
-            
-            cart.push({
-                id: Date.now(),
-                name: `T-SHIRT ELVAR (${tshirtSelectedSize})`,
-                price: price,
-                details: isEnglish ? 
-                    `Size: ${tshirtSelectedSize}, Quantity: 1, Classic Design` : 
-                    `المقاس: ${tshirtSelectedSize}, الكمية: 1, تصميم كلاسيكي`,
-                unitPrice: price,
-                size: tshirtSelectedSize,
-                qty: 1
-            });
-            
-            document.getElementById('cartCount').textContent = cart.length;
-            
-            // تأثير إضافة
-            const btn = document.querySelector('#tshirtDetailModal .add-cart-btn');
-            if (btn) {
-                btn.classList.add('shake');
-                createCartFlyEffect(btn);
-            }
-            
-            // تحديث السلة
-            updateCartDisplay();
-            
-            // إشعار نجاح
-            setTimeout(() => {
-                closeTshirtDetailModal();
-                alert(isEnglish ? 'T-SHIRT added to cart!' : 'تم إضافة التيشرت إلى السلة!');
-            }, 800);
-        }
-        
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            document.getElementById('cartCount').textContent = cart.length;
-            updateCartDisplay();
-        }
-        
-        function toggleCart() {
-            const modal = document.getElementById('cartModal');
-            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
-            if (modal.style.display === 'block') updateCartDisplay();
-        }
-        
-        function updateCartDisplay() {
-            const t = translations[isEnglish ? 'en' : 'ar'];
-            const cartItems = document.getElementById('cartItems');
-            const cartTotal = document.getElementById('cartTotal');
-            
-            if (cart.length === 0) {
-                cartItems.innerHTML = `<p style="opacity:0.7; text-align:center; padding:2rem 0;">${t.cartEmpty}</p>`;
-                cartTotal.style.display = 'none';
-                return;
-            }
-            
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            const currency = isEnglish ? 'EGP' : 'جنيه';
-            
-            cartItems.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <div class="cart-item-info">
-                        <div style="font-weight:500; font-size:0.95rem;">${item.name}</div>
-                        <div class="cart-item-details">${item.details}</div>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:0.8rem;">
-                        <span class="cart-item-price">${item.price} ${currency}</span>
-                        <button class="delete-btn" onclick="removeFromCart(${item.id})" title="${isEnglish ? 'Remove' : 'حذف'}">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-            
-            cartTotal.innerHTML = `${t.totalLabel} ${total} ${currency}`;
-            cartTotal.style.display = 'block';
-        }
-        
-        function showCheckoutModal() {
-            if (cart.length === 0) { 
-                alert(translations[isEnglish ? 'en' : 'ar'].alertEmpty); 
-                return; 
-            }
-            
-            updateOrderReview();
-            
-            document.getElementById('checkoutModal').style.display = 'flex';
-        }
-        
-        function hideCheckoutModal() {
-            document.getElementById('checkoutModal').style.display = 'none';
-        }
-        
-        function updateOrderReview() {
-            const t = translations[isEnglish ? 'en' : 'ar'];
-            const reviewContainer = document.getElementById('order-review-items');
-            const totalValue = document.getElementById('review-total-value');
-            
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            const currency = isEnglish ? 'EGP' : 'جنيه';
-            
-            reviewContainer.innerHTML = cart.map(item => `
-                <div class="review-item">
-                    <span>${item.name} (${isEnglish ? 'Size' : 'المقاس'}: ${item.size}, ${isEnglish ? 'Qty' : 'الكمية'}: ${item.qty})</span>
-                    <span>${item.price} ${currency}</span>
-                </div>
-            `).join('');
-            
-            totalValue.textContent = `${total} ${currency}`;
-        }
-        
-        function submitOrder() {
-            const form = document.getElementById('shippingForm');
-            if (!form.checkValidity()) {
-                alert(translations[isEnglish ? 'en' : 'ar'].alertRequiredFields);
-                return;
-            }
-            
-            const name = document.getElementById('customerName').value;
-            const phone1 = document.getElementById('phone1').value;
-            const phone2 = document.getElementById('phone2').value;
-            const governorate = document.getElementById('governorate').value;
-            const address = document.getElementById('address').value;
-            const notes = document.getElementById('notes').value;
-            
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            const t = translations[isEnglish ? 'en' : 'ar'];
-            const currency = isEnglish ? 'EGP' : 'جنيه';
-            
-            const orderDetails = `
-${t.alertThanks}${total} ${currency}
 
-${isEnglish ? 'Customer Information:' : 'معلومات العميل:'}
-${isEnglish ? 'Name:' : 'الاسم:'} ${name}
-${isEnglish ? 'Phone:' : 'الهاتف:'} ${phone1}
-${phone2 ? `${isEnglish ? 'Additional Phone:' : 'هاتف إضافي:'} ${phone2}\n` : ''}
-${isEnglish ? 'Governorate:' : 'المحافظة:'} ${governorate}
-${isEnglish ? 'Address:' : 'العنوان:'} ${address}
-${notes ? `${isEnglish ? 'Notes:' : 'ملاحظات:'} ${notes}\n` : ''}
-${isEnglish ? 'Order Items:' : 'عناصر الطلب:'}
-${cart.map(item => `- ${item.name} (${isEnglish ? 'Size' : 'المقاس'}: ${item.size}, ${isEnglish ? 'Qty' : 'الكمية'}: ${item.qty}): ${item.price} ${currency}`).join('\n')}
-
-${t.alertDelivery}
-            `;
+            console.log('Order placed:', order);
             
-            console.log('Order Details:', orderDetails);
-            
-            hideCheckoutModal();
-            
-            document.getElementById('cartModal').style.display = 'none';
-            
-            document.getElementById('thankyouModal').style.display = 'flex';
+            document.getElementById('checkoutModal').classList.remove('active');
+            document.getElementById('thankYouModal').classList.add('active');
             
             cart = [];
-            document.getElementById('cartCount').textContent = '0';
+            updateCartCount();
             updateCartDisplay();
             
-            form.reset();
-        }
-        
-        function hideThankyouModal() {
-            document.getElementById('thankyouModal').style.display = 'none';
-        }
-        
-        // وظائف التيشرت
-        function initTshirtGallery() {
-            const grid = document.getElementById('tshirt-side-grid');
-            const thumbs = document.getElementById('tshirt-detail-thumbs');
-            
-            // اختر 6 صور عشوائية
-            const selectedImages = [...tshirtImages].slice(0, 6);
-            
-            selectedImages.forEach((imgSrc, index) => {
-                // إضافة للشبكة الجانبية
-                const gridItem = document.createElement('div');
-                gridItem.className = 'tshirt-grid-item fade-up';
-                gridItem.style.animationDelay = `${index * 0.1}s`;
-                gridItem.onclick = () => changeTshirtImage(index);
+            this.reset();
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
                 
-                const img = document.createElement('img');
-                img.src = imgSrc;
-                img.alt = `T-SHIRT Design ${index + 1}`;
-                img.onerror = function() {
-                    this.src = `https://via.placeholder.com/80/222/444?text=T${index + 1}`;
-                };
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
                 
-                gridItem.appendChild(img);
-                grid.appendChild(gridItem);
-                
-                // إضافة للثمبنيات في المودال
-                const thumb = document.createElement('div');
-                thumb.className = 'tshirt-thumb';
-                if (index === 0) thumb.classList.add('active');
-                thumb.onclick = () => changeTshirtImage(index);
-                
-                const thumbImg = document.createElement('img');
-                thumbImg.src = imgSrc;
-                thumbImg.alt = `Thumb ${index + 1}`;
-                thumbImg.onerror = function() {
-                    this.src = `https://via.placeholder.com/80/222/444?text=${index + 1}`;
-                };
-                
-                thumb.appendChild(thumbImg);
-                thumbs.appendChild(thumb);
-            });
-            
-            // تأثيرات ظهور
-            document.querySelectorAll('.fade-up').forEach((el, index) => {
-                setTimeout(() => {
-                    el.style.animation = `fadeUp 0.8s ease-out ${index * 0.1}s forwards`;
-                }, 100);
-            });
-        }
-        
-        function changeTshirtImage(index) {
-            currentTshirtImage = index;
-            const mainImg = document.getElementById('tshirt-modal-main');
-            const sideImg = document.getElementById('tshirt-side-image');
-            
-            if (mainImg) {
-                // تأثير تغيير الصورة في المودال
-                mainImg.style.opacity = '0';
-                mainImg.style.transform = 'scale(0.9)';
-                
-                setTimeout(() => {
-                    mainImg.src = tshirtImages[index];
-                    mainImg.alt = `T-SHIRT Design ${index + 1}`;
-                    mainImg.onerror = function() {
-                        this.src = `https://via.placeholder.com/400x400/222/444?text=T-SHIRT+${index + 1}`;
-                    };
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
                     
-                    mainImg.style.opacity = '1';
-                    mainImg.style.transform = 'scale(1)';
-                }, 200);
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    if (this.classList.contains('nav-link')) {
+                        this.classList.add('active');
+                    }
+                    
+                    closeMobileMenu();
+                }
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.padding = '0.8rem 0';
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.3)';
+            } else {
+                nav.style.padding = '1rem 0';
+                nav.style.boxShadow = 'none';
             }
             
-            if (sideImg && index < tshirtImages.length) {
-                // تحديث الصورة الجانبية
-                sideImg.src = tshirtImages[index];
-                sideImg.alt = `T-SHIRT Design ${index + 1}`;
-                sideImg.onerror = function() {
-                    this.src = `https://via.placeholder.com/250x150/222/444?text=T-SHIRT+${index + 1}`;
-                };
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
             }
-            
-            // تحديث الثمبنيات النشطة
-            document.querySelectorAll('.tshirt-grid-item').forEach((item, i) => {
-                item.classList.toggle('active', i === index);
-            });
-            
-            document.querySelectorAll('.tshirt-thumb').forEach((thumb, i) => {
-                thumb.classList.toggle('active', i === index);
-            });
+        });
+
+        const video = document.querySelector('.product-video');
+        if (video) {
+            video.addEventListener('click', toggleVideo);
         }
         
-        // تهيئة الموقع
-        document.addEventListener('DOMContentLoaded', function() {
-            // تهيئة معرض التيشرت
-            initTshirtGallery();
-            
-            // تأثير ظهور للمنتجات
-            const tshirtSection = document.querySelector('.tshirt-glow');
-            setTimeout(() => {
-                if (tshirtSection) tshirtSection.classList.add('slide-in');
-            }, 500);
-            
-            // كشف عند التمرير
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('slide-in');
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            if (tshirtSection) observer.observe(tshirtSection);
-        });
+        // بدء عرض الشرائح التلقائي
+        startSlideShow();
         
-        // الفيديو والصور
-        setInterval(nextImage, 4000);
-        updateLanguage();
-        
-        selectSize('Over size');
-        selectSideSize('Over size');
-        selectTshirtSize('S');
-        document.getElementById('quantity-display').textContent = quantity;
-        document.getElementById('side-quantity-display').textContent = sideQuantity;
-        
-        window.addEventListener('scroll', function() {
-            const video = document.querySelector('.product-video');
-            const videoRect = video.getBoundingClientRect();
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.2); }
+            }
             
-            if (videoRect.top < window.innerHeight / 2 && videoRect.bottom > window.innerHeight / 2) {
-                if (video.paused && !video.muted) {
-                    video.play();
+            @media (max-height: 600px) {
+                .hero {
+                    min-height: 600px;
+                }
+                
+                .hero-image-container {
+                    min-height: 300px;
+                }
+                
+                .hero-img {
+                    min-height: 300px;
                 }
             }
-        });
-        
-        document.querySelector('.product-video').addEventListener('loadeddata', function() {
-            this.play().catch(e => {
-                console.log("Auto-play prevented");
-            });
-        });
-        
-        document.querySelector('.product-video').addEventListener('ended', function() {
-            this.currentTime = 0;
-            this.play();
-        });
-        
-        document.getElementById('videoContainer').addEventListener('click', function(e) {
-            if (!e.target.closest('.video-control-btn')) {
-                if (window.innerWidth <= 768) {
-                    toggleVideoControlsVisibility();
-                }
-            }
-        });
-        
-        document.addEventListener('fullscreenchange', function() {
-            if (!document.fullscreenElement) {
-                const videoControls = document.getElementById('videoControls');
-                videoControls.classList.remove('hidden');
-            }
-        });
-        
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('menu-overlay')) {
-                closeSideMenu();
-            }
-            if (e.target.classList.contains('collection-modal') || 
-                e.target.classList.contains('about-modal') || 
-                e.target.classList.contains('social-modal') || 
-                e.target.classList.contains('new-modal') ||
-                e.target.classList.contains('tshirtDetailModal')) {
-                e.target.style.display = 'none';
-            }
-        });
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
