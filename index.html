@@ -16,7 +16,7 @@
             --border: #333333;
             --gold: #d4af37;
             --hover: #2c2c2c;
-            --navy: #330033;
+            --navy-dark: #330033;
             --black: #000000;
             --olive: #556B2F;
             --cream: #F5F5DC;
@@ -677,7 +677,7 @@
         
         .tshirt-preview {
             width: 100%;
-            height: 400px;
+            height: 450px;
             overflow: hidden;
             border-radius: 10px;
             border: 1px solid var(--border);
@@ -695,7 +695,7 @@
             object-fit: contain;
             max-width: 100%;
             max-height: 100%;
-            transition: transform 0.5s ease;
+            transition: all 0.5s ease;
         }
         
         .color-options {
@@ -704,70 +704,75 @@
             justify-content: center;
             flex-wrap: wrap;
             margin-top: 1rem;
+            margin-bottom: 2rem;
         }
         
         .color-option-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-        
-        .color-option {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s;
-            border: 2px solid transparent;
+        }
+        
+        .color-option-container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .color-sample {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid transparent;
             position: relative;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            overflow: hidden;
         }
         
-        .color-option:hover {
-            transform: scale(1.1);
-        }
-        
-        .color-option.selected {
+        .color-sample.selected {
             border-color: var(--gold);
             transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(212, 175, 55, 0.3);
         }
         
-        .color-option::after {
+        .color-sample::before {
             content: '';
             position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            border-radius: 50%;
-            border: 1px solid var(--border);
-            opacity: 0;
-            transition: opacity 0.3s;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: currentColor;
         }
         
-        .color-option:hover::after {
-            opacity: 1;
+        .color-sample::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
         }
         
         .color-name {
             text-align: center;
-            margin-top: 0.5rem;
-            font-size: 0.9rem;
+            margin-top: 0.8rem;
+            font-size: 1rem;
             color: var(--text-light);
             font-weight: 500;
+            transition: color 0.3s;
         }
         
-        .color-info {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+        .color-option-container.selected .color-name {
+            color: var(--gold);
+            font-weight: 600;
         }
         
-        .color-dot {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
+        .color-demo-images {
+            display: none;
         }
         
         .upcoming-notice {
@@ -777,6 +782,7 @@
             border: 1px solid var(--gold);
             margin-top: 2rem;
             text-align: center;
+            width: 100%;
         }
         
         .upcoming-notice h3 {
@@ -1093,7 +1099,7 @@
             }
             
             .tshirt-preview {
-                height: 350px;
+                height: 400px;
             }
         }
         
@@ -1162,7 +1168,12 @@
             }
             
             .tshirt-preview {
-                height: 300px;
+                height: 350px;
+            }
+            
+            .color-sample {
+                width: 50px;
+                height: 50px;
             }
             
             .collection,
@@ -1239,12 +1250,12 @@
             }
             
             .tshirt-preview {
-                height: 250px;
+                height: 300px;
             }
             
-            .color-option {
-                width: 40px;
-                height: 40px;
+            .color-sample {
+                width: 45px;
+                height: 45px;
             }
             
             .color-options {
@@ -1284,7 +1295,12 @@
             }
             
             .tshirt-preview {
-                height: 200px;
+                height: 250px;
+            }
+            
+            .color-sample {
+                width: 40px;
+                height: 40px;
             }
         }
         
@@ -1357,10 +1373,10 @@
             </div>
             <div class="hero-image-container">
                 <div class="hero-slide active">
-                    <img src="images/4.jpeg" alt="ELVAR Collection" class="hero-img">
+                    <img src="images/T-SHIRT 2.jpg" alt="ELVAR Collection" class="hero-img">
                 </div>
                 <div class="hero-slide">
-                    <img src="images/T-SHIRT 4.jpg" alt="ELVAR Collection" class="hero-img">
+                    <img src="images/4.jpeg" alt="ELVAR Collection" class="hero-img">
                 </div>
                 <div class="slide-controls">
                     <div class="slide-dot active" onclick="changeSlide(0)"></div>
@@ -1407,7 +1423,7 @@
         
         <div class="color-selector-container">
             <div class="tshirt-preview">
-                <img id="tshirtPreview" src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR" class="tshirt-preview-image">
+                <img id="tshirtPreview" src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR بلون نبيتي غامق" class="tshirt-preview-image">
             </div>
             
             <div style="text-align: center; margin-bottom: 2rem;">
@@ -1418,23 +1434,23 @@
             </div>
             
             <div class="color-options">
-                <div class="color-option-container">
-                    <div class="color-option selected" style="background: hsl(0, 100%, 10%);" onclick="changeTshirtColor('navy', 'images/T-SHIRT 4.jpg')"></div>
+                <div class="color-option-container selected" onclick="changeTshirtColor('navy', 'images/T-SHIRT 1.jpg')">
+                    <div class="color-sample selected" style="color: hsl(0, 100%, 10%);"></div>
                     <div class="color-name">نبيتي غامق</div>
                 </div>
                 
-                <div class="color-option-container">
-                    <div class="color-option" style="background: #000000;" onclick="changeTshirtColor('black', 'images/T-SHIRT 3.jpg')"></div>
+                <div class="color-option-container" onclick="changeTshirtColor('black', 'images/T-SHIRT 2.jpg')">
+                    <div class="color-sample" style="color: #000000;"></div>
                     <div class="color-name">أسود</div>
                 </div>
                 
-                <div class="color-option-container">
-                    <div class="color-option" style="background: #556B2F;" onclick="changeTshirtColor('olive', 'images/T-SHIRT 2.jpg')"></div>
+                <div class="color-option-container" onclick="changeTshirtColor('olive', 'images/T-SHIRT 3.jpg')">
+                    <div class="color-sample" style="color: #556B2F;"></div>
                     <div class="color-name">زيتي</div>
                 </div>
                 
-                <div class="color-option-container">
-                    <div class="color-option" style="background: #d3d3b8;" onclick="changeTshirtColor('cream', 'images/T-SHIRT 1.jpg')"></div>
+                <div class="color-option-container" onclick="changeTshirtColor('cream', 'images/T-SHIRT 4.jpg')">
+                    <div class="color-sample" style="color: #F5F5DC;"></div>
                     <div class="color-name">سكري</div>
                 </div>
             </div>
@@ -1443,6 +1459,14 @@
                 <h3><i class="fas fa-clock" style="margin-left: 10px;"></i> متوفر قريباً</h3>
                 <p>سيتم إطلاق هذا التيشرت بألوانه الأربعة قريباً. تابعنا على وسائل التواصل الاجتماعي لمعرفة موعد الإطلاق!</p>
             </div>
+        </div>
+        
+        <!-- صور حقيقية مخفية للتحقق -->
+        <div class="color-demo-images" style="display: none;">
+            <img src="images/T-SHIRT 1.jpg" alt="T-SHIRT نبيتي غامق">
+            <img src="images/T-SHIRT 2.jpg" alt="T-SHIRT أسود">
+            <img src="images/T-SHIRT 3.jpg" alt="T-SHIRT زيتي">
+            <img src="images/T-SHIRT 4.jpg" alt="T-SHIRT سكري">
         </div>
     </section>
 
@@ -1725,34 +1749,42 @@
 
         function changeTshirtColor(color, imageSrc) {
             // تحديث صورة المعاينة
-            document.getElementById('tshirtPreview').src = imageSrc;
+            const previewImage = document.getElementById('tshirtPreview');
+            previewImage.src = imageSrc;
             
             // تحديث الألوان المختارة
-            document.querySelectorAll('.color-option').forEach(option => {
-                option.classList.remove('selected');
+            document.querySelectorAll('.color-option-container').forEach(container => {
+                container.classList.remove('selected');
+            });
+            
+            document.querySelectorAll('.color-sample').forEach(sample => {
+                sample.classList.remove('selected');
             });
             
             // تحديد اللون المختار
-            const colorOptions = document.querySelectorAll('.color-option');
+            const colorContainers = document.querySelectorAll('.color-option-container');
             switch(color) {
                 case 'navy':
-                    colorOptions[0].classList.add('selected');
+                    colorContainers[0].classList.add('selected');
+                    colorContainers[0].querySelector('.color-sample').classList.add('selected');
                     break;
                 case 'black':
-                    colorOptions[1].classList.add('selected');
+                    colorContainers[1].classList.add('selected');
+                    colorContainers[1].querySelector('.color-sample').classList.add('selected');
                     break;
                 case 'olive':
-                    colorOptions[2].classList.add('selected');
+                    colorContainers[2].classList.add('selected');
+                    colorContainers[2].querySelector('.color-sample').classList.add('selected');
                     break;
                 case 'cream':
-                    colorOptions[3].classList.add('selected');
+                    colorContainers[3].classList.add('selected');
+                    colorContainers[3].querySelector('.color-sample').classList.add('selected');
                     break;
             }
             
             currentTshirtColor = color;
             
             // إضافة تأثير تحول سلس
-            const previewImage = document.getElementById('tshirtPreview');
             previewImage.style.opacity = '0.7';
             previewImage.style.transform = 'scale(0.95)';
             
@@ -2024,5 +2056,4 @@
         document.head.appendChild(style);
     </script>
 </body>
-
 </html>
