@@ -160,7 +160,7 @@
         /* الهيدر السفلي للجوال فقط */
         @media (max-width: 768px) {
             body {
-                padding-bottom: 70px;
+                padding-bottom: 90px; /* زيادة لاستيعاب الأيقونات الأكبر */
             }
             
             .bottom-nav {
@@ -187,7 +187,7 @@
             bottom: 0;
             width: 100%;
             background: rgba(17, 17, 17, 0.98);
-            padding: 0.8rem 0 1rem;
+            padding: 0.8rem 0 1.2rem; /* زيادة الحشو من الأسفل */
             z-index: 1000;
             border-top: 1px solid var(--border);
             backdrop-filter: blur(10px);
@@ -207,14 +207,14 @@
         .center-logo {
             position: absolute;
             left: 50%;
-            top: -25px;
+            top: -30px; /* رفع الشعار لأعلى */
             transform: translateX(-50%);
             z-index: 1001;
             background: var(--secondary);
             border: 2px solid var(--gold);
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            width: 70px; /* زيادة حجم الشعار */
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -222,7 +222,7 @@
         }
         
         .center-logo .logo-mobile {
-            font-size: 1.3rem;
+            font-size: 1.5rem; /* زيادة حجم النص */
             font-weight: 700;
             color: var(--text);
             text-decoration: none;
@@ -235,7 +235,7 @@
         
         .center-logo .logo-mobile span {
             color: var(--gold);
-            font-size: 0.9rem;
+            font-size: 1rem; /* زيادة حجم النص */
         }
         
         .nav-items {
@@ -251,30 +251,45 @@
             align-items: center;
             color: var(--text-light);
             text-decoration: none;
-            font-size: 0.75rem;
+            font-size: 0.9rem; /* زيادة حجم الخط */
             transition: all 0.3s;
-            padding: 0.5rem;
-            border-radius: 8px;
-            min-width: 65px;
+            padding: 0.8rem; /* زيادة الحشو */
+            border-radius: 12px; /* زيادة نصف القطر */
+            min-width: 80px; /* زيادة العرض الأدنى */
+            min-height: 70px; /* إضافة ارتفاع أدنى */
+            justify-content: center;
         }
         
         .nav-item i {
-            font-size: 1.2rem;
-            margin-bottom: 0.3rem;
+            font-size: 1.8rem; /* زيادة كبيرة في حجم الأيقونات */
+            margin-bottom: 0.4rem;
+        }
+        
+        /* تكبير أيقونة الهودي SVG */
+        .nav-item svg {
+            width: 28px; /* تكبير SVG */
+            height: 28px;
+            margin-bottom: 0.4rem;
         }
         
         .nav-item:hover {
             color: var(--text);
             background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-3px); /* إضافة حركة عند التحويم */
         }
         
         .nav-item.active {
             color: var(--gold);
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(212, 175, 55, 0.15); /* زيادة الشفافية */
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
         }
         
-        .nav-item.active i {
-            transform: translateY(-2px);
+        .nav-item.active i,
+        .nav-item.active svg {
+            transform: translateY(-3px);
+            color: var(--gold);
+            fill: var(--gold); /* لتلوين SVG */
         }
         
         .mobile-cart-btn {
@@ -282,13 +297,13 @@
             top: 15px;
             left: 15px;
             z-index: 1002;
-            width: 50px;
-            height: 50px;
+            width: 60px; /* زيادة الحجم */
+            height: 60px;
             border-radius: 50%;
             background: var(--accent);
             border: 1px solid var(--border);
             color: var(--text);
-            font-size: 1.2rem;
+            font-size: 1.4rem; /* زيادة حجم الأيقونة */
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
@@ -301,7 +316,7 @@
             background: var(--gold);
             color: var(--primary);
             border-color: var(--gold);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.05);
         }
         
         .mobile-cart-count {
@@ -310,9 +325,9 @@
             right: -5px;
             background: var(--gold);
             color: var(--primary);
-            font-size: 0.7rem;
-            width: 20px;
-            height: 20px;
+            font-size: 0.8rem; /* زيادة الحجم */
+            width: 22px; /* زيادة الحجم */
+            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -328,7 +343,52 @@
             }
         }
         
-        /* باقي الأنماط تبقى كما هي */
+        /* تحسينات للشاشات الصغيرة جداً */
+        @media (max-width: 480px) {
+            .nav-item {
+                min-width: 70px;
+                padding: 0.6rem;
+            }
+            
+            .nav-item i {
+                font-size: 1.5rem;
+            }
+            
+            .nav-item svg {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .center-logo {
+                width: 65px;
+                height: 65px;
+                top: -28px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .nav-item {
+                min-width: 65px;
+                font-size: 0.8rem;
+            }
+            
+            .nav-item i {
+                font-size: 1.4rem;
+            }
+            
+            .nav-item svg {
+                width: 22px;
+                height: 22px;
+            }
+            
+            .center-logo {
+                width: 60px;
+                height: 60px;
+                top: -25px;
+            }
+        }
+        
+        /* بقية الأنماط */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -343,7 +403,7 @@
             .hero {
                 margin-top: 0;
                 padding: 2rem 5% 0;
-                min-height: calc(100vh - 70px);
+                min-height: calc(100vh - 90px);
             }
         }
         
@@ -417,19 +477,58 @@
             box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
         }
         
+        /* تحسين حاوية الصورة */
         .hero-image-container {
             position: relative;
             overflow: hidden;
-            border-radius: 10px;
+            border-radius: 15px;
             width: 100%;
             height: 100%;
             min-height: 500px;
             background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .hero-image-container:hover {
+            transform: scale(1.02);
+        }
+        
+        .hero-image-container:hover .zoom-indicator {
+            opacity: 1;
+        }
+        
+        .zoom-indicator {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--gold);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.3s;
+            backdrop-filter: blur(5px);
         }
         
         @media (max-width: 768px) {
             .hero-image-container {
-                min-height: 300px;
+                min-height: 350px;
+            }
+            
+            .zoom-indicator {
+                opacity: 1;
+                font-size: 0.8rem;
+                padding: 6px 12px;
             }
         }
         
@@ -444,7 +543,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            padding: 20px;
         }
         
         .hero-slide.active {
@@ -452,8 +551,10 @@
         }
         
         .hero-img {
-            width: 100%;
-            height: 100%;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
             border-radius: 10px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
@@ -503,7 +604,7 @@
         
         @media (max-width: 768px) {
             .separate-page {
-                padding: 2rem 5% 5rem;
+                padding: 2rem 5% 6rem;
             }
         }
         
@@ -574,6 +675,7 @@
             border-color: var(--gold);
         }
         
+        /* تحسين حاوية صورة المنتج */
         .product-image-container {
             width: 100%;
             height: 400px;
@@ -582,18 +684,47 @@
             align-items: center;
             justify-content: center;
             background: var(--accent);
-            padding: 1rem;
+            padding: 20px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .product-image-container:hover .zoom-indicator {
+            opacity: 1;
+        }
+        
+        .product-image-container .zoom-indicator {
+            top: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--gold);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s;
+            backdrop-filter: blur(5px);
         }
         
         @media (max-width: 768px) {
             .product-image-container {
-                height: 300px;
+                height: 320px;
+            }
+            
+            .product-image-container .zoom-indicator {
+                opacity: 1;
             }
         }
         
         .product-image {
-            width: 100%;
-            height: 100%;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
             transition: transform 0.6s;
         }
@@ -632,7 +763,7 @@
         .sale-badge {
             position: absolute;
             top: 1rem;
-            left: 1rem;
+            right: 1rem; /* تغيير إلى اليمين للغة العربية */
             background: var(--gold);
             color: var(--primary);
             padding: 0.5rem 1rem;
@@ -645,7 +776,7 @@
         .coming-soon-badge {
             position: absolute;
             top: 1rem;
-            left: 1rem;
+            right: 1rem; /* تغيير إلى اليمين للغة العربية */
             background: linear-gradient(45deg, var(--gold), #ff6b6b);
             color: var(--text);
             padding: 0.5rem 1rem;
@@ -666,6 +797,7 @@
             }
         }
         
+        /* تحسين معرض المنتجات */
         .product-detail {
             max-width: 1400px;
             margin: 0 auto;
@@ -698,20 +830,47 @@
             justify-content: center;
             background: var(--secondary);
             padding: 2rem;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .main-image-container:hover .zoom-indicator {
+            opacity: 1;
+        }
+        
+        .main-image-container .zoom-indicator {
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--gold);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s;
+            backdrop-filter: blur(5px);
         }
         
         @media (max-width: 768px) {
             .main-image-container {
                 height: 350px;
             }
+            
+            .main-image-container .zoom-indicator {
+                opacity: 1;
+            }
         }
         
         .main-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+            width: auto;
+            height: auto;
             max-width: 100%;
             max-height: 100%;
+            object-fit: contain;
         }
         
         .thumbnails {
@@ -728,7 +887,7 @@
             object-fit: cover;
             cursor: pointer;
             opacity: 0.6;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s, border-color 0.3s;
             flex-shrink: 0;
             border-radius: 5px;
             border: 1px solid var(--border);
@@ -736,18 +895,20 @@
         
         @media (max-width: 768px) {
             .thumbnail {
-                width: 60px;
-                height: 60px;
+                width: 70px;
+                height: 70px;
             }
         }
         
         .thumbnail:hover {
             opacity: 0.8;
+            border-color: var(--gold);
         }
         
         .thumbnail.active {
             opacity: 1;
             border: 2px solid var(--gold);
+            transform: scale(1.05);
         }
         
         .product-details {
@@ -890,14 +1051,7 @@
             background: var(--secondary);
         }
         
-        .color-selector-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
+        /* تحسين معاينة التيشرت */
         .tshirt-preview {
             width: 100%;
             height: 450px;
@@ -910,20 +1064,47 @@
             background: var(--accent);
             margin-bottom: 2rem;
             padding: 2rem;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .tshirt-preview:hover .zoom-indicator {
+            opacity: 1;
+        }
+        
+        .tshirt-preview .zoom-indicator {
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--gold);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s;
+            backdrop-filter: blur(5px);
         }
         
         @media (max-width: 768px) {
             .tshirt-preview {
                 height: 350px;
             }
+            
+            .tshirt-preview .zoom-indicator {
+                opacity: 1;
+            }
         }
         
         .tshirt-preview-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+            width: auto;
+            height: auto;
             max-width: 100%;
             max-height: 100%;
+            object-fit: contain;
             transition: all 0.5s ease;
         }
         
@@ -961,15 +1142,15 @@
         
         @media (max-width: 768px) {
             .color-sample {
-                width: 50px;
-                height: 50px;
+                width: 55px;
+                height: 55px;
             }
         }
         
         .color-sample.selected {
             border-color: var(--gold);
-            transform: scale(1.1);
-            box-shadow: 0 6px 12px rgba(212, 175, 55, 0.3);
+            transform: scale(1.15);
+            box-shadow: 0 6px 12px rgba(212, 175, 55, 0.4);
         }
         
         .color-sample::before {
@@ -1086,6 +1267,239 @@
             border-color: var(--gold);
         }
         
+        /* تحسينات الفيديو */
+        .hoodie-video-section {
+            padding: 4rem 5%;
+            background: var(--secondary);
+        }
+        
+        .video-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: var(--accent);
+            cursor: pointer;
+        }
+        
+        .video-wrapper:hover .zoom-indicator {
+            opacity: 1;
+        }
+        
+        .video-wrapper .zoom-indicator {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--gold);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        
+        @media (max-width: 768px) {
+            .video-wrapper {
+                height: 320px;
+            }
+            
+            .video-wrapper .zoom-indicator {
+                opacity: 1;
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+        }
+        
+        .product-video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* تغيير من cover إلى contain */
+            background: var(--primary);
+        }
+        
+        .video-controls {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .video-controls {
+                bottom: 1rem;
+                left: 1rem;
+            }
+        }
+        
+        .video-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            color: var(--gold);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+        }
+        
+        @media (max-width: 768px) {
+            .video-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+        }
+        
+        .video-btn:hover {
+            background: var(--gold);
+            color: var(--primary);
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+        
+        /* مودال عرض الصور الكامل */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+        
+        .lightbox-video {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 5px;
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+        
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        
+        .close-lightbox:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 3;
+            backdrop-filter: blur(5px);
+        }
+        
+        .lightbox-nav:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .lightbox-prev {
+            right: 20px;
+        }
+        
+        .lightbox-next {
+            left: 20px;
+        }
+        
+        .lightbox-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: var(--text);
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            max-width: 80%;
+            margin: 0 auto;
+            font-size: 0.9rem;
+        }
+        
+        /* الأنماط الحالية تبقى كما هي مع بعض التعديلات */
         .modal {
             display: none;
             position: fixed;
@@ -1247,7 +1661,7 @@
         
         @media (max-width: 768px) {
             footer {
-                padding: 2rem 5% 4rem;
+                padding: 2rem 5% 5rem; /* زيادة الحشو من الأسفل */
             }
         }
         
@@ -1322,84 +1736,6 @@
             display: block;
         }
         
-        .hoodie-video-section {
-            padding: 4rem 5%;
-            background: var(--secondary);
-        }
-        
-        .video-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            background: var(--accent);
-        }
-        
-        @media (max-width: 768px) {
-            .video-wrapper {
-                height: 300px;
-            }
-        }
-        
-        .product-video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background: var(--primary);
-        }
-        
-        .video-controls {
-            position: absolute;
-            bottom: 2rem;
-            left: 2rem;
-            display: flex;
-            gap: 1rem;
-        }
-        
-        @media (max-width: 768px) {
-            .video-controls {
-                bottom: 1rem;
-                left: 1rem;
-            }
-        }
-        
-        .video-btn {
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid var(--gold);
-            border-radius: 50%;
-            color: var(--gold);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        @media (max-width: 768px) {
-            .video-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-        }
-        
-        .video-btn:hover {
-            background: var(--gold);
-            color: var(--primary);
-            transform: scale(1.1);
-        }
-        
         /* ================= GLOW EFFECT FOR ACTIVE NAV LINK ================= */
         .nav-link.active {
             animation: glow 2s infinite;
@@ -1414,89 +1750,45 @@
             }
         }
         
-        /* تحسينات للهيدر السفلي على الموبايل */
-        @media (max-width: 480px) {
-            body {
-                padding-bottom: 65px;
+        /* تأثيرات التكبير */
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
             }
-            
-            .bottom-nav {
-                padding: 0.6rem 0 0.8rem;
-            }
-            
-            .center-logo {
-                width: 55px;
-                height: 55px;
-                top: -20px;
-            }
-            
-            .center-logo .logo-mobile {
-                font-size: 1.1rem;
-            }
-            
-            .center-logo .logo-mobile span {
-                font-size: 0.8rem;
-            }
-            
-            .nav-item {
-                min-width: 55px;
-                font-size: 0.7rem;
-                padding: 0.4rem;
-            }
-            
-            .nav-item i {
-                font-size: 1rem;
-            }
-            
-            .mobile-cart-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 1rem;
-            }
-            
-            .mobile-cart-count {
-                width: 18px;
-                height: 18px;
+            to {
+                transform: scale(1);
+                opacity: 1;
             }
         }
         
-        @media (max-width: 360px) {
-            body {
-                padding-bottom: 60px;
-            }
-            
-            .center-logo {
-                width: 50px;
-                height: 50px;
-                top: -18px;
-            }
-            
-            .center-logo .logo-mobile {
-                font-size: 1rem;
-            }
-            
-            .center-logo .logo-mobile span {
-                font-size: 0.75rem;
-            }
-            
-            .nav-item {
-                min-width: 50px;
-                font-size: 0.65rem;
-            }
-            
-            .nav-item i {
-                font-size: 0.9rem;
-            }
-            
-            .mobile-cart-btn {
-                width: 42px;
-                height: 42px;
-                font-size: 0.9rem;
-            }
+        .zoom-in {
+            animation: zoomIn 0.3s ease-out;
         }
     </style>
 </head>
 <body>
+    <!-- Lightbox لعرض الصور والفيديو -->
+    <div class="lightbox-modal" id="lightboxModal">
+        <button class="close-lightbox" onclick="closeLightbox()">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)">
+            <i class="fas fa-arrow-right"></i>
+        </button>
+        
+        <button class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        
+        <div class="lightbox-content">
+            <!-- المحتوى سيتم إضافته ديناميكياً -->
+        </div>
+        
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+
     <!-- الهيدر العلوي للشاشات الكبيرة -->
     <nav>
         <div class="nav-container">
@@ -1537,17 +1829,16 @@
                     <i class="fas fa-tshirt"></i>
                     T-SHIRT
                 </a>
-   <a href="#" class="nav-item" onclick="showPage('hoodies')">
-    <!-- نفس الـ SVG مع إزالة بعض السمات الزائدة -->
-    <svg width="22" height="22" viewBox="0 0 463 463" fill="currentColor" style="margin-bottom: 0.3rem;">
-        <g>
-            <path d="M430.997,375.405c-0.246-183.157-8.752-253.847-13.322-291.824l-0.63-5.255c-1.481-12.468-10.208-22.855-22.231-26.462 l-59.817-17.945V15.5c0-8.547-6.953-15.5-15.5-15.5h-176c-8.547,0-15.5,6.953-15.5,15.5v18.42L68.186,51.863 c-12.023,3.606-20.75,13.994-22.231,26.462l-0.63,5.261c-4.57,37.979-13.076,108.671-13.322,291.819 c-0.005,4.166,1.617,8.088,4.569,11.043c1.032,1.034,2.188,1.894,3.426,2.587V407.5c0,8.547,6.953,15.5,15.5,15.5h34.445 c1.411,2.541,3.514,4.644,6.055,6.055V447.5c0,8.547,6.953,15.5,15.5,15.5h240c8.547,0,15.5-6.953,15.5-15.5v-18.445 c2.541-1.411,4.643-3.514,6.055-6.055h34.451c8.547,0,15.5-6.953,15.5-15.5v-18.463c1.238-0.693,2.393-1.554,3.426-2.587 C429.38,383.494,431.003,379.572,430.997,375.405z M415.997,375.425c0,0.2-0.099,0.341-0.182,0.424 c-0.15,0.15-0.282,0.15-0.325,0.15h-40.493V153.986c0-6.026,1.105-11.931,3.286-17.548l23.132-59.6 c0.347,1.046,0.6,2.134,0.734,3.257l0.633,5.278C407.315,123.042,415.753,193.158,415.997,375.425z M103.497,416 c-0.276,0-0.5-0.224-0.5-0.5V153.986c0-7.89-1.448-15.621-4.303-22.976L73.543,66.208c-0.034-0.089-0.078-0.171-0.115-0.258 l60.845-18.253l57.836,38.557c-0.068,0.406-0.112,0.82-0.112,1.245v73.734c-9.29,3.138-16,11.93-16,22.266v16 c0,4.142,3.358,7.5,7.5,7.5h32c4.142,0,7.5-3.358,7.5-7.5v-16c0-10.336-6.71-19.128-16-22.266V96.18l20.34,13.56 c0.086,0.057,0.178,0.097,0.266,0.15c0.12,0.073,0.231,0.156,0.355,0.223c0.068,0.037,0.14,0.062,0.21,0.096 c0.112,0.056,0.225,0.106,0.34,0.155c0.211,0.092,0.425,0.174,0.642,0.245c0.107,0.035,0.212,0.071,0.32,0.101 c0.257,0.072,0.515,0.128,0.776,0.172c0.069,0.012,0.137,0.028,0.206,0.038c0.347,0.049,0.696,0.08,1.045,0.08 c0.172,0,0.343-0.026,0.514-0.037c0.142-0.01,0.285-0.013,0.427-0.031c0.199-0.025,0.394-0.068,0.591-0.109 c0.127-0.027,0.253-0.051,0.379-0.084c0.199-0.052,0.393-0.116,0.587-0.185c0.119-0.042,0.237-0.087,0.355-0.136 c0.193-0.079,0.383-0.165,0.57-0.261c0.038-0.02,0.079-0.033,0.117-0.053c0.069-0.037,0.13-0.085,0.197-0.124 c0.141-0.081,0.288-0.148,0.424-0.239l20.34-13.56v65.054c-9.29,3.138-16,11.93-16,22.266v16c0,4.142,3.358,7.5,7.5,7.5h32 c4.142,0,7.5-3.358,7.5-7.5v-16c0-10.336-6.71-19.128-16-22.266V87.5c0-0.425-0.044-0.839-0.112-1.245l57.838-38.559l60.844,18.253 c-0.038,0.087-0.081,0.17-0.116,0.259L364.3,131.01c-2.855,7.355-4.303,15.086-4.303,22.976V415.5c0,0.276-0.224,0.5-0.5,0.5 H103.497z M263.497,175c4.687,0,8.5,3.813,8.5,8.5v8.5h-17v-8.5C254.997,178.813,258.81,175,263.497,175z M241.674,87.702 c3.73-10.711,11.183-19.979,21.227-25.838l57.097-33.307v6.929L241.674,87.702z M255.343,48.907 c-10.232,5.969-18.411,14.635-23.846,24.789c-5.435-10.154-13.614-18.821-23.846-24.789L149.525,15H313.47L255.343,48.907z M199.497,175c4.687,0,8.5,3.813,8.5,8.5v8.5h-17v-8.5C190.997,178.813,194.81,175,199.497,175z M142.997,35.486v-6.929 l57.097,33.307c10.044,5.859,17.497,15.127,21.227,25.838L142.997,35.486z M60.217,85.379l0.633-5.283 c0.133-1.121,0.386-2.206,0.732-3.25l23.129,59.592c2.181,5.618,3.286,11.522,3.286,17.548V376H47.51c-0.043,0-0.175,0-0.325-0.15 c-0.083-0.083-0.183-0.225-0.182-0.424C47.247,193.168,55.684,123.049,60.217,85.379z M54.997,407.5V391h33v17h-32.5 C55.221,408,54.997,407.776,54.997,407.5z M351.497,448h-240c-0.276,0-0.5-0.224-0.5-0.5V431h241v16.5 C351.997,447.776,351.773,448,351.497,448z M407.503,408h-32.505v-17h33.005v16.5C408.003,407.776,407.779,408,407.503,408z"/>
-            <path d="M302.733,277.526c-0.89-3.263-3.854-5.526-7.236-5.526h-128c-3.382,0-6.346,2.264-7.236,5.526l-24,87.999 c-0.175,0.644-0.264,1.307-0.264,1.974V391.5c0,4.142,3.358,7.5,7.5,7.5h176c4.142,0,7.5-3.358,7.5-7.5v-24.001 c0-0.667-0.089-1.33-0.264-1.974L302.733,277.526z M311.997,384h-161v-15.497L173.226,287h116.543l22.229,81.503V384z"/>
-        </g>
-    </svg>
-    HOODIE
-</a>
-
+                
+                <a href="#" class="nav-item" onclick="showPage('hoodies')">
+                    <svg width="28" height="28" viewBox="0 0 463 463" fill="currentColor">
+                        <g>
+                            <path d="M430.997,375.405c-0.246-183.157-8.752-253.847-13.322-291.824l-0.63-5.255c-1.481-12.468-10.208-22.855-22.231-26.462 l-59.817-17.945V15.5c0-8.547-6.953-15.5-15.5-15.5h-176c-8.547,0-15.5,6.953-15.5,15.5v18.42L68.186,51.863 c-12.023,3.606-20.75,13.994-22.231,26.462l-0.63,5.261c-4.57,37.979-13.076,108.671-13.322,291.819 c-0.005,4.166,1.617,8.088,4.569,11.043c1.032,1.034,2.188,1.894,3.426,2.587V407.5c0,8.547,6.953,15.5,15.5,15.5h34.445 c1.411,2.541,3.514,4.644,6.055,6.055V447.5c0,8.547,6.953,15.5,15.5,15.5h240c8.547,0,15.5-6.953,15.5-15.5v-18.445 c2.541-1.411,4.643-3.514,6.055-6.055h34.451c8.547,0,15.5-6.953,15.5-15.5v-18.463c1.238-0.693,2.393-1.554,3.426-2.587 C429.38,383.494,431.003,379.572,430.997,375.405z M415.997,375.425c0,0.2-0.099,0.341-0.182,0.424 c-0.15,0.15-0.282,0.15-0.325,0.15h-40.493V153.986c0-6.026,1.105-11.931,3.286-17.548l23.132-59.6 c0.347,1.046,0.6,2.134,0.734,3.257l0.633,5.278C407.315,123.042,415.753,193.158,415.997,375.425z M103.497,416 c-0.276,0-0.5-0.224-0.5-0.5V153.986c0-7.89-1.448-15.621-4.303-22.976L73.543,66.208c-0.034-0.089-0.078-0.171-0.115-0.258 l60.845-18.253l57.836,38.557c-0.068,0.406-0.112,0.82-0.112,1.245v73.734c-9.29,3.138-16,11.93-16,22.266v16 c0,4.142,3.358,7.5,7.5,7.5h32c4.142,0,7.5-3.358,7.5-7.5v-16c0-10.336-6.71-19.128-16-22.266V96.18l20.34,13.56 c0.086,0.057,0.178,0.097,0.266,0.15c0.12,0.073,0.231,0.156,0.355,0.223c0.068,0.037,0.14,0.062,0.21,0.096 c0.112,0.056,0.225,0.106,0.34,0.155c0.211,0.092,0.425,0.174,0.642,0.245c0.107,0.035,0.212,0.071,0.32,0.101 c0.257,0.072,0.515,0.128,0.776,0.172c0.069,0.012,0.137,0.028,0.206,0.038c0.347,0.049,0.696,0.08,1.045,0.08 c0.172,0,0.343-0.026,0.514-0.037c0.142-0.01,0.285-0.013,0.427-0.031c0.199-0.025,0.394-0.068,0.591-0.109 c0.127-0.027,0.253-0.051,0.379-0.084c0.199-0.052,0.393-0.116,0.587-0.185c0.119-0.042,0.237-0.087,0.355-0.136 c0.193-0.079,0.383-0.165,0.57-0.261c0.038-0.02,0.079-0.033,0.117-0.053c0.069-0.037,0.13-0.085,0.197-0.124 c0.141-0.081,0.288-0.148,0.424-0.239l20.34-13.56v65.054c-9.29,3.138-16,11.93-16,22.266v16c0,4.142,3.358,7.5,7.5,7.5h32 c4.142,0,7.5-3.358,7.5-7.5v-16c0-10.336-6.71-19.128-16-22.266V87.5c0-0.425-0.044-0.839-0.112-1.245l57.838-38.559l60.844,18.253 c-0.038,0.087-0.081,0.17-0.116,0.259L364.3,131.01c-2.855,7.355-4.303,15.086-4.303,22.976V415.5c0,0.276-0.224,0.5-0.5,0.5 H103.497z M263.497,175c4.687,0,8.5,3.813,8.5,8.5v8.5h-17v-8.5C254.997,178.813,258.81,175,263.497,175z M241.674,87.702 c3.73-10.711,11.183-19.979,21.227-25.838l57.097-33.307v6.929L241.674,87.702z M255.343,48.907 c-10.232,5.969-18.411,14.635-23.846,24.789c-5.435-10.154-13.614-18.821-23.846-24.789L149.525,15H313.47L255.343,48.907z M199.497,175c4.687,0,8.5,3.813,8.5,8.5v8.5h-17v-8.5C190.997,178.813,194.81,175,199.497,175z M142.997,35.486v-6.929 l57.097,33.307c10.044,5.859,17.497,15.127,21.227,25.838L142.997,35.486z M60.217,85.379l0.633-5.283 c0.133-1.121,0.386-2.206,0.732-3.25l23.129,59.592c2.181,5.618,3.286,11.522,3.286,17.548V376H47.51c-0.043,0-0.175,0-0.325-0.15 c-0.083-0.083-0.183-0.225-0.182-0.424C47.247,193.168,55.684,123.049,60.217,85.379z M54.997,407.5V391h33v17h-32.5 C55.221,408,54.997,407.776,54.997,407.5z M351.497,448h-240c-0.276,0-0.5-0.224-0.5-0.5V431h241v16.5 C351.997,447.776,351.773,448,351.497,448z M407.503,408h-32.505v-17h33.005v16.5C408.003,407.776,407.779,408,407.503,408z"/>
+                            <path d="M302.733,277.526c-0.89-3.263-3.854-5.526-7.236-5.526h-128c-3.382,0-6.346,2.264-7.236,5.526l-24,87.999 c-0.175,0.644-0.264,1.307-0.264,1.974V391.5c0,4.142,3.358,7.5,7.5,7.5h176c4.142,0,7.5-3.358,7.5-7.5v-24.001 c0-0.667-0.089-1.33-0.264-1.974L302.733,277.526z M311.997,384h-161v-15.497L173.226,287h116.543l22.229,81.503V384z"/>
+                        </g>
+                    </svg>
+                    HOODIE
+                </a>
 
                 <a href="#" class="nav-item" onclick="showPage('about')">
                     <i class="fas fa-info-circle"></i>
@@ -1563,7 +1854,7 @@
         <span class="mobile-cart-count" id="cartCountMobile">0</span>
     </button>
 
-    <!-- باقي المحتوى كما هو -->
+    <!-- باقي المحتوى -->
     <div id="home-page" class="page-content active">
         <section class="hero">
             <div class="hero-content">
@@ -1577,7 +1868,11 @@
                         <i class="fas fa-arrow-left"></i>
                     </a>
                 </div>
-                <div class="hero-image-container">
+                <div class="hero-image-container" onclick="openLightbox('images/T-SHIRT 2.jpg', 'صورة ELVAR')">
+                    <div class="zoom-indicator">
+                        <i class="fas fa-expand"></i>
+                        انقر للتكبير
+                    </div>
                     <div class="hero-slide active">
                         <img src="images/T-SHIRT 2.jpg" alt="ELVAR Collection" class="hero-img">
                     </div>
@@ -1597,7 +1892,11 @@
             <div class="products-grid">
                 <div class="product-card" onclick="showPage('tshirts')">
                     <div class="coming-soon-badge">قريباً</div>
-                    <div class="product-image-container">
+                    <div class="product-image-container" onclick="event.stopPropagation(); openLightbox('images/T-SHIRT 1.jpg', 'T-SHIRT ELVAR')">
+                        <div class="zoom-indicator">
+                            <i class="fas fa-expand"></i>
+                            انقر للتكبير
+                        </div>
                         <img src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR" class="product-image">
                     </div>
                     <div class="product-info">
@@ -1610,7 +1909,11 @@
                 
                 <div class="product-card" onclick="showPage('hoodies')">
                     <div class="sale-badge">خصم 25%</div>
-                    <div class="product-image-container">
+                    <div class="product-image-container" onclick="event.stopPropagation(); openLightbox('images/1.jpeg', 'HOODIE ELVAR')">
+                        <div class="zoom-indicator">
+                            <i class="fas fa-expand"></i>
+                            انقر للتكبير
+                        </div>
                         <img src="images/1.jpeg" alt="HOODIE ELVAR" class="product-image">
                     </div>
                     <div class="product-info">
@@ -1669,7 +1972,11 @@
             <h2 class="section-title">T-SHIRT <span>ELVAR</span></h2>
             
             <div class="color-selector-container">
-                <div class="tshirt-preview">
+                <div class="tshirt-preview" onclick="openLightbox(document.getElementById('tshirtPreview').src, 'T-SHIRT ELVAR')">
+                    <div class="zoom-indicator">
+                        <i class="fas fa-expand"></i>
+                        انقر للتكبير
+                    </div>
                     <img id="tshirtPreview" src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR" class="tshirt-preview-image">
                 </div>
                 
@@ -1707,20 +2014,17 @@
                     <p>سيتم إطلاق هذا التيشرت بألوانه الأربعة قريباً. تابعنا على وسائل التواصل الاجتماعي لمعرفة موعد الإطلاق!</p>
                 </div>
             </div>
-            
-            <div class="color-demo-images" style="display: none;">
-                <img src="images/T-SHIRT 1.jpg" alt="T-SHIRT نبيتي غامق">
-                <img src="images/T-SHIRT 2.jpg" alt="T-SHIRT أسود">
-                <img src="images/T-SHIRT 3.jpg" alt="T-SHIRT زيتي">
-                <img src="images/T-SHIRT 4.jpg" alt="T-SHIRT سكري">
-            </div>
         </section>
 
         <section class="collection">
             <h2 class="section-title">تفاصيل <span>T-SHIRT</span></h2>
             <div class="product-detail">
                 <div class="product-gallery">
-                    <div class="main-image-container">
+                    <div class="main-image-container" onclick="openLightbox(document.getElementById('mainTshirtImage').src, 'T-SHIRT ELVAR')">
+                        <div class="zoom-indicator">
+                            <i class="fas fa-expand"></i>
+                            انقر للتكبير
+                        </div>
                         <img id="mainTshirtImage" src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR" class="main-image">
                     </div>
                     <div class="thumbnails">
@@ -1804,12 +2108,16 @@
 
         <section class="hoodie-video-section">
             <div class="video-container">
-                <div class="video-wrapper">
+                <div class="video-wrapper" onclick="openVideoLightbox('video/Elvar video 1.mp4', 'فيديو HOODIE ELVAR')">
+                    <div class="zoom-indicator">
+                        <i class="fas fa-expand"></i>
+                        انقر للتكبير
+                    </div>
                     <video class="product-video" autoplay muted loop playsinline>
                         <source src="video/Elvar video 1.mp4" type="video/mp4">
                     </video>
                     <div class="video-controls">
-                        <button class="video-btn" onclick="toggleVideo()">
+                        <button class="video-btn" onclick="toggleVideo(event)">
                             <i class="fas fa-pause"></i>
                         </button>
                         <button class="video-btn" onclick="toggleFullscreen()">
@@ -1823,7 +2131,11 @@
         <section class="featured-product">
             <div class="product-detail">
                 <div class="product-gallery">
-                    <div class="main-image-container">
+                    <div class="main-image-container" onclick="openLightbox(document.getElementById('mainProductImage').src, 'HOODIE ELVAR')">
+                        <div class="zoom-indicator">
+                            <i class="fas fa-expand"></i>
+                            انقر للتكبير
+                        </div>
                         <img id="mainProductImage" src="images/1.jpeg" alt="HOODIE ELVAR" class="main-image">
                     </div>
                     <div class="thumbnails">
@@ -1930,7 +2242,7 @@
         <section class="about-section" style="background: transparent; padding-top: 0;">
             <div class="about-content">
                 <div style="text-align: center; margin-bottom: 3rem;">
-                    <div style="width: 150px; height: 150px; background: transparent; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; overflow: hidden; border: 3px solid var(--gold);">
+                    <div style="width: 150px; height: 150px; background: transparent; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; overflow: hidden; border: 3px solid var(--gold); cursor: pointer;" onclick="openLightbox('images/elvar logo.jpg', 'شعار ELVAR')">
                         <img src="images/elvar logo.jpg" alt="ELVAR Logo" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
@@ -1983,6 +2295,7 @@
         </section>
     </div>
 
+    <!-- بقية المودالات تبقى كما هي -->
     <div class="modal cart-modal" id="cartModal">
         <div class="modal-content">
             <button class="close-modal" onclick="toggleCart()">
@@ -2103,6 +2416,11 @@
         let slideInterval;
         let currentTshirtColor = 'navy';
         let currentPage = 'home';
+        
+        // Lightbox variables
+        let currentLightboxIndex = 0;
+        let lightboxItems = [];
+        let lightboxType = 'image'; // 'image' or 'video'
 
         function showPage(page) {
             document.querySelectorAll('.page-content').forEach(element => {
@@ -2412,7 +2730,8 @@
             document.getElementById('checkoutModal').classList.add('active');
         }
 
-        function toggleVideo() {
+        function toggleVideo(event) {
+            if (event) event.stopPropagation();
             const video = document.querySelector('.product-video');
             if (!video) return;
             
@@ -2438,6 +2757,88 @@
             } else {
                 document.exitFullscreen();
             }
+        }
+
+        // Lightbox Functions
+        function openLightbox(src, caption) {
+            lightboxType = 'image';
+            lightboxItems = [{src: src, caption: caption}];
+            currentLightboxIndex = 0;
+            
+            const lightboxContent = document.querySelector('.lightbox-content');
+            lightboxContent.innerHTML = `
+                <img src="${src}" alt="${caption}" class="lightbox-image zoom-in">
+            `;
+            
+            document.getElementById('lightboxCaption').textContent = caption;
+            document.getElementById('lightboxModal').classList.add('active');
+            
+            // إخفاء أزرار التنقل إذا كان هناك عنصر واحد فقط
+            const prevBtn = document.querySelector('.lightbox-prev');
+            const nextBtn = document.querySelector('.lightbox-next');
+            prevBtn.style.display = 'none';
+            nextBtn.style.display = 'none';
+            
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openVideoLightbox(src, caption) {
+            lightboxType = 'video';
+            lightboxItems = [{src: src, caption: caption}];
+            currentLightboxIndex = 0;
+            
+            const lightboxContent = document.querySelector('.lightbox-content');
+            lightboxContent.innerHTML = `
+                <video class="lightbox-video zoom-in" controls autoplay>
+                    <source src="${src}" type="video/mp4">
+                    متصفحك لا يدعم تشغيل الفيديو.
+                </video>
+            `;
+            
+            document.getElementById('lightboxCaption').textContent = caption;
+            document.getElementById('lightboxModal').classList.add('active');
+            
+            // إخفاء أزرار التنقل
+            const prevBtn = document.querySelector('.lightbox-prev');
+            const nextBtn = document.querySelector('.lightbox-next');
+            prevBtn.style.display = 'none';
+            nextBtn.style.display = 'none';
+            
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightboxModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // إيقاف الفيديو إذا كان يعرض
+            const video = document.querySelector('.lightbox-video');
+            if (video) {
+                video.pause();
+            }
+        }
+
+        function navigateLightbox(direction) {
+            if (lightboxItems.length <= 1) return;
+            
+            currentLightboxIndex = (currentLightboxIndex + direction + lightboxItems.length) % lightboxItems.length;
+            const item = lightboxItems[currentLightboxIndex];
+            
+            const lightboxContent = document.querySelector('.lightbox-content');
+            if (lightboxType === 'image') {
+                lightboxContent.innerHTML = `
+                    <img src="${item.src}" alt="${item.caption}" class="lightbox-image zoom-in">
+                `;
+            } else {
+                lightboxContent.innerHTML = `
+                    <video class="lightbox-video zoom-in" controls autoplay>
+                        <source src="${item.src}" type="video/mp4">
+                        متصفحك لا يدعم تشغيل الفيديو.
+                    </video>
+                `;
+            }
+            
+            document.getElementById('lightboxCaption').textContent = item.caption;
         }
 
         document.getElementById('checkoutForm').addEventListener('submit', function(e) {
@@ -2477,13 +2878,19 @@
             if (e.target.classList.contains('modal')) {
                 e.target.classList.remove('active');
             }
+            
+            if (e.target.classList.contains('lightbox-modal')) {
+                closeLightbox();
+            }
         });
 
-        const video = document.querySelector('.product-video');
-        if (video) {
-            video.addEventListener('click', toggleVideo);
-        }
-        
+        // إغلاق Lightbox بالزر ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
         // تهيئة الصفحة
         document.addEventListener('DOMContentLoaded', function() {
             startSlideShow();
@@ -2496,16 +2903,27 @@
                     50% { transform: scale(1.2); }
                 }
                 
+                @keyframes zoomIn {
+                    from {
+                        transform: scale(0.8);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                }
+                
+                .zoom-in {
+                    animation: zoomIn 0.3s ease-out;
+                }
+                
                 @media (max-height: 600px) {
                     .hero {
                         min-height: 600px;
                     }
                     
                     .hero-image-container {
-                        min-height: 300px;
-                    }
-                    
-                    .hero-img {
                         min-height: 300px;
                     }
                 }
