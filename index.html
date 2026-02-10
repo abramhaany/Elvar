@@ -1379,7 +1379,7 @@
           
           }
         }
-        /* === FIX MOBILE HEADER === */
+        
 @media (max-width: 480px) {
 
     nav {
@@ -1427,6 +1427,19 @@
     .hero {
         margin-top: 56px;
     }
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background: #181818;
+    z-index: 9999;
+}
+
+body {
+    padding-top: 56px;
+}
 
 }
 
