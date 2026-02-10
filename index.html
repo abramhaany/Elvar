@@ -1412,8 +1412,59 @@
             
             .separate-page {
                 padding: 120px 5% 3rem;
-            }
+          
+          }
         }
+        /* === FIX MOBILE HEADER === */
+@media (max-width: 480px) {
+
+    nav {
+        height: 56px;
+        padding: 0;
+    }
+
+    .nav-container {
+        height: 56px;
+        padding: 0 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+        white-space: nowrap;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-link {
+        font-size: 0.75rem;
+        padding: 4px 6px;
+        white-space: nowrap;
+    }
+
+    .nav-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 0.85rem;
+    }
+
+    .hero {
+        margin-top: 56px;
+    }
+}
+
     </style>
 </head>
 <body>
