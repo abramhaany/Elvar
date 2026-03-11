@@ -1,2345 +1,832 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elvar</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #000000;
-            --secondary: #111111;
-            --accent: #222222;
-            --text: #ffffff;
-            --text-light: #cccccc;
-            --border: #333333;
-            --gold: #d4af37;
-            --hover: #2c2c2c;
-            --navy-dark: #330033;
-            --black: #000000;
-            --olive: #556B2F;
-            --cream: #F5F5DC;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: var(--secondary);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(17, 17, 17, 0.98);
-            padding: 1rem 0;
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
-        }
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 5%;
-        }
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text);
-            text-decoration: none;
-            letter-spacing: -1px;
-            flex-shrink: 0;
-        }
-        .logo span {
-            color: var(--gold);
-        }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            flex-grow: 1;
-            justify-content: center;
-        }
-        .nav-link {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-            position: relative;
-            white-space: nowrap;
-            padding: 0.5rem 0.8rem;
-            border-radius: 8px;
-        }
-        .nav-link:hover {
-            color: var(--text);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        .nav-link.active {
-            color: var(--text);
-            background: var(--gold);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-        }
-        .nav-link.active:hover {
-            background: var(--gold);
-            color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
-        }
-        .nav-actions {
-            display: flex;
-            gap: 0.8rem;
-            align-items: center;
-            flex-shrink: 0;
-        }
-        .nav-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--accent);
-            border: 1px solid var(--border);
-            color: var(--text);
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        .nav-icon:hover {
-            background: var(--gold);
-            color: var(--primary);
-            border-color: var(--gold);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-        }
-        .cart-btn {
-            position: relative;
-        }
-        .cart-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--gold);
-            color: var(--primary);
-            font-size: 0.7rem;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            border: 2px solid var(--secondary);
-        }
-        @media (max-width: 768px) {
-            body {
-                padding-bottom: 90px;
-            }
-            .bottom-nav {
-                display: block;
-            }
-            nav {
-                display: none;
-            }
-            .mobile-cart-btn {
-                display: none !important;
-            }
-        }
-        @media (min-width: 769px) {
-            .bottom-nav {
-                display: none;
-            }
-        }
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: rgba(17, 17, 17, 0.98);
-            padding: 0.8rem 0 1.2rem;
-            z-index: 1000;
-            border-top: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
-            box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.3);
-        }
-        .bottom-nav-container {
-            max-width: 100%;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 0 5px;
-        }
-        .center-cart {
-            position: absolute;
-            left: 50%;
-            top: -30px;
-            transform: translateX(-50%);
-            z-index: 1001;
-            background: var(--secondary);
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            width: 70px;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .center-cart:hover {
-            background: var(--gold);
-            transform: translateX(-50%) translateY(-3px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
-        }
-        .center-cart:hover .cart-icon {
-            color: var(--primary);
-        }
-        .cart-icon {
-            font-size: 1.5rem;
-            color: var(--text);
-            transition: all 0.3s;
-        }
-        .mobile-cart-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--gold);
-            color: var(--primary);
-            font-size: 0.7rem;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            border: 2px solid var(--secondary);
-        }
-        .nav-items {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            align-items: center;
-            padding: 0 5px;
-        }
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: all 0.3s;
-            padding: 0.6rem 0.8rem;
-            border-radius: 12px;
-            min-width: 75px;
-            min-height: 65px;
-            justify-content: center;
-        }
-        .nav-item i {
-            font-size: 1.8rem !important;
-            margin-bottom: 0.4rem;
-        }
-        .nav-item svg {
-            width: 28px !important;
-            height: 28px !important;
-            margin-bottom: 0.4rem;
-        }
-        .nav-item:hover {
-            color: var(--text);
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-3px);
-        }
-        .nav-item.active {
-            color: var(--gold);
-            background: rgba(212, 175, 55, 0.15);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
-        }
-        .nav-item.active i,
-        .nav-item.active svg {
-            transform: translateY(-3px);
-            color: var(--gold);
-            fill: var(--gold);
-        }
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            background: linear-gradient(45deg, #000000, #111111);
-            padding: 5% 5% 0;
-            margin-top: 70px;
-        }
-        @media (max-width: 768px) {
-            .hero {
-                margin-top: 0;
-                padding: 2rem 5% 0;
-                min-height: calc(100vh - 90px);
-            }
-        }
-        .hero-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            width: 100%;
-        }
-        @media (max-width: 768px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
-            }
-        }
-        .hero-text {
-            padding-right: 2rem;
-        }
-        @media (max-width: 768px) {
-            .hero-text {
-                padding-right: 0;
-            }
-        }
-        .hero-title {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            color: var(--text);
-            background: linear-gradient(45deg, var(--text), var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero-subtitle {
-            font-size: clamp(1rem, 2vw, 1.1rem);
-            color: var(--text-light);
-            margin-bottom: 2.5rem;
-            max-width: 500px;
-            line-height: 1.8;
-        }
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            background: var(--gold);
-            color: var(--primary);
-            padding: 1rem 2rem;
-            border-radius: 0;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s;
-            border: 2px solid var(--gold);
-        }
-        .cta-button:hover {
-            background: transparent;
-            color: var(--gold);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
-        }
-        .hero-image-container {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-            min-height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.3s;
-            background: transparent;
-        }
-        .hero-image-container:hover {
-            transform: scale(1.02);
-        }
-        .hero-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .hero-slide.active {
-            opacity: 1;
-        }
-        .hero-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        .slide-controls {
-            position: absolute;
-            bottom: 1rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0.5rem;
-            z-index: 2;
-        }
-        .slide-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--text-light);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .slide-dot.active {
-            background: var(--gold);
-            transform: scale(1.2);
-        }
-        .section-title {
-            font-size: clamp(2rem, 4vw, 2.5rem);
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: var(--text);
-        }
-        .section-title span {
-            color: var(--gold);
-        }
-        .separate-page {
-            min-height: 100vh;
-            padding: 120px 5% 4rem;
-            background: var(--secondary);
-        }
-        @media (max-width: 768px) {
-            .separate-page {
-                padding: 2rem 5% 6rem;
-            }
-        }
-        .page-header {
-            max-width: 1400px;
-            margin: 0 auto 3rem;
-            text-align: center;
-        }
-        .page-title {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
-        .page-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-        .tshirts-page {
-            background: var(--secondary);
-        }
-        .hoodies-page {
-            background: var(--accent);
-        }
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-        }
-        .product-card {
-            background: var(--secondary);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            transition: all 0.3s;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            border-color: var(--gold);
-        }
-        .product-image-container {
-            width: 100%;
-            height: 400px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            cursor: pointer;
-            background: transparent;
-            padding: 0;
-        }
-        .product-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transition: transform 0.6s;
-        }
-        .product-card:hover .product-image {
-            transform: scale(1.05);
-        }
-        .product-info {
-            padding: 1.5rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .product-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text);
-        }
-        .product-price {
-            font-size: 1.2rem;
-            color: var(--gold);
-            font-weight: 500;
-        }
-        .old-price {
-            text-decoration: line-through;
-            color: var(--text-light);
-            margin-right: 0.5rem;
-        }
-        .sale-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: var(--gold);
-            color: var(--primary);
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border-radius: 4px;
-            z-index: 2;
-        }
-        .coming-soon-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: linear-gradient(45deg, var(--gold), #ff6b6b);
-            color: var(--text);
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border-radius: 4px;
-            z-index: 2;
-        }
-        .collection {
-            padding: 4rem 5%;
-            background: var(--accent);
-        }
-        @media (max-width: 768px) {
-            .collection {
-                padding: 3rem 5%;
-            }
-        }
-        .product-detail {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: start;
-        }
-        @media (max-width: 768px) {
-            .product-detail {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
-        .product-gallery {
-            display: grid;
-            gap: 1rem;
-        }
-        .main-image-container {
-            width: 100%;
-            height: 500px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            cursor: pointer;
-            background: transparent;
-        }
-        .main-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        .thumbnails {
-            display: flex;
-            gap: 0.8rem;
-            margin-top: 1rem;
-            overflow-x: auto;
-            padding-bottom: 0.5rem;
-        }
-        .thumbnail {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            cursor: pointer;
-            opacity: 0.6;
-            transition: opacity 0.3s, border-color 0.3s;
-            flex-shrink: 0;
-            border-radius: 5px;
-            border: 1px solid var(--border);
-        }
-        @media (max-width: 768px) {
-            .thumbnail {
-                width: 70px;
-                height: 70px;
-            }
-        }
-        .thumbnail:hover {
-            opacity: 0.8;
-            border-color: var(--gold);
-        }
-        .thumbnail.active {
-            opacity: 1;
-            border: 2px solid var(--gold);
-            transform: scale(1.05);
-        }
-        .product-details {
-            padding: 0 1rem;
-        }
-        .product-header {
-            margin-bottom: 1.5rem;
-        }
-        .product-name {
-            font-size: clamp(1.8rem, 3vw, 2.5rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
-        .product-name span {
-            color: var(--gold);
-        }
-        .product-description {
-            color: var(--text-light);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-            font-size: 1rem;
-        }
-        .price {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--gold);
-        }
-        .options {
-            margin-bottom: 1.5rem;
-        }
-        .option-group {
-            margin-bottom: 1.2rem;
-        }
-        .option-label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text);
-            font-size: 1rem;
-        }
-        .size-options {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        .size-btn {
-            padding: 0.6rem 1.2rem;
-            border: 1px solid var(--border);
-            background: var(--secondary);
-            color: var(--text);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 500;
-            border-radius: 5px;
-            min-width: 80px;
-            text-align: center;
-        }
-        .size-btn:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-        .size-btn.selected {
-            background: var(--gold);
-            color: var(--primary);
-            border-color: var(--gold);
-        }
-        .quantity-selector {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            max-width: 200px;
-        }
-        .qty-btn {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--border);
-            background: var(--secondary);
-            color: var(--text);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-radius: 5px;
-            flex-shrink: 0;
-        }
-        .qty-btn:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-        .qty-display {
-            font-size: 1.2rem;
-            font-weight: 600;
-            min-width: 40px;
-            text-align: center;
-            color: var(--text);
-        }
-        .add-to-cart {
-            width: 100%;
-            padding: 1rem;
-            background: var(--gold);
-            color: var(--primary);
-            border: none;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 1.5rem;
-            border-radius: 5px;
-            max-width: 400px;
-            position: relative;
-            overflow: hidden;
-        }
-        .add-to-cart:hover {
-            background: transparent;
-            color: var(--gold);
-            border: 1px solid var(--gold);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
-        }
-        .upcoming-tshirts {
-            padding: 4rem 5%;
-            background: var(--secondary);
-        }
-        .tshirt-preview {
-            width: 100%;
-            height: 450px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 2rem;
-            position: relative;
-            cursor: pointer;
-            background: transparent;
-        }
-        .tshirt-preview-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transition: all 0.5s ease;
-        }
-        .color-options {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-            margin-bottom: 2rem;
-        }
-        .color-option-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .color-option-container:hover {
-            transform: translateY(-5px);
-        }
-        .color-sample {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 3px solid transparent;
-            position: relative;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s;
-            overflow: hidden;
-        }
-        @media (max-width: 768px) {
-            .color-sample {
-                width: 55px;
-                height: 55px;
-            }
-        }
-        .color-sample.selected {
-            border-color: var(--gold);
-            transform: scale(1.15);
-            box-shadow: 0 6px 12px rgba(212, 175, 55, 0.4);
-        }
-        .color-sample::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: currentColor;
-        }
-        .color-sample::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 50%;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
-        }
-        .color-name {
-            text-align: center;
-            margin-top: 0.8rem;
-            font-size: 1rem;
-            color: var(--text-light);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        .color-option-container.selected .color-name {
-            color: var(--gold);
-            font-weight: 600;
-        }
-        .upcoming-notice {
-            background: linear-gradient(45deg, rgba(212, 175, 55, 0.1), rgba(255, 107, 107, 0.1));
-            padding: 1.5rem;
-            border-radius: 10px;
-            border: 1px solid var(--gold);
-            margin-top: 2rem;
-            text-align: center;
-            width: 100%;
-        }
-        .upcoming-notice h3 {
-            color: var(--gold);
-            margin-bottom: 0.5rem;
-        }
-        .upcoming-notice p {
-            color: var(--text-light);
-            font-size: 0.95rem;
-        }
-        .about-section {
-            padding: 4rem 5%;
-            background: var(--accent);
-            text-align: center;
-            border-top: 1px solid var(--border);
-        }
-        @media (max-width: 768px) {
-            .about-section {
-                padding: 3rem 5%;
-            }
-        }
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .about-text {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: var(--text-light);
-            margin-bottom: 2rem;
-        }
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-        .social-link {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: var(--secondary);
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            border: 1px solid var(--border);
-        }
-        .social-link:hover {
-            background: var(--gold);
-            color: var(--primary);
-            transform: translateY(-5px);
-            border-color: var(--gold);
-        }
-        .hoodie-video-section {
-            padding: 4rem 5%;
-            background: var(--secondary);
-        }
-        .video-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-        }
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            overflow: hidden;
-            cursor: pointer;
-            background: transparent;
-        }
-        .product-video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        .lightbox-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .lightbox-modal.active {
-            display: flex;
-            opacity: 1;
-        }
-        .lightbox-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .lightbox-image {
-            max-width: 100%;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 5px;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
-        }
-        .lightbox-video {
-            max-width: 90%;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 5px;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
-        }
-        .close-lightbox {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid var(--border);
-            color: var(--text);
-            font-size: 1.5rem;
-            cursor: pointer;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 3;
-            transition: all 0.3s;
-            backdrop-filter: blur(5px);
-        }
-        .close-lightbox:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-            background: rgba(212, 175, 55, 0.1);
-            transform: rotate(90deg);
-        }
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid var(--border);
-            color: var(--text);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            z-index: 3;
-            backdrop-filter: blur(5px);
-        }
-        .lightbox-nav:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-            background: rgba(212, 175, 55, 0.1);
-        }
-        .lightbox-prev {
-            right: 20px;
-        }
-        .lightbox-next {
-            left: 20px;
-        }
-        @keyframes cartPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); background: var(--gold); color: var(--primary); border-color: var(--gold); }
-            100% { transform: scale(1); }
-        }
-        .cart-animation {
-            animation: cartPulse 0.5s ease;
-        }
-        .fly-element {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            background: var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 1.2rem;
-            z-index: 3000;
-            pointer-events: none;
-            transition: all 0.8s cubic-bezier(0.2, 0.9, 0.4, 1);
-            opacity: 1;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-        .modal.active {
-            display: flex;
-        }
-        .modal-content {
-            background: var(--accent);
-            max-width: 500px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 2rem;
-            position: relative;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-        }
-        @media (max-width: 768px) {
-            .modal-content {
-                padding: 1.5rem;
-            }
-        }
-        .close-modal {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: var(--secondary);
-            border: 1px solid var(--border);
-            color: var(--text);
-            font-size: 1.5rem;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 3;
-        }
-        .close-modal:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-        .cart-modal {
-            max-width: 400px;
-            right: 0;
-            left: auto;
-        }
-        @media (max-width: 768px) {
-            .cart-modal {
-                max-width: 90%;
-                right: 5%;
-                left: 5%;
-            }
-        }
-        .cart-items {
-            max-height: 300px;
-            overflow-y: auto;
-            margin-bottom: 1.5rem;
-        }
-        .cart-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-        .cart-item-info h4 {
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-            color: var(--text);
-            font-size: 1rem;
-        }
-        .cart-item-price {
-            color: var(--gold);
-            font-weight: 600;
-            font-size: 1rem;
-        }
-        .remove-item {
-            background: none;
-            border: 1px solid var(--border);
-            color: var(--text-light);
-            cursor: pointer;
-            font-size: 1rem;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        .remove-item:hover {
-            border-color: #ff4757;
-            color: #ff4757;
-        }
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 0;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border-top: 2px solid var(--border);
-            margin-top: 1rem;
-            color: var(--text);
-        }
-        .checkout-btn {
-            width: 100%;
-            padding: 1rem;
-            background: var(--gold);
-            color: var(--primary);
-            border: none;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-radius: 5px;
-            margin-top: 1rem;
-        }
-        .checkout-btn:hover {
-            background: transparent;
-            color: var(--gold);
-            border: 1px solid var(--gold);
-        }
-        footer {
-            background: var(--primary);
-            color: var(--text);
-            padding: 3rem 5%;
-            border-top: 1px solid var(--border);
-        }
-        @media (max-width: 768px) {
-            footer {
-                padding: 2rem 5% 5rem;
-            }
-        }
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-        .footer-section h3 {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-            color: var(--gold);
-        }
-        .footer-links {
-            list-style: none;
-        }
-        .footer-links li {
-            margin-bottom: 0.5rem;
-        }
-        .footer-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 0.9rem;
-        }
-        .footer-links a:hover {
-            color: var(--gold);
-        }
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid var(--border);
-            color: var(--text-light);
-            font-size: 0.8rem;
-        }
-        .back-to-home {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--gold);
-            text-decoration: none;
-            font-weight: 500;
-            margin-bottom: 2rem;
-            transition: all 0.3s;
-        }
-        .back-to-home:hover {
-            gap: 0.8rem;
-            color: var(--text);
-        }
-        .page-content {
-            display: none;
-        }
-        .page-content.active {
-            display: block;
-        }
-        .nav-link.active {
-            animation: glow 2s infinite;
-        }
-        @keyframes glow {
-            0%, 100% {
-                box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-            }
-            50% {
-                box-shadow: 0 4px 20px rgba(212, 175, 55, 0.5);
-            }
-        }
-        @keyframes zoomIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-        .zoom-in {
-            animation: zoomIn 0.3s ease-out;
-        }
-        @media (max-width: 480px) {
-            .nav-item {
-                min-width: 70px;
-                padding: 0.5rem 0.3rem;
-                font-size: 0.75rem;
-            }
-            .nav-item i {
-                font-size: 1.6rem !important;
-            }
-            .nav-item svg {
-                width: 24px !important;
-                height: 24px !important;
-            }
-            .center-cart {
-                width: 60px;
-                height: 60px;
-                top: -25px;
-            }
-            .cart-icon {
-                font-size: 1.3rem;
-            }
-        }
-        @media (max-width: 360px) {
-            .nav-item {
-                min-width: 65px;
-                font-size: 0.7rem;
-            }
-            .nav-item i {
-                font-size: 1.5rem !important;
-            }
-            .center-cart {
-                width: 55px;
-                height: 55px;
-                top: -20px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELVAR — هويتك بصوت أعلى</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+:root{
+  --bg:#060605;--bg2:#0d0c0a;--bg3:#141210;
+  --gold:#c9a84c;--gold2:#e8c96a;--gold3:#8a6d28;
+  --text:#f2ede6;--muted:#7a7060;--border:#252218;
+  --red:#c0392b;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;}
+
+#cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:99999;transition:transform .15s ease;mix-blend-mode:difference;}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:99998;transition:all .3s ease;opacity:.5;}
+
+nav{position:fixed;top:0;width:100%;z-index:1000;padding:1.5rem 4%;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(6,6,5,.95),transparent);transition:all .4s;}
+nav.scrolled{background:rgba(6,6,5,.97);padding:1rem 4%;border-bottom:1px solid var(--border);backdrop-filter:blur(12px);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:6px;position:relative;}
+.logo span{color:var(--gold);}
+.nav-links{display:flex;gap:2.5rem;align-items:center;}
+.nav-link{color:var(--muted);text-decoration:none;font-size:.82rem;letter-spacing:3px;font-weight:500;text-transform:uppercase;transition:color .3s;position:relative;padding-bottom:4px;}
+.nav-link::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .3s ease;}
+.nav-link:hover,.nav-link.active{color:var(--text);}
+.nav-link:hover::after,.nav-link.active::after{width:100%;}
+.nav-link.active{color:var(--gold);}
+.nav-actions{display:flex;gap:.8rem;align-items:center;}
+.cart-btn{background:none;border:1px solid var(--border);color:var(--text);width:44px;height:44px;cursor:none;transition:all .3s;display:flex;align-items:center;justify-content:center;position:relative;}
+.cart-btn:hover{border-color:var(--gold);color:var(--gold);}
+.cart-count{position:absolute;top:-8px;right:-8px;background:var(--gold);color:var(--bg);font-size:.6rem;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;}
+
+@media(max-width:768px){body{padding-bottom:80px;}nav{display:none;}.bottom-nav{display:block;}}
+@media(min-width:769px){.bottom-nav{display:none;}}
+.bottom-nav{position:fixed;bottom:0;width:100%;background:rgba(13,12,10,.97);border-top:1px solid var(--border);z-index:1000;backdrop-filter:blur(12px);padding:.6rem 0 1rem;}
+.bottom-nav-inner{display:flex;justify-content:space-around;align-items:center;position:relative;}
+.center-cart-fab{position:absolute;left:50%;top:-30px;transform:translateX(-50%);width:60px;height:60px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 0 30px rgba(201,168,76,.4);transition:all .3s;border:3px solid var(--bg);}
+.center-cart-fab:hover{background:var(--gold2);transform:translateX(-50%) translateY(-4px);}
+.center-cart-fab i{color:var(--bg);font-size:1.3rem;}
+.mobile-cart-count{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:.6rem;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;}
+.nav-item{display:flex;flex-direction:column;align-items:center;color:var(--muted);text-decoration:none;font-size:.65rem;letter-spacing:1px;text-transform:uppercase;padding:.5rem .8rem;transition:all .3s;min-width:65px;}
+.nav-item i{font-size:1.25rem;margin-bottom:.3rem;}
+.nav-item svg{width:20px;height:20px;margin-bottom:.3rem;}
+.nav-item.active,.nav-item:hover{color:var(--gold);}
+.nav-item.active{transform:translateY(-2px);}
+
+.page-content{display:none;}
+.page-content.active{display:block;}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;}
+@media(max-width:768px){.hero{grid-template-columns:1fr;}}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:140px 6% 80px;position:relative;z-index:2;background:var(--bg);}
+@media(max-width:768px){.hero-left{padding:80px 5% 40px;}}
+.hero-eyebrow{font-family:'Cormorant Garamond',serif;font-size:.72rem;letter-spacing:8px;color:var(--gold);text-transform:uppercase;margin-bottom:2rem;display:flex;align-items:center;gap:1rem;animation:fadeUp .8s ease both;}
+.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--gold);}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,7vw,6.5rem);font-weight:300;line-height:1;letter-spacing:-1px;margin-bottom:1rem;animation:fadeUp .8s .1s ease both;}
+.hero-title em{font-style:italic;color:var(--gold);font-weight:400;}
+.hero-title strong{display:block;font-weight:700;font-size:.43em;letter-spacing:10px;color:var(--muted);font-style:normal;font-family:'Tajawal',sans-serif;margin-top:.5rem;}
+.hero-subtitle{font-size:1rem;color:var(--muted);line-height:1.9;max-width:420px;margin-bottom:3rem;font-weight:300;animation:fadeUp .8s .2s ease both;}
+.hero-cta{display:inline-flex;align-items:center;gap:1.5rem;text-decoration:none;animation:fadeUp .8s .3s ease both;}
+.hero-cta-text{font-size:.78rem;letter-spacing:4px;text-transform:uppercase;color:var(--text);font-weight:500;position:relative;padding-bottom:4px;}
+.hero-cta-text::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;background:var(--gold);}
+.hero-cta-arrow{width:50px;height:50px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;color:var(--gold);}
+.hero-cta:hover .hero-cta-arrow{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+.hero-right{position:relative;overflow:hidden;background:var(--bg3);}
+@media(max-width:768px){.hero-right{height:65vw;min-height:280px;}}
+.hero-slide{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transition:opacity 1.2s ease;display:flex;align-items:center;justify-content:center;}
+.hero-slide.active{opacity:1;}
+.hero-img{width:100%;height:100%;object-fit:contain;cursor:none;}
+.slide-num{position:absolute;bottom:1.5rem;right:1.5rem;font-family:'Cormorant Garamond',serif;font-size:.7rem;letter-spacing:4px;color:var(--muted);}
+.slide-dots{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:8px;}
+.sdot{width:20px;height:1px;background:var(--border);cursor:pointer;transition:all .3s;}
+.sdot.active{width:40px;background:var(--gold);}
+
+/* MARQUEE */
+.marquee-bar{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:.8rem 0;background:var(--bg2);}
+.marquee-track{display:flex;gap:4rem;animation:marquee 22s linear infinite;white-space:nowrap;}
+.mi{font-family:'Cormorant Garamond',serif;font-size:.9rem;letter-spacing:4px;color:var(--muted);text-transform:uppercase;flex-shrink:0;display:flex;align-items:center;gap:1.5rem;}
+.mi span{color:var(--gold);}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* COLLECTION */
+.coll-sec{padding:8rem 4%;background:var(--bg);}
+@media(max-width:768px){.coll-sec{padding:4rem 4%;}}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem;border-bottom:1px solid var(--border);padding-bottom:2rem;}
+@media(max-width:600px){.sec-head{flex-direction:column;gap:1rem;align-items:flex-start;}}
+.sec-label{font-size:.68rem;letter-spacing:6px;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem;}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:300;color:var(--text);}
+.sec-title em{font-style:italic;color:var(--gold);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+@media(max-width:600px){.grid2{grid-template-columns:1fr;}}
+
+.pcard{position:relative;overflow:hidden;cursor:none;background:var(--bg3);}
+.pcard-inner{position:relative;overflow:hidden;}
+.pimg-wrap{width:100%;height:500px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--bg3);}
+@media(max-width:768px){.pimg-wrap{height:280px;}}
+.pimg{width:100%;height:100%;object-fit:contain;transition:transform .8s cubic-bezier(.25,.46,.45,.94);}
+.pcard:hover .pimg{transform:scale(1.06);}
+.pbadge{position:absolute;top:1.5rem;right:1.5rem;font-size:.62rem;letter-spacing:3px;text-transform:uppercase;padding:.4rem .9rem;font-weight:600;}
+.bsale{background:var(--gold);color:var(--bg);}
+.bsoon{background:transparent;border:1px solid var(--gold);color:var(--gold);}
+.pinfo-bar{padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);background:var(--bg2);}
+.pname{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;letter-spacing:2px;}
+.pprice{font-size:.88rem;color:var(--gold);letter-spacing:2px;}
+.pprice .pold{text-decoration:line-through;color:var(--muted);margin-left:.5rem;font-size:.78rem;}
+.parr{width:38px;height:38px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .3s;flex-shrink:0;}
+.pcard:hover .parr{border-color:var(--gold);color:var(--gold);}
+
+/* ABOUT STRIP */
+.about-strip{padding:8rem 4%;background:var(--bg2);display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;border-top:1px solid var(--border);}
+@media(max-width:768px){.about-strip{grid-template-columns:1fr;gap:3rem;padding:4rem 4%;}}
+.alabel{font-size:.68rem;letter-spacing:6px;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;}
+.aheading{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,4vw,3.2rem);font-weight:300;line-height:1.2;margin-bottom:2rem;}
+.aheading em{font-style:italic;color:var(--gold);}
+.atext{color:var(--muted);line-height:2;font-size:.92rem;margin-bottom:2rem;}
+.astats{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem;}
+.astat{border-top:1px solid var(--border);padding-top:1.5rem;}
+.astat-n{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--gold);margin-bottom:.3rem;}
+.astat-l{font-size:.65rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
+.frow{display:flex;gap:1.5rem;align-items:flex-start;padding:1.5rem;border:1px solid var(--border);transition:border-color .3s;margin-bottom:1px;}
+.frow:hover{border-color:var(--gold3);}
+.ficon{width:38px;height:38px;flex-shrink:0;border:1px solid var(--gold3);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:.85rem;margin-top:.2rem;}
+.ftitle{font-size:.75rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:.4rem;color:var(--text);}
+.fdesc{font-size:.83rem;color:var(--muted);line-height:1.7;}
+
+.social-row{display:flex;gap:1rem;margin-top:2rem;}
+.slink{width:40px;height:40px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;font-size:.85rem;transition:all .3s;}
+.slink:hover{border-color:var(--gold);color:var(--gold);}
+
+/* PAGE HERO */
+.phero{min-height:40vh;display:flex;flex-direction:column;justify-content:flex-end;padding:140px 4% 4rem;background:var(--bg);border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+@media(max-width:768px){.phero{padding:100px 4% 3rem;}}
+.phero::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(201,168,76,.03) 0%,transparent 60%);pointer-events:none;}
+.phero-num{font-family:'Cormorant Garamond',serif;font-size:10rem;font-weight:700;color:var(--border);position:absolute;top:50%;right:4%;transform:translateY(-50%);line-height:1;pointer-events:none;user-select:none;}
+@media(max-width:600px){.phero-num{font-size:5rem;}}
+.backlink{display:inline-flex;align-items:center;gap:.8rem;font-size:.68rem;letter-spacing:4px;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:2rem;transition:color .3s;}
+.backlink:hover{color:var(--gold);}
+.ptitle{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,5rem);font-weight:300;letter-spacing:4px;text-transform:uppercase;}
+.ptitle em{font-style:italic;color:var(--gold);}
+.psub{font-size:.85rem;color:var(--muted);margin-top:1rem;max-width:500px;line-height:1.8;}
+
+.pbody{padding:5rem 4%;background:var(--bg);}
+@media(max-width:768px){.pbody{padding:3rem 4% 2rem;}}
+
+/* DETAIL */
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;max-width:1200px;margin:0 auto;}
+@media(max-width:768px){.dgrid{grid-template-columns:1fr;gap:2rem;}}
+.gmain{width:100%;height:520px;background:var(--bg3);overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:none;position:relative;}
+@media(max-width:768px){.gmain{height:300px;}}
+.gmain-img{width:100%;height:100%;object-fit:contain;transition:transform .6s ease;}
+.gmain:hover .gmain-img{transform:scale(1.04);}
+.thumbs{display:flex;gap:.8rem;margin-top:1rem;overflow-x:auto;padding-bottom:.5rem;}
+.thumb{width:78px;height:78px;flex-shrink:0;object-fit:cover;cursor:none;border:1px solid var(--border);opacity:.45;transition:all .3s;}
+.thumb:hover{opacity:.8;border-color:var(--gold3);}
+.thumb.active{opacity:1;border-color:var(--gold);}
+
+.dinfo{padding-top:1rem;}
+.dlabel{font-size:.63rem;letter-spacing:6px;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;}
+.dname{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:300;margin-bottom:1rem;line-height:1.1;}
+.dname em{color:var(--gold);font-style:italic;}
+.dprice{font-size:1.7rem;font-family:'Cormorant Garamond',serif;color:var(--gold);margin-bottom:2rem;}
+.dprice .oldp{font-size:.95rem;text-decoration:line-through;color:var(--muted);margin-left:.8rem;}
+.ddesc{font-size:.88rem;color:var(--muted);line-height:2;margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
+.optlabel{font-size:.62rem;letter-spacing:4px;text-transform:uppercase;color:var(--text);margin-bottom:.8rem;display:block;}
+.optgrp{margin-bottom:1.5rem;}
+.sbtns{display:flex;gap:.5rem;flex-wrap:wrap;}
+.sbtn{padding:.5rem 1.1rem;border:1px solid var(--border);background:none;color:var(--muted);font-size:.73rem;letter-spacing:2px;text-transform:uppercase;cursor:none;transition:all .3s;font-family:'Tajawal',sans-serif;}
+.sbtn:hover{border-color:var(--gold3);color:var(--text);}
+.sbtn.sel{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.06);}
+.qty-row{display:flex;align-items:center;gap:1rem;}
+.qbtn{width:40px;height:40px;border:1px solid var(--border);background:none;color:var(--text);font-size:1.1rem;cursor:none;transition:all .3s;display:flex;align-items:center;justify-content:center;}
+.qbtn:hover{border-color:var(--gold);color:var(--gold);}
+.qnum{font-family:'Cormorant Garamond',serif;font-size:1.5rem;min-width:40px;text-align:center;}
+.abtn{width:100%;padding:1.1rem;background:var(--gold);color:var(--bg);border:none;cursor:none;font-family:'Tajawal',sans-serif;font-size:.78rem;letter-spacing:4px;text-transform:uppercase;font-weight:700;transition:all .3s;margin-top:2rem;max-width:400px;}
+.abtn:hover{background:var(--gold2);}
+.abtn.sec{background:none;border:1px solid var(--gold);color:var(--gold);}
+.abtn.sec:hover{background:rgba(201,168,76,.08);}
+.noticebox{border:1px solid var(--border);padding:1.5rem;margin-top:1.5rem;background:rgba(201,168,76,.03);}
+.noticebox h4{color:var(--gold);font-size:.72rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:.5rem;}
+.noticebox p{font-size:.83rem;color:var(--muted);line-height:1.7;}
+
+/* COLOR PICKER */
+.tshow{padding:4rem;background:var(--bg2);margin-bottom:4rem;border:1px solid var(--border);}
+.tbig{width:100%;max-width:580px;margin:0 auto 3rem;height:480px;background:var(--bg3);display:flex;align-items:center;justify-content:center;cursor:none;overflow:hidden;border:1px solid var(--border);}
+@media(max-width:768px){.tbig{height:260px;}}
+.tbig-img{width:100%;height:100%;object-fit:contain;transition:opacity .35s ease,transform .35s ease;}
+.cpicker{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:3rem;}
+.cpick{display:flex;flex-direction:column;align-items:center;gap:.7rem;cursor:none;}
+.cdot{width:50px;height:50px;border-radius:50%;border:2px solid transparent;transition:all .3s;position:relative;}
+.cpick.sel .cdot{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.15),0 0 20px rgba(201,168,76,.1);transform:scale(1.12);}
+.cdot::after{content:'';position:absolute;inset:3px;border-radius:50%;box-shadow:inset 0 2px 6px rgba(0,0,0,.4);}
+.cname{font-size:.63rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
+.cpick.sel .cname{color:var(--gold);}
+
+/* VIDEO */
+.vid-wrap{width:100%;max-width:1000px;margin:0 auto;position:relative;background:var(--bg3);overflow:hidden;cursor:none;border:1px solid var(--border);}
+.pvid{width:100%;height:500px;object-fit:contain;display:block;}
+@media(max-width:768px){.pvid{height:240px;}}
+.vid-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(6,6,5,.3);transition:background .3s;}
+.vid-wrap:hover .vid-overlay{background:rgba(6,6,5,.1);}
+.playico{width:66px;height:66px;border:1px solid rgba(201,168,76,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.4rem;backdrop-filter:blur(4px);transition:all .3s;}
+.vid-wrap:hover .playico{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
+/* ABOUT PAGE */
+.apc{max-width:880px;margin:0 auto;}
+.alogo{width:110px;height:110px;border-radius:50%;overflow:hidden;border:1px solid var(--gold3);display:flex;align-items:center;justify-content:center;margin:0 auto 3rem;cursor:none;}
+.alogo img{width:100%;height:100%;object-fit:cover;}
+.pills{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem;justify-content:center;}
+.pill{padding:.45rem 1.1rem;border:1px solid var(--border);font-size:.65rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
+.pill.g{border-color:var(--gold3);color:var(--gold);}
+
+/* LIGHTBOX */
+.lbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:5000;align-items:center;justify-content:center;}
+.lbox.open{display:flex;}
+.lbc{position:relative;max-width:90%;max-height:92vh;display:flex;align-items:center;justify-content:center;}
+.lbi{max-width:100%;max-height:90vh;object-fit:contain;animation:fz .3s ease;}
+.lbv{max-width:90vw;max-height:85vh;object-fit:contain;animation:fz .3s ease;}
+@keyframes fz{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+.lbclose{position:fixed;top:1.5rem;left:1.5rem;width:46px;height:46px;border:1px solid rgba(255,255,255,.15);background:none;color:rgba(255,255,255,.5);font-size:.95rem;cursor:none;display:flex;align-items:center;justify-content:center;transition:all .3s;z-index:3;}
+.lbclose:hover{border-color:var(--gold);color:var(--gold);}
+.lbnav{position:fixed;top:50%;transform:translateY(-50%);width:46px;height:46px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.5);color:rgba(255,255,255,.5);cursor:none;display:flex;align-items:center;justify-content:center;transition:all .3s;z-index:3;}
+.lbnav:hover{border-color:var(--gold);color:var(--gold);}
+.lbprev{right:1.5rem;}
+.lbnext{left:1.5rem;}
+
+/* CART DRAWER */
+.drawer{display:none;position:fixed;inset:0;z-index:3000;}
+.drawer.open{display:flex;}
+.doverlay{position:absolute;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);}
+.dpanel{position:absolute;left:0;top:0;bottom:0;width:min(420px,100%);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;animation:sli .35s ease;z-index:1;}
+@keyframes sli{from{transform:translateX(-100%);}to{transform:translateX(0);}}
+.dhead{padding:2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.dtitle{font-family:'Cormorant Garamond',serif;font-size:1.5rem;letter-spacing:3px;}
+.dclose{width:40px;height:40px;border:1px solid var(--border);background:none;color:var(--muted);cursor:none;transition:all .3s;display:flex;align-items:center;justify-content:center;font-size:.88rem;}
+.dclose:hover{border-color:var(--gold);color:var(--gold);}
+.dbody{flex:1;overflow-y:auto;padding:1.5rem 2rem;}
+.emcart{text-align:center;padding:4rem 0;color:var(--muted);}
+.emcart i{font-size:2rem;margin-bottom:1rem;opacity:.25;display:block;}
+.emcart p{font-size:.75rem;letter-spacing:2px;text-transform:uppercase;}
+.citem{display:flex;justify-content:space-between;align-items:flex-start;padding:1.2rem 0;border-bottom:1px solid var(--border);gap:1rem;}
+.citem-name{font-size:.88rem;margin-bottom:.3rem;}
+.citem-meta{font-size:.72rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+.citem-price{color:var(--gold);font-size:.88rem;}
+.cremove{background:none;border:none;color:var(--muted);cursor:none;font-size:.78rem;padding:.2rem;transition:color .3s;flex-shrink:0;margin-top:.2rem;}
+.cremove:hover{color:var(--gold);}
+.dfoot{padding:1.5rem 2rem 2rem;border-top:1px solid var(--border);}
+.ctrow{display:flex;justify-content:space-between;margin-bottom:1.5rem;font-family:'Cormorant Garamond',serif;font-size:1.1rem;}
+.ctamt{color:var(--gold);}
+
+/* MODALS */
+.movl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:4000;align-items:center;justify-content:center;padding:1rem;}
+.movl.open{display:flex;}
+.mbox{background:var(--bg2);border:1px solid var(--border);width:min(500px,100%);max-height:90vh;overflow-y:auto;padding:3rem;position:relative;animation:fz .3s ease;}
+@media(max-width:500px){.mbox{padding:2rem 1.5rem;}}
+.mclose{position:absolute;top:1.5rem;left:1.5rem;width:36px;height:36px;border:1px solid var(--border);background:none;color:var(--muted);cursor:none;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .3s;}
+.mclose:hover{border-color:var(--gold);color:var(--gold);}
+.mtitle{font-family:'Cormorant Garamond',serif;font-size:1.8rem;letter-spacing:3px;text-align:center;color:var(--gold);margin-bottom:2rem;}
+.ff{margin-bottom:1rem;}
+.ff input,.ff textarea{width:100%;padding:.9rem 1rem;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:'Tajawal',sans-serif;font-size:.88rem;transition:border-color .3s;resize:vertical;}
+.ff input:focus,.ff textarea:focus{outline:none;border-color:var(--gold3);}
+.ff input::placeholder,.ff textarea::placeholder{color:var(--muted);}
+.ty-ic{width:70px;height:70px;border:1px solid var(--gold3);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.5rem;margin:0 auto 1.5rem;}
+.tytext{font-size:.88rem;color:var(--muted);line-height:1.9;text-align:center;}
+
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:5rem 4% 2rem;}
+@media(max-width:768px){footer{padding:3rem 4% 5rem;}}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;margin-bottom:4rem;}
+@media(max-width:768px){.fgrid{grid-template-columns:1fr 1fr;gap:2rem;}}
+@media(max-width:480px){.fgrid{grid-template-columns:1fr;}}
+.fbrand{font-family:'Cormorant Garamond',serif;font-size:2rem;letter-spacing:6px;color:var(--text);margin-bottom:1rem;}
+.fbrand span{color:var(--gold);}
+.fdesc{font-size:.83rem;color:var(--muted);line-height:1.8;}
+.fcol h4{font-size:.63rem;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;}
+.flinks{list-style:none;}
+.flinks li{margin-bottom:.8rem;}
+.flinks a{font-size:.83rem;color:var(--muted);text-decoration:none;transition:color .3s;letter-spacing:1px;cursor:none;}
+.flinks a:hover{color:var(--text);}
+.fcopy{border-top:1px solid var(--border);padding-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.fcopy p{font-size:.72rem;color:var(--muted);letter-spacing:2px;}
+
+.fly-el{position:fixed;width:34px;height:34px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--bg);font-size:1rem;z-index:9000;pointer-events:none;transition:all .7s cubic-bezier(.2,.9,.4,1);box-shadow:0 0 20px rgba(201,168,76,.5);}
+
+@keyframes fadeUp{from{transform:translateY(30px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+::-webkit-scrollbar-thumb:hover{background:var(--gold3);}
+</style>
 </head>
 <body>
-    <div class="lightbox-modal" id="lightboxModal" onclick="closeLightboxOnClickOutside(event)">
-        <button class="close-lightbox" onclick="closeLightbox()">
-            <i class="fas fa-times"></i>
-        </button>
-        <button class="lightbox-nav lightbox-prev" onclick="event.stopPropagation(); navigateLightbox(-1)">
-            <i class="fas fa-arrow-right"></i>
-        </button>
-        <button class="lightbox-nav lightbox-next" onclick="event.stopPropagation(); navigateLightbox(1)">
-            <i class="fas fa-arrow-left"></i>
-        </button>
-        <div class="lightbox-content" onclick="event.stopPropagation()">
-        </div>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- LIGHTBOX -->
+<div class="lbox" id="lbox" onclick="lbOut(event)">
+  <button class="lbclose" onclick="closeLB()"><i class="fas fa-times"></i></button>
+  <button class="lbnav lbprev" onclick="event.stopPropagation();navLB(-1)"><i class="fas fa-arrow-right"></i></button>
+  <button class="lbnav lbnext" onclick="event.stopPropagation();navLB(1)"><i class="fas fa-arrow-left"></i></button>
+  <div class="lbc" onclick="event.stopPropagation()"></div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="logo" onclick="showPage('home');return false;">EL<span>VAR</span></a>
+  <div class="nav-links">
+    <a href="#" class="nav-link active" onclick="showPage('home');return false;">Home</a>
+    <a href="#" class="nav-link" onclick="showPage('tshirts');return false;">T-SHIRT</a>
+    <a href="#" class="nav-link" onclick="showPage('hoodies');return false;">HOODIE</a>
+    <a href="#" class="nav-link" onclick="showPage('about');return false;">About</a>
+  </div>
+  <div class="nav-actions">
+    <button class="cart-btn" onclick="toggleCart()">
+      <i class="fas fa-shopping-bag"></i>
+      <span class="cart-count" id="ccd">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <div class="center-cart-fab" onclick="toggleCart()">
+      <i class="fas fa-shopping-bag"></i>
+      <span class="mobile-cart-count" id="ccm">0</span>
     </div>
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="logo" onclick="showPage('home')">EL<span>VAR</span></a>
-            <div class="nav-links">
-                <a href="#" class="nav-link active" onclick="showPage('home')">Home</a>
-                <a href="#" class="nav-link" onclick="showPage('tshirts')">T-SHIRT</a>
-                <a href="#" class="nav-link" onclick="showPage('hoodies')">HOODIE</a>
-                <a href="#" class="nav-link" onclick="showPage('about')">About</a>
-            </div>
-            <div class="nav-actions">
-                <button class="nav-icon cart-btn" onclick="toggleCart()">
-                    <i class="fas fa-shopping-bag"></i>
-                    <span class="cart-count" id="cartCountDesktop">0</span>
-                </button>
-            </div>
-        </div>
-    </nav>
-    <div class="bottom-nav">
-        <div class="center-cart" onclick="toggleCart()">
-            <i class="fas fa-shopping-bag cart-icon"></i>
-            <span class="mobile-cart-count" id="cartCountMobile">0</span>
-        </div>
-        <div class="bottom-nav-container">
-            <div class="nav-items">
-                <a href="#" class="nav-item active" onclick="showPage('home')">
-                    <i class="fas fa-home"></i>
-                    Home
-                </a>
-                <a href="#" class="nav-item" onclick="showPage('tshirts')">
-                    <i class="fas fa-tshirt"></i>
-                    T-SHIRT
-                </a>
-                <a href="#" class="nav-item" onclick="showPage('hoodies')">
-                    <svg width="28" height="28" viewBox="0 0 463 463" fill="currentColor">
-                        <g>
-                            <path d="M430.997,375.405c-0.246-183.157-8.752-253.847-13.322-291.824l-0.63-5.255c-1.481-12.468-10.208-22.855-22.231-26.462 l-59.817-17.945V15.5c0-8.547-6.953-15.5-15.5-15.5h-176c-8.547,0-15.5,6.953-15.5,15.5v18.42L68.186,51.863 c-12.023,3.606-20.75,13.994-22.231,26.462l-0.63,5.261c-4.57,37.979-13.076,108.671-13.322,291.819 c-0.005,4.166,1.617,8.088,4.569,11.043c1.032,1.034,2.188,1.894,3.426,2.587V407.5c0,8.547,6.953,15.5,15.5,15.5h34.445 c1.411,2.541,3.514,4.644,6.055,6.055V447.5c0,8.547,6.953,15.5,15.5,15.5h240c8.547,0,15.5-6.953,15.5-15.5v-18.445 c2.541-1.411,4.643-3.514,6.055-6.055h34.451c8.547,0,15.5-6.953,15.5-15.5v-18.463c1.238-0.693,2.393-1.554,3.426-2.587 C429.38,383.494,431.003,379.572,430.997,375.405z M415.997,375.425c0,0.2-0.099,0.341-0.182,0.424 c-0.15,0.15-0.282,0.15-0.325,0.15h-40.493V153.986c0-6.026,1.105-11.931,3.286-17.548l23.132-59.6 c0.347,1.046,0.6,2.134,0.734,3.257l0.633,5.278C407.315,123.042,415.753,193.158,415.997,375.425z M103.497,416 c-0.276,0-0.5-0.224-0.5-0.5V153.986c0-7.89-1.448-15.621-4.303-22.976L73.543,66.208c-0.034-0.089-0.078-0.171-0.115-0.258 l60.845-18.253l57.836,38.557c-0.068,0.406-0.112,0.82-0.112,1.245v73.734c-9.29,3.138-16,11.93-16,22.266v16 c0,4.142,3.358,7.5,7.5,7.5h32c4.142,0,7.5-3.358,7.5-7.5v-16c0-10.336-6.71-19.128-16-22.266V96.18l20.34,13.56 c0.086,0.057,0.178,0.097,0.266,0.15c0.12,0.073,0.231,0.156,0.355,0.223c0.068,0.037,0.14,0.062,0.21,0.096 c0.112,0.056,0.225,0.106,0.34,0.155c0.211,0.092,0.425,0.174,0.642,0.245c0.107,0.035,0.212,0.071,0.32,0.101 c0.257,0.072,0.515,0.128,0.776,0.172c0.069,0.012,0.137,0.028,0.206,0.038c0.347,0.049,0.696,0.08,1.045,0.08 c0.172,0,0.343-0.026,0.514-0.037c0.142-0.01,0.285-0.013,0.427-0.031c0.199-0.025,0.394-0.068,0.591-0.109 c0.127-0.027,0.253-0.051,0.379-0.084c0.199-0.052,0.393-0.116,0.587-0.185c0.119-0.042,0.237-0.087,0.355-0.136 c0.193-0.079,0.383-0.165,0.57-0.261c0.038-0.02,0.079-0.033,0.117-0.053c0.069-0.037,0.13-0.085,0.197-0.124 c0.141-0.081,0.288-0.148,0.424-0.239l20.34-13.56v65.054c-9.29,3.138-16,11.93-16,22.266v16c0,4.142,3.358,7.5,7.5,7.5h32 c4.142,0,7.5-3.358,7.5-7.5v-16c0-10.336-6.71-19.128-16-22.266V87.5c0-0.425-0.044-0.839-0.112-1.245l57.838-38.559l60.844,18.253 c-0.038,0.087-0.081,0.171,-0.116,0.259L364.3,131.01c-2.855,7.355-4.303,15.086-4.303,22.976V415.5c0,0.276-0.224,0.5-0.5,0.5 H103.497z M263.497,175c4.687,0,8.5,3.813,8.5,8.5v8.5h-17v-8.5C254.997,178.813,258.81,175,263.497,175z M241.674,87.702 c3.73-10.711,11.183-19.979,21.227-25.838l57.097-33.307v6.929L241.674,87.702z M255.343,48.907 c-10.232,5.969-18.411,14.635-23.846,24.789c-5.435-10.154-13.614-18.821-23.846-24.789L149.525,15H313.47L255.343,48.907z M199.497,175c4.687,0,8.5,3.813,8.5,8.5v8.5h-17v-8.5C190.997,178.813,194.81,175,199.497,175z M142.997,35.486v-6.929 l57.097,33.307c10.044,5.859,17.497,15.127,21.227,25.838L142.997,35.486z M60.217,85.379l0.633-5.283 c0.133-1.121,0.386-2.206,0.732-3.25l23.129,59.592c2.181,5.618,3.286,11.522,3.286,17.548V376H47.51c-0.043,0-0.175,0-0.325-0.15 c-0.083-0.083-0.183-0.225-0.182-0.424C47.247,193.168,55.684,123.049,60.217,85.379z M54.997,407.5V391h33v17h-32.5 C55.221,408,54.997,407.776,54.997,407.5z M351.497,448h-240c-0.276,0-0.5-0.224-0.5-0.5V431h241v16.5 C351.997,447.776,351.773,448,351.497,448z M407.503,408h-32.505v-17h33.005v16.5C408.003,407.776,407.779,408,407.503,408z"/>
-                            <path d="M302.733,277.526c-0.89-3.263-3.854-5.526-7.236-5.526h-128c-3.382,0-6.346,2.264-7.236,5.526l-24,87.999 c-0.175,0.644  -0.264,1.307-0.264,1.974V391.5c0,4.142,3.358,7.5,7.5,7.5h176c4.142,0,7.5-3.358,7.5-7.5v-24.001 c0-0.667-0.089-1.33-0.264-1.974L302.733,277.526z M311.997,384h-161v-15.497L173.226,287h116.543l22.229,81.503V384z"/>
-                        </g>
-                    </svg>
-                    HOODIE
-                </a>
-                <a href="#" class="nav-item" onclick="showPage('about')">
-                    <i class="fas fa-info-circle"></i>
-                    About
-                </a>
-            </div>
-        </div>
+    <div style="display:flex;justify-content:space-around;width:100%;padding:0 4px;">
+      <a href="#" class="nav-item active" onclick="showPage('home');return false;"><i class="fas fa-home"></i>Home</a>
+      <a href="#" class="nav-item" onclick="showPage('tshirts');return false;"><i class="fas fa-tshirt"></i>T-SHIRT</a>
+      <a href="#" class="nav-item" style="visibility:hidden;pointer-events:none;min-width:65px;"></a>
+      <a href="#" class="nav-item" onclick="showPage('hoodies');return false;">
+        <svg width="20" height="20" viewBox="0 0 463 463" fill="currentColor"><path d="M430.997,375.405c-0.246-183.157-8.752-253.847-13.322-291.824l-0.63-5.255c-1.481-12.468-10.208-22.855-22.231-26.462l-59.817-17.945V15.5c0-8.547-6.953-15.5-15.5-15.5h-176c-8.547,0-15.5,6.953-15.5,15.5v18.42L68.186,51.863c-12.023,3.606-20.75,13.994-22.231,26.462l-0.63,5.261c-4.57,37.979-13.076,108.671-13.322,291.819c-0.005,4.166,1.617,8.088,4.569,11.043c1.032,1.034,2.188,1.894,3.426,2.587V407.5c0,8.547,6.953,15.5,15.5,15.5h34.445c1.411,2.541,3.514,4.644,6.055,6.055V447.5c0,8.547,6.953,15.5,15.5,15.5h240c8.547,0,15.5-6.953,15.5-15.5v-18.445c2.541-1.411,4.643-3.514,6.055-6.055h34.451c8.547,0,15.5-6.953,15.5-15.5v-18.463c1.238-0.693,2.393-1.554,3.426-2.587C429.38,383.494,431.003,379.572,430.997,375.405z"/></svg>
+        HOODIE
+      </a>
+      <a href="#" class="nav-item" onclick="showPage('about');return false;"><i class="fas fa-info-circle"></i>About</a>
     </div>
-    <div id="home-page" class="page-content active">
-        <section class="hero">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1 class="hero-title">ELVAR هويتك بصوت أعلى</h1>
-                    <p class="hero-subtitle">
-                        حيث تلتقي الجودة بالأناقة في تناغم مثالي. ELVAR ليست مجرد ملابس، إنها بيان شخصي، هوية تظهر، صوت يُسمع. كل قطعة تحمل قصة، كل تصميم يعبر عن فرديتك.
-                    </p>
-                    <a href="#" class="cta-button" onclick="showPage('tshirts')">
-                        اكتشف T-SHIRT
-                        <i class="fas fa-arrow-left"></i>
-                    </a>
-                </div>
-                <div class="hero-image-container" onclick="openHeroLightbox()">
-                    <div class="hero-slide active">
-                        <img src="images/T-SHIRT 2.jpg" alt="ELVAR Collection" class="hero-img">
-                    </div>
-                    <div class="hero-slide">
-                        <img src="images/4.jpeg" alt="ELVAR Collection" class="hero-img">
-                    </div>
-                    <div class="slide-controls">
-                        <div class="slide-dot active" onclick="event.stopPropagation(); changeSlide(0)"></div>
-                        <div class="slide-dot" onclick="event.stopPropagation(); changeSlide(1)"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="collection">
-            <h2 class="section-title">مجموعة <span>ELVAR</span></h2>
-            <div class="products-grid">
-                <div class="product-card" onclick="showPage('tshirts')">
-                    <div class="coming-soon-badge">قريباً</div>
-                    <div class="product-image-container" onclick="event.stopPropagation(); openLightbox('images/T-SHIRT 1.jpg')">
-                        <img src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR" class="product-image">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">T-SHIRT ELVAR</h3>
-                        <div class="product-price">
-                            <span>سيتم الإطلاق قريباً</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card" onclick="showPage('hoodies')">
-                    <div class="sale-badge">خصم 25%</div>
-                    <div class="product-image-container" onclick="event.stopPropagation(); openLightbox('images/1.jpeg')">
-                        <img src="images/1.jpeg" alt="HOODIE ELVAR" class="product-image">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">HOODIE ELVAR</h3>
-                        <div class="product-price">
-                            <span class="old-price">1200 جنيه</span>
-                            <span>899 جنيه</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="about-section">
-            <div class="about-content">
-                <h2 class="section-title">قصة <span>ELVAR</span></h2>
-                <p class="about-text">
-                    في ELVAR، نؤمن بأن الملابس ليست مجرد قماش يغطي الجسد، بل هي لغة تعبر عن هويتك وشخصيتك. كل قطعة نصنعها تحمل في تفاصيلها رواية من الدقة والجودة والأناقة. نحن لا نبيع ملابس، نبيع هوية، نبيع ثقة، نبيع أسلوب حياة.
-                    <br><br>
-                    🇪🇬 صناعة مصرية بمعايير عالمية
-                    🌿 خامات قطن ميلتون 100% بجودة عالية
-                    ✨ تصميمات عصرية تجمع بين البساطة والأناقة
-                    👌 راحة، متانة، واهتمام بأدق التفاصيل
-                </p>
-                <div class="social-links">
-                    <a href="https://wa.me/201203790142" class="social-link" target="_blank" title="واتساب">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="https://www.facebook.com/share/1H6EAaFNra/" class="social-link" target="_blank" title="فيسبوك">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://www.instagram.com/elvar_hoodies?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="social-link" target="_blank" title="انستجرام">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://www.tiktok.com/@elvar.eg?_r=1&_t=ZS-936CoFgzPol" class="social-link" target="_blank" title="تيك توك">
-                        <i class="fab fa-tiktok"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="drawer" id="cartDrawer">
+  <div class="doverlay" onclick="toggleCart()"></div>
+  <div class="dpanel">
+    <div class="dhead">
+      <div class="dtitle">السلة</div>
+      <button class="dclose" onclick="toggleCart()"><i class="fas fa-times"></i></button>
     </div>
-    <div id="tshirts-page" class="page-content separate-page tshirts-page">
-        <div class="page-header">
-            <a href="#" class="back-to-home" onclick="showPage('home')">
-                <i class="fas fa-arrow-right"></i>
-                العودة للرئيسية
-            </a>
-            <h1 class="page-title">T-SHIRT <span>ELVAR</span></h1>
-            <p class="page-subtitle">
-                اكتشف T-SHIRT ELVAR الحصري المتوفر بأربعة ألوان مختلفة تناسب جميع الأذواق
-            </p>
-        </div>
-        <section class="upcoming-tshirts">
-            <h2 class="section-title">T-SHIRT <span>ELVAR</span></h2>
-            <div class="color-selector-container">
-                <div class="tshirt-preview" onclick="openTshirtGallery()">
-                    <img id="tshirtPreview" src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR" class="tshirt-preview-image">
-                </div>
-                <div style="text-align: center; margin-bottom: 2rem;">
-                    <h3 style="color: var(--gold); margin-bottom: 1rem;">اختر لون التيشرت</h3>
-                    <p style="color: var(--text-light); max-width: 600px; margin: 0 auto;">
-                        نفس الموديل بأربعة ألوان مختلفة. اختر اللون الذي يناسب أسلوبك!
-                    </p>
-                </div>
-                <div class="color-options">
-                    <div class="color-option-container selected" onclick="changeTshirtColor('navy', 'images/T-SHIRT 1.jpg')">
-                        <div class="color-sample selected" style="color: hsl(0, 100%, 10%);"></div>
-                        <div class="color-name">نبيتي غامق</div>
-                    </div>
-                    <div class="color-option-container" onclick="changeTshirtColor('black', 'images/T-SHIRT 2.jpg')">
-                        <div class="color-sample" style="color: #000000;"></div>
-                        <div class="color-name">أسود</div>
-                    </div>
-                    <div class="color-option-container" onclick="changeTshirtColor('olive', 'images/T-SHIRT 3.jpg')">
-                        <div class="color-sample" style="color: #556B2F;"></div>
-                        <div class="color-name">زيتي</div>
-                    </div>
-                    <div class="color-option-container" onclick="changeTshirtColor('cream', 'images/T-SHIRT 4.jpg')">
-                        <div class="color-sample" style="color: #F5F5DC;"></div>
-                        <div class="color-name">سكري</div>
-                    </div>
-                </div>
-                <div class="upcoming-notice">
-                    <h3><i class="fas fa-clock" style="margin-left: 10px;"></i> متوفر قريباً</h3>
-                    <p>سيتم إطلاق هذا التيشرت بألوانه الأربعة قريباً. تابعنا على وسائل التواصل الاجتماعي لمعرفة موعد الإطلاق!</p>
-                </div>
-            </div>
-        </section>
-        <section class="collection">
-            <h2 class="section-title">تفاصيل <span>T-SHIRT</span></h2>
-            <div class="product-detail">
-                <div class="product-gallery">
-                    <div class="main-image-container" onclick="openTshirtDetailGallery()">
-                        <img id="mainTshirtImage" src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR" class="main-image">
-                    </div>
-                    <div class="thumbnails">
-                        <img src="images/T-SHIRT 1.jpg" class="thumbnail active" onclick="changeTshirtImage('images/T-SHIRT 1.jpg')">
-                        <img src="images/T-SHIRT 2.jpg" class="thumbnail" onclick="changeTshirtImage('images/T-SHIRT 2.jpg')">
-                        <img src="images/T-SHIRT 3.jpg" class="thumbnail" onclick="changeTshirtImage('images/T-SHIRT 3.jpg')">
-                        <img src="images/T-SHIRT 4.jpg" class="thumbnail" onclick="changeTshirtImage('images/T-SHIRT 4.jpg')">
-                    </div>
-                </div>
-                <div class="product-details">
-                    <div class="product-header">
-                        <h1 class="product-name">T-SHIRT <span>ELVAR</span></h1>
-                        <p class="product-description">
-                            T-SHIRT ELVAR يجمع بين الأناقة والراحة في تصميم واحد. مصنوع من قطن ميلتون 100% عالي الجودة، مع تصميم عصري يلائم مختلف المناسبات. التيشرت متوفر بأربعة ألوان مختلفة لتختار ما يناسب أسلوبك الشخصي.
-                        </p>
-                        <div class="price">
-                            <span style="color: var(--text-light); font-size: 1.2rem; margin-left: 0.5rem;">سعر الإطلاق</span>
-                            سيتم الإعلان عنه قريباً
-                        </div>
-                    </div>
-                    <div class="options">
-                        <div class="option-group">
-                            <label class="option-label">الألوان المتاحة</label>
-                            <div class="size-options">
-                                <button class="size-btn selected" onclick="selectColor(this, 'نبيتي غامق')">نبيتي غامق</button>
-                                <button class="size-btn" onclick="selectColor(this, 'أسود')">أسود</button>
-                                <button class="size-btn" onclick="selectColor(this, 'زيتي')">زيتي</button>
-                                <button class="size-btn" onclick="selectColor(this, 'سكري')">سكري</button>
-                            </div>
-                        </div>
-                        <div class="option-group">
-                            <label class="option-label">المقاسات المتاحة</label>
-                            <div class="size-options">
-                                <button class="size-btn selected" onclick="selectSize(this, 'Medium')">M</button>
-                                <button class="size-btn" onclick="selectSize(this, 'Large')">L</button>
-                                <button class="size-btn" onclick="selectSize(this, 'X-Large')">XL</button>
-                                <button class="size-btn" onclick="selectSize(this, 'XX-Large')">XXL</button>
-                            </div>
-                        </div>
-                        <div class="option-group">
-                            <label class="option-label">الكمية</label>
-                            <div class="quantity-selector">
-                                <button class="qty-btn" onclick="changeQuantity(-1)">-</button>
-                                <span class="qty-display" id="quantity">1</span>
-                                <button class="qty-btn" onclick="changeQuantity(1)">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="add-to-cart" onclick="addTshirtToCart()">
-                        <i class="fas fa-bell" style="margin-left: 10px;"></i>
-                        أشعرني عند التوفر
-                    </button>
-                    <div class="upcoming-notice" style="margin-top: 2rem;">
-                        <h3><i class="fas fa-info-circle" style="margin-left: 10px;"></i> معلومات هامة</h3>
-                        <p style="text-align: right; font-size: 0.9rem;">
-                            التيشرت قيد التصنيع وسيتوفر للطلب قريباً. يمكنك التسجيل ليصلك إشعار عند التوفر لتحصل على أفضل عروض الإطلاق.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <div class="dbody" id="cartBody">
+      <div class="emcart"><i class="fas fa-shopping-bag"></i><p>السلة فارغة</p></div>
     </div>
-    <div id="hoodies-page" class="page-content separate-page hoodies-page">
-        <div class="page-header">
-            <a href="#" class="back-to-home" onclick="showPage('home')">
-                <i class="fas fa-arrow-right"></i>
-                العودة للرئيسية
-            </a>
-            <h1 class="page-title">HOODIE <span>ELVAR</span></h1>
-            <p class="page-subtitle">
-                HOODIE ELVAR - ليس مجرد هودي، إنه بيان أسلوب. راحة لا مثيل لها، تصميم عصري، وجودة فائقة
-            </p>
-        </div>
-        <section class="hoodie-video-section">
-            <div class="video-container">
-                <div class="video-wrapper" onclick="openVideoLightbox('video/Elvar video 1.mp4')">
-                    <video class="product-video" autoplay muted loop playsinline>
-                        <source src="video/Elvar video 1.mp4" type="video/mp4">
-                    </video>
-                </div>
-            </div>
-        </section>
-        <section class="featured-product">
-            <div class="product-detail">
-                <div class="product-gallery">
-                    <div class="main-image-container" onclick="openHoodieGallery()">
-                        <img id="mainProductImage" src="images/1.jpeg" alt="HOODIE ELVAR" class="main-image">
-                    </div>
-                    <div class="thumbnails">
-                        <img src="images/1.jpeg" class="thumbnail active" onclick="changeProductImage('images/1.jpeg')">
-                        <img src="images/2.jpeg" class="thumbnail" onclick="changeProductImage('images/2.jpeg')">
-                        <img src="images/3.jpeg" class="thumbnail" onclick="changeProductImage('images/3.jpeg')">
-                        <img src="images/4.jpeg" class="thumbnail" onclick="changeProductImage('images/4.jpeg')">
-                        <img src="images/5.jpeg" class="thumbnail" onclick="changeProductImage('images/5.jpeg')">
-                    </div>
-                </div>
-                <div class="product-details">
-                    <div class="product-header">
-                        <h1 class="product-name">HOODIE <span>ELVAR</span></h1>
-                        <p class="product-description">
-                            HOODIE ELVAR ليس مجرد هودي، إنه بيان أسلوب. مصنوع من قطن ميلتون 100% بجودة فائقة، مع تطريزات متعددة يمكنك تغييرها حسب مزاجك. تصميم مريح وأنيق يمنحك الثقة في كل لحظة.
-                        </p>
-                        <div class="price">
-                            <span style="text-decoration: line-through; color: var(--text-light); font-size: 1.2rem; margin-left: 0.5rem;">1200 جنيه</span>
-                            899 جنيه
-                        </div>
-                    </div>
-                    <div class="options">
-                        <div class="option-group">
-                            <label class="option-label">اختر المقاس</label>
-                            <div class="size-options">
-                                <button class="size-btn selected" onclick="selectSize(this, 'Oversize')">Oversize</button>
-                            </div>
-                        </div>
-                        <div class="option-group">
-                            <label class="option-label">الكمية</label>
-                            <div class="quantity-selector">
-                                <button class="qty-btn" onclick="changeQuantity(-1)">-</button>
-                                <span class="qty-display" id="hoodieQuantity">1</span>
-                                <button class="qty-btn" onclick="changeQuantity(1)">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="add-to-cart" onclick="addHoodieToCart(event)">
-                        <i class="fas fa-shopping-bag" style="margin-left: 10px;"></i>
-                        أضف إلى السلة
-                    </button>
-                </div>
-            </div>
-        </section>
-        <section class="collection" style="background: var(--secondary); margin-top: 4rem; border-radius: 10px; padding: 3rem;">
-            <h2 class="section-title">مميزات <span>HOODIE ELVAR</span></h2>
-            <div class="products-grid">
-                <div class="product-card" style="cursor: default; background: var(--accent);">
-                    <div class="product-image-container" style="height: 200px;">
-                        <i class="fas fa-star" style="font-size: 3rem; color: var(--gold);"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">جودة فائقة</h3>
-                        <p style="color: var(--text-light); font-size: 0.9rem; line-height: 1.6;">
-                            مصنوع من قطن ميلتون 100% بجودة عالية تضمن الراحة والمتانة
-                        </p>
-                    </div>
-                </div>
-                <div class="product-card" style="cursor: default; background: var(--accent);">
-                    <div class="product-image-container" style="height: 200px;">
-                        <i class="fas fa-tshirt" style="font-size: 3rem; color: var(--gold);"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">تصميم عصري</h3>
-                        <p style="color: var(--text-light); font-size: 0.9rem; line-height: 1.6;">
-                            تصميم Oversize مريح وأنيق يناسب جميع الأجسام والأذواق
-                        </p>
-                    </div>
-                </div>
-                <div class="product-card" style="cursor: default; background: var(--accent);">
-                    <div class="product-image-container" style="height: 200px;">
-                        <i class="fas fa-award" style="font-size: 3rem; color: var(--gold);"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">صناعة مصرية</h3>
-                        <p style="color: var(--text-light); font-size: 0.9rem; line-height: 1.6;">
-                            صناعة مصرية بمعايير عالمية، كل قطعة تحمل هوية ELVAR الفريدة
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <div class="dfoot" id="cartFoot" style="display:none;">
+      <div class="ctrow">
+        <span style="font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);">الإجمالي</span>
+        <span class="ctamt" id="ctamt">0 جنيه</span>
+      </div>
+      <button class="abtn" style="max-width:none;margin-top:0;" onclick="openCheckout()">إتمام الشراء</button>
     </div>
-    <div id="about-page" class="page-content separate-page">
-        <div class="page-header">
-            <a href="#" class="back-to-home" onclick="showPage('home')">
-                <i class="fas fa-arrow-right"></i>
-                العودة للرئيسية
-            </a>
-            <h1 class="page-title">عن <span>ELVAR</span></h1>
-            <p class="page-subtitle">
-                علامة تجارية مصرية تقدم أرقى تصاميم الملابس العصرية، حيث تلتقي الجودة بالأناقة في كل قطعة
-            </p>
-        </div>
-        <section class="about-section" style="background: transparent; padding-top: 0;">
-            <div class="about-content">
-                <div style="text-align: center; margin-bottom: 3rem;">
-                    <div style="width: 150px; height: 150px; background: transparent; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; overflow: hidden; border: 3px solid var(--gold); cursor: pointer;" onclick="openLightbox('images/elvar logo.jpg')">
-                        <img src="images/elvar logo.jpg" alt="ELVAR Logo" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                </div>
-                <p class="about-text">
-                    في ELVAR، نؤمن بأن الملابس ليست مجرد قماش يغطي الجسد، بل هي لغة تعبر عن هويتك وشخصيتك. كل قطعة نصنعها تحمل في تفاصيلها رواية من الدقة والجودة والأناقة. نحن لا نبيع ملابس، نبيع هوية، نبيع ثقة، نبيع أسلوب حياة.
-                    <br><br>
-                    انطلقت ELVAR من حلم بسيط: تقديم ملابس عصرية بجودة عالمية وبسعر مناسب للشباب العربي. اليوم، نحن فخورون بأننا أصبحنا علامة تجارية معترف بها في سوق الأزياء المصري، بفضل إصرارنا على الجودة واهتمامنا بأدق التفاصيل.
-                    <br><br>
-                    <strong>رؤيتنا:</strong> أن نكون العلامة التجارية الرائدة في مجال الأزياء العصرية في العالم العربي، وأن نقدم منتجات تجمع بين الأصالة والحداثة.
-                    <br><br>
-                    <strong>رسالتنا:</strong> تقديم تجربة تسوق فريدة لعملائنا من خلال منتجات عالية الجودة وتصاميم مبتكرة تعبر عن شخصيتهم وأسلوبهم.
-                </p>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 3rem 0;">
-                    <div style="text-align: center; padding: 2rem; background: var(--accent); border-radius: 10px; border: 1px solid var(--border);">
-                        <i class="fas fa-flag" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 1rem;"></i>
-                        <h3 style="color: var(--gold); margin-bottom: 1rem;">صناعة مصرية</h3>
-                        <p style="color: var(--text-light);">🇪🇬 صنع في مصر بمعايير عالمية</p>
-                    </div>
-                    <div style="text-align: center; padding: 2rem; background: var(--accent); border-radius: 10px; border: 1px solid var(--border);">
-                        <i class="fas fa-star" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 1rem;"></i>
-                        <h3 style="color: var(--gold); margin-bottom: 1rem;">جودة عالية</h3>
-                        <p style="color: var(--text-light);">🌿 خامات قطن ميلتون 100% بجودة فائقة</p>
-                    </div>
-                    <div style="text-align: center; padding: 2rem; background: var(--accent); border-radius: 10px; border: 1px solid var(--border);">
-                        <i class="fas fa-heart" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 1rem;"></i>
-                        <h3 style="color: var(--gold); margin-bottom: 1rem;">تصميم عصري</h3>
-                        <p style="color: var(--text-light);">✨ تصميمات عصرية تجمع بين البساطة والأناقة</p>
-                    </div>
-                </div>
-                <div class="social-links">
-                    <a href="https://wa.me/201203790142" class="social-link" target="_blank" title="واتساب">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="https://www.facebook.com/share/1H6EAaFNra/" class="social-link" target="_blank" title="فيسبوك">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://www.instagram.com/elvar_hoodies?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="social-link" target="_blank" title="انستجرام">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://www.tiktok.com/@elvar.eg?_r=1&_t=ZS-936CoFgzPol" class="social-link" target="_blank" title="تيك توك">
-                        <i class="fab fa-tiktok"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="movl" id="checkoutModal">
+  <div class="mbox">
+    <button class="mclose" onclick="closeCheckout()"><i class="fas fa-times"></i></button>
+    <div class="mtitle">إتمام الطلب</div>
+    <form id="orderForm">
+      <div class="ff"><input type="text" placeholder="الاسم بالكامل *" required></div>
+      <div class="ff"><input type="tel" placeholder="رقم الهاتف *" required></div>
+      <div class="ff"><input type="text" placeholder="المحافظة *" required></div>
+      <div class="ff"><textarea placeholder="العنوان التفصيلي *" rows="3" required></textarea></div>
+      <div class="ff"><textarea placeholder="ملاحظات إضافية (اختياري)" rows="2"></textarea></div>
+      <button type="submit" class="abtn" style="max-width:none;margin-top:1rem;"><i class="fas fa-paper-plane" style="margin-left:.5rem;"></i>تأكيد الطلب</button>
+    </form>
+  </div>
+</div>
+
+<!-- THANK YOU -->
+<div class="movl" id="tyModal">
+  <div class="mbox" style="text-align:center;">
+    <button class="mclose" onclick="closeTY()"><i class="fas fa-times"></i></button>
+    <div class="ty-ic"><i class="fas fa-check"></i></div>
+    <div class="mtitle">شكراً لطلبك!</div>
+    <p class="tytext">تم استلام طلبك بنجاح ✅<br><br>📦 سيتواصل معك فريقنا خلال 24 ساعة<br>🚚 التوصيل خلال 2-3 أيام عمل<br>📍 من القاهرة... لحد باب بيتك<br><br><em style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.1rem;">ELVAR — هويتك بصوت أعلى</em></p>
+    <button class="abtn" style="max-width:none;margin-top:2rem;" onclick="closeTY()">مواصلة التسوق</button>
+  </div>
+</div>
+
+<!-- ============ HOME ============ -->
+<div id="home-page" class="page-content active">
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">EGYPT — SS 2025</div>
+      <h1 class="hero-title"><em>ELVAR</em><strong>هويتك بصوت أعلى</strong></h1>
+      <p class="hero-subtitle">ليست مجرد ملابس — هي بيان شخصي، صوت يُسمع، هوية تظهر. كل قطعة تحمل قصة، كل تصميم يعبّر عن فرديتك.</p>
+      <a href="#" class="hero-cta" onclick="showPage('tshirts');return false;">
+        <span class="hero-cta-text">اكتشف المجموعة</span>
+        <div class="hero-cta-arrow"><i class="fas fa-arrow-left"></i></div>
+      </a>
     </div>
-    <div class="modal cart-modal" id="cartModal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="toggleCart()">
-                <i class="fas fa-times"></i>
-            </button>
-            <h2 style="margin-bottom: 1.5rem; text-align: center; color: var(--gold);">سلة المشتريات</h2>
-            <div class="cart-items" id="cartItems">
-                <div style="text-align: center; padding: 2rem; color: var(--text-light);">
-                    <i class="fas fa-shopping-bag" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.3;"></i>
-                    <p>السلة فارغة</p>
-                </div>
-            </div>
-            <div class="cart-total" id="cartTotalSection" style="display: none;">
-                <span>الإجمالي:</span>
-                <span id="cartTotal">0 جنيه</span>
-            </div>
-            <button class="checkout-btn" onclick="checkout()" id="checkoutBtn" style="display: none;">
-                <i class="fas fa-check-circle" style="margin-left: 10px;"></i>
-                إتمام الشراء
-            </button>
-        </div>
+    <div class="hero-right">
+      <div class="hero-slide active" id="hs0"><img src="images/T-SHIRT 2.jpg" alt="ELVAR" class="hero-img" onclick="openLB('images/T-SHIRT 2.jpg')"></div>
+      <div class="hero-slide" id="hs1"><img src="images/4.jpeg" alt="ELVAR" class="hero-img" onclick="openLB('images/4.jpeg')"></div>
+      <div class="slide-dots">
+        <div class="sdot active" onclick="goSlide(0)"></div>
+        <div class="sdot" onclick="goSlide(1)"></div>
+      </div>
+      <div class="slide-num" id="snum">01 / 02</div>
     </div>
-    <div class="modal checkout-modal" id="checkoutModal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeCheckout()">
-                <i class="fas fa-times"></i>
-            </button>
-            <h2 style="margin-bottom: 1.5rem; text-align: center; color: var(--gold);">إتمام الطلب</h2>
-            <form id="checkoutForm" style="display: grid; gap: 1rem;">
-                <input type="text" placeholder="الاسم بالكامل *" required style="padding: 0.8rem; border: 1px solid var(--border); background: var(--secondary); color: var(--text); border-radius: 5px; font-size: 0.9rem;">
-                <input type="tel" placeholder="رقم الهاتف *" required style="padding: 0.8rem; border: 1px solid var(--border); background: var(--secondary); color: var(--text); border-radius: 5px; font-size: 0.9rem;">
-                <input type="text" placeholder="المحافظة *" required style="padding: 0.8rem; border: 1px solid var(--border); background: var(--secondary); color: var(--text); border-radius: 5px; font-size: 0.9rem;">
-                <textarea placeholder="العنوان التفصيلي *" required rows="3" style="padding: 0.8rem; border: 1px solid var(--border); background: var(--secondary); color: var(--text); border-radius: 5px; resize: vertical; font-size: 0.9rem;"></textarea>
-                <textarea placeholder="ملاحظات إضافية (اختياري)" rows="2" style="padding: 0.8rem; border: 1px solid var(--border); background: var(--secondary); color: var(--text); border-radius: 5px; resize: vertical; font-size: 0.9rem;"></textarea>
-                <button type="submit" class="checkout-btn">
-                    <i class="fas fa-paper-plane" style="margin-left: 10px;"></i>
-                    تأكيد الطلب
-                </button>
-            </form>
-        </div>
+  </section>
+
+  <div class="marquee-bar">
+    <div class="marquee-track">
+      <span class="mi">ELVAR <span>✦</span></span><span class="mi">قطن ميلتون 100% <span>✦</span></span><span class="mi">صناعة مصرية <span>✦</span></span><span class="mi">هوية <span>✦</span></span><span class="mi">أناقة <span>✦</span></span><span class="mi">جودة <span>✦</span></span><span class="mi">ELVAR <span>✦</span></span><span class="mi">قطن ميلتون 100% <span>✦</span></span><span class="mi">صناعة مصرية <span>✦</span></span><span class="mi">هوية <span>✦</span></span><span class="mi">أناقة <span>✦</span></span><span class="mi">جودة <span>✦</span></span>
     </div>
-    <div class="modal thank-you-modal" id="thankYouModal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeThankYou()">
-                <i class="fas fa-times"></i>
-            </button>
-            <div style="text-align: center; padding: 1rem;">
-                <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--gold); margin-bottom: 1rem;"></i>
-                <h2 style="margin-bottom: 1rem; color: var(--gold);">شكراً لطلبك!</h2>
-                <p style="color: var(--text-light); line-height: 1.6; margin-bottom: 1.5rem; font-size: 0.9rem;">
-                    تم استلام طلبك بنجاح ✅
-                    <br><br>
-                    📦 سيتواصل معك فريقنا خلال 24 ساعة لتأكيد التفاصيل
-                    <br>
-                    🚚 التوصيل خلال 2-3 أيام عمل
-                    <br>
-                    📍 من القاهرة... لحد باب بيتك
-                    <br><br>
-                    ELVAR - هويتك بصوت أعلى
-                </p>
-                <button class="checkout-btn" onclick="closeThankYou()">
-                    <i class="fas fa-shopping-bag" style="margin-left: 10px;"></i>
-                    مواصلة التسوق
-                </button>
-            </div>
-        </div>
+  </div>
+
+  <section class="coll-sec">
+    <div class="sec-head reveal">
+      <div>
+        <div class="sec-label">المجموعة الحالية</div>
+        <div class="sec-title">مجموعة <em>ELVAR</em></div>
+      </div>
+      <div style="font-size:.65rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;">2025</div>
     </div>
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>ELVAR</h3>
-                <p style="color: var(--text-light); line-height: 1.6; font-size: 0.9rem;">
-                    علامة تجارية مصرية تقدم أرقى تصاميم الملابس العصرية، حيث تلتقي الجودة بالأناقة في كل قطعة. هويتك بصوت أعلى.
-                </p>
-            </div>
-            <div class="footer-section">
-                <h3>الروابط</h3>
-                <ul class="footer-links">
-                    <li><a href="#" onclick="showPage('home')">Home</a></li>
-                    <li><a href="#" onclick="showPage('tshirts')">T-SHIRT</a></li>
-                    <li><a href="#" onclick="showPage('hoodies')">HOODIE</a></li>
-                    <li><a href="#" onclick="showPage('about')">About</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>تواصل معنا</h3>
-                <ul class="footer-links">
-                    <li><a href="https://wa.me/201203790142" target="_blank"><i class="fab fa-whatsapp" style="margin-left: 5px; color: #25D366;"></i>Whatsapp</a></li>
-                    <li><a href="https://www.facebook.com/share/1H6EAaFNra/" target="_blank"><i class="fab fa-facebook-f" style="margin-left: 5px; color: #1877F2;"></i> Facebook</a></li>
-                    <li><a href="https://www.instagram.com/elvar_hoodies?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram" style="margin-left: 5px; color: #E4405F;"></i> Instagram</a></li>
-                    <li><a href="https://www.tiktok.com/@elvar.eg?_r=1&_t=ZS-936CoFgzPol" target="_blank"><i class="fab fa-tiktok" style="margin-left: 5px;"></i> TikTok</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>تابعنا</h3>
-                <ul class="footer-links">
-                    <li><a href="https://www.facebook.com/share/1H6EAaFNra/" target="_blank"><i class="fab fa-facebook-f" style="margin-left: 5px; color: #1877F2;"></i> Facebook</a></li>
-                    <li><a href="https://www.instagram.com/elvar_hoodies?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram" style="margin-left: 5px; color: #E4405F;"></i> Instagram</a></li>
-                    <li><a href="https://www.tiktok.com/@elvar.eg?_r=1&_t=ZS-936CoFgzPol" target="_blank"><i class="fab fa-tiktok" style="margin-left: 5px;"></i> TikTok</a></li>
-                </ul>
-            </div>
+    <div class="grid2">
+      <div class="pcard reveal" onclick="showPage('tshirts')">
+        <div class="pcard-inner">
+          <div class="pimg-wrap"><img src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR" class="pimg"></div>
+          <div class="pbadge bsoon">قريباً</div>
         </div>
-        <div class="copyright">
-            © 2025 ELVAR. جميع الحقوق محفوظة | صنع بكل فخر في مصر 🇪🇬
+        <div class="pinfo-bar">
+          <div><div class="pname">T-SHIRT ELVAR</div><div class="pprice">سيتم الإطلاق قريباً</div></div>
+          <div class="parr"><i class="fas fa-arrow-left"></i></div>
         </div>
-    </footer>
-    <script>
-        let cart = [];
-        let quantity = 1;
-        let currentVideoPlaying = true;
-        let currentSlide = 0;
-        let slideInterval;
-        let currentTshirtColor = 'navy';
-        let currentPage = 'home';
-        let currentLightboxIndex = 0;
-        let lightboxItems = [];
-        let lightboxType = 'image';
-        function showPage(page) {
-            document.querySelectorAll('.page-content').forEach(element => {
-                element.classList.remove('active');
-            });
-            document.getElementById(page + '-page').classList.add('active');
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            const activeLink = document.querySelector(`.nav-link[onclick*="${page}"]`);
-            if (activeLink) {
-                activeLink.classList.add('active');
-            }
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            const navItems = document.querySelectorAll('.nav-item');
-            switch(page) {
-                case 'home':
-                    navItems[0].classList.add('active');
-                    break;
-                case 'tshirts':
-                    navItems[1].classList.add('active');
-                    break;
-                case 'hoodies':
-                    navItems[2].classList.add('active');
-                    break;
-                case 'about':
-                    navItems[3].classList.add('active');
-                    break;
-            }
-            currentPage = page;
-            scrollToTop();
-            if (page === 'home') {
-                clearInterval(slideInterval);
-                startSlideShow();
-            }
-        }
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        function toggleCart() {
-            const modal = document.getElementById('cartModal');
-            modal.classList.toggle('active');
-            updateCartDisplay();
-        }
-        function closeCheckout() {
-            document.getElementById('checkoutModal').classList.remove('active');
-        }
-        function closeThankYou() {
-            document.getElementById('thankYouModal').classList.remove('active');
-        }
-        function changeSlide(index) {
-            const slides = document.querySelectorAll('.hero-slide');
-            const dots = document.querySelectorAll('.slide-dot');
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            slides[index].classList.add('active');
-            dots[index].classList.add('active');
-            currentSlide = index;
-            clearInterval(slideInterval);
-            startSlideShow();
-        }
-        function startSlideShow() {
-            slideInterval = setInterval(() => {
-                currentSlide = (currentSlide + 1) % 2;
-                changeSlide(currentSlide);
-            }, 5000);
-        }
-        function openHeroLightbox() {
-            const items = [
-                {src: 'images/T-SHIRT 2.jpg'},
-                {src: 'images/4.jpeg'}
-            ];
-            openGalleryLightbox(items, currentSlide);
-        }
-        function openTshirtGallery() {
-            const items = [
-                {src: 'images/T-SHIRT 1.jpg'},
-                {src: 'images/T-SHIRT 2.jpg'},
-                {src: 'images/T-SHIRT 3.jpg'},
-                {src: 'images/T-SHIRT 4.jpg'}
-            ];
-            let currentSrc = document.getElementById('tshirtPreview').src;
-            let index = items.findIndex(item => item.src === currentSrc);
-            if (index === -1) index = 0;
-            openGalleryLightbox(items, index);
-        }
-        function openTshirtDetailGallery() {
-            const items = [
-                {src: 'images/T-SHIRT 1.jpg'},
-                {src: 'images/T-SHIRT 2.jpg'},
-                {src: 'images/T-SHIRT 3.jpg'},
-                {src: 'images/T-SHIRT 4.jpg'}
-            ];
-            let currentSrc = document.getElementById('mainTshirtImage').src;
-            let index = items.findIndex(item => item.src === currentSrc);
-            if (index === -1) index = 0;
-            openGalleryLightbox(items, index);
-        }
-        function openHoodieGallery() {
-            const items = [
-                {src: 'images/1.jpeg'},
-                {src: 'images/2.jpeg'},
-                {src: 'images/3.jpeg'},
-                {src: 'images/4.jpeg'},
-                {src: 'images/5.jpeg'}
-            ];
-            let currentSrc = document.getElementById('mainProductImage').src;
-            let index = items.findIndex(item => item.src === currentSrc);
-            if (index === -1) index = 0;
-            openGalleryLightbox(items, index);
-        }
-        function changeTshirtColor(color, imageSrc) {
-            const previewImage = document.getElementById('tshirtPreview');
-            previewImage.src = imageSrc;
-            if (currentPage === 'tshirts') {
-                document.getElementById('mainTshirtImage').src = imageSrc;
-                document.querySelectorAll('.thumbnail').forEach(thumb => {
-                    thumb.classList.remove('active');
-                });
-                const thumbnails = document.querySelectorAll('.thumbnail');
-                switch(color) {
-                    case 'navy':
-                        thumbnails[0].classList.add('active');
-                        selectColor(document.querySelector('.size-btn[onclick*="نبيتي غامق"]'), 'نبيتي غامق');
-                        break;
-                    case 'black':
-                        thumbnails[1].classList.add('active');
-                        selectColor(document.querySelector('.size-btn[onclick*="أسود"]'), 'أسود');
-                        break;
-                    case 'olive':
-                        thumbnails[2].classList.add('active');
-                        selectColor(document.querySelector('.size-btn[onclick*="زيتي"]'), 'زيتي');
-                        break;
-                    case 'cream':
-                        thumbnails[3].classList.add('active');
-                        selectColor(document.querySelector('.size-btn[onclick*="سكري"]'), 'سكري');
-                        break;
-                }
-            }
-            document.querySelectorAll('.color-option-container').forEach(container => {
-                container.classList.remove('selected');
-            });
-            document.querySelectorAll('.color-sample').forEach(sample => {
-                sample.classList.remove('selected');
-            });
-            const colorContainers = document.querySelectorAll('.color-option-container');
-            switch(color) {
-                case 'navy':
-                    colorContainers[0].classList.add('selected');
-                    colorContainers[0].querySelector('.color-sample').classList.add('selected');
-                    break;
-                case 'black':
-                    colorContainers[1].classList.add('selected');
-                    colorContainers[1].querySelector('.color-sample').classList.add('selected');
-                    break;
-                case 'olive':
-                    colorContainers[2].classList.add('selected');
-                    colorContainers[2].querySelector('.color-sample').classList.add('selected');
-                    break;
-                case 'cream':
-                    colorContainers[3].classList.add('selected');
-                    colorContainers[3].querySelector('.color-sample').classList.add('selected');
-                    break;
-            }
-            currentTshirtColor = color;
-            previewImage.style.opacity = '0.7';
-            previewImage.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                previewImage.style.opacity = '1';
-                previewImage.style.transform = 'scale(1)';
-            }, 300);
-        }
-        function changeTshirtImage(src) {
-            document.getElementById('mainTshirtImage').src = src;
-            document.querySelectorAll('.thumbnail').forEach(thumb => {
-                thumb.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        }
-        function changeProductImage(src) {
-            document.getElementById('mainProductImage').src = src;
-            document.querySelectorAll('.thumbnail').forEach(thumb => {
-                thumb.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        }
-        function selectColor(button, color) {
-            document.querySelectorAll('.size-btn').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            button.classList.add('selected');
-        }
-        function selectSize(button, size) {
-            document.querySelectorAll('.size-btn').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            button.classList.add('selected');
-        }
-        function changeQuantity(amount) {
-            quantity = Math.max(1, quantity + amount);
-            if (currentPage === 'hoodies') {
-                document.getElementById('hoodieQuantity').textContent = quantity;
-            } else {
-                document.getElementById('quantity').textContent = quantity;
-            }
-        }
-        function addTshirtToCart() {
-            const button = event.currentTarget;
-            button.style.transform = 'scale(0.95)';
-            setTimeout(() => button.style.transform = 'scale(1)', 200);
-        }
-        function flyToCart(element) {
-            let cartElement;
-            if (window.innerWidth > 768) {
-                cartElement = document.querySelector('.nav-icon.cart-btn');
-            } else {
-                cartElement = document.querySelector('.center-cart');
-            }
-            if (!cartElement) return;
-            const cartRect = cartElement.getBoundingClientRect();
-            const startRect = element.getBoundingClientRect();
-            const flyer = document.createElement('div');
-            flyer.className = 'fly-element';
-            flyer.innerHTML = '<i class="fas fa-tshirt"></i>';
-            flyer.style.left = startRect.left + startRect.width / 2 - 20 + 'px';
-            flyer.style.top = startRect.top + startRect.height / 2 - 20 + 'px';
-            document.body.appendChild(flyer);
-            setTimeout(() => {
-                flyer.style.left = cartRect.left + cartRect.width / 2 - 20 + 'px';
-                flyer.style.top = cartRect.top + cartRect.height / 2 - 20 + 'px';
-                flyer.style.width = '20px';
-                flyer.style.height = '20px';
-                flyer.style.opacity = '0.5';
-            }, 10);
-            setTimeout(() => {
-                flyer.remove();
-                cartElement.classList.add('cart-animation');
-                setTimeout(() => cartElement.classList.remove('cart-animation'), 500);
-            }, 800);
-        }
-        function addHoodieToCart(event) {
-            const product = {
-                id: Date.now(),
-                name: 'HOODIE ELVAR',
-                price: 899,
-                size: 'Oversize',
-                quantity: quantity,
-                image: 'images/1.jpeg'
-            };
-            cart.push(product);
-            updateCartCount();
-            const currentQty = quantity;
-            quantity = 1;
-            document.getElementById('hoodieQuantity').textContent = '1';
-            const button = event.currentTarget;
-            flyToCart(button);
-        }
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartCount();
-            updateCartDisplay();
-        }
-        function updateCartCount() {
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCountDesktop').textContent = totalItems;
-            document.getElementById('cartCountMobile').textContent = totalItems;
-        }
-        function updateCartDisplay() {
-            const cartItems = document.getElementById('cartItems');
-            const cartTotal = document.getElementById('cartTotal');
-            const cartTotalSection = document.getElementById('cartTotalSection');
-            const checkoutBtn = document.getElementById('checkoutBtn');
-            if (cart.length === 0) {
-                cartItems.innerHTML = `
-                    <div style="text-align: center; padding: 2rem; color: var(--text-light);">
-                        <i class="fas fa-shopping-bag" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.3;"></i>
-                        <p>السلة فارغة</p>
-                    </div>
-                `;
-                cartTotalSection.style.display = 'none';
-                checkoutBtn.style.display = 'none';
-                return;
-            }
-            let itemsHTML = '';
-            let total = 0;
-            cart.forEach((item, index) => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                itemsHTML += `
-                    <div class="cart-item">
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <div class="cart-item-info">
-                                <h4>${item.name}</h4>
-                                <div style="font-size: 0.9rem; color: var(--text-light);">
-                                    ${item.size} × ${item.quantity}
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 0.5rem;">
-                            <div class="cart-item-price">${itemTotal} جنيه</div>
-                            <button class="remove-item" onclick="removeFromCart(${index})">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            });
-            cartItems.innerHTML = itemsHTML;
-            cartTotal.textContent = `${total} جنيه`;
-            cartTotalSection.style.display = 'flex';
-            checkoutBtn.style.display = 'block';
-        }
-        function checkout() {
-            if (cart.length === 0) {
-                return;
-            }
-            toggleCart();
-            document.getElementById('checkoutModal').classList.add('active');
-        }
-        function openLightbox(src) {
-            lightboxType = 'image';
-            lightboxItems = [{src: src}];
-            currentLightboxIndex = 0;
-            const lightboxContent = document.querySelector('.lightbox-content');
-            lightboxContent.innerHTML = `
-                <img src="${src}" alt="ELVAR" class="lightbox-image zoom-in">
-            `;
-            document.getElementById('lightboxModal').classList.add('active');
-            const prevBtn = document.querySelector('.lightbox-prev');
-            const nextBtn = document.querySelector('.lightbox-next');
-            prevBtn.style.display = 'none';
-            nextBtn.style.display = 'none';
-            document.body.style.overflow = 'hidden';
-        }
-        function openGalleryLightbox(items, startIndex) {
-            lightboxType = 'image';
-            lightboxItems = items;
-            currentLightboxIndex = startIndex;
-            const lightboxContent = document.querySelector('.lightbox-content');
-            lightboxContent.innerHTML = `
-                <img src="${items[currentLightboxIndex].src}" alt="ELVAR" class="lightbox-image zoom-in">
-            `;
-            document.getElementById('lightboxModal').classList.add('active');
-            const prevBtn = document.querySelector('.lightbox-prev');
-            const nextBtn = document.querySelector('.lightbox-next');
-            if (items.length > 1) {
-                prevBtn.style.display = 'flex';
-                nextBtn.style.display = 'flex';
-            } else {
-                prevBtn.style.display = 'none';
-                nextBtn.style.display = 'none';
-            }
-            document.body.style.overflow = 'hidden';
-        }
-        function openVideoLightbox(src) {
-            lightboxType = 'video';
-            lightboxItems = [{src: src}];
-            currentLightboxIndex = 0;
-            const lightboxContent = document.querySelector('.lightbox-content');
-            lightboxContent.innerHTML = `
-                <video class="lightbox-video zoom-in" controls autoplay>
-                    <source src="${src}" type="video/mp4">
-                    متصفحك لا يدعم تشغيل الفيديو.
-                </video>
-            `;
-            document.getElementById('lightboxModal').classList.add('active');
-            const prevBtn = document.querySelector('.lightbox-prev');
-            const nextBtn = document.querySelector('.lightbox-next');
-            prevBtn.style.display = 'none';
-            nextBtn.style.display = 'none';
-            document.body.style.overflow = 'hidden';
-        }
-        function closeLightbox() {
-            document.getElementById('lightboxModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            const video = document.querySelector('.lightbox-video');
-            if (video) {
-                video.pause();
-            }
-        }
-        function closeLightboxOnClickOutside(event) {
-            if (event.target === document.getElementById('lightboxModal')) {
-                closeLightbox();
-            }
-        }
-        function navigateLightbox(direction) {
-            if (lightboxItems.length <= 1) return;
-            currentLightboxIndex = (currentLightboxIndex + direction + lightboxItems.length) % lightboxItems.length;
-            const item = lightboxItems[currentLightboxIndex];
-            const lightboxContent = document.querySelector('.lightbox-content');
-            if (lightboxType === 'image') {
-                lightboxContent.innerHTML = `
-                    <img src="${item.src}" alt="ELVAR" class="lightbox-image zoom-in">
-                `;
-            } else {
-                lightboxContent.innerHTML = `
-                    <video class="lightbox-video zoom-in" controls autoplay>
-                        <source src="${item.src}" type="video/mp4">
-                        متصفحك لا يدعم تشغيل الفيديو.
-                    </video>
-                `;
-            }
-        }
-        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const order = {
-                customer: Object.fromEntries(formData),
-                items: cart,
-                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-            };
-            console.log('Order placed:', order);
-            document.getElementById('checkoutModal').classList.remove('active');
-            document.getElementById('thankYouModal').classList.add('active');
-            cart = [];
-            updateCartCount();
-            updateCartDisplay();
-            this.reset();
-        });
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('nav');
-            if (nav && window.scrollY > 50) {
-                nav.style.padding = '0.8rem 0';
-                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.3)';
-            } else if (nav) {
-                nav.style.padding = '1rem 0';
-                nav.style.boxShadow = 'none';
-            }
-        });
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal')) {
-                e.target.classList.remove('active');
-            }
-        });
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeLightbox();
-            }
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            startSlideShow();
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes bounce {
-                    0%, 100% { transform: translateX(-50%) scale(1); }
-                    50% { transform: translateX(-50%) scale(1.2); }
-                }
-                @keyframes zoomIn {
-                    from {
-                        transform: scale(0.8);
-                        opacity: 0;
-                    }
-                    to {
-                        transform: scale(1);
-                        opacity: 1;
-                    }
-                }
-                .zoom-in {
-                    animation: zoomIn 0.3s ease-out;
-                }
-                @media (max-height: 600px) {
-                    .hero {
-                        min-height: 600px;
-                    }
-                    .hero-image-container {
-                        min-height: 300px;
-                    }
-                }
-                .nav-link.active {
-                    animation: glow 2s infinite;
-                }
-                @keyframes glow {
-                    0%, 100% {
-                        box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-                    }
-                    50% {
-                        box-shadow: 0 4px 20px rgba(212, 175, 55, 0.5);
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-            document.querySelectorAll('a[href="#"]').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                });
-            });
-        });
-    </script>
+      </div>
+      <div class="pcard reveal" onclick="showPage('hoodies')">
+        <div class="pcard-inner">
+          <div class="pimg-wrap"><img src="images/1.jpeg" alt="HOODIE ELVAR" class="pimg"></div>
+          <div class="pbadge bsale">خصم 25%</div>
+        </div>
+        <div class="pinfo-bar">
+          <div><div class="pname">HOODIE ELVAR</div><div class="pprice">899 جنيه <span class="pold">1200 جنيه</span></div></div>
+          <div class="parr"><i class="fas fa-arrow-left"></i></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-strip">
+    <div class="reveal">
+      <div class="alabel">من نحن</div>
+      <h2 class="aheading">قصة <em>ELVAR</em></h2>
+      <p class="atext">في ELVAR، نؤمن بأن الملابس ليست مجرد قماش — بل هي لغة تعبر عن هويتك. كل قطعة تحمل رواية من الدقة والجودة والأناقة.</p>
+      <div class="astats">
+        <div class="astat"><div class="astat-n">100%</div><div class="astat-l">قطن ميلتون</div></div>
+        <div class="astat"><div class="astat-n">🇪🇬</div><div class="astat-l">صناعة مصرية</div></div>
+      </div>
+      <div class="social-row" style="margin-top:2.5rem;">
+        <a href="https://wa.me/201203790142" class="slink" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.facebook.com/share/1H6EAaFNra/" class="slink" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/elvar_hoodies" class="slink" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@elvar.eg" class="slink" target="_blank"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="frow"><div class="ficon"><i class="fas fa-star"></i></div><div><div class="ftitle">جودة فائقة</div><div class="fdesc">قطن ميلتون 100% يضمن الراحة والمتانة في كل لحظة</div></div></div>
+      <div class="frow"><div class="ficon"><i class="fas fa-tshirt"></i></div><div><div class="ftitle">تصميم عصري</div><div class="fdesc">تصميم مريح وأنيق يناسب جميع الأجسام والأذواق</div></div></div>
+      <div class="frow"><div class="ficon"><i class="fas fa-award"></i></div><div><div class="ftitle">صناعة مصرية</div><div class="fdesc">معايير عالمية وهوية ELVAR الفريدة في كل قطعة</div></div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ T-SHIRTS ============ -->
+<div id="tshirts-page" class="page-content">
+  <div class="phero">
+    <div class="phero-num">01</div>
+    <a href="#" class="backlink" onclick="showPage('home');return false;"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
+    <h1 class="ptitle">T-SHIRT <em>ELVAR</em></h1>
+    <p class="psub">متوفر بأربعة ألوان مختلفة تناسب جميع الأذواق</p>
+  </div>
+  <div class="pbody">
+    <div class="tshow">
+      <div style="text-align:center;margin-bottom:2rem;"><div class="sec-label" style="display:inline-block;">اختر اللون</div></div>
+      <div class="tbig">
+        <img id="tshirtBigImg" src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR" class="tbig-img" onclick="openLBGallery(tsImgs,curTsIdx)">
+      </div>
+      <div class="cpicker">
+        <div class="cpick sel" onclick="pickColor(this,'navy','images/T-SHIRT 1.jpg',0)"><div class="cdot" style="background:hsl(0,100%,10%);"></div><div class="cname">نبيتي</div></div>
+        <div class="cpick" onclick="pickColor(this,'black','images/T-SHIRT 2.jpg',1)"><div class="cdot" style="background:#111;"></div><div class="cname">أسود</div></div>
+        <div class="cpick" onclick="pickColor(this,'olive','images/T-SHIRT 3.jpg',2)"><div class="cdot" style="background:#556B2F;"></div><div class="cname">زيتي</div></div>
+        <div class="cpick" onclick="pickColor(this,'cream','images/T-SHIRT 4.jpg',3)"><div class="cdot" style="background:#e8e0cc;border:1px solid var(--border);"></div><div class="cname">سكري</div></div>
+      </div>
+      <div class="noticebox" style="max-width:580px;margin:0 auto;">
+        <h4><i class="fas fa-clock" style="margin-left:.5rem;"></i>متوفر قريباً</h4>
+        <p>سيتم إطلاق هذا التيشرت بألوانه الأربعة قريباً. تابعنا لمعرفة موعد الإطلاق!</p>
+      </div>
+    </div>
+
+    <div class="dgrid">
+      <div>
+        <div class="gmain" onclick="openLBGallery(tsImgs,curTsIdx)">
+          <img id="mainTshirtImage" src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR" class="gmain-img">
+        </div>
+        <div class="thumbs">
+          <img src="images/T-SHIRT 1.jpg" class="thumb active" onclick="tsThumb(this,'images/T-SHIRT 1.jpg',0)">
+          <img src="images/T-SHIRT 2.jpg" class="thumb" onclick="tsThumb(this,'images/T-SHIRT 2.jpg',1)">
+          <img src="images/T-SHIRT 3.jpg" class="thumb" onclick="tsThumb(this,'images/T-SHIRT 3.jpg',2)">
+          <img src="images/T-SHIRT 4.jpg" class="thumb" onclick="tsThumb(this,'images/T-SHIRT 4.jpg',3)">
+        </div>
+      </div>
+      <div class="dinfo">
+        <div class="dlabel">ELVAR — SS 2025</div>
+        <h1 class="dname">T-SHIRT <em>ELVAR</em></h1>
+        <div class="dprice">سيتم الإعلان قريباً</div>
+        <p class="ddesc">T-SHIRT ELVAR يجمع بين الأناقة والراحة في تصميم واحد. مصنوع من قطن ميلتون 100% عالي الجودة، مع تصميم عصري يلائم مختلف المناسبات.</p>
+        <div class="optgrp"><span class="optlabel">الألوان</span>
+          <div class="sbtns" id="ts-colors">
+            <button class="sbtn sel" onclick="selBtn(this,'ts-colors')">نبيتي</button>
+            <button class="sbtn" onclick="selBtn(this,'ts-colors')">أسود</button>
+            <button class="sbtn" onclick="selBtn(this,'ts-colors')">زيتي</button>
+            <button class="sbtn" onclick="selBtn(this,'ts-colors')">سكري</button>
+          </div>
+        </div>
+        <div class="optgrp"><span class="optlabel">المقاس</span>
+          <div class="sbtns" id="ts-sizes">
+            <button class="sbtn sel" onclick="selBtn(this,'ts-sizes')">M</button>
+            <button class="sbtn" onclick="selBtn(this,'ts-sizes')">L</button>
+            <button class="sbtn" onclick="selBtn(this,'ts-sizes')">XL</button>
+            <button class="sbtn" onclick="selBtn(this,'ts-sizes')">XXL</button>
+          </div>
+        </div>
+        <button class="abtn sec" onclick="notifyTs(event)"><i class="fas fa-bell" style="margin-left:.5rem;"></i>أشعرني عند التوفر</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HOODIES ============ -->
+<div id="hoodies-page" class="page-content">
+  <div class="phero">
+    <div class="phero-num">02</div>
+    <a href="#" class="backlink" onclick="showPage('home');return false;"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
+    <h1 class="ptitle">HOODIE <em>ELVAR</em></h1>
+    <p class="psub">راحة لا مثيل لها، تصميم عصري، وجودة فائقة</p>
+  </div>
+  <div class="pbody">
+    <div style="margin-bottom:4rem;" class="reveal">
+      <div class="vid-wrap" onclick="openVideoLB('video/Elvar video 1.mp4')">
+        <video class="pvid" autoplay muted loop playsinline>
+          <source src="video/Elvar video 1.mp4" type="video/mp4">
+        </video>
+        <div class="vid-overlay"><div class="playico"><i class="fas fa-expand"></i></div></div>
+      </div>
+    </div>
+
+    <div class="dgrid">
+      <div class="reveal">
+        <div class="gmain" onclick="openLBGallery(hdImgs,curHdIdx)">
+          <img id="mainProductImage" src="images/1.jpeg" alt="HOODIE ELVAR" class="gmain-img">
+        </div>
+        <div class="thumbs">
+          <img src="images/1.jpeg" class="thumb active" onclick="hdThumb(this,'images/1.jpeg',0)">
+          <img src="images/2.jpeg" class="thumb" onclick="hdThumb(this,'images/2.jpeg',1)">
+          <img src="images/3.jpeg" class="thumb" onclick="hdThumb(this,'images/3.jpeg',2)">
+          <img src="images/4.jpeg" class="thumb" onclick="hdThumb(this,'images/4.jpeg',3)">
+          <img src="images/5.jpeg" class="thumb" onclick="hdThumb(this,'images/5.jpeg',4)">
+        </div>
+      </div>
+      <div class="dinfo reveal">
+        <div class="dlabel">ELVAR — SS 2025 — خصم 25%</div>
+        <h1 class="dname">HOODIE <em>ELVAR</em></h1>
+        <div class="dprice">899 جنيه <span class="oldp">1200 جنيه</span></div>
+        <p class="ddesc">HOODIE ELVAR ليس مجرد هودي — إنه بيان أسلوب. مصنوع من قطن ميلتون 100% بجودة فائقة، تصميم Oversize مريح وأنيق يمنحك الثقة في كل لحظة.</p>
+        <div class="optgrp"><span class="optlabel">المقاس</span><div class="sbtns"><button class="sbtn sel">Oversize</button></div></div>
+        <div class="optgrp">
+          <span class="optlabel">الكمية</span>
+          <div class="qty-row">
+            <button class="qbtn" onclick="chgQty(-1,'hdQty')">−</button>
+            <div class="qnum" id="hdQty">1</div>
+            <button class="qbtn" onclick="chgQty(1,'hdQty')">+</button>
+          </div>
+        </div>
+        <button class="abtn" onclick="addHoodie(event)"><i class="fas fa-shopping-bag" style="margin-left:.5rem;"></i>أضف إلى السلة</button>
+      </div>
+    </div>
+
+    <div style="margin-top:6rem;border-top:1px solid var(--border);padding-top:5rem;">
+      <div class="sec-head reveal"><div><div class="sec-label">لماذا ELVAR</div><div class="sec-title">مميزات <em>HOODIE</em></div></div></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;">
+        <div class="frow reveal" style="padding:2rem;"><div class="ficon"><i class="fas fa-star"></i></div><div><div class="ftitle">جودة فائقة</div><div class="fdesc">قطن ميلتون 100% يضمن الراحة والمتانة</div></div></div>
+        <div class="frow reveal" style="padding:2rem;"><div class="ficon"><i class="fas fa-tshirt"></i></div><div><div class="ftitle">تصميم Oversize</div><div class="fdesc">مريح وأنيق يناسب جميع الأجسام</div></div></div>
+        <div class="frow reveal" style="padding:2rem;"><div class="ficon"><i class="fas fa-award"></i></div><div><div class="ftitle">صناعة مصرية</div><div class="fdesc">معايير عالمية وهوية ELVAR الفريدة</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<div id="about-page" class="page-content">
+  <div class="phero">
+    <div class="phero-num">EL</div>
+    <a href="#" class="backlink" onclick="showPage('home');return false;"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
+    <h1 class="ptitle">عن <em>ELVAR</em></h1>
+    <p class="psub">علامة تجارية مصرية تقدم أرقى تصاميم الملابس العصرية</p>
+  </div>
+  <div class="pbody">
+    <div class="apc">
+      <div style="text-align:center;margin-bottom:3rem;">
+        <div class="alogo" onclick="openLB('images/elvar logo.jpg')"><img src="images/elvar logo.jpg" alt="ELVAR Logo"></div>
+        <div class="pills">
+          <span class="pill g">صناعة مصرية</span>
+          <span class="pill g">قطن ميلتون 100%</span>
+          <span class="pill">جودة عالمية</span>
+          <span class="pill">تصميم عصري</span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:4rem;" class="reveal">
+        <div><div class="alabel">القصة</div><p class="atext" style="font-size:.95rem;line-height:2;">في ELVAR، نؤمن بأن الملابس ليست مجرد قماش يغطي الجسد، بل هي لغة تعبر عن هويتك. كل قطعة تحمل رواية من الدقة والجودة والأناقة.</p></div>
+        <div><div class="alabel">الرؤية</div><p class="atext" style="font-size:.95rem;line-height:2;">أن نكون العلامة التجارية الرائدة في مجال الأزياء العصرية في العالم العربي، نقدم منتجات تجمع بين الأصالة والحداثة.</p></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-bottom:4rem;" class="reveal">
+        <div style="text-align:center;padding:2.5rem;border:1px solid var(--border);"><i class="fas fa-flag" style="font-size:1.8rem;color:var(--gold);margin-bottom:1rem;display:block;"></i><div style="font-size:.62rem;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem;">Made in</div><div style="font-size:1.4rem;font-family:'Cormorant Garamond',serif;">🇪🇬 مصر</div></div>
+        <div style="text-align:center;padding:2.5rem;border:1px solid var(--border);"><i class="fas fa-leaf" style="font-size:1.8rem;color:var(--gold);margin-bottom:1rem;display:block;"></i><div style="font-size:.62rem;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem;">Material</div><div style="font-size:1.4rem;font-family:'Cormorant Garamond',serif;">100% Cotton</div></div>
+        <div style="text-align:center;padding:2.5rem;border:1px solid var(--border);"><i class="fas fa-heart" style="font-size:1.8rem;color:var(--gold);margin-bottom:1rem;display:block;"></i><div style="font-size:.62rem;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem;">Style</div><div style="font-size:1.4rem;font-family:'Cormorant Garamond',serif;">Modern</div></div>
+      </div>
+
+      <div style="text-align:center;" class="reveal">
+        <div class="alabel">تواصل معنا</div>
+        <div class="social-row" style="justify-content:center;">
+          <a href="https://wa.me/201203790142" class="slink" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.facebook.com/share/1H6EAaFNra/" class="slink" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/elvar_hoodies" class="slink" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@elvar.eg" class="slink" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fgrid">
+    <div>
+      <div class="fbrand">EL<span>VAR</span></div>
+      <p class="fdesc">علامة تجارية مصرية تقدم أرقى تصاميم الملابس العصرية. هويتك بصوت أعلى.</p>
+      <div class="social-row" style="margin-top:1.5rem;">
+        <a href="https://wa.me/201203790142" class="slink" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.facebook.com/share/1H6EAaFNra/" class="slink" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/elvar_hoodies" class="slink" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@elvar.eg" class="slink" target="_blank"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div class="fcol"><h4>الروابط</h4><ul class="flinks">
+      <li><a href="#" onclick="showPage('home');return false;">Home</a></li>
+      <li><a href="#" onclick="showPage('tshirts');return false;">T-SHIRT</a></li>
+      <li><a href="#" onclick="showPage('hoodies');return false;">HOODIE</a></li>
+      <li><a href="#" onclick="showPage('about');return false;">About</a></li>
+    </ul></div>
+    <div class="fcol"><h4>المنتجات</h4><ul class="flinks">
+      <li><a href="#" onclick="showPage('tshirts');return false;">T-SHIRT ELVAR</a></li>
+      <li><a href="#" onclick="showPage('hoodies');return false;">HOODIE ELVAR</a></li>
+    </ul></div>
+    <div class="fcol"><h4>تواصل</h4><ul class="flinks">
+      <li><a href="https://wa.me/201203790142" target="_blank">WhatsApp</a></li>
+      <li><a href="https://www.facebook.com/share/1H6EAaFNra/" target="_blank">Facebook</a></li>
+      <li><a href="https://www.instagram.com/elvar_hoodies" target="_blank">Instagram</a></li>
+      <li><a href="https://www.tiktok.com/@elvar.eg" target="_blank">TikTok</a></li>
+    </ul></div>
+  </div>
+  <div class="fcopy"><p>© 2025 ELVAR — جميع الحقوق محفوظة</p><p>صنع بكل فخر في مصر 🇪🇬</p></div>
+</footer>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-5+'px';cur.style.top=my-5+'px';});
+(function animRing(){rx+=(mx-rx-18)*.12;ry+=(my-ry-18)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
+document.querySelectorAll('a,button,[onclick]').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2)';ring.style.transform='scale(1.5)';});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='';ring.style.transform='';});
+});
+
+// STATE
+let cart=[],curTsIdx=0,curHdIdx=0,curSlide=0,slideT;
+const tsImgs=[{src:'images/T-SHIRT 1.jpg'},{src:'images/T-SHIRT 2.jpg'},{src:'images/T-SHIRT 3.jpg'},{src:'images/T-SHIRT 4.jpg'}];
+const hdImgs=[{src:'images/1.jpeg'},{src:'images/2.jpeg'},{src:'images/3.jpeg'},{src:'images/4.jpeg'},{src:'images/5.jpeg'}];
+
+// PAGES
+function showPage(p){
+  document.querySelectorAll('.page-content').forEach(e=>e.classList.remove('active'));
+  document.getElementById(p+'-page').classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(e=>e.classList.remove('active'));
+  const nl=document.querySelector(`.nav-link[onclick*="${p}"]`);if(nl)nl.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('active'));
+  const navMap={home:0,tshirts:1,hoodies:3,about:4};
+  const items=document.querySelectorAll('.nav-item');
+  if(navMap[p]!==undefined&&items[navMap[p]])items[navMap[p]].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(p==='home'){clearInterval(slideT);startSlide();}
+  setTimeout(doReveal,100);
+}
+
+// SLIDESHOW
+function goSlide(i){
+  document.querySelectorAll('.hero-slide').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.sdot').forEach(d=>d.classList.remove('active'));
+  document.getElementById('hs'+i).classList.add('active');
+  document.querySelectorAll('.sdot')[i].classList.add('active');
+  document.getElementById('snum').textContent=(i+1).toString().padStart(2,'0')+' / 02';
+  curSlide=i;clearInterval(slideT);startSlide();
+}
+function startSlide(){slideT=setInterval(()=>goSlide((curSlide+1)%2),5000);}
+startSlide();
+
+// LIGHTBOX
+let lbItems=[],lbIdx=0,lbType='img';
+function openLB(src){lbItems=[{src}];lbIdx=0;lbType='img';renderLB();showLBNav(false);document.getElementById('lbox').classList.add('open');document.body.style.overflow='hidden';}
+function openLBGallery(items,idx){lbItems=items;lbIdx=idx;lbType='img';renderLB();showLBNav(items.length>1);document.getElementById('lbox').classList.add('open');document.body.style.overflow='hidden';}
+function openVideoLB(src){lbItems=[{src}];lbIdx=0;lbType='video';renderLB();showLBNav(false);document.getElementById('lbox').classList.add('open');document.body.style.overflow='hidden';}
+function renderLB(){
+  const c=document.querySelector('.lbc');
+  c.innerHTML=lbType==='video'
+    ?`<video class="lbv" controls autoplay><source src="${lbItems[lbIdx].src}" type="video/mp4"></video>`
+    :`<img class="lbi" src="${lbItems[lbIdx].src}" alt="ELVAR">`;
+}
+function showLBNav(s){document.querySelector('.lbprev').style.display=s?'flex':'none';document.querySelector('.lbnext').style.display=s?'flex':'none';}
+function navLB(d){lbIdx=(lbIdx+d+lbItems.length)%lbItems.length;renderLB();}
+function closeLB(){document.getElementById('lbox').classList.remove('open');document.body.style.overflow='';const v=document.querySelector('.lbv');if(v)v.pause();}
+function lbOut(e){if(e.target===document.getElementById('lbox'))closeLB();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();});
+
+// T-SHIRT
+function pickColor(el,color,img,idx){
+  document.querySelectorAll('.cpick').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  const bi=document.getElementById('tshirtBigImg');
+  bi.style.opacity='0';bi.style.transform='scale(.96)';
+  setTimeout(()=>{bi.src=img;bi.style.opacity='1';bi.style.transform='scale(1)';},250);
+  document.getElementById('mainTshirtImage').src=img;
+  curTsIdx=idx;
+  document.querySelectorAll('#tshirts-page .thumb').forEach(t=>t.classList.remove('active'));
+  const th=document.querySelectorAll('#tshirts-page .thumb');if(th[idx])th[idx].classList.add('active');
+}
+function tsThumb(el,src,idx){
+  document.getElementById('mainTshirtImage').src=src;
+  document.querySelectorAll('#tshirts-page .thumb').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');curTsIdx=idx;
+}
+function notifyTs(e){
+  const b=e.currentTarget;
+  b.innerHTML='<i class="fas fa-check" style="margin-left:.5rem;"></i>تم التسجيل!';
+  b.style.borderColor='var(--gold)';b.style.color='var(--gold)';
+  setTimeout(()=>{b.innerHTML='<i class="fas fa-bell" style="margin-left:.5rem;"></i>أشعرني عند التوفر';},3000);
+}
+
+// HOODIE
+function hdThumb(el,src,idx){
+  document.getElementById('mainProductImage').src=src;
+  document.querySelectorAll('#hoodies-page .thumb').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');curHdIdx=idx;
+}
+function chgQty(d,id){const e=document.getElementById(id);let v=parseInt(e.textContent)+d;if(v<1)v=1;e.textContent=v;}
+function addHoodie(e){
+  const qty=parseInt(document.getElementById('hdQty').textContent);
+  cart.push({id:Date.now(),name:'HOODIE ELVAR',price:899,size:'Oversize',quantity:qty});
+  updateCC();document.getElementById('hdQty').textContent='1';flyToCart(e.currentTarget);
+}
+function flyToCart(btn){
+  const ce=window.innerWidth>768?document.querySelector('.cart-btn'):document.querySelector('.center-cart-fab');
+  if(!ce)return;
+  const cr=ce.getBoundingClientRect(),br=btn.getBoundingClientRect();
+  const f=document.createElement('div');f.className='fly-el';
+  f.innerHTML='<i class="fas fa-shopping-bag"></i>';
+  f.style.cssText=`left:${br.left+br.width/2-17}px;top:${br.top+br.height/2-17}px;`;
+  document.body.appendChild(f);
+  setTimeout(()=>{f.style.left=cr.left+cr.width/2-17+'px';f.style.top=cr.top+cr.height/2-17+'px';f.style.width='18px';f.style.height='18px';f.style.opacity='0';},10);
+  setTimeout(()=>f.remove(),800);
+}
+
+// CART
+function toggleCart(){document.getElementById('cartDrawer').classList.toggle('open');renderCart();}
+function renderCart(){
+  const body=document.getElementById('cartBody'),foot=document.getElementById('cartFoot');
+  if(!cart.length){body.innerHTML='<div class="emcart"><i class="fas fa-shopping-bag"></i><p>السلة فارغة</p></div>';foot.style.display='none';return;}
+  let html='',total=0;
+  cart.forEach((item,i)=>{
+    total+=item.price*item.quantity;
+    html+=`<div class="citem"><div><div class="citem-name">${item.name}</div><div class="citem-meta">${item.size} × ${item.quantity}</div><div class="citem-price">${item.price*item.quantity} جنيه</div></div><button class="cremove" onclick="rmItem(${i})"><i class="fas fa-times"></i></button></div>`;
+  });
+  body.innerHTML=html;document.getElementById('ctamt').textContent=total+' جنيه';foot.style.display='block';
+}
+function rmItem(i){cart.splice(i,1);updateCC();renderCart();}
+function updateCC(){const n=cart.reduce((s,i)=>s+i.quantity,0);document.getElementById('ccd').textContent=n;document.getElementById('ccm').textContent=n;}
+
+// CHECKOUT
+function openCheckout(){document.getElementById('cartDrawer').classList.remove('open');document.getElementById('checkoutModal').classList.add('open');}
+function closeCheckout(){document.getElementById('checkoutModal').classList.remove('open');}
+function closeTY(){document.getElementById('tyModal').classList.remove('open');}
+document.getElementById('orderForm').addEventListener('submit',function(e){
+  e.preventDefault();closeCheckout();
+  document.getElementById('tyModal').classList.add('open');
+  cart=[];updateCC();this.reset();
+});
+
+// UTILS
+function selBtn(btn,gid){document.getElementById(gid).querySelectorAll('.sbtn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
+
+// REVEAL
+function doReveal(){
+  const els=document.querySelectorAll('.reveal:not(.visible)');
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.12});
+  els.forEach(el=>obs.observe(el));
+}
+doReveal();
+
+// NAV SCROLL
+window.addEventListener('scroll',()=>document.getElementById('mainNav').classList.toggle('scrolled',scrollY>60));
+</script>
 </body>
 </html>
