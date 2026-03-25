@@ -3,296 +3,390 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ELVAR — هويتك بصوت أعلى</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<title>ELVAR</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
-:root{
-  --bg:#060605;--bg2:#0d0c0a;--bg3:#141210;
-  --gold:#c9a84c;--gold2:#e8c96a;--gold3:#8a6d28;
-  --text:#f2ede6;--muted:#7a7060;--border:#252218;
-  --red:#c0392b;
-}
 *{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#000;--bg2:#0a0a0a;--bg3:#111;
+  --red:#e63030;--red2:#ff4444;
+  --text:#fff;--muted:#666;--border:#1a1a1a;
+}
 html{scroll-behavior:smooth;}
 body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
 
-nav{position:fixed;top:0;width:100%;z-index:1000;padding:1.5rem 4%;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(6,6,5,.95),transparent);transition:all .4s;}
-nav.scrolled{background:rgba(6,6,5,.97);padding:1rem 4%;border-bottom:1px solid var(--border);backdrop-filter:blur(12px);}
-.logo{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:6px;position:relative;}
-.logo span{color:var(--gold);}
-.nav-links{display:flex;gap:2.5rem;align-items:center;}
-.nav-link{color:var(--muted);text-decoration:none;font-size:.82rem;letter-spacing:3px;font-weight:500;text-transform:uppercase;transition:color .3s;position:relative;padding-bottom:4px;}
-.nav-link::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .3s ease;}
-.nav-link:hover,.nav-link.active{color:var(--text);}
-.nav-link:hover::after,.nav-link.active::after{width:100%;}
-.nav-link.active{color:var(--gold);}
-.nav-actions{display:flex;gap:.8rem;align-items:center;}
-.cart-btn{background:none;border:1px solid var(--border);color:var(--text);width:44px;height:44px;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;position:relative;}
-.cart-btn:hover{border-color:var(--gold);color:var(--gold);}
-.cart-count{position:absolute;top:-8px;right:-8px;background:var(--gold);color:var(--bg);font-size:.6rem;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:#000;}
+::-webkit-scrollbar-thumb{background:var(--red);}
 
-@media(max-width:768px){body{padding-bottom:80px;}nav{display:none;}.bottom-nav{display:block;}}
-@media(min-width:769px){.bottom-nav{display:none;}}
-.bottom-nav{position:fixed;bottom:0;width:100%;background:rgba(13,12,10,.97);border-top:1px solid var(--border);z-index:1000;backdrop-filter:blur(12px);padding:.6rem 0 1rem;}
-.bottom-nav-inner{display:flex;justify-content:space-around;align-items:center;position:relative;}
-.center-cart-fab{position:absolute;left:50%;top:-30px;transform:translateX(-50%);width:60px;height:60px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 0 30px rgba(201,168,76,.4);transition:all .3s;border:3px solid var(--bg);}
-.center-cart-fab:hover{background:var(--gold2);transform:translateX(-50%) translateY(-4px);}
-.center-cart-fab i{color:var(--bg);font-size:1.3rem;}
-.mobile-cart-count{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:.6rem;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;}
-.nav-item{display:flex;flex-direction:column;align-items:center;color:var(--muted);text-decoration:none;font-size:.65rem;letter-spacing:1px;text-transform:uppercase;padding:.5rem .8rem;transition:all .3s;min-width:65px;}
-.nav-item i{font-size:1.25rem;margin-bottom:.3rem;}
-.nav-item svg{width:20px;height:20px;margin-bottom:.3rem;}
-.nav-item.active,.nav-item:hover{color:var(--gold);}
-.nav-item.active{transform:translateY(-2px);}
+/* LOADER */
+#loader{position:fixed;inset:0;background:#000;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;}
+.loader-logo{font-family:'Bebas Neue',sans-serif;font-size:6rem;letter-spacing:20px;color:#fff;animation:loaderPulse 1s ease infinite;}
+.loader-bar-wrap{width:200px;height:1px;background:#1a1a1a;}
+.loader-bar{height:100%;background:var(--red);width:0;animation:loadBar 1.8s ease forwards;}
+@keyframes loaderPulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+@keyframes loadBar{to{width:100%;}}
 
-.page-content{display:none;width:100%;overflow-x:hidden;}
-.page-content.active{display:block;}
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:1000;padding:1.2rem 4%;display:flex;justify-content:space-between;align-items:center;transition:all .4s;mix-blend-mode:normal;}
+nav.scrolled{background:rgba(0,0,0,.95);backdrop-filter:blur(20px);border-bottom:1px solid #1a1a1a;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:8px;color:#fff;text-decoration:none;position:relative;}
+.logo::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;background:var(--red);transition:width .4s;}
+.logo:hover::after{width:100%;}
+.nav-links{display:flex;gap:2.5rem;}
+.nav-link{color:var(--muted);text-decoration:none;font-size:.75rem;letter-spacing:4px;text-transform:uppercase;transition:color .3s;position:relative;}
+.nav-link::before{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--red);transition:width .3s;}
+.nav-link:hover{color:#fff;}
+.nav-link:hover::before,.nav-link.active::before{width:100%;}
+.nav-link.active{color:#fff;}
+.nav-r{display:flex;align-items:center;gap:1rem;}
+.cart-ico{background:none;border:1px solid #222;color:#fff;width:42px;height:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;position:relative;}
+.cart-ico:hover{border-color:var(--red);color:var(--red);}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;font-size:.55rem;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;}
 
-/* HERO */
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;}
-@media(max-width:768px){.hero{grid-template-columns:1fr;}}
-.hero-left{display:flex;flex-direction:column;justify-content:center;padding:140px 6% 80px;position:relative;z-index:2;background:var(--bg);}
-@media(max-width:768px){.hero-left{padding:80px 5% 40px;}}
-.hero-eyebrow{font-family:'Cormorant Garamond',serif;font-size:.72rem;letter-spacing:8px;color:var(--gold);text-transform:uppercase;margin-bottom:2rem;display:flex;align-items:center;gap:1rem;animation:fadeUp .8s ease both;}
-.hero-eyebrow::before{content:'';width:40px;height:1px;background:var(--gold);}
-.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,7vw,6.5rem);font-weight:300;line-height:1;letter-spacing:-1px;margin-bottom:1rem;animation:fadeUp .8s .1s ease both;}
-.hero-title em{font-style:italic;color:var(--gold);font-weight:400;}
-.hero-title strong{display:block;font-weight:700;font-size:.43em;letter-spacing:10px;color:var(--muted);font-style:normal;font-family:'Tajawal',sans-serif;margin-top:.5rem;}
-.hero-subtitle{font-size:1rem;color:var(--muted);line-height:1.9;max-width:420px;margin-bottom:3rem;font-weight:300;animation:fadeUp .8s .2s ease both;}
-.hero-cta{display:inline-flex;align-items:center;gap:1.5rem;text-decoration:none;animation:fadeUp .8s .3s ease both;}
-.hero-cta-text{font-size:.78rem;letter-spacing:4px;text-transform:uppercase;color:var(--text);font-weight:500;position:relative;padding-bottom:4px;}
-.hero-cta-text::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;background:var(--gold);}
-.hero-cta-arrow{width:50px;height:50px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;color:var(--gold);}
-.hero-cta:hover .hero-cta-arrow{background:var(--gold);color:var(--bg);border-color:var(--gold);}
-.hero-right{position:relative;overflow:hidden;background:var(--bg3);}
-@media(max-width:768px){.hero-right{height:65vw;min-height:280px;}}
-.hero-slide{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transition:opacity 1.2s ease;display:flex;align-items:center;justify-content:center;}
-.hero-slide.active{opacity:1;}
-.hero-img{width:100%;height:100%;object-fit:contain;cursor:pointer;}
-.slide-num{position:absolute;bottom:1.5rem;right:1.5rem;font-family:'Cormorant Garamond',serif;font-size:.7rem;letter-spacing:4px;color:var(--muted);}
-.slide-dots{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:8px;}
-.sdot{width:20px;height:1px;background:var(--border);cursor:pointer;transition:all .3s;}
-.sdot.active{width:40px;background:var(--gold);}
+/* MOBILE NAV */
+@media(max-width:768px){
+  nav{display:none;}
+  body{padding-bottom:75px;}
+  .mob-nav{display:block;}
+}
+@media(min-width:769px){.mob-nav{display:none;}}
+.mob-nav{position:fixed;bottom:0;width:100%;background:rgba(0,0,0,.98);border-top:1px solid #1a1a1a;z-index:1000;padding:.5rem 0 .8rem;}
+.mob-nav-inner{display:flex;justify-content:space-around;align-items:center;position:relative;}
+.mob-cart{position:absolute;left:50%;top:-28px;transform:translateX(-50%);width:56px;height:56px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:3px solid #000;box-shadow:0 0 20px rgba(230,48,48,.5);transition:all .3s;}
+.mob-cart:hover{box-shadow:0 0 35px rgba(230,48,48,.7);}
+.mob-cart i{font-size:1.2rem;}
+.mob-badge{position:absolute;top:-3px;right:-3px;background:#fff;color:#000;font-size:.55rem;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;}
+.mob-item{display:flex;flex-direction:column;align-items:center;gap:.25rem;color:var(--muted);text-decoration:none;font-size:.6rem;letter-spacing:1px;text-transform:uppercase;padding:.4rem .6rem;transition:all .3s;min-width:60px;}
+.mob-item i{font-size:1.1rem;}
+.mob-item.active,.mob-item:hover{color:var(--red);}
 
-/* MARQUEE */
-.marquee-bar{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:.8rem 0;background:var(--bg2);}
-.marquee-track{display:flex;gap:4rem;animation:marquee 22s linear infinite;white-space:nowrap;}
-.mi{font-family:'Cormorant Garamond',serif;font-size:.9rem;letter-spacing:4px;color:var(--muted);text-transform:uppercase;flex-shrink:0;display:flex;align-items:center;gap:1.5rem;}
-.mi span{color:var(--gold);}
-@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+/* PAGES */
+.page{display:none;}
+.page.active{display:block;}
 
-/* COLLECTION */
-.coll-sec{padding:8rem 4%;background:var(--bg);}
-@media(max-width:768px){.coll-sec{padding:4rem 4%;}}
-.sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem;border-bottom:1px solid var(--border);padding-bottom:2rem;}
-@media(max-width:600px){.sec-head{flex-direction:column;gap:1rem;align-items:flex-start;}}
-.sec-label{font-size:.68rem;letter-spacing:6px;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem;}
-.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:300;color:var(--text);}
-.sec-title em{font-style:italic;color:var(--gold);}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
-@media(max-width:600px){.grid2{grid-template-columns:1fr;}}
+/* ===== HERO ===== */
+.hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#000;}
 
-.pcard{position:relative;overflow:hidden;cursor:pointer;background:var(--bg3);}
-.pcard-inner{position:relative;overflow:hidden;}
-.pimg-wrap{width:100%;height:500px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--bg3);}
-@media(max-width:768px){.pimg-wrap{height:280px;}}
-.pimg{width:100%;height:100%;object-fit:contain;transition:transform .8s cubic-bezier(.25,.46,.45,.94);}
-.pcard:hover .pimg{transform:scale(1.06);}
-.pbadge{position:absolute;top:1.5rem;right:1.5rem;font-size:.62rem;letter-spacing:3px;text-transform:uppercase;padding:.4rem .9rem;font-weight:600;}
-.bsale{background:var(--gold);color:var(--bg);}
-.bsoon{background:transparent;border:1px solid var(--gold);color:var(--gold);}
-.pinfo-bar{padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);background:var(--bg2);}
-.pname{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;letter-spacing:2px;}
-.pprice{font-size:.88rem;color:var(--gold);letter-spacing:2px;}
-.pprice .pold{text-decoration:line-through;color:var(--muted);margin-left:.5rem;font-size:.78rem;}
-.parr{width:38px;height:38px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .3s;flex-shrink:0;}
-.pcard:hover .parr{border-color:var(--gold);color:var(--gold);}
+/* Animated background grid */
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(230,48,48,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(230,48,48,.05) 1px,transparent 1px);background-size:60px 60px;animation:gridMove 20s linear infinite;}
+@keyframes gridMove{from{background-position:0 0;}to{background-position:60px 60px;}}
 
-/* ABOUT STRIP */
-.about-strip{padding:8rem 4%;background:var(--bg2);display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;border-top:1px solid var(--border);}
-@media(max-width:768px){.about-strip{grid-template-columns:1fr;gap:3rem;padding:4rem 4%;}}
-.alabel{font-size:.68rem;letter-spacing:6px;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;}
-.aheading{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,4vw,3.2rem);font-weight:300;line-height:1.2;margin-bottom:2rem;}
-.aheading em{font-style:italic;color:var(--gold);}
-.atext{color:var(--muted);line-height:2;font-size:.92rem;margin-bottom:2rem;}
-.astats{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem;}
-.astat{border-top:1px solid var(--border);padding-top:1.5rem;}
-.astat-n{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--gold);margin-bottom:.3rem;}
-.astat-l{font-size:.65rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
-.frow{display:flex;gap:1.5rem;align-items:flex-start;padding:1.5rem;border:1px solid var(--border);transition:border-color .3s;margin-bottom:1px;}
-.frow:hover{border-color:var(--gold3);}
-.ficon{width:38px;height:38px;flex-shrink:0;border:1px solid var(--gold3);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:.85rem;margin-top:.2rem;}
-.ftitle{font-size:.75rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:.4rem;color:var(--text);}
-.fdesc{font-size:.83rem;color:var(--muted);line-height:1.7;}
+/* Glowing orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);animation:orbFloat 8s ease-in-out infinite;}
+.orb1{width:400px;height:400px;background:rgba(230,48,48,.15);top:-100px;right:-100px;animation-delay:0s;}
+.orb2{width:300px;height:300px;background:rgba(230,48,48,.1);bottom:-50px;left:-50px;animation-delay:3s;}
+.orb3{width:200px;height:200px;background:rgba(255,68,68,.08);top:50%;left:40%;animation-delay:5s;}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(30px,-20px) scale(1.1);}66%{transform:translate(-20px,30px) scale(.9);}}
 
-.social-row{display:flex;gap:1rem;margin-top:2rem;}
-.slink{width:40px;height:40px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;font-size:.85rem;transition:all .3s;}
-.slink:hover{border-color:var(--gold);color:var(--gold);}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:900px;padding:0 5%;}
 
-/* PAGE HERO */
-.phero{min-height:45vh;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 4% 4rem;background:var(--bg);border-bottom:1px solid var(--border);position:relative;overflow:hidden;box-sizing:border-box;width:100%;}
-@media(min-width:769px){.phero{padding-top:calc(70px + 4rem);}}
-@media(max-width:768px){.phero{padding:4rem 4% 3rem;min-height:auto;}}
-.phero::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(201,168,76,.03) 0%,transparent 60%);pointer-events:none;}
-.phero-num{font-family:'Cormorant Garamond',serif;font-size:10rem;font-weight:700;color:var(--border);position:absolute;top:50%;right:4%;transform:translateY(-50%);line-height:1;pointer-events:none;user-select:none;}
-@media(max-width:600px){.phero-num{font-size:5rem;}}
-.backlink{display:inline-flex;align-items:center;gap:.8rem;font-size:.68rem;letter-spacing:4px;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:2rem;transition:color .3s;position:relative;z-index:2;}
-.backlink:hover{color:var(--gold);}
-.ptitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,6vw,5rem);font-weight:300;letter-spacing:4px;text-transform:uppercase;word-break:break-word;position:relative;z-index:2;}
-.ptitle em{font-style:italic;color:var(--gold);}
-.psub{font-size:.85rem;color:var(--muted);margin-top:1rem;max-width:500px;line-height:1.8;position:relative;z-index:2;}
+.hero-pre{font-size:.7rem;letter-spacing:10px;color:var(--red);text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:slideDown .8s .3s ease forwards;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
 
-.pbody{padding:5rem 4%;background:var(--bg);width:100%;overflow-x:hidden;box-sizing:border-box;}
-@media(max-width:768px){.pbody{padding:3rem 4% 2rem;}}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,18vw,14rem);line-height:.9;letter-spacing:10px;margin-bottom:1rem;}
+.hero-title .l1{display:block;opacity:0;animation:slideUp 1s .5s cubic-bezier(.22,1,.36,1) forwards;color:#fff;}
+.hero-title .l2{display:block;opacity:0;animation:slideUp 1s .7s cubic-bezier(.22,1,.36,1) forwards;color:transparent;-webkit-text-stroke:2px var(--red);text-shadow:0 0 40px rgba(230,48,48,.5);}
+@keyframes slideUp{from{opacity:0;transform:translateY(60px);}to{opacity:1;transform:translateY(0);}}
 
-/* DETAIL */
-.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;max-width:1200px;margin:0 auto;width:100%;box-sizing:border-box;}
+.hero-sub{font-size:1rem;color:var(--muted);line-height:1.8;max-width:500px;margin:0 auto 3rem;opacity:0;animation:fadeIn .8s 1.2s ease forwards;}
+@keyframes fadeIn{to{opacity:1;}}
+
+.hero-btns{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeIn .8s 1.4s ease forwards;}
+.btn-red{background:var(--red);color:#fff;padding:.9rem 2.5rem;font-size:.8rem;letter-spacing:4px;text-transform:uppercase;text-decoration:none;font-weight:700;transition:all .3s;position:relative;overflow:hidden;border:none;cursor:pointer;font-family:'Tajawal',sans-serif;}
+.btn-red::before{content:'';position:absolute;inset:0;background:var(--red2);transform:scaleX(0);transform-origin:right;transition:transform .3s;}
+.btn-red:hover::before{transform:scaleX(1);transform-origin:left;}
+.btn-red span{position:relative;z-index:1;}
+.btn-outline{background:none;border:1px solid #333;color:#fff;padding:.9rem 2.5rem;font-size:.8rem;letter-spacing:4px;text-transform:uppercase;text-decoration:none;font-weight:700;transition:all .3s;cursor:pointer;font-family:'Tajawal',sans-serif;}
+.btn-outline:hover{border-color:var(--red);color:var(--red);}
+
+/* Scroll indicator */
+.scroll-ind{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeIn .8s 2s ease forwards;}
+.scroll-ind span{font-size:.6rem;letter-spacing:4px;color:var(--muted);text-transform:uppercase;}
+.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--red),transparent);animation:scrollLine 1.5s ease-in-out infinite;}
+@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform:scaleY(1);transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+
+/* ===== MARQUEE ===== */
+.marquee{padding:.7rem 0;background:#0a0a0a;border-top:1px solid #111;border-bottom:1px solid #111;overflow:hidden;}
+.m-track{display:flex;gap:3rem;animation:mq 15s linear infinite;white-space:nowrap;}
+.m-item{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:6px;color:#222;flex-shrink:0;display:flex;align-items:center;gap:2rem;}
+.m-item b{color:var(--red);}
+
+/* ===== PRODUCTS SECTION ===== */
+.products-sec{padding:8rem 4%;background:var(--bg);}
+@media(max-width:768px){.products-sec{padding:4rem 4%;}}
+
+.sec-label-wrap{display:flex;align-items:center;gap:1.5rem;margin-bottom:.5rem;}
+.sec-line{flex:1;height:1px;background:linear-gradient(to left,#111,var(--red));}
+.sec-lbl{font-size:.65rem;letter-spacing:6px;color:var(--red);text-transform:uppercase;}
+.sec-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,5rem);letter-spacing:6px;margin-bottom:4rem;line-height:1;}
+.sec-h em{color:var(--red);font-style:normal;}
+
+.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+@media(max-width:600px){.p-grid{grid-template-columns:1fr;}}
+
+.pc{position:relative;overflow:hidden;cursor:pointer;background:#0a0a0a;group:hover;}
+.pc-img-wrap{width:100%;height:520px;overflow:hidden;position:relative;}
+@media(max-width:768px){.pc-img-wrap{height:280px;}}
+.pc-img{width:100%;height:100%;object-fit:contain;transition:transform .8s cubic-bezier(.25,.46,.45,.94);}
+.pc:hover .pc-img{transform:scale(1.08);}
+
+/* Red scan line on hover */
+.pc::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:40%;background:linear-gradient(to bottom,transparent,rgba(230,48,48,.08),transparent);transition:top .6s ease;pointer-events:none;}
+.pc:hover::after{top:100%;}
+
+.pc-badge{position:absolute;top:1.5rem;right:1.5rem;font-size:.6rem;letter-spacing:3px;text-transform:uppercase;padding:.35rem .9rem;font-weight:700;font-family:'Bebas Neue',sans-serif;letter-spacing:4px;}
+.bs{background:var(--red);color:#fff;}
+.bn{background:none;border:1px solid var(--red);color:var(--red);}
+
+.pc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 50%);opacity:0;transition:opacity .4s;}
+.pc:hover .pc-overlay{opacity:1;}
+
+.pc-info{padding:1.5rem;border-top:1px solid #111;background:#0a0a0a;display:flex;justify-content:space-between;align-items:center;transition:background .3s;}
+.pc:hover .pc-info{background:#0f0f0f;}
+.pc-name{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:4px;}
+.pc-price{font-size:.85rem;color:var(--red);letter-spacing:2px;}
+.pc-price s{color:var(--muted);margin-left:.5rem;font-size:.75rem;}
+.pc-arr{width:36px;height:36px;border:1px solid #222;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .3s;flex-shrink:0;}
+.pc:hover .pc-arr{border-color:var(--red);color:var(--red);transform:rotate(-45deg);}
+
+/* ===== ABOUT ===== */
+.about-sec{padding:8rem 4%;background:#050505;border-top:1px solid #111;position:relative;overflow:hidden;}
+@media(max-width:768px){.about-sec{padding:4rem 4%;}}
+.about-sec::before{content:'ELVAR';font-family:'Bebas Neue',sans-serif;font-size:20vw;color:#0d0d0d;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;letter-spacing:2rem;}
+.about-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;position:relative;}
+@media(max-width:768px){.about-inner{grid-template-columns:1fr;gap:3rem;}}
+.about-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,8vw,7rem);line-height:.9;letter-spacing:4px;margin-bottom:2rem;}
+.about-big em{color:var(--red);font-style:normal;display:block;}
+.about-txt{color:var(--muted);line-height:2;font-size:.95rem;margin-bottom:2.5rem;}
+.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.stat{border-top:2px solid var(--red);padding-top:1rem;}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:#fff;line-height:1;}
+.stat-l{font-size:.65rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
+.about-right{display:flex;flex-direction:column;gap:1px;}
+.feat{padding:1.5rem;background:#0a0a0a;border-right:2px solid transparent;transition:all .3s;display:flex;gap:1.2rem;align-items:flex-start;}
+.feat:hover{border-right-color:var(--red);background:#0f0f0f;}
+.feat-ico{width:36px;height:36px;border:1px solid #222;display:flex;align-items:center;justify-content:center;color:var(--red);flex-shrink:0;font-size:.85rem;transition:background .3s;}
+.feat:hover .feat-ico{background:rgba(230,48,48,.1);}
+.feat-t{font-size:.75rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:.3rem;}
+.feat-d{font-size:.82rem;color:var(--muted);line-height:1.6;}
+
+.social-links{display:flex;gap:.8rem;margin-top:2rem;}
+.sl{width:40px;height:40px;border:1px solid #1a1a1a;display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;font-size:.85rem;transition:all .3s;}
+.sl:hover{border-color:var(--red);color:var(--red);background:rgba(230,48,48,.05);}
+
+/* ===== PAGE HERO ===== */
+.phero{min-height:45vh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:130px 4% 4rem;overflow:hidden;background:#000;}
+@media(max-width:768px){.phero{padding:90px 4% 3rem;min-height:35vh;}}
+.phero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(230,48,48,.08) 0%,transparent 70%);}
+.phero-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(8rem,20vw,18rem);color:#0d0d0d;position:absolute;top:50%;right:3%;transform:translateY(-50%);line-height:1;pointer-events:none;letter-spacing:5px;}
+.back-a{display:inline-flex;align-items:center;gap:.6rem;font-size:.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:1.5rem;transition:color .3s;}
+.back-a:hover{color:var(--red);}
+.phero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,8rem);letter-spacing:8px;line-height:.9;}
+.phero-title em{color:var(--red);font-style:normal;}
+.phero-sub{font-size:.85rem;color:var(--muted);margin-top:1rem;max-width:500px;line-height:1.8;}
+
+/* ===== PRODUCT DETAIL ===== */
+.pbody{padding:5rem 4%;background:var(--bg);width:100%;overflow-x:hidden;}
+@media(max-width:768px){.pbody{padding:3rem 4%;}}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;max-width:1200px;margin:0 auto;}
 @media(max-width:768px){.dgrid{grid-template-columns:1fr;gap:2rem;}}
-.gmain{width:100%;aspect-ratio:1/1;background:var(--bg3);overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;}
-.gmain-img{width:100%;height:100%;object-fit:contain;transition:transform .6s ease;}
+
+.gmain{width:100%;height:560px;background:#0a0a0a;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;border:1px solid #111;}
+@media(max-width:1024px){.gmain{height:420px;}}
+@media(max-width:768px){.gmain{height:320px;}}
+/* Red corner accent */
+.gmain::before,.gmain::after{content:'';position:absolute;width:30px;height:30px;transition:all .4s;}
+.gmain::before{top:0;right:0;border-top:2px solid var(--red);border-right:2px solid var(--red);}
+.gmain::after{bottom:0;left:0;border-bottom:2px solid var(--red);border-left:2px solid var(--red);}
+.gmain:hover::before,.gmain:hover::after{width:50px;height:50px;}
+.gmain-img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;transition:transform .6s ease;display:block;}
 .gmain:hover .gmain-img{transform:scale(1.04);}
-.thumbs{display:flex;gap:.8rem;margin-top:1rem;overflow-x:auto;padding-bottom:.5rem;}
-.thumb{width:78px;height:78px;flex-shrink:0;object-fit:cover;cursor:pointer;border:1px solid var(--border);opacity:.45;transition:all .3s;}
-.thumb:hover{opacity:.8;border-color:var(--gold3);}
-.thumb.active{opacity:1;border-color:var(--gold);}
 
-.dinfo{padding-top:1rem;}
-.dlabel{font-size:.63rem;letter-spacing:6px;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;}
-.dname{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:300;margin-bottom:1rem;line-height:1.1;}
-.dname em{color:var(--gold);font-style:italic;}
-.dprice{font-size:1.7rem;font-family:'Cormorant Garamond',serif;color:var(--gold);margin-bottom:2rem;}
-.dprice .oldp{font-size:.95rem;text-decoration:line-through;color:var(--muted);margin-left:.8rem;}
-.ddesc{font-size:.88rem;color:var(--muted);line-height:2;margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
-.optlabel{font-size:.62rem;letter-spacing:4px;text-transform:uppercase;color:var(--text);margin-bottom:.8rem;display:block;}
+.thumbs{display:flex;gap:.5rem;margin-top:.8rem;overflow-x:auto;padding-bottom:.3rem;}
+.thumb{width:72px;height:72px;flex-shrink:0;object-fit:cover;cursor:pointer;border:1px solid #1a1a1a;opacity:.4;transition:all .3s;}
+.thumb:hover{opacity:.7;border-color:#333;}
+.thumb.active{opacity:1;border-color:var(--red);}
+
+.dinfo{padding-top:.5rem;}
+.dlbl{font-size:.6rem;letter-spacing:6px;color:var(--red);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.8rem;}
+.dlbl::before{content:'';width:20px;height:1px;background:var(--red);}
+.dname{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:6px;margin-bottom:.5rem;line-height:1;}
+.dname em{color:var(--red);font-style:normal;}
+.dprice{font-size:2rem;font-family:'Bebas Neue',sans-serif;color:var(--red);margin-bottom:1.5rem;letter-spacing:4px;}
+.dprice .oldp{font-size:1rem;text-decoration:line-through;color:var(--muted);margin-left:.8rem;}
+.ddesc{font-size:.88rem;color:var(--muted);line-height:2;margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid #111;}
+
+.optlbl{font-size:.6rem;letter-spacing:4px;text-transform:uppercase;color:#555;display:block;margin-bottom:.7rem;}
 .optgrp{margin-bottom:1.5rem;}
-.sbtns{display:flex;gap:.5rem;flex-wrap:wrap;}
-.sbtn{padding:.5rem 1.1rem;border:1px solid var(--border);background:none;color:var(--muted);font-size:.73rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;font-family:'Tajawal',sans-serif;}
-.sbtn:hover{border-color:var(--gold3);color:var(--text);}
-.sbtn.sel{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.06);}
-.qty-row{display:flex;align-items:center;gap:1rem;}
-.qbtn{width:40px;height:40px;border:1px solid var(--border);background:none;color:var(--text);font-size:1.1rem;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;}
-.qbtn:hover{border-color:var(--gold);color:var(--gold);}
-.qnum{font-family:'Cormorant Garamond',serif;font-size:1.5rem;min-width:40px;text-align:center;}
-.abtn{width:100%;padding:1.1rem;background:var(--gold);color:var(--bg);border:none;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.78rem;letter-spacing:4px;text-transform:uppercase;font-weight:700;transition:all .3s;margin-top:2rem;max-width:400px;}
-.abtn:hover{background:var(--gold2);}
-.abtn.sec{background:none;border:1px solid var(--gold);color:var(--gold);}
-.abtn.sec:hover{background:rgba(201,168,76,.08);}
-.noticebox{border:1px solid var(--border);padding:1.5rem;margin-top:1.5rem;background:rgba(201,168,76,.03);}
-.noticebox h4{color:var(--gold);font-size:.72rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:.5rem;}
-.noticebox p{font-size:.83rem;color:var(--muted);line-height:1.7;}
+.sbtns{display:flex;gap:.4rem;flex-wrap:wrap;}
+.sbtn{padding:.5rem 1.1rem;border:1px solid #1a1a1a;background:none;color:var(--muted);font-size:.7rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;font-family:'Tajawal',sans-serif;}
+.sbtn:hover{border-color:#333;color:#fff;}
+.sbtn.sel{border-color:var(--red);color:var(--red);background:rgba(230,48,48,.06);}
+.qty-row{display:flex;align-items:center;gap:.8rem;}
+.qbtn{width:38px;height:38px;border:1px solid #1a1a1a;background:none;color:#fff;cursor:pointer;transition:all .3s;font-size:1.1rem;display:flex;align-items:center;justify-content:center;}
+.qbtn:hover{border-color:var(--red);color:var(--red);}
+.qnum{font-family:'Bebas Neue',sans-serif;font-size:2rem;min-width:40px;text-align:center;line-height:1;}
 
-/* COLOR PICKER */
-.tshow{padding:4rem;background:var(--bg2);margin-bottom:4rem;border:1px solid var(--border);box-sizing:border-box;width:100%;}
-@media(max-width:768px){.tshow{padding:2rem 1.5rem;}}
-.tbig{width:100%;max-width:580px;margin:0 auto 3rem;aspect-ratio:1/1;background:var(--bg3);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;border:1px solid var(--border);}
-.tbig-img{width:100%;height:100%;object-fit:contain;transition:opacity .35s ease,transform .35s ease;}
-.cpicker{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:3rem;}
-.cpick{display:flex;flex-direction:column;align-items:center;gap:.7rem;cursor:pointer;}
-.cdot{width:50px;height:50px;border-radius:50%;border:2px solid transparent;transition:all .3s;position:relative;}
-.cpick.sel .cdot{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.15),0 0 20px rgba(201,168,76,.1);transform:scale(1.12);}
-.cdot::after{content:'';position:absolute;inset:3px;border-radius:50%;box-shadow:inset 0 2px 6px rgba(0,0,0,.4);}
-.cname{font-size:.63rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
-.cpick.sel .cname{color:var(--gold);}
+.abtn{display:block;width:100%;max-width:380px;padding:1rem;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.78rem;letter-spacing:4px;text-transform:uppercase;font-weight:700;transition:all .3s;margin-top:2rem;position:relative;overflow:hidden;text-align:center;text-decoration:none;}
+.abtn::before{content:'';position:absolute;inset:0;background:var(--red2);transform:scaleX(0);transform-origin:right;transition:transform .3s;}
+.abtn span{position:relative;z-index:1;}
+.abtn:hover::before{transform:scaleX(1);transform-origin:left;}
+.abtn.out{background:none;border:1px solid #222;color:#fff;}
+.abtn.out::before{background:#111;}
+.abtn.out:hover{border-color:var(--red);}
 
-/* VIDEO */
-.vid-wrap{width:100%;max-width:1000px;margin:0 auto;position:relative;background:var(--bg3);overflow:hidden;cursor:pointer;border:1px solid var(--border);}
-.pvid{width:100%;max-height:70vh;object-fit:contain;display:block;}
-.vid-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(6,6,5,.3);transition:background .3s;}
-.vid-wrap:hover .vid-overlay{background:rgba(6,6,5,.1);}
-.playico{width:66px;height:66px;border:1px solid rgba(201,168,76,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.4rem;backdrop-filter:blur(4px);transition:all .3s;}
-.vid-wrap:hover .playico{background:rgba(201,168,76,.1);border-color:var(--gold);}
+.noticebox{border:1px solid #1a1a1a;border-right:2px solid var(--red);padding:1.2rem 1.5rem;margin-top:1.5rem;background:#050505;}
+.noticebox h4{color:var(--red);font-size:.65rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:.4rem;}
+.noticebox p{font-size:.8rem;color:var(--muted);line-height:1.7;}
 
-/* ABOUT PAGE */
-.apc{max-width:880px;margin:0 auto;}
-.alogo{width:110px;height:110px;border-radius:50%;overflow:hidden;border:1px solid var(--gold3);display:flex;align-items:center;justify-content:center;margin:0 auto 3rem;cursor:pointer;}
-.alogo img{width:100%;height:100%;object-fit:cover;}
-.pills{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem;justify-content:center;}
-.pill{padding:.45rem 1.1rem;border:1px solid var(--border);font-size:.65rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
-.pill.g{border-color:var(--gold3);color:var(--gold);}
+/* ===== T-SHIRT SHOWCASE ===== */
+.tshow{padding:4rem;background:#050505;margin-bottom:4rem;border:1px solid #111;position:relative;overflow:hidden;}
+.tshow::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(230,48,48,.05),transparent 70%);}
+.tbig{width:100%;max-width:520px;margin:0 auto 2.5rem;height:500px;background:#0a0a0a;display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;border:1px solid #111;position:relative;}
+@media(max-width:768px){.tbig{height:280px;}}
+.tbig::before,.tbig::after{content:'';position:absolute;width:20px;height:20px;transition:all .4s;}
+.tbig::before{top:0;right:0;border-top:2px solid var(--red);border-right:2px solid var(--red);}
+.tbig::after{bottom:0;left:0;border-bottom:2px solid var(--red);border-left:2px solid var(--red);}
+.tbig-img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;transition:opacity .35s,transform .35s;display:block;}
 
-/* LIGHTBOX */
+.cpicker{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.cpick{display:flex;flex-direction:column;align-items:center;gap:.6rem;cursor:pointer;}
+.cdot{width:48px;height:48px;border-radius:50%;border:2px solid transparent;transition:all .3s;position:relative;}
+.cdot::after{content:'';position:absolute;inset:4px;border-radius:50%;box-shadow:inset 0 2px 4px rgba(0,0,0,.6);}
+.cpick.sel .cdot{border-color:var(--red);box-shadow:0 0 15px rgba(230,48,48,.4);}
+.cname{font-size:.6rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;transition:color .3s;}
+.cpick.sel .cname{color:var(--red);}
+
+/* ===== VIDEO ===== */
+.vid-wrap{width:100%;max-width:960px;margin:0 auto;position:relative;background:#0a0a0a;overflow:hidden;cursor:pointer;border:1px solid #111;}
+.pvid{width:100%;max-height:65vh;object-fit:contain;display:block;}
+@media(max-width:768px){.pvid{max-height:50vw;}}
+.vid-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);transition:background .3s;}
+.vid-wrap:hover .vid-ov{background:rgba(0,0,0,.1);}
+.play-btn{width:64px;height:64px;border:2px solid rgba(230,48,48,.6);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--red);font-size:1.3rem;transition:all .3s;backdrop-filter:blur(4px);}
+.vid-wrap:hover .play-btn{background:rgba(230,48,48,.1);border-color:var(--red);box-shadow:0 0 30px rgba(230,48,48,.3);}
+
+/* ===== FEATURES ===== */
+.feats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:5rem;}
+@media(max-width:600px){.feats-grid{grid-template-columns:1fr;}}
+.feat-box{padding:2.5rem 2rem;background:#050505;text-align:center;border-bottom:2px solid transparent;transition:all .4s;position:relative;overflow:hidden;}
+.feat-box::before{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--red);transition:width .4s;}
+.feat-box:hover::before{width:100%;}
+.feat-box:hover{background:#0a0a0a;}
+.feat-box i{font-size:2rem;color:var(--red);margin-bottom:1rem;display:block;}
+.feat-box h3{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:3px;margin-bottom:.5rem;}
+.feat-box p{font-size:.82rem;color:var(--muted);line-height:1.6;}
+
+/* ===== ABOUT PAGE ===== */
+.apc{max-width:900px;margin:0 auto;}
+.alogo-wrap{width:100px;height:100px;border-radius:50%;overflow:hidden;border:2px solid var(--red);margin:0 auto 2.5rem;cursor:pointer;box-shadow:0 0 30px rgba(230,48,48,.2);}
+.alogo-wrap img{width:100%;height:100%;object-fit:cover;}
+.tags{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:3rem;justify-content:center;}
+.tag{padding:.35rem .9rem;border:1px solid #1a1a1a;font-size:.6rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;transition:all .3s;}
+.tag:hover,.tag.r{border-color:var(--red);color:var(--red);}
+.atxt-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:4rem;}
+@media(max-width:600px){.atxt-grid{grid-template-columns:1fr;}}
+.atlbl{font-size:.6rem;letter-spacing:5px;color:var(--red);text-transform:uppercase;margin-bottom:1rem;}
+.atxt{font-size:.9rem;color:var(--muted);line-height:2;}
+.a3grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-bottom:4rem;}
+@media(max-width:600px){.a3grid{grid-template-columns:1fr;}}
+.a3box{text-align:center;padding:2.5rem 1.5rem;background:#050505;transition:background .3s;}
+.a3box:hover{background:#0a0a0a;}
+.a3box i{font-size:2rem;color:var(--red);margin-bottom:1rem;display:block;}
+.a3box .albl{margin-bottom:.3rem;}
+.a3box .anum{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:3px;}
+
+/* ===== LIGHTBOX ===== */
 .lbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:5000;align-items:center;justify-content:center;}
 .lbox.open{display:flex;}
-.lbc{position:relative;max-width:90%;max-height:92vh;display:flex;align-items:center;justify-content:center;}
+.lbc{max-width:90%;max-height:92vh;display:flex;align-items:center;justify-content:center;position:relative;}
 .lbi{max-width:100%;max-height:90vh;object-fit:contain;animation:fz .3s ease;}
 .lbv{max-width:90vw;max-height:85vh;object-fit:contain;animation:fz .3s ease;}
-@keyframes fz{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
-.lbclose{position:fixed;top:1.5rem;left:1.5rem;width:46px;height:46px;border:1px solid rgba(255,255,255,.15);background:none;color:rgba(255,255,255,.5);font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;z-index:3;}
-.lbclose:hover{border-color:var(--gold);color:var(--gold);}
-.lbnav{position:fixed;top:50%;transform:translateY(-50%);width:46px;height:46px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.5);color:rgba(255,255,255,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;z-index:3;}
-.lbnav:hover{border-color:var(--gold);color:var(--gold);}
+@keyframes fz{from{transform:scale(.88);opacity:0;}to{transform:scale(1);opacity:1;}}
+.lbclose{position:fixed;top:1.5rem;left:1.5rem;width:44px;height:44px;border:1px solid #222;background:none;color:#666;font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;z-index:3;}
+.lbclose:hover{border-color:var(--red);color:var(--red);}
+.lbnav{position:fixed;top:50%;transform:translateY(-50%);width:44px;height:44px;border:1px solid #222;background:rgba(0,0,0,.5);color:#666;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;z-index:3;}
+.lbnav:hover{border-color:var(--red);color:var(--red);}
 .lbprev{right:1.5rem;}
 .lbnext{left:1.5rem;}
 
-/* CART DRAWER */
+/* ===== CART DRAWER ===== */
 .drawer{display:none;position:fixed;inset:0;z-index:3000;}
 .drawer.open{display:flex;}
-.doverlay{position:absolute;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);}
-.dpanel{position:absolute;left:0;top:0;bottom:0;width:min(420px,100%);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;animation:sli .35s ease;z-index:1;}
-@keyframes sli{from{transform:translateX(-100%);}to{transform:translateX(0);}}
-.dhead{padding:2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
-.dtitle{font-family:'Cormorant Garamond',serif;font-size:1.5rem;letter-spacing:3px;}
-.dclose{width:40px;height:40px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;font-size:.88rem;}
-.dclose:hover{border-color:var(--gold);color:var(--gold);}
+.dov{position:absolute;inset:0;background:rgba(0,0,0,.8);}
+.dpanel{position:absolute;left:0;top:0;bottom:0;width:min(400px,100%);background:#050505;border-right:1px solid #111;display:flex;flex-direction:column;animation:slideInL .3s ease;z-index:1;}
+@keyframes slideInL{from{transform:translateX(-100%);}to{transform:translateX(0);}}
+.dhead{padding:1.8rem 2rem;border-bottom:1px solid #111;display:flex;justify-content:space-between;align-items:center;}
+.dtitle{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:4px;}
+.dclose{width:38px;height:38px;border:1px solid #1a1a1a;background:none;color:#666;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;}
+.dclose:hover{border-color:var(--red);color:var(--red);}
 .dbody{flex:1;overflow-y:auto;padding:1.5rem 2rem;}
 .emcart{text-align:center;padding:4rem 0;color:var(--muted);}
-.emcart i{font-size:2rem;margin-bottom:1rem;opacity:.25;display:block;}
-.emcart p{font-size:.75rem;letter-spacing:2px;text-transform:uppercase;}
-.citem{display:flex;justify-content:space-between;align-items:flex-start;padding:1.2rem 0;border-bottom:1px solid var(--border);gap:1rem;}
-.citem-name{font-size:.88rem;margin-bottom:.3rem;}
-.citem-meta{font-size:.72rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
-.citem-price{color:var(--gold);font-size:.88rem;}
-.cremove{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.78rem;padding:.2rem;transition:color .3s;flex-shrink:0;margin-top:.2rem;}
-.cremove:hover{color:var(--gold);}
-.dfoot{padding:1.5rem 2rem 2rem;border-top:1px solid var(--border);}
-.ctrow{display:flex;justify-content:space-between;margin-bottom:1.5rem;font-family:'Cormorant Garamond',serif;font-size:1.1rem;}
-.ctamt{color:var(--gold);}
+.emcart i{font-size:2.5rem;margin-bottom:1rem;opacity:.2;display:block;color:var(--red);}
+.emcart p{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;}
+.citem{display:flex;justify-content:space-between;align-items:flex-start;padding:1rem 0;border-bottom:1px solid #0d0d0d;gap:1rem;}
+.citem-name{font-size:.88rem;margin-bottom:.25rem;font-weight:700;}
+.citem-meta{font-size:.7rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+.citem-price{color:var(--red);font-size:.88rem;font-weight:700;}
+.cremove{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;transition:color .3s;flex-shrink:0;}
+.cremove:hover{color:var(--red);}
+.dfoot{padding:1.5rem 2rem 2rem;border-top:1px solid #111;}
+.ctrow{display:flex;justify-content:space-between;margin-bottom:1.5rem;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:3px;}
+.ctamt{color:var(--red);}
 
-/* MODALS */
-.movl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:4000;align-items:center;justify-content:center;padding:1rem;}
+/* ===== MODALS ===== */
+.movl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:4000;align-items:center;justify-content:center;padding:1rem;}
 .movl.open{display:flex;}
-.mbox{background:var(--bg2);border:1px solid var(--border);width:min(500px,100%);max-height:90vh;overflow-y:auto;padding:3rem;position:relative;animation:fz .3s ease;}
+.mbox{background:#050505;border:1px solid #1a1a1a;border-top:2px solid var(--red);width:min(480px,100%);max-height:90vh;overflow-y:auto;padding:3rem;position:relative;animation:fz .3s ease;}
 @media(max-width:500px){.mbox{padding:2rem 1.5rem;}}
-.mclose{position:absolute;top:1.5rem;left:1.5rem;width:36px;height:36px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .3s;}
-.mclose:hover{border-color:var(--gold);color:var(--gold);}
-.mtitle{font-family:'Cormorant Garamond',serif;font-size:1.8rem;letter-spacing:3px;text-align:center;color:var(--gold);margin-bottom:2rem;}
-.ff{margin-bottom:1rem;}
-.ff input,.ff textarea{width:100%;padding:.9rem 1rem;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:'Tajawal',sans-serif;font-size:.88rem;transition:border-color .3s;resize:vertical;}
-.ff input:focus,.ff textarea:focus{outline:none;border-color:var(--gold3);}
-.ff input::placeholder,.ff textarea::placeholder{color:var(--muted);}
-.ty-ic{width:70px;height:70px;border:1px solid var(--gold3);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.5rem;margin:0 auto 1.5rem;}
+.mclose{position:absolute;top:1.2rem;left:1.2rem;width:34px;height:34px;border:1px solid #1a1a1a;background:none;color:#555;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .3s;}
+.mclose:hover{border-color:var(--red);color:var(--red);}
+.mtitle{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:6px;text-align:center;color:var(--red);margin-bottom:2rem;}
+.ff{margin-bottom:.8rem;}
+.ff input,.ff textarea{width:100%;padding:.85rem 1rem;background:#0a0a0a;border:1px solid #1a1a1a;color:#fff;font-family:'Tajawal',sans-serif;font-size:.88rem;transition:border-color .3s;resize:vertical;outline:none;}
+.ff input:focus,.ff textarea:focus{border-color:var(--red);}
+.ff input::placeholder,.ff textarea::placeholder{color:#333;}
+.ty-ic{width:64px;height:64px;border:2px solid var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--red);font-size:1.4rem;margin:0 auto 1.5rem;animation:pulseRed 1s ease infinite;}
+@keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 rgba(230,48,48,.4);}50%{box-shadow:0 0 0 10px rgba(230,48,48,0);}}
 .tytext{font-size:.88rem;color:var(--muted);line-height:1.9;text-align:center;}
 
-/* FOOTER */
-footer{background:var(--bg);border-top:1px solid var(--border);padding:5rem 4% 2rem;}
+/* ===== FOOTER ===== */
+footer{background:#000;border-top:1px solid #111;padding:5rem 4% 2rem;}
 @media(max-width:768px){footer{padding:3rem 4% 5rem;}}
 .fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;margin-bottom:4rem;}
 @media(max-width:768px){.fgrid{grid-template-columns:1fr 1fr;gap:2rem;}}
 @media(max-width:480px){.fgrid{grid-template-columns:1fr;}}
-.fbrand{font-family:'Cormorant Garamond',serif;font-size:2rem;letter-spacing:6px;color:var(--text);margin-bottom:1rem;}
-.fbrand span{color:var(--gold);}
-.fdesc{font-size:.83rem;color:var(--muted);line-height:1.8;}
-.fcol h4{font-size:.63rem;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;}
+.fbrand{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:8px;margin-bottom:1rem;}
+.fbrand em{color:var(--red);font-style:normal;}
+.fdesc{font-size:.82rem;color:var(--muted);line-height:1.8;}
+.fcol h4{font-size:.6rem;letter-spacing:5px;color:var(--red);text-transform:uppercase;margin-bottom:1.5rem;}
 .flinks{list-style:none;}
-.flinks li{margin-bottom:.8rem;}
-.flinks a{font-size:.83rem;color:var(--muted);text-decoration:none;transition:color .3s;letter-spacing:1px;cursor:pointer;}
-.flinks a:hover{color:var(--text);}
-.fcopy{border-top:1px solid var(--border);padding-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
-.fcopy p{font-size:.72rem;color:var(--muted);letter-spacing:2px;}
+.flinks li{margin-bottom:.7rem;}
+.flinks a{font-size:.82rem;color:var(--muted);text-decoration:none;transition:color .3s;cursor:pointer;}
+.flinks a:hover{color:#fff;}
+.fcopy{border-top:1px solid #0d0d0d;padding-top:2rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.fcopy p{font-size:.68rem;color:#333;letter-spacing:2px;}
 
-.fly-el{position:fixed;width:34px;height:34px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--bg);font-size:1rem;z-index:9000;pointer-events:none;transition:all .7s cubic-bezier(.2,.9,.4,1);box-shadow:0 0 20px rgba(201,168,76,.5);}
-
-@keyframes fadeUp{from{transform:translateY(30px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+/* REVEAL */
 .reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease;}
-.reveal.visible{opacity:1;transform:translateY(0);}
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-track{background:var(--bg);}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
-::-webkit-scrollbar-thumb:hover{background:var(--gold3);}
+.reveal.up{opacity:1;transform:translateY(0);}
+
+/* FLY */
+.fly-el{position:fixed;width:30px;height:30px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.9rem;z-index:9000;pointer-events:none;transition:all .7s cubic-bezier(.2,.9,.4,1);box-shadow:0 0 20px rgba(230,48,48,.6);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+@keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 </style>
 </head>
 <body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">ELVAR</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+</div>
 
 <!-- LIGHTBOX -->
 <div class="lbox" id="lbox" onclick="lbOut(event)">
@@ -304,63 +398,55 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:5rem 4% 2
 
 <!-- NAV -->
 <nav id="mainNav">
-  <a href="#" class="logo" onclick="showPage('home');return false;">EL<span>VAR</span></a>
+  <a href="#" class="logo" onclick="goPage('home');return false;">ELVAR</a>
   <div class="nav-links">
-    <a href="#" class="nav-link active" onclick="showPage('home');return false;">Home</a>
-    <a href="#" class="nav-link" onclick="showPage('tshirts');return false;">T-SHIRT</a>
-    <a href="#" class="nav-link" onclick="showPage('hoodies');return false;">HOODIE</a>
-    <a href="#" class="nav-link" onclick="showPage('about');return false;">About</a>
+    <a href="#" class="nav-link active" onclick="goPage('home');return false;">Home</a>
+    <a href="#" class="nav-link" onclick="goPage('tshirts');return false;">T-SHIRT</a>
+    <a href="#" class="nav-link" onclick="goPage('hoodies');return false;">HOODIE</a>
+    <a href="#" class="nav-link" onclick="goPage('about');return false;">About</a>
   </div>
-  <div class="nav-actions">
-    <button class="cart-btn" onclick="toggleCart()">
+  <div class="nav-r">
+    <button class="cart-ico" onclick="toggleCart()">
       <i class="fas fa-shopping-bag"></i>
-      <span class="cart-count" id="ccd">0</span>
+      <span class="cart-badge" id="ccd">0</span>
     </button>
   </div>
 </nav>
 
-<!-- BOTTOM NAV -->
-<div class="bottom-nav">
-  <div class="bottom-nav-inner">
-    <div class="center-cart-fab" onclick="toggleCart()">
+<!-- MOBILE NAV -->
+<div class="mob-nav">
+  <div class="mob-nav-inner">
+    <div class="mob-cart" onclick="toggleCart()">
       <i class="fas fa-shopping-bag"></i>
-      <span class="mobile-cart-count" id="ccm">0</span>
+      <span class="mob-badge" id="ccm">0</span>
     </div>
     <div style="display:flex;justify-content:space-around;width:100%;padding:0 4px;">
-      <a href="#" class="nav-item active" onclick="showPage('home');return false;"><i class="fas fa-home"></i>Home</a>
-      <a href="#" class="nav-item" onclick="showPage('tshirts');return false;"><i class="fas fa-tshirt"></i>T-SHIRT</a>
-      <a href="#" class="nav-item" style="visibility:hidden;pointer-events:none;min-width:65px;"></a>
-      <a href="#" class="nav-item" onclick="showPage('hoodies');return false;">
-        <svg width="20" height="20" viewBox="0 0 463 463" fill="currentColor"><path d="M430.997,375.405c-0.246-183.157-8.752-253.847-13.322-291.824l-0.63-5.255c-1.481-12.468-10.208-22.855-22.231-26.462l-59.817-17.945V15.5c0-8.547-6.953-15.5-15.5-15.5h-176c-8.547,0-15.5,6.953-15.5,15.5v18.42L68.186,51.863c-12.023,3.606-20.75,13.994-22.231,26.462l-0.63,5.261c-4.57,37.979-13.076,108.671-13.322,291.819c-0.005,4.166,1.617,8.088,4.569,11.043c1.032,1.034,2.188,1.894,3.426,2.587V407.5c0,8.547,6.953,15.5,15.5,15.5h34.445c1.411,2.541,3.514,4.644,6.055,6.055V447.5c0,8.547,6.953,15.5,15.5,15.5h240c8.547,0,15.5-6.953,15.5-15.5v-18.445c2.541-1.411,4.643-3.514,6.055-6.055h34.451c8.547,0,15.5-6.953,15.5-15.5v-18.463c1.238-0.693,2.393-1.554,3.426-2.587C429.38,383.494,431.003,379.572,430.997,375.405z"/></svg>
-        HOODIE
-      </a>
-      <a href="#" class="nav-item" onclick="showPage('about');return false;"><i class="fas fa-info-circle"></i>About</a>
+      <a href="#" class="mob-item active" onclick="goPage('home');return false;"><i class="fas fa-home"></i>Home</a>
+      <a href="#" class="mob-item" onclick="goPage('tshirts');return false;"><i class="fas fa-tshirt"></i>T-SHIRT</a>
+      <a href="#" class="mob-item" style="visibility:hidden;min-width:60px;"></a>
+      <a href="#" class="mob-item" onclick="goPage('hoodies');return false;"><i class="fas fa-fire"></i>HOODIE</a>
+      <a href="#" class="mob-item" onclick="goPage('about');return false;"><i class="fas fa-info-circle"></i>About</a>
     </div>
   </div>
 </div>
 
-<!-- CART DRAWER -->
+<!-- CART -->
 <div class="drawer" id="cartDrawer">
-  <div class="doverlay" onclick="toggleCart()"></div>
+  <div class="dov" onclick="toggleCart()"></div>
   <div class="dpanel">
     <div class="dhead">
       <div class="dtitle">السلة</div>
       <button class="dclose" onclick="toggleCart()"><i class="fas fa-times"></i></button>
     </div>
-    <div class="dbody" id="cartBody">
-      <div class="emcart"><i class="fas fa-shopping-bag"></i><p>السلة فارغة</p></div>
-    </div>
+    <div class="dbody" id="cartBody"><div class="emcart"><i class="fas fa-shopping-bag"></i><p>السلة فارغة</p></div></div>
     <div class="dfoot" id="cartFoot" style="display:none;">
-      <div class="ctrow">
-        <span style="font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);">الإجمالي</span>
-        <span class="ctamt" id="ctamt">0 جنيه</span>
-      </div>
-      <button class="abtn" style="max-width:none;margin-top:0;" onclick="openCheckout()">إتمام الشراء</button>
+      <div class="ctrow"><span>الإجمالي</span><span class="ctamt" id="ctamt">0 جنيه</span></div>
+      <button class="abtn" onclick="openCheckout()"><span>إتمام الشراء</span></button>
     </div>
   </div>
 </div>
 
-<!-- CHECKOUT MODAL -->
+<!-- CHECKOUT -->
 <div class="movl" id="checkoutModal">
   <div class="mbox">
     <button class="mclose" onclick="closeCheckout()"><i class="fas fa-times"></i></button>
@@ -370,8 +456,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:5rem 4% 2
       <div class="ff"><input type="tel" placeholder="رقم الهاتف *" required></div>
       <div class="ff"><input type="text" placeholder="المحافظة *" required></div>
       <div class="ff"><textarea placeholder="العنوان التفصيلي *" rows="3" required></textarea></div>
-      <div class="ff"><textarea placeholder="ملاحظات إضافية (اختياري)" rows="2"></textarea></div>
-      <button type="submit" class="abtn" style="max-width:none;margin-top:1rem;"><i class="fas fa-paper-plane" style="margin-left:.5rem;"></i>تأكيد الطلب</button>
+      <div class="ff"><textarea placeholder="ملاحظات إضافية" rows="2"></textarea></div>
+      <button type="submit" class="abtn" style="max-width:none;margin-top:1rem;"><span><i class="fas fa-paper-plane" style="margin-left:.5rem;"></i>تأكيد الطلب</span></button>
     </form>
   </div>
 </div>
@@ -381,127 +467,139 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:5rem 4% 2
   <div class="mbox" style="text-align:center;">
     <button class="mclose" onclick="closeTY()"><i class="fas fa-times"></i></button>
     <div class="ty-ic"><i class="fas fa-check"></i></div>
-    <div class="mtitle">شكراً لطلبك!</div>
-    <p class="tytext">تم استلام طلبك بنجاح ✅<br><br>📦 سيتواصل معك فريقنا خلال 24 ساعة<br>🚚 التوصيل خلال 2-3 أيام عمل<br>📍 من القاهرة... لحد باب بيتك<br><br><em style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.1rem;">ELVAR — هويتك بصوت أعلى</em></p>
-    <button class="abtn" style="max-width:none;margin-top:2rem;" onclick="closeTY()">مواصلة التسوق</button>
+    <div class="mtitle">شكراً!</div>
+    <p class="tytext">تم استلام طلبك ✅<br><br>📦 سيتواصل معك فريقنا خلال 24 ساعة<br>🚚 التوصيل 2-3 أيام عمل<br><br><b style="color:var(--red);">ELVAR — هويتك بصوت أعلى</b></p>
+    <button class="abtn" style="max-width:none;margin-top:2rem;" onclick="closeTY()"><span>مواصلة التسوق</span></button>
   </div>
 </div>
 
-<!-- ============ HOME ============ -->
-<div id="home-page" class="page-content active">
+<!-- ========== HOME ========== -->
+<div id="home-page" class="page active">
+
   <section class="hero">
-    <div class="hero-left">
-      <div class="hero-eyebrow">EGYPT — SS 2025</div>
-      <h1 class="hero-title"><em>ELVAR</em><strong>هويتك بصوت أعلى</strong></h1>
-      <p class="hero-subtitle">ليست مجرد ملابس — هي بيان شخصي، صوت يُسمع، هوية تظهر. كل قطعة تحمل قصة، كل تصميم يعبّر عن فرديتك.</p>
-      <a href="#" class="hero-cta" onclick="showPage('tshirts');return false;">
-        <span class="hero-cta-text">اكتشف المجموعة</span>
-        <div class="hero-cta-arrow"><i class="fas fa-arrow-left"></i></div>
-      </a>
-    </div>
-    <div class="hero-right">
-      <div class="hero-slide active" id="hs0"><img src="images/T-SHIRT 2.jpg" alt="ELVAR" class="hero-img" onclick="openLB('images/T-SHIRT 2.jpg')"></div>
-      <div class="hero-slide" id="hs1"><img src="images/4.jpeg" alt="ELVAR" class="hero-img" onclick="openLB('images/4.jpeg')"></div>
-      <div class="slide-dots">
-        <div class="sdot active" onclick="goSlide(0)"></div>
-        <div class="sdot" onclick="goSlide(1)"></div>
+    <div class="hero-grid"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="hero-content">
+      <div class="hero-pre">Egypt — SS 2025 — الأصالة والحداثة</div>
+      <h1 class="hero-title">
+        <span class="l1">EL</span>
+        <span class="l2">VAR</span>
+      </h1>
+      <p class="hero-sub">ليست مجرد ملابس — هي هوية. هي صوتك في كل مكان تذهب إليه.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-red" onclick="goPage('hoodies');return false;"><span>تسوق الآن</span></a>
+        <a href="#" class="btn-outline" onclick="goPage('tshirts');return false;">T-SHIRT قريباً</a>
       </div>
-      <div class="slide-num" id="snum">01 / 02</div>
+    </div>
+    <div class="scroll-ind">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
     </div>
   </section>
 
-  <div class="marquee-bar">
-    <div class="marquee-track">
-      <span class="mi">ELVAR <span>✦</span></span><span class="mi">قطن ميلتون 100% <span>✦</span></span><span class="mi">صناعة مصرية <span>✦</span></span><span class="mi">هوية <span>✦</span></span><span class="mi">أناقة <span>✦</span></span><span class="mi">جودة <span>✦</span></span><span class="mi">ELVAR <span>✦</span></span><span class="mi">قطن ميلتون 100% <span>✦</span></span><span class="mi">صناعة مصرية <span>✦</span></span><span class="mi">هوية <span>✦</span></span><span class="mi">أناقة <span>✦</span></span><span class="mi">جودة <span>✦</span></span>
+  <div class="marquee">
+    <div class="m-track">
+      <span class="m-item">ELVAR <b>✦</b></span>
+      <span class="m-item">قطن ميلتون 100% <b>✦</b></span>
+      <span class="m-item">صناعة مصرية <b>✦</b></span>
+      <span class="m-item">ELVAR <b>✦</b></span>
+      <span class="m-item">هويتك بصوت أعلى <b>✦</b></span>
+      <span class="m-item">OVERSIZE <b>✦</b></span>
+      <span class="m-item">ELVAR <b>✦</b></span>
+      <span class="m-item">قطن ميلتون 100% <b>✦</b></span>
+      <span class="m-item">صناعة مصرية <b>✦</b></span>
+      <span class="m-item">ELVAR <b>✦</b></span>
+      <span class="m-item">هويتك بصوت أعلى <b>✦</b></span>
+      <span class="m-item">OVERSIZE <b>✦</b></span>
     </div>
   </div>
 
-  <section class="coll-sec">
-    <div class="sec-head reveal">
-      <div>
-        <div class="sec-label">المجموعة الحالية</div>
-        <div class="sec-title">مجموعة <em>ELVAR</em></div>
-      </div>
-      <div style="font-size:.65rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;">2025</div>
-    </div>
-    <div class="grid2">
-      <div class="pcard reveal" onclick="showPage('tshirts')">
+  <section class="products-sec">
+    <div class="sec-label-wrap reveal"><div class="sec-line"></div><div class="sec-lbl">المجموعة الحالية</div></div>
+    <h2 class="sec-h reveal">المنتجات <em>ELVAR</em></h2>
+    <div class="p-grid">
+      <div class="pc reveal" onclick="goPage('tshirts')">
         <div class="pcard-inner">
-          <div class="pimg-wrap"><img src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR" class="pimg"></div>
-          <div class="pbadge bsoon">قريباً</div>
+          <div class="pc-img-wrap"><img src="images/T-SHIRT 1.jpg" alt="T-SHIRT" class="pc-img"></div>
+          <div class="pc-badge bn">قريباً</div>
+          <div class="pc-overlay"></div>
         </div>
-        <div class="pinfo-bar">
-          <div><div class="pname">T-SHIRT ELVAR</div><div class="pprice">سيتم الإطلاق قريباً</div></div>
-          <div class="parr"><i class="fas fa-arrow-left"></i></div>
+        <div class="pc-info">
+          <div><div class="pc-name">T-SHIRT ELVAR</div><div class="pc-price">سيتم الإطلاق قريباً</div></div>
+          <div class="pc-arr"><i class="fas fa-arrow-left"></i></div>
         </div>
       </div>
-      <div class="pcard reveal" onclick="showPage('hoodies')">
+      <div class="pc reveal" onclick="goPage('hoodies')">
         <div class="pcard-inner">
-          <div class="pimg-wrap"><img src="images/1.jpeg" alt="HOODIE ELVAR" class="pimg"></div>
-          <div class="pbadge bsale">خصم 25%</div>
+          <div class="pc-img-wrap"><img src="images/1.jpeg" alt="HOODIE" class="pc-img"></div>
+          <div class="pc-badge bs">25% OFF</div>
+          <div class="pc-overlay"></div>
         </div>
-        <div class="pinfo-bar">
-          <div><div class="pname">HOODIE ELVAR</div><div class="pprice">899 جنيه <span class="pold">1200 جنيه</span></div></div>
-          <div class="parr"><i class="fas fa-arrow-left"></i></div>
+        <div class="pc-info">
+          <div><div class="pc-name">HOODIE ELVAR</div><div class="pc-price">899 جنيه <s>1200</s></div></div>
+          <div class="pc-arr"><i class="fas fa-arrow-left"></i></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="about-strip">
-    <div class="reveal">
-      <div class="alabel">من نحن</div>
-      <h2 class="aheading">قصة <em>ELVAR</em></h2>
-      <p class="atext">في ELVAR، نؤمن بأن الملابس ليست مجرد قماش — بل هي لغة تعبر عن هويتك. كل قطعة تحمل رواية من الدقة والجودة والأناقة.</p>
-      <div class="astats">
-        <div class="astat"><div class="astat-n">100%</div><div class="astat-l">قطن ميلتون</div></div>
-        <div class="astat"><div class="astat-n">🇪🇬</div><div class="astat-l">صناعة مصرية</div></div>
+  <section class="about-sec">
+    <div class="about-inner">
+      <div class="reveal">
+        <div class="about-big">قصة<em>ELVAR</em></div>
+        <p class="about-txt">في ELVAR نؤمن أن الملابس ليست مجرد قماش — هي لغة تعبر عن هويتك. كل قطعة تحمل رواية من الدقة والجودة والأناقة.</p>
+        <div class="stats-row">
+          <div class="stat"><div class="stat-n">100%</div><div class="stat-l">قطن ميلتون</div></div>
+          <div class="stat"><div class="stat-n">🇪🇬</div><div class="stat-l">صناعة مصرية</div></div>
+        </div>
+        <div class="social-links" style="margin-top:2rem;">
+          <a href="https://wa.me/201203790142" class="sl" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.facebook.com/share/1H6EAaFNra/" class="sl" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/elvar_hoodies" class="sl" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@elvar.eg" class="sl" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
       </div>
-      <div class="social-row" style="margin-top:2.5rem;">
-        <a href="https://wa.me/201203790142" class="slink" target="_blank"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://www.facebook.com/share/1H6EAaFNra/" class="slink" target="_blank"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://www.instagram.com/elvar_hoodies" class="slink" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.tiktok.com/@elvar.eg" class="slink" target="_blank"><i class="fab fa-tiktok"></i></a>
+      <div class="reveal">
+        <div class="feat"><div class="feat-ico"><i class="fas fa-star"></i></div><div><div class="feat-t">جودة فائقة</div><div class="feat-d">قطن ميلتون 100% يضمن الراحة والمتانة</div></div></div>
+        <div class="feat"><div class="feat-ico"><i class="fas fa-tshirt"></i></div><div><div class="feat-t">تصميم عصري</div><div class="feat-d">Oversize مريح يناسب جميع الأجسام</div></div></div>
+        <div class="feat"><div class="feat-ico"><i class="fas fa-award"></i></div><div><div class="feat-t">صناعة مصرية</div><div class="feat-d">معايير عالمية وهوية ELVAR الفريدة</div></div></div>
       </div>
-    </div>
-    <div class="reveal">
-      <div class="frow"><div class="ficon"><i class="fas fa-star"></i></div><div><div class="ftitle">جودة فائقة</div><div class="fdesc">قطن ميلتون 100% يضمن الراحة والمتانة في كل لحظة</div></div></div>
-      <div class="frow"><div class="ficon"><i class="fas fa-tshirt"></i></div><div><div class="ftitle">تصميم عصري</div><div class="fdesc">تصميم مريح وأنيق يناسب جميع الأجسام والأذواق</div></div></div>
-      <div class="frow"><div class="ficon"><i class="fas fa-award"></i></div><div><div class="ftitle">صناعة مصرية</div><div class="fdesc">معايير عالمية وهوية ELVAR الفريدة في كل قطعة</div></div></div>
     </div>
   </section>
 </div>
 
-<!-- ============ T-SHIRTS ============ -->
-<div id="tshirts-page" class="page-content">
+<!-- ========== T-SHIRTS ========== -->
+<div id="tshirts-page" class="page">
   <div class="phero">
+    <div class="phero-bg"></div>
     <div class="phero-num">01</div>
-    <a href="#" class="backlink" onclick="showPage('home');return false;"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
-    <h1 class="ptitle">T-SHIRT <em>ELVAR</em></h1>
-    <p class="psub">متوفر بأربعة ألوان مختلفة تناسب جميع الأذواق</p>
+    <a href="#" class="back-a" onclick="goPage('home');return false;"><i class="fas fa-arrow-right"></i> العودة</a>
+    <h1 class="phero-title">T-SHIRT <em>ELVAR</em></h1>
+    <p class="phero-sub">أربعة ألوان، تصميم واحد، هوية لا تُنسى</p>
   </div>
   <div class="pbody">
     <div class="tshow">
-      <div style="text-align:center;margin-bottom:2rem;"><div class="sec-label" style="display:inline-block;">اختر اللون</div></div>
+      <div style="text-align:center;margin-bottom:2rem;"><span class="sec-lbl">اختر لونك</span></div>
       <div class="tbig">
-        <img id="tshirtBigImg" src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR" class="tbig-img" onclick="openLBGallery(tsImgs,curTsIdx)">
+        <img id="tshirtBigImg" src="images/T-SHIRT 1.jpg" class="tbig-img" onclick="openLBGallery(tsImgs,curTsIdx)">
       </div>
       <div class="cpicker">
         <div class="cpick sel" onclick="pickColor(this,'navy','images/T-SHIRT 1.jpg',0)"><div class="cdot" style="background:hsl(0,100%,10%);"></div><div class="cname">نبيتي</div></div>
-        <div class="cpick" onclick="pickColor(this,'black','images/T-SHIRT 2.jpg',1)"><div class="cdot" style="background:#111;"></div><div class="cname">أسود</div></div>
+        <div class="cpick" onclick="pickColor(this,'black','images/T-SHIRT 2.jpg',1)"><div class="cdot" style="background:#111;border:1px solid #333;"></div><div class="cname">أسود</div></div>
         <div class="cpick" onclick="pickColor(this,'olive','images/T-SHIRT 3.jpg',2)"><div class="cdot" style="background:#556B2F;"></div><div class="cname">زيتي</div></div>
-        <div class="cpick" onclick="pickColor(this,'cream','images/T-SHIRT 4.jpg',3)"><div class="cdot" style="background:#e8e0cc;border:1px solid var(--border);"></div><div class="cname">سكري</div></div>
+        <div class="cpick" onclick="pickColor(this,'cream','images/T-SHIRT 4.jpg',3)"><div class="cdot" style="background:#e8e0cc;"></div><div class="cname">سكري</div></div>
       </div>
-      <div class="noticebox" style="max-width:580px;margin:0 auto;">
+      <div class="noticebox" style="max-width:560px;margin:0 auto;">
         <h4><i class="fas fa-clock" style="margin-left:.5rem;"></i>متوفر قريباً</h4>
-        <p>سيتم إطلاق هذا التيشرت بألوانه الأربعة قريباً. تابعنا لمعرفة موعد الإطلاق!</p>
+        <p>سيتم إطلاق التيشرت بألوانه الأربعة قريباً. سجّل الآن لتحصل على أفضل عروض الإطلاق!</p>
       </div>
     </div>
-
     <div class="dgrid">
       <div>
         <div class="gmain" onclick="openLBGallery(tsImgs,curTsIdx)">
-          <img id="mainTshirtImage" src="images/T-SHIRT 1.jpg" alt="T-SHIRT ELVAR" class="gmain-img">
+          <img id="mainTshirtImage" src="images/T-SHIRT 1.jpg" class="gmain-img">
         </div>
         <div class="thumbs">
           <img src="images/T-SHIRT 1.jpg" class="thumb active" onclick="tsThumb(this,'images/T-SHIRT 1.jpg',0)">
@@ -511,11 +609,11 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:5rem 4% 2
         </div>
       </div>
       <div class="dinfo">
-        <div class="dlabel">ELVAR — SS 2025</div>
+        <div class="dlbl">ELVAR — SS 2025</div>
         <h1 class="dname">T-SHIRT <em>ELVAR</em></h1>
-        <div class="dprice">سيتم الإعلان قريباً</div>
-        <p class="ddesc">T-SHIRT ELVAR يجمع بين الأناقة والراحة في تصميم واحد. مصنوع من قطن ميلتون 100% عالي الجودة، مع تصميم عصري يلائم مختلف المناسبات.</p>
-        <div class="optgrp"><span class="optlabel">الألوان</span>
+        <div class="dprice">قريباً</div>
+        <p class="ddesc">T-SHIRT ELVAR — راحة وأناقة في تصميم واحد. قطن ميلتون 100% عالي الجودة، تصميم عصري يلائم كل المناسبات.</p>
+        <div class="optgrp"><span class="optlbl">اللون</span>
           <div class="sbtns" id="ts-colors">
             <button class="sbtn sel" onclick="selBtn(this,'ts-colors')">نبيتي</button>
             <button class="sbtn" onclick="selBtn(this,'ts-colors')">أسود</button>
@@ -523,7 +621,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:5rem 4% 2
             <button class="sbtn" onclick="selBtn(this,'ts-colors')">سكري</button>
           </div>
         </div>
-        <div class="optgrp"><span class="optlabel">المقاس</span>
+        <div class="optgrp"><span class="optlbl">المقاس</span>
           <div class="sbtns" id="ts-sizes">
             <button class="sbtn sel" onclick="selBtn(this,'ts-sizes')">M</button>
             <button class="sbtn" onclick="selBtn(this,'ts-sizes')">L</button>
@@ -531,19 +629,20 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:5rem 4% 2
             <button class="sbtn" onclick="selBtn(this,'ts-sizes')">XXL</button>
           </div>
         </div>
-        <button class="abtn sec" onclick="notifyTs(event)"><i class="fas fa-bell" style="margin-left:.5rem;"></i>أشعرني عند التوفر</button>
+        <button class="abtn out" onclick="notifyTs(event)"><span><i class="fas fa-bell" style="margin-left:.5rem;"></i>أشعرني عند التوفر</span></button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ============ HOODIES ============ -->
-<div id="hoodies-page" class="page-content">
+<!-- ========== HOODIES ========== -->
+<div id="hoodies-page" class="page">
   <div class="phero">
+    <div class="phero-bg"></div>
     <div class="phero-num">02</div>
-    <a href="#" class="backlink" onclick="showPage('home');return false;"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
-    <h1 class="ptitle">HOODIE <em>ELVAR</em></h1>
-    <p class="psub">راحة لا مثيل لها، تصميم عصري، وجودة فائقة</p>
+    <a href="#" class="back-a" onclick="goPage('home');return false;"><i class="fas fa-arrow-right"></i> العودة</a>
+    <h1 class="phero-title">HOODIE <em>ELVAR</em></h1>
+    <p class="phero-sub">راحة لا مثيل لها — تصميم Oversize — جودة فائقة</p>
   </div>
   <div class="pbody">
     <div style="margin-bottom:4rem;" class="reveal">
@@ -551,14 +650,13 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:5rem 4% 2
         <video class="pvid" autoplay muted loop playsinline>
           <source src="video/Elvar video 1.mp4" type="video/mp4">
         </video>
-        <div class="vid-overlay"><div class="playico"><i class="fas fa-expand"></i></div></div>
+        <div class="vid-ov"><div class="play-btn"><i class="fas fa-expand"></i></div></div>
       </div>
     </div>
-
     <div class="dgrid">
       <div class="reveal">
         <div class="gmain" onclick="openLBGallery(hdImgs,curHdIdx)">
-          <img id="mainProductImage" src="images/1.jpeg" alt="HOODIE ELVAR" class="gmain-img">
+          <img id="mainProductImage" src="images/1.jpeg" class="gmain-img">
         </div>
         <div class="thumbs">
           <img src="images/1.jpeg" class="thumb active" onclick="hdThumb(this,'images/1.jpeg',0)">
@@ -569,72 +667,66 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:5rem 4% 2
         </div>
       </div>
       <div class="dinfo reveal">
-        <div class="dlabel">ELVAR — SS 2025 — خصم 25%</div>
+        <div class="dlbl">ELVAR — SS 2025 — 25% OFF</div>
         <h1 class="dname">HOODIE <em>ELVAR</em></h1>
-        <div class="dprice">899 جنيه <span class="oldp">1200 جنيه</span></div>
-        <p class="ddesc">HOODIE ELVAR ليس مجرد هودي — إنه بيان أسلوب. مصنوع من قطن ميلتون 100% بجودة فائقة، تصميم Oversize مريح وأنيق يمنحك الثقة في كل لحظة.</p>
-        <div class="optgrp"><span class="optlabel">المقاس</span><div class="sbtns"><button class="sbtn sel">Oversize</button></div></div>
+        <div class="dprice">899 <span class="oldp">1200</span></div>
+        <p class="ddesc">HOODIE ELVAR — بيان أسلوب لا مجرد هودي. قطن ميلتون 100% بجودة فائقة. Oversize مريح وأنيق يمنحك الثقة في كل لحظة.</p>
+        <div class="optgrp"><span class="optlbl">المقاس</span><div class="sbtns"><button class="sbtn sel">Oversize</button></div></div>
         <div class="optgrp">
-          <span class="optlabel">الكمية</span>
+          <span class="optlbl">الكمية</span>
           <div class="qty-row">
             <button class="qbtn" onclick="chgQty(-1,'hdQty')">−</button>
             <div class="qnum" id="hdQty">1</div>
             <button class="qbtn" onclick="chgQty(1,'hdQty')">+</button>
           </div>
         </div>
-        <button class="abtn" onclick="addHoodie(event)"><i class="fas fa-shopping-bag" style="margin-left:.5rem;"></i>أضف إلى السلة</button>
+        <button class="abtn" onclick="addHoodie(event)"><span><i class="fas fa-shopping-bag" style="margin-left:.5rem;"></i>أضف إلى السلة</span></button>
       </div>
     </div>
-
-    <div style="margin-top:6rem;border-top:1px solid var(--border);padding-top:5rem;">
-      <div class="sec-head reveal"><div><div class="sec-label">لماذا ELVAR</div><div class="sec-title">مميزات <em>HOODIE</em></div></div></div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;">
-        <div class="frow reveal" style="padding:2rem;"><div class="ficon"><i class="fas fa-star"></i></div><div><div class="ftitle">جودة فائقة</div><div class="fdesc">قطن ميلتون 100% يضمن الراحة والمتانة</div></div></div>
-        <div class="frow reveal" style="padding:2rem;"><div class="ficon"><i class="fas fa-tshirt"></i></div><div><div class="ftitle">تصميم Oversize</div><div class="fdesc">مريح وأنيق يناسب جميع الأجسام</div></div></div>
-        <div class="frow reveal" style="padding:2rem;"><div class="ficon"><i class="fas fa-award"></i></div><div><div class="ftitle">صناعة مصرية</div><div class="fdesc">معايير عالمية وهوية ELVAR الفريدة</div></div></div>
-      </div>
+    <div class="feats-grid">
+      <div class="feat-box reveal"><i class="fas fa-star"></i><h3>جودة فائقة</h3><p>قطن ميلتون 100% يضمن الراحة والمتانة</p></div>
+      <div class="feat-box reveal"><i class="fas fa-tshirt"></i><h3>Oversize Design</h3><p>مريح وأنيق يناسب جميع الأجسام</p></div>
+      <div class="feat-box reveal"><i class="fas fa-award"></i><h3>صناعة مصرية</h3><p>معايير عالمية وهوية ELVAR الفريدة</p></div>
     </div>
   </div>
 </div>
 
-<!-- ============ ABOUT ============ -->
-<div id="about-page" class="page-content">
+<!-- ========== ABOUT ========== -->
+<div id="about-page" class="page">
   <div class="phero">
+    <div class="phero-bg"></div>
     <div class="phero-num">EL</div>
-    <a href="#" class="backlink" onclick="showPage('home');return false;"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
-    <h1 class="ptitle">عن <em>ELVAR</em></h1>
-    <p class="psub">علامة تجارية مصرية تقدم أرقى تصاميم الملابس العصرية</p>
+    <a href="#" class="back-a" onclick="goPage('home');return false;"><i class="fas fa-arrow-right"></i> العودة</a>
+    <h1 class="phero-title">عن <em>ELVAR</em></h1>
+    <p class="phero-sub">علامة تجارية مصرية تقدم أرقى الملابس العصرية</p>
   </div>
   <div class="pbody">
     <div class="apc">
       <div style="text-align:center;margin-bottom:3rem;">
-        <div class="alogo" onclick="openLB('images/elvar logo.jpg')"><img src="images/elvar logo.jpg" alt="ELVAR Logo"></div>
-        <div class="pills">
-          <span class="pill g">صناعة مصرية</span>
-          <span class="pill g">قطن ميلتون 100%</span>
-          <span class="pill">جودة عالمية</span>
-          <span class="pill">تصميم عصري</span>
+        <div class="alogo-wrap" onclick="openLB('images/elvar logo.jpg')"><img src="images/elvar logo.jpg" alt="ELVAR"></div>
+        <div class="tags">
+          <span class="tag r">صناعة مصرية</span>
+          <span class="tag r">قطن ميلتون 100%</span>
+          <span class="tag">جودة عالمية</span>
+          <span class="tag">تصميم عصري</span>
         </div>
       </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:4rem;" class="reveal">
-        <div><div class="alabel">القصة</div><p class="atext" style="font-size:.95rem;line-height:2;">في ELVAR، نؤمن بأن الملابس ليست مجرد قماش يغطي الجسد، بل هي لغة تعبر عن هويتك. كل قطعة تحمل رواية من الدقة والجودة والأناقة.</p></div>
-        <div><div class="alabel">الرؤية</div><p class="atext" style="font-size:.95rem;line-height:2;">أن نكون العلامة التجارية الرائدة في مجال الأزياء العصرية في العالم العربي، نقدم منتجات تجمع بين الأصالة والحداثة.</p></div>
+      <div class="atxt-grid reveal">
+        <div><div class="atlbl">القصة</div><p class="atxt">في ELVAR نؤمن أن الملابس لغة تعبر عن هويتك. كل قطعة تحمل رواية من الدقة والجودة والأناقة. نحن لا نبيع ملابس — نبيع هوية وثقة وأسلوب حياة.</p></div>
+        <div><div class="atlbl">الرؤية</div><p class="atxt">أن نكون العلامة التجارية الرائدة في الأزياء العصرية بالعالم العربي، نقدم منتجات تجمع بين الأصالة والحداثة.</p></div>
       </div>
-
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-bottom:4rem;" class="reveal">
-        <div style="text-align:center;padding:2.5rem;border:1px solid var(--border);"><i class="fas fa-flag" style="font-size:1.8rem;color:var(--gold);margin-bottom:1rem;display:block;"></i><div style="font-size:.62rem;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem;">Made in</div><div style="font-size:1.4rem;font-family:'Cormorant Garamond',serif;">🇪🇬 مصر</div></div>
-        <div style="text-align:center;padding:2.5rem;border:1px solid var(--border);"><i class="fas fa-leaf" style="font-size:1.8rem;color:var(--gold);margin-bottom:1rem;display:block;"></i><div style="font-size:.62rem;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem;">Material</div><div style="font-size:1.4rem;font-family:'Cormorant Garamond',serif;">100% Cotton</div></div>
-        <div style="text-align:center;padding:2.5rem;border:1px solid var(--border);"><i class="fas fa-heart" style="font-size:1.8rem;color:var(--gold);margin-bottom:1rem;display:block;"></i><div style="font-size:.62rem;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem;">Style</div><div style="font-size:1.4rem;font-family:'Cormorant Garamond',serif;">Modern</div></div>
+      <div class="a3grid reveal">
+        <div class="a3box"><i class="fas fa-flag"></i><div class="atlbl">Made in</div><div class="anum">🇪🇬 مصر</div></div>
+        <div class="a3box"><i class="fas fa-leaf"></i><div class="atlbl">Material</div><div class="anum">100% Cotton</div></div>
+        <div class="a3box"><i class="fas fa-heart"></i><div class="atlbl">Style</div><div class="anum">Modern</div></div>
       </div>
-
       <div style="text-align:center;" class="reveal">
-        <div class="alabel">تواصل معنا</div>
-        <div class="social-row" style="justify-content:center;">
-          <a href="https://wa.me/201203790142" class="slink" target="_blank"><i class="fab fa-whatsapp"></i></a>
-          <a href="https://www.facebook.com/share/1H6EAaFNra/" class="slink" target="_blank"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/elvar_hoodies" class="slink" target="_blank"><i class="fab fa-instagram"></i></a>
-          <a href="https://www.tiktok.com/@elvar.eg" class="slink" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <div class="atlbl" style="margin-bottom:1rem;">تواصل معنا</div>
+        <div class="social-links" style="justify-content:center;">
+          <a href="https://wa.me/201203790142" class="sl" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.facebook.com/share/1H6EAaFNra/" class="sl" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/elvar_hoodies" class="sl" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@elvar.eg" class="sl" target="_blank"><i class="fab fa-tiktok"></i></a>
         </div>
       </div>
     </div>
@@ -645,24 +737,24 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:5rem 4% 2
 <footer>
   <div class="fgrid">
     <div>
-      <div class="fbrand">EL<span>VAR</span></div>
+      <div class="fbrand">EL<em>VAR</em></div>
       <p class="fdesc">علامة تجارية مصرية تقدم أرقى تصاميم الملابس العصرية. هويتك بصوت أعلى.</p>
-      <div class="social-row" style="margin-top:1.5rem;">
-        <a href="https://wa.me/201203790142" class="slink" target="_blank"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://www.facebook.com/share/1H6EAaFNra/" class="slink" target="_blank"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://www.instagram.com/elvar_hoodies" class="slink" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.tiktok.com/@elvar.eg" class="slink" target="_blank"><i class="fab fa-tiktok"></i></a>
+      <div class="social-links" style="margin-top:1.5rem;">
+        <a href="https://wa.me/201203790142" class="sl" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.facebook.com/share/1H6EAaFNra/" class="sl" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/elvar_hoodies" class="sl" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@elvar.eg" class="sl" target="_blank"><i class="fab fa-tiktok"></i></a>
       </div>
     </div>
-    <div class="fcol"><h4>الروابط</h4><ul class="flinks">
-      <li><a href="#" onclick="showPage('home');return false;">Home</a></li>
-      <li><a href="#" onclick="showPage('tshirts');return false;">T-SHIRT</a></li>
-      <li><a href="#" onclick="showPage('hoodies');return false;">HOODIE</a></li>
-      <li><a href="#" onclick="showPage('about');return false;">About</a></li>
+    <div class="fcol"><h4>الصفحات</h4><ul class="flinks">
+      <li><a onclick="goPage('home')">Home</a></li>
+      <li><a onclick="goPage('tshirts')">T-SHIRT</a></li>
+      <li><a onclick="goPage('hoodies')">HOODIE</a></li>
+      <li><a onclick="goPage('about')">About</a></li>
     </ul></div>
     <div class="fcol"><h4>المنتجات</h4><ul class="flinks">
-      <li><a href="#" onclick="showPage('tshirts');return false;">T-SHIRT ELVAR</a></li>
-      <li><a href="#" onclick="showPage('hoodies');return false;">HOODIE ELVAR</a></li>
+      <li><a onclick="goPage('tshirts')">T-SHIRT ELVAR</a></li>
+      <li><a onclick="goPage('hoodies')">HOODIE ELVAR</a></li>
     </ul></div>
     <div class="fcol"><h4>تواصل</h4><ul class="flinks">
       <li><a href="https://wa.me/201203790142" target="_blank">WhatsApp</a></li>
@@ -671,41 +763,38 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:5rem 4% 2
       <li><a href="https://www.tiktok.com/@elvar.eg" target="_blank">TikTok</a></li>
     </ul></div>
   </div>
-  <div class="fcopy"><p>© 2025 ELVAR — جميع الحقوق محفوظة</p><p>صنع بكل فخر في مصر 🇪🇬</p></div>
+  <div class="fcopy"><p>© 2025 ELVAR — جميع الحقوق محفوظة</p><p>صنع بفخر في مصر 🇪🇬</p></div>
 </footer>
 
 <script>
+// LOADER
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    const l=document.getElementById('loader');
+    l.style.transition='opacity .6s';l.style.opacity='0';
+    setTimeout(()=>l.style.display='none',600);
+  },2000);
+});
+
 // STATE
 let cart=[],curTsIdx=0,curHdIdx=0,curSlide=0,slideT;
 const tsImgs=[{src:'images/T-SHIRT 1.jpg'},{src:'images/T-SHIRT 2.jpg'},{src:'images/T-SHIRT 3.jpg'},{src:'images/T-SHIRT 4.jpg'}];
 const hdImgs=[{src:'images/1.jpeg'},{src:'images/2.jpeg'},{src:'images/3.jpeg'},{src:'images/4.jpeg'},{src:'images/5.jpeg'}];
 
 // PAGES
-function showPage(p){
-  document.querySelectorAll('.page-content').forEach(e=>e.classList.remove('active'));
+function goPage(p){
+  document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));
   document.getElementById(p+'-page').classList.add('active');
   document.querySelectorAll('.nav-link').forEach(e=>e.classList.remove('active'));
   const nl=document.querySelector(`.nav-link[onclick*="${p}"]`);if(nl)nl.classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('active'));
-  const navMap={home:0,tshirts:1,hoodies:3,about:4};
-  const items=document.querySelectorAll('.nav-item');
-  if(navMap[p]!==undefined&&items[navMap[p]])items[navMap[p]].classList.add('active');
+  document.querySelectorAll('.mob-item').forEach(e=>e.classList.remove('active'));
+  const mi=document.querySelector(`.mob-item[onclick*="${p}"]`);if(mi)mi.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
-  if(p==='home'){clearInterval(slideT);startSlide();}
-  setTimeout(doReveal,100);
+  setTimeout(doReveal,150);
 }
 
-// SLIDESHOW
-function goSlide(i){
-  document.querySelectorAll('.hero-slide').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.sdot').forEach(d=>d.classList.remove('active'));
-  document.getElementById('hs'+i).classList.add('active');
-  document.querySelectorAll('.sdot')[i].classList.add('active');
-  document.getElementById('snum').textContent=(i+1).toString().padStart(2,'0')+' / 02';
-  curSlide=i;clearInterval(slideT);startSlide();
-}
-function startSlide(){slideT=setInterval(()=>goSlide((curSlide+1)%2),5000);}
-startSlide();
+// HERO SLIDES (not used in new design but keeping func)
+function startSlide(){}
 
 // LIGHTBOX
 let lbItems=[],lbIdx=0,lbType='img';
@@ -743,9 +832,8 @@ function tsThumb(el,src,idx){
 }
 function notifyTs(e){
   const b=e.currentTarget;
-  b.innerHTML='<i class="fas fa-check" style="margin-left:.5rem;"></i>تم التسجيل!';
-  b.style.borderColor='var(--gold)';b.style.color='var(--gold)';
-  setTimeout(()=>{b.innerHTML='<i class="fas fa-bell" style="margin-left:.5rem;"></i>أشعرني عند التوفر';},3000);
+  b.innerHTML='<span><i class="fas fa-check" style="margin-left:.5rem;"></i>تم التسجيل!</span>';
+  setTimeout(()=>{b.innerHTML='<span><i class="fas fa-bell" style="margin-left:.5rem;"></i>أشعرني عند التوفر</span>';},3000);
 }
 
 // HOODIE
@@ -761,14 +849,14 @@ function addHoodie(e){
   updateCC();document.getElementById('hdQty').textContent='1';flyToCart(e.currentTarget);
 }
 function flyToCart(btn){
-  const ce=window.innerWidth>768?document.querySelector('.cart-btn'):document.querySelector('.center-cart-fab');
+  const ce=window.innerWidth>768?document.querySelector('.cart-ico'):document.querySelector('.mob-cart');
   if(!ce)return;
   const cr=ce.getBoundingClientRect(),br=btn.getBoundingClientRect();
   const f=document.createElement('div');f.className='fly-el';
   f.innerHTML='<i class="fas fa-shopping-bag"></i>';
-  f.style.cssText=`left:${br.left+br.width/2-17}px;top:${br.top+br.height/2-17}px;`;
+  f.style.cssText=`left:${br.left+br.width/2-15}px;top:${br.top+br.height/2-15}px;`;
   document.body.appendChild(f);
-  setTimeout(()=>{f.style.left=cr.left+cr.width/2-17+'px';f.style.top=cr.top+cr.height/2-17+'px';f.style.width='18px';f.style.height='18px';f.style.opacity='0';},10);
+  setTimeout(()=>{f.style.left=cr.left+cr.width/2-15+'px';f.style.top=cr.top+cr.height/2-15+'px';f.style.width='16px';f.style.height='16px';f.style.opacity='0';},10);
   setTimeout(()=>f.remove(),800);
 }
 
@@ -802,9 +890,12 @@ function selBtn(btn,gid){document.getElementById(gid).querySelectorAll('.sbtn').
 
 // REVEAL
 function doReveal(){
-  const els=document.querySelectorAll('.reveal:not(.visible)');
-  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.12});
-  els.forEach(el=>obs.observe(el));
+  document.querySelectorAll('.reveal:not(.up)').forEach(el=>{
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('up');obs.unobserve(e.target);}});
+    },{threshold:.1});
+    obs.observe(el);
+  });
 }
 doReveal();
 
